@@ -41,7 +41,7 @@ legend({'basic', 'weighted', 'paper formula'}, 'Location', 'best');
 saveas(fig, fullfile(fig_dir, output_name));
 close(fig);
 
-is_penetration = startsWith(string(summary_table.scenario_id), "distributed_wind_") & ...
+is_penetration = startsWith(string(summary_table.scenario_id), "distributed_wind_penetration_") & ...
     endsWith(string(summary_table.scenario_id), "pct");
 penetration_table = summary_table(is_penetration, :);
 if height(penetration_table) >= 3
@@ -55,11 +55,15 @@ if height(penetration_table) >= 3
     grid on;
     xlabel('新能源渗透率 (%)');
     ylabel('CRI (\sigma=0.95)');
-    title({'新能源渗透率-CRI曲线', 'diagnostic\_only 点未计入有效 paper 曲线'});
+    title({'新能源渗透率-CRI曲线', '渗透率定义：风电装机容量 / 系统总负荷，待校准', ...
+        'diagnostic\_only 点未计入有效 paper 曲线'});
     legend({'basic', 'weighted', 'paper formula'}, 'Location', 'best');
     batch_curve = fullfile(fig_dir, sprintf('penetration_cri_curve_%s.png', batch_mode));
     saveas(fig, batch_curve);
     if string(batch_mode) == "penetration_scan"
+        if any(diff(ratios) <= 0)
+            error('penetration ratio is not strictly increasing.');
+        end
         saveas(fig, fullfile(fig_dir, 'penetration_cri_curve.png'));
     end
     close(fig);
@@ -70,7 +74,7 @@ function ratios = extract_penetration_ratio(ids)
 ids = string(ids);
 ratios = nan(numel(ids), 1);
 for k = 1:numel(ids)
-    token = regexp(char(ids(k)), 'distributed_wind_(\d+)pct', 'tokens', 'once');
+    token = regexp(char(ids(k)), 'distributed_wind_penetration_(\d+)pct', 'tokens', 'once');
     if ~isempty(token)
         ratios(k) = str2double(token{1}) / 100;
     end

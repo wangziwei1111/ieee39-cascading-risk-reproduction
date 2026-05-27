@@ -1,0 +1,2 @@
+total_rows,valid_row_count,invalid_or_excluded_stage_count,unique_chain_count,unique_stage_count,min_voltage_pu,max_voltage_pu,max_voltage_deviation_component,max_voltage_severity_component,num_voltage_violation_rows,p95_voltage_severity_component,has_inf_severity,has_nan_severity
+61464,61464,76,920,1576,0.638055149621594,1.0636,0.261944850378406,17.4275762595402,3324,0.29381675144212,0,0

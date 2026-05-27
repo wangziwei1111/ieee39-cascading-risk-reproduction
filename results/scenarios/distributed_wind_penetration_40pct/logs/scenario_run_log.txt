@@ -1,0 +1,2 @@
+开始运行场景：distributed_wind_penetration_40pct
+场景运行完成：distributed_wind_penetration_40pct

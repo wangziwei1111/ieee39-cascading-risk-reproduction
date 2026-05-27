@@ -58,6 +58,14 @@ smoke test 使用 `cfg.scenario_smoke_trials_per_initial_fault=5`，只用于快
 
 如果已有结果来自 5-trial smoke，而当前批次期望 20-trial，则该场景会被判定为 `incomplete_trial_count_mismatch`，不会被 `skipped_existing` 复用，必须重新运行。这样可以避免把 5-trial 的 `distributed_wind_40pct` 混入 20-trial 的 40%–80%渗透率曲线。当前渗透率仍按 `wind_capacity/base_load` 定义，属于待校准设置。
 
+## 3000MW基准场景与渗透率扫描场景的区分
+
+`distributed_wind_3000mw_base` 是当前工程的3000 MW分散式风电基准场景，用于 smoke、topology_compare 和基准复现。它不代表按 `base_load` 定义的40%渗透率点。
+
+`distributed_wind_penetration_40pct` 是渗透率扫描中的40%点，其容量按 `0.40 * base_load_mw` 计算。后续 45% 到 80% 点也统一使用 `ratio * base_load_mw`。旧的 `distributed_wind_40pct` 仅保留为 legacy alias，指向3000 MW基准场景，不再用于 `penetration_scan`。
+
+`penetration_scan` 自检会强制检查场景名必须为 `distributed_wind_penetration_*pct`，容量必须随渗透率单调递增，并且不得包含 legacy `distributed_wind_40pct`。当前渗透率定义仍待论文原文确认。
+
 ## 当前已实现内容
 
 - 使用 MATLAB + MATPOWER 的 `case39` 作为 IEEE 10机39节点基础系统。

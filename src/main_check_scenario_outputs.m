@@ -35,6 +35,10 @@ if ~isempty(missing)
     error('批量汇总表缺少状态字段：%s', strjoin(missing, ', '));
 end
 
+if strcmp(batch_mode, 'penetration_scan')
+    check_penetration_summary(summary_table, cfg);
+end
+
 diagnostic_ids = strings(0, 1);
 for i = 1:height(summary_table)
     scenario_id = string(summary_table.scenario_id(i));
@@ -141,4 +145,46 @@ fprintf('failed 数量：%d\n', sum(execution == "failed"));
 fprintf('success_all_valid 数量：%d\n', sum(overall == "success_all_valid"));
 fprintf('success_with_diagnostic_paper 数量：%d\n', sum(overall == "success_with_diagnostic_paper"));
 fprintf('diagnostic_only 场景列表：%s\n', strjoin(diagnostic_ids, ', '));
+end
+
+function check_penetration_summary(summary_table, cfg)
+%CHECK_PENETRATION_SUMMARY 校验渗透率扫描命名、容量和单调性。
+ids = string(summary_table.scenario_id);
+if any(ids == "distributed_wind_40pct")
+    error('legacy distributed_wind_40pct must not be used in penetration_scan.');
+end
+ratios = nan(height(summary_table), 1);
+for k = 1:height(summary_table)
+    token = regexp(char(ids(k)), '^distributed_wind_penetration_(\d+)pct$', 'tokens', 'once');
+    if isempty(token)
+        error('penetration_scan场景命名非法：%s', ids(k));
+    end
+    ratios(k) = str2double(token{1}) / 100;
+end
+[sorted_ratios, order] = sort(ratios);
+capacities = summary_table.total_wind_capacity_mw(order);
+if any(diff(sorted_ratios) <= 0)
+    error('penetration_scan渗透率不单调递增。');
+end
+if any(diff(capacities) <= 0)
+    error('penetration_scan风电容量不单调递增。');
+end
+base_load_mw = infer_base_load_from_capacity(sorted_ratios, capacities);
+expected_capacity = sorted_ratios .* base_load_mw;
+if any(abs(capacities - expected_capacity) > max(1e-6, 1e-6 * base_load_mw))
+    error('penetration_scan容量与scenario_id渗透率不一致。');
+end
+if isfield(cfg, 'scenario_penetration_definition') && ...
+        ~strcmp(cfg.scenario_penetration_definition, 'wind_capacity_divided_by_base_load')
+    error('未知渗透率定义：%s', cfg.scenario_penetration_definition);
+end
+end
+
+function base_load_mw = infer_base_load_from_capacity(ratios, capacities)
+%INFER_BASE_LOAD_FROM_CAPACITY 从容量/渗透率反推base load，避免依赖MATPOWER路径。
+base_values = capacities ./ ratios;
+base_load_mw = median(base_values);
+if max(abs(base_values - base_load_mw)) > 1e-6 * max(base_load_mw, 1)
+    error('penetration_scan各点反推base_load不一致。');
+end
 end
