@@ -3,9 +3,9 @@ function cfg = base_config()
 % 输入：
 %   无。
 % 输出：
-%   cfg - 结构体，集中管理随机数、潮流阈值、切负荷、Markov、VaR和严重度参数。
+%   cfg - 结构体，集中管理随机数、潮流阈值、Markov、VaR、paper严重度和场景扫描参数。
 % 物理含义：
-%   本文件只管理工程参数。凡论文未明确给出的参数均标注“待校准”，避免把工程假设误写成论文数据。
+%   本文件只保存工程参数。论文未明确给出的参数均标注“待校准”，避免把工程假设写成论文数据。
 
 cfg = struct();
 
@@ -34,13 +34,13 @@ cfg.load_shed_step = 0.05;       % 待校准：每轮削减5%
 cfg.load_shed_max_frac = 0.30;   % 待校准：最大削减30%
 cfg.load_shed_max_iter = 6;
 
-% 风机电压穿越脱网概率只记录，不在当前line-only Markov中触发。
+% 风机电压穿越脱网概率只记录，默认不在当前line-only Markov中触发。
 cfg.enable_wind_voltage_trip_sampling = false;
 
 % 综合风险权重。用户提供的论文权重为0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];
 
-% 严重度函数模式。默认入口仍使用basic，paper公式由专用入口触发。
+% 严重度函数模式。默认入口仍使用basic；paper公式由专用入口触发。
 cfg.severity_mode = 'basic';
 cfg.enable_paper_severity = true;
 cfg.paper_severity_formula_confirmed = true;
@@ -96,7 +96,7 @@ cfg.initial_fault_probability_file = fullfile('data', 'line_initial_outage_proba
 cfg.initial_fault_probability_unit = 'probability';
 cfg.export_probability_template_if_missing = true;
 
-% 候选线路明细归档设置。
+% 候选线路和paper明细大表归档设置。
 cfg.candidate_detail_chunk_size = 10000;
 cfg.export_candidate_detail_chunks = true;
 cfg.export_candidate_detail_full_csv = true;
@@ -106,7 +106,15 @@ cfg.export_paper_detail_chunks = true;
 cfg.export_paper_detail_full_csv = true;
 cfg.export_paper_detail_sample = true;
 
-% 输出目录。
+% 第4章场景扫描框架参数。集中式接入节点、渗透率定义和扫描点均为待校准工程设置。
+cfg.scenario_results_root = fullfile('results', 'scenarios');
+cfg.scenario_smoke_trials_per_initial_fault = 5;
+cfg.scenario_penetration_definition = 'wind_capacity_divided_by_base_load'; % 待校准
+cfg.scenario_centralized_wind_bus = 39; % 待校准：论文未明确时先用39节点
+cfg.scenario_penetration_ratios = 0.40:0.05:0.80; % 待校准
+cfg.scenario_wind_speed_values_mps = [8, 10, 12, 14, 16]; % 待校准
+
+% 默认输出目录。场景扫描入口会覆盖为 results/scenarios/<scenario_id>/...
 cfg.results_table_dir = fullfile('results', 'tables');
 cfg.results_log_dir = fullfile('results', 'logs');
 cfg.results_chain_dir = fullfile('results', 'chains');

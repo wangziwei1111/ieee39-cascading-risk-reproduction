@@ -1,0 +1,441 @@
+initial_branch,trial_id,stage_id,initial_outage_probability,stage_transition_probability,stage_cumulative_probability,probability_source,num_selected_candidates,num_unselected_candidates,stage_load_shed_mw,base_load_mw,stage_load_shed_frac,pf_converged,severity_valid,invalid_reason,replay_source
+1,1,1,0.000438,1,0.000438,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+1,2,1,0.000438,1,0.000438,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+1,3,1,0.000438,1,0.000438,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+1,4,1,0.000438,1,0.000438,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+1,5,1,0.000438,1,0.000438,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+2,1,1,0.000582,1,0.000582,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+2,2,1,0.000582,1,0.000582,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+2,3,1,0.000582,1,0.000582,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+2,4,1,0.000582,1,0.000582,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+2,5,1,0.000582,1,0.000582,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+3,1,1,0.000378,0.043956710735361,1.66156366579665e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+3,1,2,0.000378,1,1.66156366579665e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3318.689,6254.23,0.53063110886552,0,0,nonconverged_power_flow,invalid_nonconverged
+3,2,1,0.000378,0.0771710082119974,2.9170641104135e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+3,2,2,0.000378,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,31,3109.0075,6254.23,0.497104759498771,1,1,none,replayed_after_load_shedding
+3,3,1,0.000378,0.00111415583258631,4.21150904717627e-07,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+3,3,2,0.000378,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,12,4095.13,6254.23,0.654777646488856,1,1,none,replayed_pf_result
+3,4,1,0.000378,0.0154784724082856,5.85086257033197e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+3,4,2,0.000378,1,5.85086257033197e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3318.689,6254.23,0.53063110886552,0,0,nonconverged_power_flow,invalid_nonconverged
+3,5,1,0.000378,0.219154939560773,8.28405671539723e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+3,5,2,0.000378,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,31,3109.0075,6254.23,0.497104759498771,1,1,none,replayed_after_load_shedding
+4,1,1,0.000445,0.171201707470602,7.61847598244178e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+4,1,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3290.89,6254.23,0.52618627712764,1,1,none,replayed_after_load_shedding
+4,2,1,0.000445,0.0404332145477883,1.79927804737658e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+4,2,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,20,3281.63,6254.23,0.52470567919632,1,1,none,replayed_pf_result
+4,3,1,0.000445,0.507937162585227,0.000226032037350426,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+4,3,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3290.89,6254.23,0.52618627712764,1,1,none,replayed_after_load_shedding
+4,4,1,0.000445,0.100518861253505,4.47308932578097e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+4,4,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3290.89,6254.23,0.52618627712764,1,1,none,replayed_after_load_shedding
+4,5,1,0.000445,0.0546625830347649,2.43248494504704e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+4,5,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3290.89,6254.23,0.52618627712764,1,1,none,replayed_after_load_shedding
+5,1,1,0.000477,0.305628587675186,0.000145784836321064,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+5,1,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+5,2,1,0.000477,0.349574097814814,0.000166746844657666,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+5,2,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+5,3,1,0.000477,0.0073484100549624,3.50519159621707e-06,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+5,3,2,0.000477,1,3.50519159621707e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3263.41,6254.23,0.521792450869252,0,0,nonconverged_power_flow,invalid_nonconverged
+5,4,1,0.000477,0.305628587675186,0.000145784836321064,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+5,4,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+5,5,1,0.000477,0.305628587675186,0.000145784836321064,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+5,5,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+6,1,1,0.000548,0.189300766008621,0.000103736819772724,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+6,1,2,0.000548,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,25,3424.78,6254.23,0.54759418825339,1,1,none,replayed_after_load_shedding
+6,2,1,0.000548,0.0107550011160603,5.89374061160106e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+6,2,2,0.000548,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+6,3,1,0.000548,0.00798376706843886,4.37510435350449e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+6,3,2,0.000548,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3280.16,6254.23,0.524470638272017,1,1,none,replayed_after_load_shedding
+6,4,1,0.000548,0.189300766008621,0.000103736819772724,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+6,4,2,0.000548,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,25,3424.78,6254.23,0.54759418825339,1,1,none,replayed_after_load_shedding
+6,5,1,0.000548,0.0365095343209402,2.00072248078752e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+6,5,2,0.000548,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3236.15,6254.23,0.517433800803616,1,1,none,replayed_after_load_shedding
+7,1,1,0.000434,0.062052161636795,2.6930638150369e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+7,1,2,0.000434,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3638.29,6254.23,0.581732683319929,1,1,none,replayed_after_load_shedding
+7,2,1,0.000434,0.00258466135778131,1.12174302927709e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+7,2,2,0.000434,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3638.29,6254.23,0.581732683319929,1,1,none,replayed_after_load_shedding
+7,3,1,0.000434,0.0698340385396665,3.03079727262153e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+7,3,2,0.000434,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3638.29,6254.23,0.581732683319929,1,1,none,replayed_after_load_shedding
+7,4,1,0.000434,0.0698340385396665,3.03079727262153e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+7,4,2,0.000434,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3638.29,6254.23,0.581732683319929,1,1,none,replayed_after_load_shedding
+7,5,1,0.000434,0.127487285890389,5.53294820764288e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+7,5,2,0.000434,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3638.29,6254.23,0.581732683319929,1,1,none,replayed_after_load_shedding
+8,1,1,3.4e-05,0.133880279493922,4.55192950279335e-06,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+8,1,2,3.4e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+8,2,1,3.4e-05,0.212331596971951,7.21927429704632e-06,paper_table_4_1_initial_probability + candidate_transition_probability,12,33,0,6254.23,0,1,1,none,replayed_pf_result
+8,2,2,3.4e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+8,3,1,3.4e-05,0.212331596971951,7.21927429704632e-06,paper_table_4_1_initial_probability + candidate_transition_probability,12,33,0,6254.23,0,1,1,none,replayed_pf_result
+8,3,2,3.4e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+8,4,1,3.4e-05,0.0582953222218845,1.98204095554407e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+8,4,2,3.4e-05,1,1.98204095554407e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3263.41,6254.23,0.521792450869252,0,0,nonconverged_power_flow,invalid_nonconverged
+8,5,1,3.4e-05,0.0367566304005388,1.24972543361832e-06,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+8,5,2,3.4e-05,1,1.24972543361832e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3263.41,6254.23,0.521792450869252,0,0,nonconverged_power_flow,invalid_nonconverged
+9,1,1,0.000616,0.131943751975747,8.127735121706e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+9,1,2,0.000616,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,37,2452.513,6254.23,0.392136681893694,1,1,none,replayed_after_load_shedding
+9,2,1,0.000616,0.131943751975747,8.127735121706e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+9,2,2,0.000616,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,37,2452.513,6254.23,0.392136681893694,1,1,none,replayed_after_load_shedding
+9,3,1,0.000616,0.00494370376597815,3.04532151984254e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+9,3,2,0.000616,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,31,2968.0565,6254.23,0.474567852477443,1,1,none,replayed_after_load_shedding
+9,4,1,0.000616,0.131943751975747,8.127735121706e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+9,4,2,0.000616,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,37,2452.513,6254.23,0.392136681893694,1,1,none,replayed_after_load_shedding
+9,5,1,0.000616,0.00939853905860375,5.78950006009991e-06,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+9,5,2,0.000616,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,34,3297.339,6254.23,0.527217419250651,1,1,none,replayed_after_load_shedding
+10,1,1,0.000582,0.165948694783889,9.65821403642235e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+10,1,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+10,2,1,0.000582,0.0178080280277476,1.03642723121491e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+10,2,2,0.000582,1,1.03642723121491e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+10,3,1,0.000582,0.229633893764437,0.000133646926170902,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+10,3,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+10,4,1,0.000582,0.0159366818392375,9.27514883043623e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+10,4,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+10,5,1,0.000582,0.153226558003663,8.9177856758132e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+10,5,2,0.000582,1,8.9177856758132e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+11,1,1,0.000565,0.0900691528322209,5.08890713502048e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+11,1,2,0.000565,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+11,2,1,0.000565,0.147745391771727,8.34761463510259e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+11,2,2,0.000565,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+11,3,1,0.000565,0.0695956131052768,3.93215214044814e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+11,3,2,0.000565,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+11,4,1,0.000565,0.0774286029895567,4.37471606890995e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+11,4,2,0.000565,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+11,5,1,0.000565,0.132798871822853,7.50313625799118e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,0,6254.23,0,1,1,none,replayed_pf_result
+11,5,2,0.000565,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+12,1,1,0.000263,0.235397210568625,6.19094663795483e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+12,1,2,0.000263,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+12,2,1,0.000263,0.0100723301203894,2.64902282166242e-06,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+12,2,2,0.000263,1,2.64902282166242e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+12,3,1,0.000263,0.235397210568625,6.19094663795483e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+12,3,2,0.000263,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+12,4,1,0.000263,0.0753333767788384,1.98126780928345e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,0,6254.23,0,1,1,none,replayed_pf_result
+12,4,2,0.000263,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+12,5,1,0.000263,0.235397210568625,6.19094663795483e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+12,5,2,0.000263,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+13,1,1,0.000502,0.0525243229821041,2.63672101370163e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+13,1,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+13,2,1,0.000502,0.496179358632675,0.000249082038033603,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+13,2,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,31,3043.3825,6254.23,0.486611861092413,1,1,none,replayed_after_load_shedding
+13,3,1,0.000502,0.496179358632675,0.000249082038033603,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+13,3,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,31,3043.3825,6254.23,0.486611861092413,1,1,none,replayed_after_load_shedding
+13,4,1,0.000502,0.496179358632675,0.000249082038033603,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+13,4,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,31,3043.3825,6254.23,0.486611861092413,1,1,none,replayed_after_load_shedding
+13,5,1,0.000502,0.496179358632675,0.000249082038033603,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+13,5,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,31,3043.3825,6254.23,0.486611861092413,1,1,none,replayed_after_load_shedding
+14,1,1,0.000377,0.372135685712451,0.000140295153513594,paper_table_4_1_initial_probability + candidate_transition_probability,5,40,633.703,6254.23,0.101323903981785,1,1,none,replayed_after_load_shedding
+14,1,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,40,3080.9641,6254.23,0.492620850208579,1,1,none,replayed_after_load_shedding
+14,2,1,0.000377,0.313853320034641,0.00011832270165306,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,633.703,6254.23,0.101323903981785,1,1,none,replayed_after_load_shedding
+14,2,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,3080.9641,6254.23,0.492620850208579,1,1,none,replayed_after_load_shedding
+14,3,1,0.000377,0.313853320034641,0.00011832270165306,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,633.703,6254.23,0.101323903981785,1,1,none,replayed_after_load_shedding
+14,3,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,3080.9641,6254.23,0.492620850208579,1,1,none,replayed_after_load_shedding
+14,4,1,0.000377,0.372135685712451,0.000140295153513594,paper_table_4_1_initial_probability + candidate_transition_probability,5,40,633.703,6254.23,0.101323903981785,1,1,none,replayed_after_load_shedding
+14,4,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,40,3080.9641,6254.23,0.492620850208579,1,1,none,replayed_after_load_shedding
+14,5,1,0.000377,0.00750922737168306,2.83097871912451e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,633.703,6254.23,0.101323903981785,1,1,none,replayed_after_load_shedding
+14,5,2,0.000377,1,2.83097871912451e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3080.9641,6254.23,0.492620850208579,0,0,nonconverged_power_flow,invalid_nonconverged
+15,1,1,2.3e-05,0.0590028549703861,1.35706566431888e-06,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,0,6254.23,0,1,1,none,replayed_pf_result
+15,1,2,2.3e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+15,2,1,2.3e-05,0.113546130138453,2.61156099318442e-06,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+15,2,2,2.3e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+15,3,1,2.3e-05,0.132390155467081,3.04497357574287e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+15,3,2,2.3e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+15,4,1,2.3e-05,0.132390155467081,3.04497357574287e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+15,4,2,2.3e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+15,5,1,2.3e-05,0.256683098150192,5.90371125745443e-06,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+15,5,2,2.3e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+16,1,1,2.3e-05,1,2.3e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+16,2,1,2.3e-05,1,2.3e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+16,3,1,2.3e-05,1,2.3e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+16,4,1,2.3e-05,1,2.3e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+16,5,1,2.3e-05,1,2.3e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+17,1,1,0.000685,1,0.000685,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+17,2,1,0.000685,1,0.000685,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+17,3,1,0.000685,1,0.000685,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+17,4,1,0.000685,1,0.000685,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+17,5,1,0.000685,1,0.000685,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,1876.269,6254.23,0.3,0,0,nonconverged_power_flow,invalid_nonconverged
+18,1,1,0.000223,0.393912124452748,8.78424037529628e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+18,1,2,0.000223,1,8.78424037529628e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+18,2,1,0.000223,0.386480197517764,8.61850840464613e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+18,2,2,0.000223,1,8.61850840464613e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+18,3,1,0.000223,0.386480197517764,8.61850840464613e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+18,3,2,0.000223,1,8.61850840464613e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+18,4,1,0.000223,0.393912124452748,8.78424037529628e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+18,4,2,0.000223,1,8.78424037529628e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+18,5,1,0.000223,0.103211606551591,2.30161882610048e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+18,5,2,0.000223,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+19,1,1,0.000685,0.323023919762894,0.000221271385037583,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+19,1,2,0.000685,1,0.000221271385037583,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+19,2,1,0.000685,0.539942990359162,0.000369860948396026,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+19,2,2,0.000685,1,0.000369860948396026,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+19,3,1,0.000685,0.539942990359162,0.000369860948396026,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+19,3,2,0.000685,1,0.000369860948396026,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+19,4,1,0.000685,0.539942990359162,0.000369860948396026,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+19,4,2,0.000685,1,0.000369860948396026,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+19,5,1,0.000685,0.539942990359162,0.000369860948396026,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+19,5,2,0.000685,1,0.000369860948396026,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+20,1,1,0.000553,0.0654323591111965,3.61840945884916e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+20,1,2,0.000553,1,3.61840945884916e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+20,2,1,0.000553,0.322018101373137,0.000178076010059345,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+20,2,2,0.000553,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+20,3,1,0.000553,0.229227691682351,0.00012676291350034,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+20,3,2,0.000553,1,0.00012676291350034,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+20,4,1,0.000553,0.322018101373137,0.000178076010059345,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+20,4,2,0.000553,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,22,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+20,5,1,0.000553,0.229227691682351,0.00012676291350034,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+20,5,2,0.000553,1,0.00012676291350034,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+21,1,1,0.000427,0.278114948784503,0.000118755083130983,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+21,1,2,0.000427,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+21,2,1,0.000427,0.185661377333287,7.92774081213138e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+21,2,2,0.000427,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+21,3,1,0.000427,0.278114948784503,0.000118755083130983,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+21,3,2,0.000427,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+21,4,1,0.000427,0.278114948784503,0.000118755083130983,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+21,4,2,0.000427,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+21,5,1,0.000427,0.185661377333287,7.92774081213138e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+21,5,2,0.000427,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+22,1,1,0.000414,0.162659596779424,6.73410730666814e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+22,1,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+22,2,1,0.000414,0.162659596779424,6.73410730666814e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+22,2,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+22,3,1,0.000414,0.0225658610841588,9.34226648884174e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+22,3,2,0.000414,1,9.34226648884174e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3263.41,6254.23,0.521792450869252,0,0,nonconverged_power_flow,invalid_nonconverged
+22,4,1,0.000414,0.283767618597345,0.000117479794099301,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+22,4,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+22,5,1,0.000414,0.185441279484365,7.67726897065269e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+22,5,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,24,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+23,1,1,0.000434,0.350331504871383,0.00015204387311418,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+23,1,2,0.000434,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+23,2,1,0.000434,0.350331504871383,0.00015204387311418,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+23,2,2,0.000434,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+23,3,1,0.000434,0.258119528589986,0.000112023875408054,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+23,3,2,0.000434,1,0.000112023875408054,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3263.41,6254.23,0.521792450869252,0,0,nonconverged_power_flow,invalid_nonconverged
+23,4,1,0.000434,0.350331504871383,0.00015204387311418,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+23,4,2,0.000434,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+23,5,1,0.000434,0.0141537545626774,6.14272948020197e-06,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+23,5,2,0.000434,1,6.14272948020197e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,3374.01,6254.23,0.539476482316768,0,0,nonconverged_power_flow,invalid_nonconverged
+24,1,1,0.000377,0.637772012138704,0.000240440048576291,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+24,1,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,12,4095.13,6254.23,0.654777646488856,1,1,none,replayed_pf_result
+24,2,1,0.000377,0.637772012138704,0.000240440048576291,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+24,2,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,12,4095.13,6254.23,0.654777646488856,1,1,none,replayed_pf_result
+24,3,1,0.000377,0.637772012138704,0.000240440048576291,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+24,3,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,12,4095.13,6254.23,0.654777646488856,1,1,none,replayed_pf_result
+24,4,1,0.000377,0.218408073349316,8.23398436526919e-05,paper_table_4_1_initial_probability + candidate_transition_probability,12,33,0,6254.23,0,1,1,none,replayed_pf_result
+24,4,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,12,4095.13,6254.23,0.654777646488856,1,1,none,replayed_pf_result
+24,5,1,0.000377,0.218408073349316,8.23398436526919e-05,paper_table_4_1_initial_probability + candidate_transition_probability,12,33,0,6254.23,0,1,1,none,replayed_pf_result
+24,5,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,12,4095.13,6254.23,0.654777646488856,1,1,none,replayed_pf_result
+25,1,1,0.000468,0.803726409691134,0.000376143959735451,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+25,1,2,0.000468,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,15,4721.806,6254.23,0.754977990895762,1,1,none,replayed_after_load_shedding
+25,2,1,0.000468,0.803726409691134,0.000376143959735451,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+25,2,2,0.000468,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,15,4721.806,6254.23,0.754977990895762,1,1,none,replayed_after_load_shedding
+25,3,1,0.000468,0.803726409691134,0.000376143959735451,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+25,3,2,0.000468,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,15,4721.806,6254.23,0.754977990895762,1,1,none,replayed_after_load_shedding
+25,4,1,0.000468,0.803726409691134,0.000376143959735451,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+25,4,2,0.000468,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,15,4721.806,6254.23,0.754977990895762,1,1,none,replayed_after_load_shedding
+25,5,1,0.000468,0.803726409691134,0.000376143959735451,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+25,5,2,0.000468,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,15,4721.806,6254.23,0.754977990895762,1,1,none,replayed_after_load_shedding
+26,1,1,0.000306,0.0377637738514869,1.1555714798555e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+26,1,2,0.000306,1,1.1555714798555e-05,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,4233.309,6254.23,0.6768713334815,0,0,nonconverged_power_flow,invalid_nonconverged
+26,2,1,0.000306,0.214058555142372,6.5501917873566e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+26,2,2,0.000306,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,26,3655.903,6254.23,0.584548857333357,1,1,none,replayed_after_load_shedding
+26,3,1,0.000306,0.0813530516107322,2.4894033792884e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+26,3,2,0.000306,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,26,3655.903,6254.23,0.584548857333357,1,1,none,replayed_after_load_shedding
+26,4,1,0.000306,0.0726301285278949,2.22248193295358e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+26,4,2,0.000306,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,27,3511.5515,6254.23,0.561468238296321,1,1,none,replayed_after_load_shedding
+26,5,1,0.000306,0.0145786005372366,4.46105176439439e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+26,5,2,0.000306,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,20,4095.355,6254.23,0.654813622140535,1,1,none,replayed_after_load_shedding
+27,1,1,1.1e-05,0.0888199843778531,9.77019828156384e-07,paper_table_4_1_initial_probability + candidate_transition_probability,7,35,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+27,1,2,1.1e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,34,2761.326,6254.23,0.441513343768937,1,1,none,replayed_after_load_shedding
+27,2,1,1.1e-05,0.200504756576249,2.20555232233874e-06,paper_table_4_1_initial_probability + candidate_transition_probability,5,37,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+27,2,2,1.1e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,37,2543.0195,6254.23,0.406607927754496,1,1,none,replayed_after_load_shedding
+27,3,1,1.1e-05,0.255363945038775,2.80900339542652e-06,paper_table_4_1_initial_probability + candidate_transition_probability,6,36,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+27,3,2,1.1e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2761.326,6254.23,0.441513343768937,1,1,none,replayed_after_load_shedding
+27,4,1,1.1e-05,0.255363945038775,2.80900339542652e-06,paper_table_4_1_initial_probability + candidate_transition_probability,6,36,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+27,4,2,1.1e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2761.326,6254.23,0.441513343768937,1,1,none,replayed_after_load_shedding
+27,5,1,1.1e-05,0.255363945038775,2.80900339542652e-06,paper_table_4_1_initial_probability + candidate_transition_probability,6,36,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+27,5,2,1.1e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2761.326,6254.23,0.441513343768937,1,1,none,replayed_after_load_shedding
+28,1,1,0.000473,0.0982608178558366,4.64773668458107e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+28,1,2,0.000473,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+28,2,1,0.000473,0.160351425351254,7.58462241911431e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+28,2,2,0.000473,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+28,3,1,0.000473,0.0223290536805997,1.05616423909236e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+28,3,2,0.000473,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+28,4,1,0.000473,0.0982608178558366,4.64773668458107e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+28,4,2,0.000473,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+28,5,1,0.000473,0.03822040221403,1.80782502472362e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+28,5,2,0.000473,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,37,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+29,1,1,0.0006,0.100083356309824,6.00500137858944e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+29,1,2,0.0006,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+29,2,1,0.0006,0.270911269087496,0.000162546761452498,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+29,2,2,0.0006,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+29,3,1,0.0006,0.270911269087496,0.000162546761452498,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+29,3,2,0.0006,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+29,4,1,0.0006,0.0589917676216902,3.53950605730141e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,0,6254.23,0,1,1,none,replayed_pf_result
+29,4,2,0.0006,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+29,5,1,0.0006,0.0589917676216902,3.53950605730141e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,0,6254.23,0,1,1,none,replayed_pf_result
+29,5,2,0.0006,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+30,1,1,0.00065,0.0339145900974114,2.20444835633174e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+30,1,2,0.00065,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,20,3281.63,6254.23,0.52470567919632,1,1,none,replayed_pf_result
+30,2,1,0.00065,0.11831139383871,7.69024059951618e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+30,2,2,0.00065,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,18,3643.06,6254.23,0.582495367135523,1,1,none,replayed_after_load_shedding
+30,3,1,0.00065,0.0866127615884158,5.62982950324703e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+30,3,2,0.00065,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,18,3643.06,6254.23,0.582495367135523,1,1,none,replayed_after_load_shedding
+30,4,1,0.00065,0.102926232164943,6.69020509072127e-05,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+30,4,2,0.00065,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,18,3643.06,6254.23,0.582495367135523,1,1,none,replayed_after_load_shedding
+30,5,1,0.00065,0.102926232164943,6.69020509072127e-05,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+30,5,2,0.00065,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,18,3643.06,6254.23,0.582495367135523,1,1,none,replayed_after_load_shedding
+31,1,1,0.000582,0.120886257575272,7.03558019088084e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+31,1,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,14,3937.13,6254.23,0.629514744420976,1,1,none,replayed_pf_result
+31,2,1,0.000582,0.0475321198151192,2.76636937323994e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+31,2,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,30,2928.4945,6254.23,0.468242213669788,1,1,none,replayed_after_load_shedding
+31,3,1,0.000582,0.23798345851212,0.000138506372854054,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+31,3,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,29,3124.126,6254.23,0.499522083453918,1,1,none,replayed_after_load_shedding
+31,4,1,0.000582,0.0565373457119056,3.29047352043291e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+31,4,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,14,3937.13,6254.23,0.629514744420976,1,1,none,replayed_pf_result
+31,5,1,0.000582,0.0475321198151192,2.76636937323994e-05,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+31,5,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,30,2928.4945,6254.23,0.468242213669788,1,1,none,replayed_after_load_shedding
+32,1,1,0.000515,0.87457962025686,0.000450408504432283,paper_table_4_1_initial_probability + candidate_transition_probability,5,39,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+32,1,2,0.000515,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2324.713,6254.23,0.371702511740054,1,1,none,replayed_after_load_shedding
+32,2,1,0.000515,0.87457962025686,0.000450408504432283,paper_table_4_1_initial_probability + candidate_transition_probability,5,39,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+32,2,2,0.000515,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2324.713,6254.23,0.371702511740054,1,1,none,replayed_after_load_shedding
+32,3,1,0.000515,0.0715822724761254,3.68648703252046e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,38,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+32,3,2,0.000515,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,37,2324.713,6254.23,0.371702511740054,1,1,none,replayed_after_load_shedding
+32,4,1,0.000515,0.0463510368166132,2.38707839605558e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,38,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+32,4,2,0.000515,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2324.713,6254.23,0.371702511740054,1,1,none,replayed_after_load_shedding
+32,5,1,0.000515,0.87457962025686,0.000450408504432283,paper_table_4_1_initial_probability + candidate_transition_probability,5,39,680,6254.23,0.10872641396303,1,1,none,replayed_pf_result
+32,5,2,0.000515,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2324.713,6254.23,0.371702511740054,1,1,none,replayed_after_load_shedding
+33,1,1,2.5e-05,0.0111761141160429,2.79402852901074e-07,paper_table_4_1_initial_probability + candidate_transition_probability,12,33,0,6254.23,0,1,1,none,replayed_pf_result
+33,1,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3995.61,6254.23,0.638865216021796,1,1,none,replayed_after_load_shedding
+33,2,1,2.5e-05,0.359374701335222,8.98436753338056e-06,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+33,2,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+33,3,1,2.5e-05,0.165428298720821,4.13570746802053e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+33,3,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+33,4,1,2.5e-05,0.165428298720821,4.13570746802053e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+33,4,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+33,5,1,2.5e-05,0.0322674717747037,8.06686794367592e-07,paper_table_4_1_initial_probability + candidate_transition_probability,12,33,0,6254.23,0,1,1,none,replayed_pf_result
+33,5,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+34,1,1,2.5e-05,0.2043685786828,5.10921446707001e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+34,1,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+34,2,1,2.5e-05,0.2043685786828,5.10921446707001e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+34,2,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+34,3,1,2.5e-05,0.2043685786828,5.10921446707001e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+34,3,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+34,4,1,2.5e-05,0.193869508253637,4.84673770634092e-06,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+34,4,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+34,5,1,2.5e-05,7.54297624857152e-07,1.88574406214288e-11,paper_table_4_1_initial_probability + candidate_transition_probability,13,32,0,6254.23,0,1,1,none,replayed_pf_result
+34,5,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,10,4095.13,6254.23,0.654777646488856,1,1,none,replayed_pf_result
+35,1,1,0.000514,0.0120614145826263,6.1995670954699e-06,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+35,1,2,0.000514,1,6.1995670954699e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+35,2,1,0.000514,0.00305903603470747,1.57234452183964e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+35,2,2,0.000514,1,1.57234452183964e-06,paper_table_4_1_initial_probability + candidate_transition_probability (no_candidate_table_transition_probability_set_to_1),0,0,2721.939,6254.23,0.435215686023699,0,0,nonconverged_power_flow,invalid_nonconverged
+35,3,1,0.000514,0.184652132827083,9.49111962731206e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+35,3,2,0.000514,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+35,4,1,0.000514,0.00507234951519396,2.6071876508097e-06,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+35,4,2,0.000514,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+35,5,1,0.000514,0.264480396888309,0.000135942924000591,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+35,5,2,0.000514,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+36,1,1,0.000582,0.182598294712131,0.00010627220752246,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+36,1,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+36,2,1,0.000582,0.104080765801299,6.05750056963562e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+36,2,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+36,3,1,0.000582,0.272276698092298,0.000158465038289717,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+36,3,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+36,4,1,0.000582,0.15519732696284,9.03248442923728e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+36,4,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+36,5,1,0.000582,0.272276698092298,0.000158465038289717,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+36,5,2,0.000582,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+37,1,1,0.000502,0.0697141087392525,3.49964825871048e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+37,1,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+37,2,1,0.000502,0.0272998751342889,1.3704537317413e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+37,2,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+37,3,1,0.000502,0.15530691724871,7.79640724588522e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+37,3,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+37,4,1,0.000502,0.396598272474723,0.000199092332782311,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+37,4,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+37,5,1,0.000502,0.0124301937577623,6.23995726639666e-06,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+37,5,2,0.000502,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,20,3620.15,6254.23,0.57883224633568,1,1,none,replayed_after_load_shedding
+38,1,1,0.000377,0.100387828465794,3.78462113316044e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+38,1,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+38,2,1,0.000377,0.0612545268866248,2.30929566362575e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,0,6254.23,0,1,1,none,replayed_pf_result
+38,2,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+38,3,1,0.000377,0.165530777351696,6.24051030615896e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+38,3,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+38,4,1,0.000377,0.16676250365283,6.28694638771169e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+38,4,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+38,5,1,0.000377,0.0612545268866248,2.30929566362575e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,0,6254.23,0,1,1,none,replayed_pf_result
+38,5,2,0.000377,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+39,1,1,0.000445,0.0556961175300117,2.47847723008552e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+39,1,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+39,2,1,0.000445,0.0192122668415225,8.54945874447751e-06,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+39,2,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,20,3593.22,6254.23,0.574526360559173,1,1,none,replayed_after_load_shedding
+39,3,1,0.000445,0.193696319930657,8.61948623691422e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+39,3,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+39,4,1,0.000445,0.00555858165160437,2.47356883496395e-06,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+39,4,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+39,5,1,0.000445,0.193696319930657,8.61948623691422e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+39,5,2,0.000445,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+40,1,1,0.00049,0.488696339368949,0.000239461206290785,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+40,1,2,0.00049,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3645.92,6254.23,0.582952657641308,1,1,none,replayed_after_load_shedding
+40,2,1,0.00049,0.168314262748698,8.2473988746862e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+40,2,2,0.00049,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3645.92,6254.23,0.582952657641308,1,1,none,replayed_after_load_shedding
+40,3,1,0.00049,0.0525989545560925,2.57734877324853e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+40,3,2,0.00049,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3645.92,6254.23,0.582952657641308,1,1,none,replayed_after_load_shedding
+40,4,1,0.00049,0.0158681419025081,7.77538953222896e-06,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+40,4,2,0.00049,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,13,4095.13,6254.23,0.654777646488856,1,1,none,replayed_pf_result
+40,5,1,0.00049,0.168314262748698,8.2473988746862e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+40,5,2,0.00049,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3645.92,6254.23,0.582952657641308,1,1,none,replayed_after_load_shedding
+41,1,1,0.000457,0.223286702837237,0.000102042023196617,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+41,1,2,0.000457,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+41,2,1,0.000457,0.190225772124267,8.69331778607902e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+41,2,2,0.000457,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+41,3,1,0.000457,0.223286702837237,0.000102042023196617,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+41,3,2,0.000457,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+41,4,1,0.000457,0.190225772124267,8.69331778607902e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+41,4,2,0.000457,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+41,5,1,0.000457,0.130600952749708,5.96846354066168e-05,paper_table_4_1_initial_probability + candidate_transition_probability,10,35,0,6254.23,0,1,1,none,replayed_pf_result
+41,5,2,0.000457,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3666.28,6254.23,0.58620805438879,1,1,none,replayed_after_load_shedding
+42,1,1,0.000603,0.343035573865128,0.000206850451040672,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+42,1,2,0.000603,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,15,3656.13,6254.23,0.584585152768606,1,1,none,replayed_pf_result
+42,2,1,0.000603,0.212633681402554,0.00012821810988574,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+42,2,2,0.000603,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,14,3814.13,6254.23,0.609848054836487,1,1,none,replayed_pf_result
+42,3,1,0.000603,0.212633681402554,0.00012821810988574,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+42,3,2,0.000603,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,14,3814.13,6254.23,0.609848054836487,1,1,none,replayed_pf_result
+42,4,1,0.000603,0.343035573865128,0.000206850451040672,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+42,4,2,0.000603,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,15,3656.13,6254.23,0.584585152768606,1,1,none,replayed_pf_result
+42,5,1,0.000603,0.343035573865128,0.000206850451040672,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+42,5,2,0.000603,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,15,3656.13,6254.23,0.584585152768606,1,1,none,replayed_pf_result
+43,1,1,0.000477,0.112222407376532,5.3530088318606e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+43,1,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+43,2,1,0.000477,0.213510626066451,0.000101844568633697,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+43,2,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+43,3,1,0.000477,0.213510626066451,0.000101844568633697,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+43,3,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+43,4,1,0.000477,0.0675095350420506,3.22020482150581e-05,paper_table_4_1_initial_probability + candidate_transition_probability,6,39,0,6254.23,0,1,1,none,replayed_pf_result
+43,4,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,39,2217.326,6254.23,0.354532212598513,1,1,none,replayed_after_load_shedding
+43,5,1,0.000477,0.112222407376532,5.3530088318606e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+43,5,2,0.000477,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+44,1,1,2.5e-05,0.314327515428685,7.85818788571713e-06,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+44,1,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+44,2,1,2.5e-05,0.0180730611701259,4.51826529253149e-07,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+44,2,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+44,3,1,2.5e-05,0.314327515428685,7.85818788571713e-06,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+44,3,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+44,4,1,2.5e-05,0.105550708856128,2.63876772140321e-06,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+44,4,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+44,5,1,2.5e-05,0.314327515428685,7.85818788571713e-06,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+44,5,2,2.5e-05,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+45,1,1,0.000452,0.0850812177727294,3.84567104332737e-05,paper_table_4_1_initial_probability + candidate_transition_probability,9,36,0,6254.23,0,1,1,none,replayed_pf_result
+45,1,2,0.000452,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,3838.81,6254.23,0.613794184096204,1,1,none,replayed_after_load_shedding
+45,2,1,0.000452,0.120618449798121,5.45195393087506e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+45,2,2,0.000452,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,36,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+45,3,1,0.000452,0.300425308412569,0.000135792239402481,paper_table_4_1_initial_probability + candidate_transition_probability,7,38,0,6254.23,0,1,1,none,replayed_pf_result
+45,3,2,0.000452,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,38,2469.6325,6254.23,0.394873949311106,1,1,none,replayed_after_load_shedding
+45,4,1,0.000452,0.21191244898496,9.57844269412018e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+45,4,2,0.000452,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+45,5,1,0.000452,0.21191244898496,9.57844269412018e-05,paper_table_4_1_initial_probability + candidate_transition_probability,8,37,0,6254.23,0,1,1,none,replayed_pf_result
+45,5,2,0.000452,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,23,3321.22,6254.23,0.531035794973962,1,1,none,replayed_after_load_shedding
+46,1,1,0.000414,0.275221433726131,0.000113941673562618,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+46,1,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,2976.16,6254.23,0.475863535559134,1,1,none,replayed_after_load_shedding
+46,2,1,0.000414,0.220769815922274,9.13987037918213e-05,paper_table_4_1_initial_probability + candidate_transition_probability,12,33,0,6254.23,0,1,1,none,replayed_pf_result
+46,2,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3672.95,6254.23,0.587274532596339,1,1,none,replayed_after_load_shedding
+46,3,1,0.000414,0.01880185812761,7.78396926483054e-06,paper_table_4_1_initial_probability + candidate_transition_probability,14,31,0,6254.23,0,1,1,none,replayed_pf_result
+46,3,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,18,3783.62,6254.23,0.604969756468822,1,1,none,replayed_after_load_shedding
+46,4,1,0.000414,0.275221433726131,0.000113941673562618,paper_table_4_1_initial_probability + candidate_transition_probability,11,34,0,6254.23,0,1,1,none,replayed_pf_result
+46,4,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,21,2976.16,6254.23,0.475863535559134,1,1,none,replayed_after_load_shedding
+46,5,1,0.000414,0.0720590479585542,2.98324458548414e-05,paper_table_4_1_initial_probability + candidate_transition_probability,13,32,0,6254.23,0,1,1,none,replayed_pf_result
+46,5,2,0.000414,0,0,paper_table_4_1_initial_probability + candidate_transition_probability,0,19,3672.95,6254.23,0.587274532596339,1,1,none,replayed_after_load_shedding

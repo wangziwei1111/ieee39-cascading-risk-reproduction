@@ -1,0 +1,4 @@
+initial_branch,trial_id,stage_id,pf_converged,severity_valid,invalid_reason,replay_source,stage_load_shed_mw,base_load_mw,stage_cumulative_probability,max_P_li_pu_if_available,min_voltage_pu_if_available,max_voltage_pu_if_available
+11,4,4,0,0,nonconverged_power_flow,invalid_nonconverged,2751.8612,6254.23,4.86637310550028e-07,75.193441632631,0.0622379134666956,2.23340861321859
+37,2,5,0,0,nonconverged_power_flow,invalid_nonconverged,4855.08379,6254.23,4.10591193444697e-10,2.25837014701827,0.00314378742063004,1.0636
+38,3,5,0,0,nonconverged_power_flow,invalid_nonconverged,3071.0101,6254.23,3.36661594186405e-08,262.390851532902,0.0690736652391543,3.17909630838174

@@ -1,0 +1,2 @@
+total_candidate_rows,selected_candidate_rows,max_loading_pu,max_outage_probability,mean_outage_probability,p95_loading_pu,p95_outage_probability,num_probability_above_0_1,num_probability_equal_1,num_selected_with_probability_equal_1
+14192,1792,2.92798037850933,1,0.196443240948875,1.61876832262368,1,3148,2269,1430

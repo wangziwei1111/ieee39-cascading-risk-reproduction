@@ -1,5 +1,30 @@
 # 最小复现实验说明
 
+## 第4章场景扫描框架
+
+已新增独立的场景扫描框架。场景结果不再写入全局 `results/tables`、`results/logs` 或 `results/chains`，而是写入：
+
+```text
+results/scenarios/<scenario_id>/
+  config/
+  tables/
+  logs/
+  chains/
+  figures/
+```
+
+每个场景会保存 `scenario_used.mat/json/csv` 和 `cfg_used.mat/csv`，用于复核本次实际使用的风电接入节点、容量、风速、调度模式和输出目录。
+
+当前 smoke batch 只运行：
+
+- `no_renewable_base`
+- `distributed_wind_40pct`
+- `centralized_wind_40pct`
+
+smoke batch 将 `markov_num_trials_per_initial_fault` 临时设为 5，只用于检查场景框架、输出隔离和自检逻辑，不是最终论文结果。完整批量入口 `main_run_scenario_batch_full.m` 已创建，但不会默认运行。
+
+当前集中式接入节点暂取 39 节点，渗透率按“风电装机容量 / 系统总负荷”换算，风速扫描点取 8/10/12/14/16 m/s。这些均为待校准设置，不能声称来自论文原始参数。新能源脱网对比场景目前只记录风机电压脱网概率，尚未实际触发风机脱网；paper_formula 仍为 line-only 版本，完整论文复现还需要接入 `P_wt(E_k)` 和 `P_ge(E_k)`。
+
 ## 当前已实现内容
 
 - 使用 MATLAB + MATPOWER 的 `case39` 作为 IEEE 10机39节点基础系统。
