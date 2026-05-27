@@ -38,6 +38,9 @@ end
 if strcmp(batch_mode, 'penetration_scan')
     check_penetration_summary(summary_table, cfg);
 end
+if strcmp(batch_mode, 'wind_speed_scan')
+    check_wind_speed_summary(summary_table);
+end
 
 diagnostic_ids = strings(0, 1);
 for i = 1:height(summary_table)
@@ -186,5 +189,55 @@ base_values = capacities ./ ratios;
 base_load_mw = median(base_values);
 if max(abs(base_values - base_load_mw)) > 1e-6 * max(base_load_mw, 1)
     error('penetration_scan各点反推base_load不一致。');
+end
+end
+
+function check_wind_speed_summary(summary_table)
+%CHECK_WIND_SPEED_SUMMARY 校验风速扫描的命名、实际出力和样本数语义。
+required = {'total_wind_output_mw', 'wind_capacity_factor', 'basecase_slack_pg_mw', ...
+    'basecase_overloaded_line_count', 'basecase_voltage_violation_count'};
+missing = setdiff(required, summary_table.Properties.VariableNames);
+if ~isempty(missing)
+    error('wind_speed_scan汇总表缺少字段：%s', strjoin(missing, ', '));
+end
+
+ids = string(summary_table.scenario_id);
+speeds = nan(height(summary_table), 1);
+for k = 1:height(summary_table)
+    token = regexp(char(ids(k)), '^wind_speed_(\d+)mps$', 'tokens', 'once');
+    if isempty(token)
+        error('wind_speed_scan场景命名非法：%s', ids(k));
+    end
+    speeds(k) = str2double(token{1});
+end
+if any(abs(summary_table.wind_speed_mps - speeds) > 1e-9)
+    error('wind_speed_scan的wind_speed_mps与scenario_id不一致。');
+end
+if any(abs(summary_table.total_wind_capacity_mw - 3000) > 1e-6)
+    error('wind_speed_scan应保持3000 MW装机容量。');
+end
+if any(isnan(summary_table.total_wind_output_mw))
+    error('wind_speed_scan存在NaN total_wind_output_mw。');
+end
+if any(summary_table.total_wind_output_mw < -1e-6) || any(summary_table.total_wind_output_mw > 3000 + 1e-6)
+    error('wind_speed_scan实际风电出力超出[0, 3000] MW。');
+end
+cf = summary_table.wind_capacity_factor;
+if any(isnan(cf)) || any(cf < -1e-9) || any(cf > 1 + 1e-9)
+    error('wind_speed_scan容量因子必须位于[0,1]。');
+end
+
+[sorted_speeds, order] = sort(speeds);
+outputs = summary_table.total_wind_output_mw(order);
+idx_ramp = sorted_speeds <= 12;
+if sum(idx_ramp) >= 2 && any(diff(outputs(idx_ramp)) < -1e-6)
+    error('wind_speed_scan在cut-in到rated范围内实际出力应非递减。');
+end
+idx_plateau = sorted_speeds >= 12;
+if any(outputs(idx_plateau) > 3000 + 1e-6)
+    error('wind_speed_scan额定平台出力不应超过装机容量。');
+end
+if any(summary_table.markov_trials_per_initial_fault ~= summary_table.expected_markov_trials_per_initial_fault)
+    error('wind_speed_scan存在trial数不一致结果。');
 end
 end

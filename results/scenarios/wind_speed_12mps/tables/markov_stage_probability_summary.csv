@@ -1,0 +1,2 @@
+total_rows,unique_chain_count,max_stage_id,min_stage_cumulative_probability,max_stage_cumulative_probability,num_zero_stage_probability,num_nan_stage_probability,max_stage_load_shed_frac,valid_stage_count,invalid_stage_count
+1390,920,5,0,0.000681924271790048,60,0,0.807874030855917,1350,40

@@ -41,16 +41,28 @@ for k = 1:numel(scenario_ids)
         overall_status = "failed";
     end
 
+    basecase_metrics = read_basecase_metrics(table_dir);
+    total_wind_output_mw = basecase_metrics.total_wind_output_mw;
+    if scenario.total_wind_capacity_mw > 0
+        wind_capacity_factor = total_wind_output_mw / scenario.total_wind_capacity_mw;
+    else
+        wind_capacity_factor = NaN;
+    end
+
     rows{end + 1, 1} = table(string(scenario_id), scenario.total_wind_capacity_mw, ...
         string(join_vector(scenario.wind_buses)), scenario.wind_speed_mps, ...
-        string(scenario.renewable_dispatch_mode), read_basecase_status(table_dir), ...
+        string(scenario.renewable_dispatch_mode), total_wind_output_mw, wind_capacity_factor, ...
+        basecase_metrics.slack_pg_mw, basecase_metrics.base_overloaded_line_count, ...
+        basecase_metrics.base_voltage_violation_count, read_basecase_status(table_dir), ...
         read_table_height(fullfile(table_dir, 'markov_chain_summary.csv')), ...
         read_invalid_stage_ratio(table_dir), ...
         read_cri(table_dir, 'markov_var_metrics.csv'), ...
         read_cri(table_dir, 'markov_var_metrics_weighted.csv'), ...
         paper_cri, paper_status, overall_status, paper_note, ...
         'VariableNames', {'scenario_id', 'total_wind_capacity_mw', 'wind_buses', 'wind_speed_mps', ...
-        'renewable_dispatch_mode', 'basecase_converged', 'chain_count', 'invalid_stage_ratio', ...
+        'renewable_dispatch_mode', 'total_wind_output_mw', 'wind_capacity_factor', ...
+        'basecase_slack_pg_mw', 'basecase_overloaded_line_count', ...
+        'basecase_voltage_violation_count', 'basecase_converged', 'chain_count', 'invalid_stage_ratio', ...
         'basic_CRI_095', 'weighted_CRI_095', 'paper_CRI_095', ...
         'paper_result_status', 'overall_status', 'paper_note'});
 end
@@ -86,6 +98,28 @@ if ~exist(path, 'file')
 end
 tbl = readtable(path);
 ok = logical(tbl.basecase_converged(1));
+end
+
+function metrics = read_basecase_metrics(table_dir)
+path = fullfile(table_dir, 'basecase_validation.csv');
+metrics = struct('total_wind_output_mw', NaN, 'slack_pg_mw', NaN, ...
+    'base_overloaded_line_count', NaN, 'base_voltage_violation_count', NaN);
+if ~exist(path, 'file')
+    return;
+end
+tbl = readtable(path);
+metrics.total_wind_output_mw = get_scalar(tbl, 'total_wind_output_mw');
+metrics.slack_pg_mw = get_scalar(tbl, 'slack_pg_mw');
+metrics.base_overloaded_line_count = get_scalar(tbl, 'base_overloaded_line_count');
+metrics.base_voltage_violation_count = get_scalar(tbl, 'base_voltage_violation_count');
+end
+
+function value = get_scalar(tbl, field_name)
+if ismember(field_name, tbl.Properties.VariableNames) && height(tbl) >= 1
+    value = tbl.(field_name)(1);
+else
+    value = NaN;
+end
 end
 
 function n = read_table_height(path)

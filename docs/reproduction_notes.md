@@ -66,6 +66,14 @@ smoke test 使用 `cfg.scenario_smoke_trials_per_initial_fault=5`，只用于快
 
 `penetration_scan` 自检会强制检查场景名必须为 `distributed_wind_penetration_*pct`，容量必须随渗透率单调递增，并且不得包含 legacy `distributed_wind_40pct`。当前渗透率定义仍待论文原文确认。
 
+## 风速扫描与实际风电出力
+
+`wind_speed_scan` 中风电装机容量固定为 3000 MW，扫描点为 8、10、12、14、16 m/s。实际风电出力不是装机容量本身，而是由 `wind_power_curve` 根据风速计算得到。
+
+本轮已将 `total_wind_output_mw`、`wind_capacity_factor`、`basecase_slack_pg_mw`、`basecase_overloaded_line_count`、`basecase_voltage_violation_count` 写入场景 batch summary 和 result summary。当前结果显示 8 m/s、10 m/s、12 m/s 的实际出力逐步增加，12 m/s 及以上进入额定出力平台。
+
+这些风速点仍属于工程扫描设置，待与论文参数进一步校准。`smoke`、`penetration_scan`、`wind_speed_scan` 的结果用途不同，不能混用或互相替代。
+
 ## 当前已实现内容
 
 - 使用 MATLAB + MATPOWER 的 `case39` 作为 IEEE 10机39节点基础系统。

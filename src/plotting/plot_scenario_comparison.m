@@ -68,6 +68,39 @@ if height(penetration_table) >= 3
     end
     close(fig);
 end
+
+is_wind_speed = startsWith(string(summary_table.scenario_id), "wind_speed_") & ...
+    endsWith(string(summary_table.scenario_id), "mps");
+wind_table = summary_table(is_wind_speed, :);
+if height(wind_table) >= 3
+    speeds = extract_wind_speed(wind_table.scenario_id);
+    [speeds, order] = sort(speeds);
+
+    fig = figure('Visible', 'off', 'Color', 'w');
+    plot(speeds, wind_table.basic_CRI_095(order), '-o', 'LineWidth', 1.5);
+    hold on;
+    plot(speeds, wind_table.weighted_CRI_095(order), '-s', 'LineWidth', 1.5);
+    plot(speeds, wind_table.paper_CRI_095(order), '-^', 'LineWidth', 1.5);
+    grid on;
+    xlabel('风速 (m/s)');
+    ylabel('CRI (\sigma=0.95)');
+    title({'不同风速下风险指标变化（3000MW装机，实际出力由风速曲线决定）', ...
+        'paper\_formula diagnostic\_only 点未计入有效 paper 曲线'});
+    legend({'basic', 'weighted', 'paper formula'}, 'Location', 'best');
+    saveas(fig, fullfile(fig_dir, 'wind_speed_cri_curve.png'));
+    close(fig);
+
+    if ismember('total_wind_output_mw', wind_table.Properties.VariableNames)
+        fig = figure('Visible', 'off', 'Color', 'w');
+        plot(speeds, wind_table.total_wind_output_mw(order), '-o', 'LineWidth', 1.5);
+        grid on;
+        xlabel('风速 (m/s)');
+        ylabel('实际风电出力 (MW)');
+        title('风速-实际风电出力检查（3000MW装机）');
+        saveas(fig, fullfile(fig_dir, 'wind_speed_power_curve_check.png'));
+        close(fig);
+    end
+end
 end
 
 function ratios = extract_penetration_ratio(ids)
@@ -77,6 +110,17 @@ for k = 1:numel(ids)
     token = regexp(char(ids(k)), 'distributed_wind_penetration_(\d+)pct', 'tokens', 'once');
     if ~isempty(token)
         ratios(k) = str2double(token{1}) / 100;
+    end
+end
+end
+
+function speeds = extract_wind_speed(ids)
+ids = string(ids);
+speeds = nan(numel(ids), 1);
+for k = 1:numel(ids)
+    token = regexp(char(ids(k)), 'wind_speed_(\d+)mps', 'tokens', 'once');
+    if ~isempty(token)
+        speeds(k) = str2double(token{1});
     end
 end
 end
