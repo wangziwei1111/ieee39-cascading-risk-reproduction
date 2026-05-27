@@ -19,6 +19,7 @@ cfg = base_config();
 cfg.results_table_dir = fullfile(project_root, cfg.results_table_dir);
 cfg.results_log_dir = fullfile(project_root, cfg.results_log_dir);
 cfg.results_figure_dir = fullfile(project_root, cfg.results_figure_dir);
+cfg.initial_fault_probability_file = fullfile(project_root, cfg.initial_fault_probability_file);
 
 if ~exist(cfg.results_table_dir, 'dir')
     mkdir(cfg.results_table_dir);
@@ -46,7 +47,10 @@ if ~exist(summary_csv, 'file')
 end
 
 chain_summary_table = readtable(summary_csv);
-risk_samples = build_markov_risk_samples(chain_summary_table, cfg);
+require_matpower(cfg);
+base_mpc = build_case39_base(cfg);
+initial_probability_table = load_initial_line_probabilities(cfg, base_mpc);
+risk_samples = build_markov_risk_samples(chain_summary_table, cfg, initial_probability_table);
 markov_var_table = calc_markov_var_metrics(risk_samples, cfg);
 initial_fault_var_table = calc_markov_var_by_initial_fault(risk_samples, cfg);
 

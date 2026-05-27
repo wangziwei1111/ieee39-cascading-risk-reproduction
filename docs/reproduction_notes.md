@@ -180,6 +180,43 @@ main_run_markov_risk
 
 当前结果可用于验证“Markov事故链样本 -> 风险样本 -> 经验VaR指标 -> 全局和分初始故障风险表”的计算流程，但不能直接声称复现论文第4章数值。下一步将接入论文表4-1初始线路停运概率，并补充更接近论文公式的 LLR/LFOR/NVOR 严重度函数。
 
+## 候选线路抽样明细与初始故障概率接口
+
+`markov_candidate_details.csv` 是检查马尔可夫线路抽样是否可信的关键文件。它逐行记录每条事故链、每一级状态下每条候选线路的：
+
+- `loading_pu`：线路当前负载率；
+- `outage_probability`：由 `line_outage_probability` 计算得到的后续停运概率；
+- `random_u`：本次抽样使用的随机数；
+- `trip_selected`：该线路是否在本级被抽中停运。
+
+这个文件可以用来检查概率模型是否符合直觉：高 `loading_pu` 的线路应对应更高 `outage_probability`；当 `outage_probability >= random_u` 时，线路被选为下一阶段停运候选。若该文件为空，而 `markov_chain_stages.csv` 中存在候选线路数量，则说明事故链记录或表格导出存在问题，应停止后续风险分析。
+
+当前初始故障概率仍使用 `uniform` 模式，即每条初始线路故障等权。为了后续接入论文表4-1，工程已新增模板：
+
+```text
+data/line_initial_outage_probability_template.csv
+```
+
+该模板包含：
+
+- `branch_index`
+- `from_bus`
+- `to_bus`
+- `paper_prob_times_1e_minus_4`
+- `initial_outage_probability`
+- `source_note`
+
+其中概率列暂时为 `NaN`，不会自动填充任何臆造数据。用户需要根据论文表4-1手动填写 `paper_prob_times_1e_minus_4` 和/或 `initial_outage_probability`。只有填写完成后，才能将配置切换为：
+
+```matlab
+cfg.initial_fault_probability_mode = 'paper_table_4_1';
+cfg.var_use_chain_weights = true;
+```
+
+在 `paper_table_4_1` 模式下，`load_initial_line_probabilities` 会检查46条线路是否齐全、线路编号和两端母线是否匹配、概率是否非NaN且非负。若数据缺失，会直接报错提示先根据论文表4-1填写数据，不会退回默认值。
+
+当前 VaR 默认等权。后续启用 `cfg.var_use_chain_weights = true` 后，每条事故链样本权重将按“初始线路归一化权重 / 该初始线路下Monte Carlo样本数”分配，用于加权经验VaR。
+
 ## 当前简化内容
 
 - 系统频率固定为 50 Hz。

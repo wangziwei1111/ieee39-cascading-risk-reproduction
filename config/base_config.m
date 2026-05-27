@@ -75,6 +75,9 @@ cfg.var_method = 'empirical_quantile';
 cfg.var_use_chain_weights = false;      % 当前每条Monte Carlo事故链等权
 cfg.var_tail_definition = 'right_tail';  % 风险越大越严重，取右尾分位数
 cfg.initial_fault_probability_mode = 'uniform'; % 后续再接入论文表4-1，当前不编造数据
+cfg.initial_fault_probability_file = fullfile('data', 'line_initial_outage_probability_template.csv');
+cfg.initial_fault_probability_unit = 'probability';
+cfg.export_probability_template_if_missing = true;
 
 % 输出目录。
 cfg.results_table_dir = fullfile('results', 'tables');

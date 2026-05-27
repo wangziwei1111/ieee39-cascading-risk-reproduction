@@ -1,4 +1,4 @@
-线路马尔可夫事故链搜索开始：2026-05-27 13:38:20
+线路马尔可夫事故链搜索开始：2026-05-27 13:45:28
 场景：minimal_distributed_wind_40pct
 新能源调度模式：wind_plus_redispatch
 随机种子：202405
@@ -50,6 +50,10 @@
 已完成初始故障 44/46：branch 44 (26-29)
 已完成初始故障 45/46：branch 45 (28-29)
 已完成初始故障 46/46：branch 46 (29-38)
+候选线路明细行数：57448
+抽中停运候选数量：1090
+候选线路最大负载率：2.886841
+候选线路最大停运概率：1.000000
 事故链汇总结果已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_chain_summary.csv
 事故链逐级结果已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_chain_stages.csv
 候选线路抽样明细已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_candidate_details.csv
@@ -62,4 +66,4 @@
     "max_depth_reached"          40    
     "no_new_outage"             800    
 
-线路马尔可夫事故链搜索结束：2026-05-27 13:38:38
+线路马尔可夫事故链搜索结束：2026-05-27 13:45:47

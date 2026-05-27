@@ -73,6 +73,19 @@ chain_records = vertcat(chain_cells{:});
 
 [chain_summary_table, chain_stage_table] = flatten_chain_records(chain_records, cfg);
 candidate_detail_table = flatten_candidate_tables(chain_records);
+candidate_row_count = height(candidate_detail_table);
+selected_candidate_count = 0;
+max_candidate_loading = NaN;
+max_candidate_probability = NaN;
+if candidate_row_count > 0
+    selected_candidate_count = sum(candidate_detail_table.trip_selected);
+    max_candidate_loading = max(candidate_detail_table.loading_pu);
+    max_candidate_probability = max(candidate_detail_table.outage_probability);
+end
+
+if candidate_row_count == 0 && sum(chain_stage_table.num_candidate_lines) > 0
+    error('候选线路明细为空，但逐级结果中存在候选线路，请检查flatten_candidate_tables。');
+end
 
 summary_csv = fullfile(cfg.results_table_dir, 'markov_chain_summary.csv');
 stage_csv = fullfile(cfg.results_table_dir, 'markov_chain_stages.csv');
@@ -83,6 +96,11 @@ save_result_table(chain_summary_table, summary_csv);
 save_result_table(chain_stage_table, stage_csv);
 save_result_table(candidate_detail_table, candidate_csv);
 save(records_mat, 'chain_records', 'cfg', 'scenario', 'renewable_info', '-v7');
+
+fprintf('候选线路明细行数：%d\n', candidate_row_count);
+fprintf('抽中停运候选数量：%d\n', selected_candidate_count);
+fprintf('候选线路最大负载率：%.6f\n', max_candidate_loading);
+fprintf('候选线路最大停运概率：%.6f\n', max_candidate_probability);
 
 fprintf('事故链汇总结果已写入：%s\n', summary_csv);
 fprintf('事故链逐级结果已写入：%s\n', stage_csv);
