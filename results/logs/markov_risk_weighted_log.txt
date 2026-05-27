@@ -1,11 +1,11 @@
-Markov加权经验VaR风险计算开始：2026-05-27 15:30:49
+Markov加权经验VaR风险计算开始：2026-05-27 16:58:18
 初始故障概率模式：paper_table_4_1
 样本权重模式：true
 风险样本行数：920
 样本权重总和：1
 加权全局VaR指标已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_var_metrics_weighted.csv
 加权分初始线路VaR指标已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_var_by_initial_fault_weighted.csv
-Markov加权经验VaR风险计算结束：2026-05-27 15:30:54
+Markov加权经验VaR风险计算结束：2026-05-27 16:58:19
     sigma     SLLR       SLFOR      SNVOR        CRI  
     _____    _______    _______    ________    _______
 

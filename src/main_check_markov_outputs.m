@@ -244,6 +244,7 @@ if exist(weighted_samples_path, 'file') || exist(weighted_var_path, 'file') || e
     must_exist(weighted_samples_path);
     must_exist(weighted_var_path);
     must_exist(weighted_by_initial_path);
+    evalc('main_check_paper_table_4_1_consistency');
     weighted_samples = readtable(weighted_samples_path);
     weighted_var = readtable(weighted_var_path);
     weighted_by_initial = readtable(weighted_by_initial_path);
@@ -258,7 +259,7 @@ if exist(weighted_samples_path, 'file') || exist(weighted_var_path, 'file') || e
     if height(weighted_by_initial) ~= 46
         error('markov_var_by_initial_fault_weighted.csv应包含46行。');
     end
-    weighted_status = "weighted VaR输出存在且通过检查。";
+    weighted_status = "表4-1源数据已填写；表4-1源数据与validated结果一致；weighted risk sample 权重一致；sample_weight总和=1。";
 else
     weighted_status = "表4-1未填写，加权VaR尚未运行。";
 end

@@ -1,0 +1,9 @@
+表4-1源数据一致性校验开始：2026-05-27 16:58:41
+data源文件：C:\Users\24186\Documents\New project 13\data\line_initial_outage_probability_paper_table_4_1.csv
+validated文件：C:\Users\24186\Documents\New project 13\results\tables\paper_table_4_1_probability_validated.csv
+weighted样本文件：C:\Users\24186\Documents\New project 13\results\tables\markov_risk_samples_weighted.csv
+表4-1源数据已填写：46行，且不存在NaN。
+表4-1源数据与validated结果一致。
+weighted risk sample权重一致。
+sample_weight总和=1.0000000000000009
+表4-1源数据一致性校验结束：2026-05-27 16:58:41

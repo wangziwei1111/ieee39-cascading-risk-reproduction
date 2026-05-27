@@ -1,6 +1,6 @@
-论文表4-1线路初始停运概率校验开始：2026-05-27 15:30:36
+论文表4-1线路初始停运概率校验开始：2026-05-27 16:58:11
 概率文件：C:\Users\24186\Documents\New project 13\data\line_initial_outage_probability_paper_table_4_1.csv
 校验通过：线路数量 = 46
 归一化权重总和 = 1
 结果已写入：C:\Users\24186\Documents\New project 13\results\tables\paper_table_4_1_probability_validated.csv
-论文表4-1线路初始停运概率校验结束：2026-05-27 15:30:43
+论文表4-1线路初始停运概率校验结束：2026-05-27 16:58:12

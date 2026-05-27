@@ -252,6 +252,30 @@ cfg.var_use_chain_weights = true;
 4. 在 `src/risk/` 中新增单事故链 LLR/LFOR/NVOR 和多事故链 VaR 计算函数。
 5. 在 `experiments/` 中增加论文第4章场景脚本，包括无新能源、40%分散式、集中式接入、渗透率扫描和风速扫描。
 6. 保留所有未明确参数在 `config` 中集中管理，并在校准前继续标注“待校准”。
+## 表4-1源数据与加权VaR可复现性
+
+论文表4-1线路初始停运概率的唯一源数据文件是：
+
+```text
+data/line_initial_outage_probability_paper_table_4_1.csv
+```
+
+该文件中的 `paper_prob_times_1e_minus_4` 使用论文表4-1原始单位 `×10^-4`，实际概率列满足：
+
+```text
+initial_outage_probability = paper_prob_times_1e_minus_4 × 10^-4
+```
+
+`results/tables/paper_table_4_1_probability_validated.csv` 是由 `main_validate_paper_table_4_1` 生成的校验输出，不是唯一数据源。weighted VaR 的初始故障权重来自 data 源文件，经校验后得到 `normalized_weight`，再映射到 `markov_risk_samples_weighted.csv` 中的 `initial_branch_weight`。
+
+为了保证复现性，工程新增：
+
+```matlab
+main_check_paper_table_4_1_consistency
+```
+
+该脚本会检查 data 源文件、validated 结果和 weighted 风险样本权重是否一致。如果 data 源文件仍为 NaN，或与 validated 文件、weighted 样本权重不一致，则直接报错。若 data 源文件为 NaN，则 `paper_table_4_1` 模式和 weighted VaR 均不可运行。
+
 ## 论文表4-1初始停运概率与加权VaR接口
 
 当前默认配置仍为：
