@@ -28,7 +28,8 @@ end
 
 required_fields = {'execution_status', 'completion_status', 'run_status', ...
     'basic_result_status', 'weighted_result_status', 'paper_result_status', ...
-    'overall_status', 'note'};
+    'overall_status', 'note', 'expected_markov_trials_per_initial_fault', ...
+    'markov_trials_per_initial_fault', 'reuse_decision_reason'};
 missing = setdiff(required_fields, summary_table.Properties.VariableNames);
 if ~isempty(missing)
     error('批量汇总表缺少状态字段：%s', strjoin(missing, ', '));
@@ -42,6 +43,8 @@ for i = 1:height(summary_table)
     paper_status = string(summary_table.paper_result_status(i));
     overall_status = string(summary_table.overall_status(i));
     note_value = string(summary_table.note(i));
+    expected_trials = summary_table.expected_markov_trials_per_initial_fault(i);
+    actual_trials = summary_table.markov_trials_per_initial_fault(i);
 
     if ~any(execution_status == ["ran", "skipped_existing", "failed"])
         error('场景%s execution_status非法：%s', scenario_id, execution_status);
@@ -55,14 +58,32 @@ for i = 1:height(summary_table)
     end
 
     if execution_status == "skipped_existing"
+        expected_options = struct('expected_markov_trials_per_initial_fault', expected_trials, ...
+            'expected_batch_mode', batch_mode, ...
+            'allow_smoke_reuse', strcmp(batch_mode, 'smoke') || strcmp(batch_mode, 'topology_compare'));
         [is_complete, completion_status, missing_files, complete_note] = ...
-            check_single_scenario_complete(scenario_id, scenario_root);
+            check_single_scenario_complete(scenario_id, scenario_root, expected_options);
         if ~is_complete
             error('场景%s标记为skipped_existing但完整性检查失败：%s %s', ...
                 scenario_id, missing_files, complete_note);
         end
+        if string(completion_status) == "incomplete_trial_count_mismatch"
+            error('场景%s skipped_existing但trial数不匹配。', scenario_id);
+        end
         if string(summary_table.completion_status(i)) ~= completion_status
             error('场景%s completion_status与完整性检查不一致。', scenario_id);
+        end
+        if ~contains(string(summary_table.reuse_decision_reason(i)), "matches expected") && ...
+                ~contains(string(summary_table.reuse_decision_reason(i)), "threshold")
+            error('场景%s skipped_existing但reuse_decision_reason未说明trial匹配或诊断原因。', scenario_id);
+        end
+    end
+
+    if any(strcmp(batch_mode, {'penetration_scan', 'wind_speed_scan', 'all_full'})) && ...
+            execution_status ~= "failed"
+        if actual_trials ~= expected_trials
+            error('场景%s属于%s，但actual_trials=%g expected_trials=%g，禁止混入smoke结果。', ...
+                scenario_id, batch_mode, actual_trials, expected_trials);
         end
     end
 

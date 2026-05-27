@@ -42,19 +42,26 @@ saveas(fig, fullfile(fig_dir, output_name));
 close(fig);
 
 is_penetration = startsWith(string(summary_table.scenario_id), "distributed_wind_") & ...
-    endsWith(string(summary_table.scenario_id), "pct") & ...
-    string(summary_table.paper_result_status) == "valid";
+    endsWith(string(summary_table.scenario_id), "pct");
 penetration_table = summary_table(is_penetration, :);
 if height(penetration_table) >= 3
     ratios = extract_penetration_ratio(penetration_table.scenario_id);
     [ratios, order] = sort(ratios);
     fig = figure('Visible', 'off', 'Color', 'w');
-    plot(ratios * 100, penetration_table.paper_CRI_095(order), '-o', 'LineWidth', 1.5);
+    plot(ratios * 100, penetration_table.basic_CRI_095(order), '-o', 'LineWidth', 1.5);
+    hold on;
+    plot(ratios * 100, penetration_table.weighted_CRI_095(order), '-s', 'LineWidth', 1.5);
+    plot(ratios * 100, penetration_table.paper_CRI_095(order), '-^', 'LineWidth', 1.5);
     grid on;
     xlabel('新能源渗透率 (%)');
-    ylabel('paper formula CRI (\sigma=0.95)');
-    title('新能源渗透率-CRI曲线（仅包含valid paper场景）');
-    saveas(fig, fullfile(fig_dir, sprintf('penetration_cri_curve_%s.png', batch_mode)));
+    ylabel('CRI (\sigma=0.95)');
+    title({'新能源渗透率-CRI曲线', 'diagnostic\_only 点未计入有效 paper 曲线'});
+    legend({'basic', 'weighted', 'paper formula'}, 'Location', 'best');
+    batch_curve = fullfile(fig_dir, sprintf('penetration_cri_curve_%s.png', batch_mode));
+    saveas(fig, batch_curve);
+    if string(batch_mode) == "penetration_scan"
+        saveas(fig, fullfile(fig_dir, 'penetration_cri_curve.png'));
+    end
     close(fig);
 end
 end

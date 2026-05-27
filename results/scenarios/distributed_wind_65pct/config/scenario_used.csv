@@ -1,0 +1,16 @@
+field,value
+scenario_id,distributed_wind_65pct
+description,分散式风电渗透率65%场景。
+renewable_dispatch_mode,wind_plus_redispatch
+wind_buses,[30;31;32;33;34;35;36;37;38;39]
+total_wind_capacity_mw,4065.2495
+wind_capacity_mw,<empty>
+wind_speed_mps,12
+cut_in_speed_mps,3
+rated_speed_mps,12
+cut_out_speed_mps,25
+slack_bus,31
+renewable_trip_enable,false
+penetration_ratio,0.65
+scenario_group,full_candidate
+calibration_note,容量按 风电装机容量/系统总负荷 换算，定义待校准。

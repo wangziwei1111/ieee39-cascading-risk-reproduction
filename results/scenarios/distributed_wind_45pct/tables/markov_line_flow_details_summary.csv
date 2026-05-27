@@ -1,0 +1,2 @@
+total_rows,valid_row_count,invalid_or_excluded_stage_count,unique_chain_count,unique_stage_count,max_P_li_pu,max_line_overlimit_component,max_line_severity_component,num_overlimit_rows,p95_P_li_pu,p95_line_severity_component,has_inf_severity,has_nan_severity
+61916,61916,33,920,1346,2.76694738744828,1.76694738744828,282.430924085934,1403,0.827295496077689,0,0,0

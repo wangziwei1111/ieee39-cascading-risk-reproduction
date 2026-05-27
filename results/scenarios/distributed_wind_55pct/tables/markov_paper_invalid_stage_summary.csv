@@ -1,0 +1,2 @@
+total_stage_count,valid_stage_count,invalid_stage_count,nonconverged_stage_count,unreasonable_line_loading_count,unreasonable_voltage_count,inf_or_nan_severity_count,invalid_stage_ratio
+1409,1370,39,39,0,0,0,0.0276792051100071

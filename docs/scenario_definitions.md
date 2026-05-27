@@ -52,3 +52,21 @@ results/scenarios/<scenario_id>/
 | `all_full` | 场景库中的全部场景 |
 
 已在 `smoke` 中运行的场景也是 `topology_compare` 的全部场景。因此在 `resume_existing=true`、`force_rerun=false` 时，`main_run_scenario_batch_topology` 应跳过已有完整场景，并在 `scenario_batch_summary_topology_compare.csv` 中记录 `execution_status=skipped_existing`。当前 `centralized_wind_40pct` 的 paper结果为 `diagnostic_only`，该场景运行完整但不能作为有效paper_formula论文对照。
+
+## Penetration Scan 场景参数
+
+`penetration_scan` 使用 `cfg.markov_num_trials_per_initial_fault=20`，不能复用 5-trial smoke 结果。若已有场景的样本数不一致，批处理会重新运行该场景。
+
+| scenario_id | 渗透率 | 风电容量 | 风电节点 | 风速 | 样本状态 |
+|---|---:|---:|---|---:|---|
+| `distributed_wind_40pct` | 40% | 3000 MW | 30-39 | 12 m/s | smoke已有5-trial；penetration需20-trial重跑 |
+| `distributed_wind_45pct` | 45% | `0.45 * base_load_mw` | 30-39 | 12 m/s | penetration 20-trial |
+| `distributed_wind_50pct` | 50% | `0.50 * base_load_mw` | 30-39 | 12 m/s | penetration 20-trial |
+| `distributed_wind_55pct` | 55% | `0.55 * base_load_mw` | 30-39 | 12 m/s | penetration 20-trial |
+| `distributed_wind_60pct` | 60% | `0.60 * base_load_mw` | 30-39 | 12 m/s | penetration 20-trial |
+| `distributed_wind_65pct` | 65% | `0.65 * base_load_mw` | 30-39 | 12 m/s | penetration 20-trial |
+| `distributed_wind_70pct` | 70% | `0.70 * base_load_mw` | 30-39 | 12 m/s | penetration 20-trial |
+| `distributed_wind_75pct` | 75% | `0.75 * base_load_mw` | 30-39 | 12 m/s | penetration 20-trial |
+| `distributed_wind_80pct` | 80% | `0.80 * base_load_mw` | 30-39 | 12 m/s | penetration 20-trial |
+
+其中 40%默认场景沿用当前工程中的 3000 MW 设置；其他渗透率按 `wind_capacity/base_load` 换算，定义仍待校准。

@@ -52,6 +52,12 @@ smoke batch 将 `markov_num_trials_per_initial_fault` 临时设为 5，只用于
 
 `diagnostic_only` 可以表示场景运行完整，因此断点续跑允许跳过这类场景；但它只代表 paper_formula 结果可用于诊断，不能作为有效论文对照。推荐运行顺序为：`smoke`、`topology_compare`、`penetration_scan`、`wind_speed_scan`、`renewable_trip_record`，最后在确认各组状态后再运行 `all_full`。
 
+## 渗透率扫描与样本数一致性
+
+smoke test 使用 `cfg.scenario_smoke_trials_per_initial_fault=5`，只用于快速检查流程。`penetration_scan` 使用 `cfg.markov_num_trials_per_initial_fault`，当前为 20。断点续跑时，`check_single_scenario_complete` 会同时检查已有场景的 `markov_num_trials_per_initial_fault` 是否等于当前批次期望值。
+
+如果已有结果来自 5-trial smoke，而当前批次期望 20-trial，则该场景会被判定为 `incomplete_trial_count_mismatch`，不会被 `skipped_existing` 复用，必须重新运行。这样可以避免把 5-trial 的 `distributed_wind_40pct` 混入 20-trial 的 40%–80%渗透率曲线。当前渗透率仍按 `wind_capacity/base_load` 定义，属于待校准设置。
+
 ## 当前已实现内容
 
 - 使用 MATLAB + MATPOWER 的 `case39` 作为 IEEE 10机39节点基础系统。

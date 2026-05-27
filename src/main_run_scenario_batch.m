@@ -35,21 +35,27 @@ scenario_root = fullfile(project_root, cfg.scenario_results_root);
 if ~exist(scenario_root, 'dir')
     mkdir(scenario_root);
 end
+expected_options = build_expected_options(run_options, batch_mode);
 
 rows = cell(numel(scenario_ids), 1);
 for k = 1:numel(scenario_ids)
     scenario_id = scenario_ids{k};
     scenario_dir = fullfile(scenario_root, scenario_id);
     [is_complete, completion_status, missing_files, complete_note] = ...
-        check_single_scenario_complete(scenario_id, scenario_root);
+        check_single_scenario_complete(scenario_id, scenario_root, expected_options);
+    existing_trials = read_existing_trials_for_batch(scenario_id, scenario_root);
+    reuse_allowed = run_options.resume_existing && is_complete && ~run_options.force_rerun;
+    reuse_decision_reason = string(complete_note);
 
     if run_options.force_rerun && exist(scenario_dir, 'dir')
         rmdir(scenario_dir, 's');
         is_complete = false;
         completion_status = "rerun_requested";
+        reuse_allowed = false;
+        reuse_decision_reason = "force_rerun=true";
     end
 
-    if run_options.resume_existing && is_complete
+    if reuse_allowed
         scenario_result = read_existing_scenario_result(scenario_id, scenario_root, cfg);
         execution_status = "skipped_existing";
         note = complete_note;
@@ -57,11 +63,15 @@ for k = 1:numel(scenario_ids)
         try
             scenario_result = main_run_single_scenario(scenario_id, run_options);
             execution_status = "ran";
+            existing_trials = scenario_result.markov_trials_per_initial_fault;
             [~, completion_status, missing_files, complete_note] = ...
-                check_single_scenario_complete(scenario_id, scenario_root);
+                check_single_scenario_complete(scenario_id, scenario_root, expected_options);
             note = scenario_result.note;
             if strlength(string(note)) == 0
                 note = complete_note;
+            end
+            if strlength(reuse_decision_reason) == 0
+                reuse_decision_reason = "ran because existing result was absent or did not match expected trials";
             end
         catch ME
             scenario_result = init_failed_batch_result(scenario_id, cfg, ME);
@@ -69,11 +79,13 @@ for k = 1:numel(scenario_ids)
             completion_status = "incomplete";
             missing_files = "";
             note = string(ME.message);
+            reuse_decision_reason = string(ME.message);
         end
     end
 
     rows{k} = add_batch_columns(struct2table(scenario_result), batch_mode, execution_status, ...
-        completion_status, missing_files, note);
+        completion_status, missing_files, note, run_options.markov_num_trials_per_initial_fault, ...
+        existing_trials, reuse_allowed, reuse_decision_reason);
 end
 
 batch_summary = vertcat(rows{:});
@@ -82,6 +94,18 @@ save_result_table(batch_summary, summary_path, true);
 collect_scenario_results(scenario_ids, scenario_root, batch_mode);
 plot_scenario_comparison(scenario_root, batch_mode);
 fprintf('场景批处理完成：%s\n', summary_path);
+end
+
+function expected_options = build_expected_options(run_options, batch_mode)
+expected_options = struct();
+expected_options.expected_markov_trials_per_initial_fault = run_options.markov_num_trials_per_initial_fault;
+expected_options.expected_batch_mode = batch_mode;
+if isfield(run_options, 'allow_smoke_reuse')
+    expected_options.allow_smoke_reuse = logical(run_options.allow_smoke_reuse);
+else
+    expected_options.allow_smoke_reuse = strcmp(batch_mode, 'smoke') || ...
+        (strcmp(batch_mode, 'topology_compare') && run_options.markov_num_trials_per_initial_fault == 5);
+end
 end
 
 function run_options = fill_default_run_options(run_options, cfg, batch_mode)
@@ -102,15 +126,22 @@ if ~isfield(run_options, 'smoke_note')
 end
 end
 
-function row = add_batch_columns(result_table, batch_mode, execution_status, completion_status, missing_files, note)
+function row = add_batch_columns(result_table, batch_mode, execution_status, completion_status, missing_files, note, ...
+    expected_trials, existing_trials, reuse_allowed, reuse_decision_reason)
 result_table.batch_mode = repmat(string(batch_mode), height(result_table), 1);
 result_table.execution_status = repmat(string(execution_status), height(result_table), 1);
 result_table.completion_status = repmat(string(completion_status), height(result_table), 1);
+result_table.expected_markov_trials_per_initial_fault = repmat(expected_trials, height(result_table), 1);
+result_table.existing_markov_trials_per_initial_fault = repmat(existing_trials, height(result_table), 1);
+result_table.reuse_allowed = repmat(logical(reuse_allowed), height(result_table), 1);
+result_table.reuse_decision_reason = repmat(string(reuse_decision_reason), height(result_table), 1);
 result_table.missing_files = repmat(string(missing_files), height(result_table), 1);
 if strlength(string(result_table.note(1))) == 0 && strlength(string(note)) > 0
     result_table.note(1) = string(note);
 end
-front = {'scenario_id', 'batch_mode', 'execution_status', 'completion_status'};
+front = {'scenario_id', 'batch_mode', 'execution_status', 'completion_status', ...
+    'expected_markov_trials_per_initial_fault', 'existing_markov_trials_per_initial_fault', ...
+    'reuse_allowed', 'reuse_decision_reason'};
 remaining = setdiff(result_table.Properties.VariableNames, front, 'stable');
 row = result_table(:, [front, remaining]);
 end
@@ -222,6 +253,25 @@ if ~isempty(idx)
     value = tbl.CRI(idx);
     if ismember('note', tbl.Properties.VariableNames)
         note = string(tbl.note(idx));
+    end
+end
+end
+
+function trials = read_existing_trials_for_batch(scenario_id, scenario_root)
+trials = NaN;
+cfg_path = fullfile(scenario_root, scenario_id, 'config', 'cfg_used.mat');
+if exist(cfg_path, 'file')
+    data = load(cfg_path, 'cfg');
+    if isfield(data, 'cfg') && isfield(data.cfg, 'markov_num_trials_per_initial_fault')
+        trials = data.cfg.markov_num_trials_per_initial_fault;
+        return;
+    end
+end
+summary_path = fullfile(scenario_root, scenario_id, 'tables', 'markov_chain_summary.csv');
+if exist(summary_path, 'file')
+    tbl = readtable(summary_path);
+    if ismember('initial_branch', tbl.Properties.VariableNames) && height(tbl) > 0
+        trials = height(tbl) / numel(unique(tbl.initial_branch));
     end
 end
 end

@@ -1,16 +1,23 @@
-function [is_complete, completion_status, missing_files, note] = check_single_scenario_complete(scenario_id, scenario_root)
-%CHECK_SINGLE_SCENARIO_COMPLETE 检查单个场景输出是否完整。
+function [is_complete, completion_status, missing_files, note] = check_single_scenario_complete(scenario_id, scenario_root, expected_options)
+%CHECK_SINGLE_SCENARIO_COMPLETE 检查单个场景输出是否完整且满足复用条件。
 % 输入：
 %   scenario_id - 场景编号。
 %   scenario_root - results/scenarios目录。
+%   expected_options - 可选结构体，含expected_markov_trials_per_initial_fault、expected_batch_mode、allow_smoke_reuse。
 % 输出：
-%   is_complete - 是否具备完整可复核输出。
-%   completion_status - all_valid_complete/diagnostic_paper_complete/incomplete。
+%   is_complete - 是否具备完整且允许复用的输出。
+%   completion_status - all_valid_complete/diagnostic_paper_complete/incomplete_trial_count_mismatch/incomplete。
 %   missing_files - 缺失文件列表字符串。
 %   note - 诊断说明。
 % 物理含义：
-%   diagnostic_only表示场景运行完整但paper_formula不可用于论文对照；它可断点续跑跳过，
-%   但不能被当成all_valid_complete。
+%   断点续跑不仅检查文件齐全，还检查Markov样本数是否与当前批次一致，避免5-trial smoke结果混入20-trial扫描。
+
+if nargin < 3 || isempty(expected_options)
+    expected_options = struct();
+end
+if ~isfield(expected_options, 'allow_smoke_reuse')
+    expected_options.allow_smoke_reuse = true;
+end
 
 scenario_dir = fullfile(scenario_root, scenario_id);
 required_files = { ...
@@ -45,6 +52,33 @@ if ~isempty(missing)
     return;
 end
 
+[existing_trials, trial_note] = read_existing_trial_count(scenario_dir);
+if isfield(expected_options, 'expected_markov_trials_per_initial_fault') && ...
+        ~isempty(expected_options.expected_markov_trials_per_initial_fault)
+    expected_trials = expected_options.expected_markov_trials_per_initial_fault;
+    trial_mismatch = existing_trials ~= expected_trials;
+    if expected_options.allow_smoke_reuse && existing_trials >= expected_trials
+        trial_mismatch = false;
+    end
+    if trial_mismatch
+        is_complete = false;
+        completion_status = "incomplete_trial_count_mismatch";
+        missing_files = "";
+        note = sprintf('existing_trials=%g expected_trials=%g; %s', existing_trials, expected_trials, trial_note);
+        return;
+    end
+end
+if ~expected_options.allow_smoke_reuse && existing_trials == 5 && ...
+        isfield(expected_options, 'expected_markov_trials_per_initial_fault') && ...
+        expected_options.expected_markov_trials_per_initial_fault ~= 5
+    is_complete = false;
+    completion_status = "incomplete_trial_count_mismatch";
+    missing_files = "";
+    note = sprintf('smoke reuse is not allowed; existing_trials=%g expected_trials=%g', ...
+        existing_trials, expected_options.expected_markov_trials_per_initial_fault);
+    return;
+end
+
 paper_path = fullfile(scenario_dir, 'tables', 'markov_var_metrics_paper_severity.csv');
 try
     paper_var = readtable(paper_path);
@@ -63,7 +97,7 @@ try
     elseif all(statuses == "valid")
         is_complete = true;
         completion_status = "all_valid_complete";
-        note = "";
+        note = sprintf('existing_trials=%g matches expected trials', existing_trials);
     else
         is_complete = false;
         completion_status = "incomplete";
@@ -75,6 +109,30 @@ catch ME
     note = "cannot read paper VaR: " + string(ME.message);
 end
 missing_files = "";
+end
+
+function [trials, note] = read_existing_trial_count(scenario_dir)
+trials = NaN;
+note = "";
+cfg_path = fullfile(scenario_dir, 'config', 'cfg_used.mat');
+if exist(cfg_path, 'file')
+    data = load(cfg_path, 'cfg');
+    if isfield(data, 'cfg') && isfield(data.cfg, 'markov_num_trials_per_initial_fault')
+        trials = data.cfg.markov_num_trials_per_initial_fault;
+        note = "read from cfg_used.mat";
+        return;
+    end
+end
+summary_path = fullfile(scenario_dir, 'tables', 'markov_chain_summary.csv');
+if exist(summary_path, 'file')
+    summary = readtable(summary_path);
+    if ismember('initial_branch', summary.Properties.VariableNames)
+        trials = height(summary) / numel(unique(summary.initial_branch));
+        note = "inferred from markov_chain_summary.csv";
+        return;
+    end
+end
+note = "unable to read existing trial count";
 end
 
 function note = read_note_from_paper_var(paper_var)

@@ -1,0 +1,2 @@
+total_load_mw,total_generation_setpoint_mw,total_wind_output_mw,slack_pg_mw,basecase_converged,pg_above_pmax_count,pg_below_pmin_count,base_overloaded_line_count,base_voltage_violation_count
+6254.23,6331.26120920988,5003.384,1145.73840271525,1,1,0,0,0
