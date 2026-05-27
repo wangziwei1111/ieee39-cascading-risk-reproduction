@@ -25,3 +25,17 @@ results/scenarios/<scenario_id>/
 ```
 
 `main_run_scenario_batch_smoke` 仅运行 `no_renewable_base`、`distributed_wind_40pct`、`centralized_wind_40pct` 三个场景，并把每个初始故障的Markov样本数设为5。该结果只用于检查框架，不作为最终论文结果。
+
+## Smoke Test 当前状态语义
+
+当前 smoke test 汇总表使用多层状态：
+
+| 字段 | 含义 |
+|---|---|
+| `run_status` | 程序流程是否跑完 |
+| `basic_result_status` | basic VaR是否可用 |
+| `weighted_result_status` | 表4-1加权basic VaR是否可用 |
+| `paper_result_status` | paper_formula是否可用于论文对照 |
+| `overall_status` | 综合状态 |
+
+当前 `no_renewable_base` 和 `distributed_wind_40pct` 的 paper_formula 结果为 `valid`，综合状态应为 `success_all_valid`。`centralized_wind_40pct` 可能因为集中接入导致无效阶段比例较高，当前 paper_formula 可被标记为 `diagnostic_only`，综合状态应为 `success_with_diagnostic_paper`，不能作为有效论文对照。集中接入节点仍暂取39节点，属于待校准设置。

@@ -5,7 +5,8 @@ function plot_scenario_comparison(scenario_root)
 % 输出：
 %   图像文件保存到 results/scenarios/figures。
 % 物理含义：
-%   用0.95置信水平下的CRI对比不同新能源接入方式和容量设置，仅用于场景框架检查。
+%   用0.95置信水平下的CRI对比不同新能源接入方式和容量设置；paper_CRI为NaN时保留空值，
+%   不把diagnostic_only场景画成0。
 
 summary_path = fullfile(scenario_root, 'scenario_result_summary.csv');
 if ~exist(summary_path, 'file')
@@ -23,13 +24,14 @@ bar(x, [summary_table.basic_CRI_095, summary_table.weighted_CRI_095, summary_tab
 grid on;
 set(gca, 'XTick', x, 'XTickLabel', summary_table.scenario_id, 'XTickLabelRotation', 25);
 ylabel('CRI (\sigma=0.95)');
-title('场景CRI对比（smoke test）');
+title({'场景CRI对比（smoke test）', 'paper\_formula diagnostic\_only 场景未计入有效paper CRI比较'});
 legend({'basic', 'weighted', 'paper formula'}, 'Location', 'best');
 saveas(fig, fullfile(fig_dir, 'scenario_cri_comparison.png'));
 close(fig);
 
 is_penetration = startsWith(string(summary_table.scenario_id), "distributed_wind_") & ...
-    endsWith(string(summary_table.scenario_id), "pct");
+    endsWith(string(summary_table.scenario_id), "pct") & ...
+    string(summary_table.paper_result_status) == "valid";
 penetration_table = summary_table(is_penetration, :);
 if height(penetration_table) >= 3
     ratios = extract_penetration_ratio(penetration_table.scenario_id);
@@ -39,7 +41,7 @@ if height(penetration_table) >= 3
     grid on;
     xlabel('新能源渗透率 (%)');
     ylabel('paper formula CRI (\sigma=0.95)');
-    title('新能源渗透率-CRI曲线');
+    title('新能源渗透率-CRI曲线（仅包含valid paper场景）');
     saveas(fig, fullfile(fig_dir, 'penetration_cri_curve.png'));
     close(fig);
 end

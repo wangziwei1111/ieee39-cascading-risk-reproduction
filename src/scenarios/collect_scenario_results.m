@@ -30,15 +30,24 @@ for k = 1:numel(scenario_ids)
     basecase_converged = read_basecase_status(table_dir);
     chain_count = read_table_height(fullfile(table_dir, 'markov_chain_summary.csv'));
     invalid_stage_ratio = read_invalid_stage_ratio(table_dir);
+    [paper_cri, paper_status, paper_note] = read_paper_cri_status(table_dir);
+    basic_cri = read_cri(table_dir, 'markov_var_metrics.csv');
+    weighted_cri = read_cri(table_dir, 'markov_var_metrics_weighted.csv');
+    if paper_status == "valid"
+        overall_status = "success_all_valid";
+    elseif paper_status == "diagnostic_only"
+        overall_status = "success_with_diagnostic_paper";
+    else
+        overall_status = "failed";
+    end
     rows{end + 1, 1} = table(string(scenario_id), scenario.total_wind_capacity_mw, ...
         string(join_vector(scenario.wind_buses)), scenario.wind_speed_mps, ...
         string(scenario.renewable_dispatch_mode), basecase_converged, chain_count, invalid_stage_ratio, ...
-        read_cri(table_dir, 'markov_var_metrics.csv'), ...
-        read_cri(table_dir, 'markov_var_metrics_weighted.csv'), ...
-        read_cri(table_dir, 'markov_var_metrics_paper_severity.csv'), ...
+        basic_cri, weighted_cri, paper_cri, paper_status, overall_status, paper_note, ...
         'VariableNames', {'scenario_id', 'total_wind_capacity_mw', 'wind_buses', 'wind_speed_mps', ...
         'renewable_dispatch_mode', 'basecase_converged', 'chain_count', 'invalid_stage_ratio', ...
-        'basic_CRI_095', 'weighted_CRI_095', 'paper_CRI_095'});
+        'basic_CRI_095', 'weighted_CRI_095', 'paper_CRI_095', ...
+        'paper_result_status', 'overall_status', 'paper_note'});
 end
 
 if isempty(rows)
@@ -104,6 +113,37 @@ if isempty(idx)
     value = NaN;
 else
     value = tbl.CRI(idx);
+end
+end
+
+function [value, status, note] = read_paper_cri_status(table_dir)
+path = fullfile(table_dir, 'markov_var_metrics_paper_severity.csv');
+value = NaN;
+status = "not_available";
+note = "";
+if ~exist(path, 'file')
+    return;
+end
+tbl = readtable(path);
+if ~ismember('result_status', tbl.Properties.VariableNames)
+    status = "failed";
+    note = "paper result_status column missing";
+    return;
+end
+statuses = string(tbl.result_status);
+if any(statuses == "diagnostic_only")
+    status = "diagnostic_only";
+elseif all(statuses == "valid")
+    status = "valid";
+else
+    status = "failed";
+end
+idx = find(abs(tbl.sigma - 0.95) < 1e-9, 1);
+if ~isempty(idx)
+    value = tbl.CRI(idx);
+    if ismember('note', tbl.Properties.VariableNames)
+        note = string(tbl.note(idx));
+    end
 end
 end
 

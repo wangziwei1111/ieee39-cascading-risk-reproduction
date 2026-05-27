@@ -93,7 +93,9 @@ result = struct('scenario_id', string(scenario_id), 'total_wind_capacity_mw', Na
     'markov_trials_per_initial_fault', cfg.markov_num_trials_per_initial_fault, ...
     'basecase_converged', false, 'chain_count', 0, 'invalid_stage_ratio', NaN, ...
     'basic_CRI_095', NaN, 'weighted_CRI_095', NaN, 'paper_CRI_095', NaN, ...
-    'status', "failed", 'note', "");
+    'run_status', "failed", 'basic_result_status', "failed", ...
+    'weighted_result_status', "failed", 'paper_result_status', "not_available", ...
+    'overall_status', "failed", 'note', "");
 end
 
 function basecase_table = run_basecase_validation_scenario(mpc, cfg, renewable_info)
@@ -405,9 +407,19 @@ paper_path = fullfile(cfg.results_table_dir, 'markov_var_metrics_paper_severity.
 chain_count = height(readtable(summary_path));
 invalid_summary = readtable(invalid_path);
 invalid_stage_ratio = get_scalar_or_nan(invalid_summary, 'invalid_stage_ratio');
-basic_CRI_095 = get_cri_at_sigma(basic_path, 0.95);
-weighted_CRI_095 = get_cri_at_sigma(weighted_path, 0.95);
-paper_CRI_095 = get_cri_at_sigma(paper_path, 0.95);
+[basic_CRI_095, basic_result_status] = get_basic_or_weighted_status(basic_path, 0.95);
+[weighted_CRI_095, weighted_result_status] = get_basic_or_weighted_status(weighted_path, 0.95);
+[paper_CRI_095, paper_result_status, paper_note] = get_paper_status(paper_path, 0.95);
+if paper_result_status == "valid" && basic_result_status == "valid" && weighted_result_status == "valid"
+    overall_status = "success_all_valid";
+elseif paper_result_status == "diagnostic_only" && basic_result_status == "valid" && weighted_result_status == "valid"
+    overall_status = "success_with_diagnostic_paper";
+else
+    overall_status = "failed";
+end
+if strlength(string(note)) == 0 && strlength(paper_note) > 0
+    note = paper_note;
+end
 
 scenario_result = struct('scenario_id', string(scenario_id), ...
     'total_wind_capacity_mw', scenario.total_wind_capacity_mw, ...
@@ -421,27 +433,74 @@ scenario_result = struct('scenario_id', string(scenario_id), ...
     'basic_CRI_095', basic_CRI_095, ...
     'weighted_CRI_095', weighted_CRI_095, ...
     'paper_CRI_095', paper_CRI_095, ...
-    'status', string(status), ...
+    'run_status', string(status), ...
+    'basic_result_status', basic_result_status, ...
+    'weighted_result_status', weighted_result_status, ...
+    'paper_result_status', paper_result_status, ...
+    'overall_status', overall_status, ...
     'note', string(note));
 end
 
 function scenario_result = build_failed_result(scenario_id, cfg, ME)
 scenario_result = init_scenario_result(scenario_id, cfg);
-scenario_result.status = "failed";
+scenario_result.run_status = "failed";
+scenario_result.overall_status = "failed";
 scenario_result.note = string(ME.message);
 end
 
-function value = get_cri_at_sigma(file_path, sigma_value)
+function [value, status] = get_basic_or_weighted_status(file_path, sigma_value)
 if ~exist(file_path, 'file')
     value = NaN;
+    status = "failed";
     return;
 end
 tbl = readtable(file_path);
 idx = find(abs(tbl.sigma - sigma_value) < 1e-9, 1);
 if isempty(idx)
     value = NaN;
+    status = "failed";
 else
     value = tbl.CRI(idx);
+    if isnan(value) || isinf(value)
+        status = "failed";
+    else
+        status = "valid";
+    end
+end
+end
+
+function [value, status, note] = get_paper_status(file_path, sigma_value)
+value = NaN;
+status = "failed";
+note = "";
+if ~exist(file_path, 'file')
+    status = "not_available";
+    return;
+end
+tbl = readtable(file_path);
+if ~ismember('result_status', tbl.Properties.VariableNames)
+    status = "failed";
+    note = "paper result_status column missing";
+    return;
+end
+statuses = string(tbl.result_status);
+if any(statuses == "diagnostic_only")
+    status = "diagnostic_only";
+elseif all(statuses == "valid")
+    status = "valid";
+else
+    status = "failed";
+end
+idx = find(abs(tbl.sigma - sigma_value) < 1e-9, 1);
+if ~isempty(idx)
+    value = tbl.CRI(idx);
+    if ismember('note', tbl.Properties.VariableNames)
+        note = string(tbl.note(idx));
+    end
+end
+if status == "valid" && (isnan(value) || isinf(value))
+    status = "failed";
+    note = "paper result marked valid but CRI is NaN/Inf";
 end
 end
 

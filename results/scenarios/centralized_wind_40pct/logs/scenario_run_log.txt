@@ -1,3 +1,6 @@
 开始运行场景：centralized_wind_40pct
 paper_formula无效事故链比例 0.0870 超过阈值 0.0500，本场景paper VaR标记为diagnostic_only。
 场景运行完成：centralized_wind_40pct
+开始运行场景：centralized_wind_40pct
+paper_formula无效事故链比例 0.0870 超过阈值 0.0500，本场景paper VaR标记为diagnostic_only。
+场景运行完成：centralized_wind_40pct

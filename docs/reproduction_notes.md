@@ -25,6 +25,18 @@ smoke batch 将 `markov_num_trials_per_initial_fault` 临时设为 5，只用于
 
 当前集中式接入节点暂取 39 节点，渗透率按“风电装机容量 / 系统总负荷”换算，风速扫描点取 8/10/12/14/16 m/s。这些均为待校准设置，不能声称来自论文原始参数。新能源脱网对比场景目前只记录风机电压脱网概率，尚未实际触发风机脱网；paper_formula 仍为 line-only 版本，完整论文复现还需要接入 `P_wt(E_k)` 和 `P_ge(E_k)`。
 
+## 场景扫描结果状态说明
+
+场景汇总表现在区分程序运行状态和指标有效性：
+
+- `run_status`：只表示场景流程是否完整跑完，可为 `success` 或 `failed`。
+- `basic_result_status`：表示 basic VaR 是否可用，可为 `valid` 或 `failed`。
+- `weighted_result_status`：表示表4-1加权 basic VaR 是否可用，可为 `valid` 或 `failed`。
+- `paper_result_status`：表示 paper_formula VaR 是否可用于论文对照，可为 `valid`、`diagnostic_only`、`failed`、`not_available`。
+- `overall_status`：综合状态，可为 `success_all_valid`、`success_with_diagnostic_paper` 或 `failed`。
+
+`diagnostic_only` 表示场景程序运行成功，但 paper_formula 因无效阶段比例过高等原因不能作为有效论文对照。此时 `paper_CRI_095` 允许为 `NaN`，但 `overall_status` 必须为 `success_with_diagnostic_paper`，不能标记为 `success_all_valid`。smoke test 仍然只是框架检查结果；只有状态体系正确后，后续才适合运行 full batch。
+
 ## 当前已实现内容
 
 - 使用 MATLAB + MATPOWER 的 `case39` 作为 IEEE 10机39节点基础系统。

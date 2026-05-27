@@ -1,2 +1,4 @@
 开始运行场景：distributed_wind_40pct
 场景运行完成：distributed_wind_40pct
+开始运行场景：distributed_wind_40pct
+场景运行完成：distributed_wind_40pct
