@@ -1,0 +1,11 @@
+branch=5 (2-30), island_count=2, main_island=1, disconnected_load_mw=0.000000, disconnected_generation_mw=423.681592, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31
+branch=14 (6-31), island_count=2, main_island=2, disconnected_load_mw=6245.030000, disconnected_generation_mw=5351.679707, disconnected_wind_mw=2700.000000, original_slack_in_main=1, new_slack_bus=31
+branch=20 (10-32), island_count=2, main_island=1, disconnected_load_mw=0.000000, disconnected_generation_mw=606.284615, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31
+branch=27 (16-19), island_count=2, main_island=1, disconnected_load_mw=680.000000, disconnected_generation_mw=1136.314474, disconnected_wind_mw=600.000000, original_slack_in_main=1, new_slack_bus=31
+branch=32 (19-20), island_count=2, main_island=1, disconnected_load_mw=680.000000, disconnected_generation_mw=538.920411, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31
+branch=33 (19-33), island_count=2, main_island=1, disconnected_load_mw=0.000000, disconnected_generation_mw=597.394063, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31
+branch=34 (20-34), island_count=2, main_island=1, disconnected_load_mw=0.000000, disconnected_generation_mw=538.920411, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31
+branch=37 (22-35), island_count=2, main_island=1, disconnected_load_mw=0.000000, disconnected_generation_mw=605.991070, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31
+branch=39 (23-36), island_count=2, main_island=1, disconnected_load_mw=0.000000, disconnected_generation_mw=563.531328, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31
+branch=41 (25-37), island_count=2, main_island=1, disconnected_load_mw=0.000000, disconnected_generation_mw=554.155912, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31
+branch=46 (29-38), island_count=2, main_island=1, disconnected_load_mw=0.000000, disconnected_generation_mw=690.632459, disconnected_wind_mw=300.000000, original_slack_in_main=1, new_slack_bus=31

@@ -15,8 +15,18 @@ if nargin < 4 || base_load_mw <= 0
     base_load_mw = 1;
 end
 
-% 简化SLLR：负荷损失比例。
-sllr = shed.load_shed_mw / base_load_mw;
+if ~isfield(shed, 'island_load_shed_mw')
+    shed.island_load_shed_mw = 0;
+end
+if ~isfield(shed, 'corrective_load_shed_mw')
+    shed.corrective_load_shed_mw = shed.load_shed_mw;
+end
+if ~isfield(shed, 'total_load_shed_mw')
+    shed.total_load_shed_mw = shed.load_shed_mw;
+end
+
+% 简化SLLR：总负荷损失比例。总负荷损失 = 孤岛切除负荷 + 校正切负荷。
+sllr = shed.total_load_shed_mw / base_load_mw;
 
 % 简化SLFOR：线路最大越限程度与越限数量共同刻画。
 if isnan(violations.max_line_loading_pu)
@@ -41,6 +51,9 @@ if ~isfield(result, 'success') || result.success ~= 1
 end
 
 metrics = struct();
+metrics.island_load_shed_mw = shed.island_load_shed_mw;
+metrics.corrective_load_shed_mw = shed.corrective_load_shed_mw;
+metrics.total_load_shed_mw = shed.total_load_shed_mw;
 metrics.SLLR = sllr;
 metrics.SLFOR = slfor;
 metrics.SNVOR = snvor;

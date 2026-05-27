@@ -38,14 +38,18 @@ switch lower(scenario.renewable_dispatch_mode)
     case 'replace_pg_current'
         % 该模式沿用第一版做法：把原机组PG直接替换为风电PG。
         % 物理意义较弱，因为它没有同步重分配其他常规机组出力。
+        wind_gen_rows = zeros(numel(wind_buses), 1);
         for k = 1:numel(wind_buses)
             gen_row = find(mpc.gen(:, 1) == wind_buses(k), 1);
             if ~isempty(gen_row)
                 mpc.gen(gen_row, 2) = wind_p(k);        % PG
                 mpc.gen(gen_row, 9) = wind_capacity(k); % PMAX
                 mpc.gen(gen_row, 10) = 0;               % PMIN
+                wind_gen_rows(k) = gen_row;
             end
         end
+        wind_gen_rows = wind_gen_rows(wind_gen_rows > 0);
+        info.wind_gen_rows = wind_gen_rows;
 
     case 'wind_plus_redispatch'
         % 该模式新增风电机组，并在常规机组中按可下调裕度比例降低PG。
@@ -79,6 +83,11 @@ switch lower(scenario.renewable_dispatch_mode)
 end
 
 info.limit_check = check_generator_pg_limits(mpc);
+if isfield(info, 'wind_gen_rows')
+    mpc.userdata.wind_gen_rows = info.wind_gen_rows;
+    mpc.userdata.wind_buses = wind_buses;
+    mpc.userdata.renewable_dispatch_mode = scenario.renewable_dispatch_mode;
+end
 end
 
 function [mpc, wind_gen_rows] = append_wind_generators(mpc, wind_buses, wind_p, wind_capacity)
