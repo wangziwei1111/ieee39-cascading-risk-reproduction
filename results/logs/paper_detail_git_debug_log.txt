@@ -1,0 +1,69 @@
+﻿pwd
+C:\Users\24186\Documents\New project 13
+
+git status --short
+M  config/base_config.m
+M  docs/paper_severity_variable_mapping.md
+M  docs/reproduction_notes.md
+M  results/figures/basic_vs_paper_cri_comparison.png
+M  results/logs/markov_risk_paper_severity_log.txt
+A  results/tables/markov_bus_voltage_details_manifest.csv
+A  results/tables/markov_bus_voltage_details_sample.csv
+A  results/tables/markov_bus_voltage_details_summary.csv
+A  results/tables/markov_line_flow_details_manifest.csv
+A  results/tables/markov_line_flow_details_sample.csv
+A  results/tables/markov_line_flow_details_summary.csv
+A  results/tables/markov_stage_probability_summary.csv
+A  results/tables/paper_detail_chunks/markov_bus_voltage_details_part001.csv
+A  results/tables/paper_detail_chunks/markov_bus_voltage_details_part002.csv
+A  results/tables/paper_detail_chunks/markov_bus_voltage_details_part003.csv
+A  results/tables/paper_detail_chunks/markov_bus_voltage_details_part004.csv
+A  results/tables/paper_detail_chunks/markov_bus_voltage_details_part005.csv
+A  results/tables/paper_detail_chunks/markov_bus_voltage_details_part006.csv
+A  results/tables/paper_detail_chunks/markov_line_flow_details_part001.csv
+A  results/tables/paper_detail_chunks/markov_line_flow_details_part002.csv
+A  results/tables/paper_detail_chunks/markov_line_flow_details_part003.csv
+A  results/tables/paper_detail_chunks/markov_line_flow_details_part004.csv
+A  results/tables/paper_detail_chunks/markov_line_flow_details_part005.csv
+A  results/tables/paper_detail_chunks/markov_line_flow_details_part006.csv
+A  results/tables/paper_detail_chunks/markov_line_flow_details_part007.csv
+M  src/main_check_markov_outputs.m
+M  src/main_run_markov_risk_paper_severity.m
+R  src/severity/build_markov_paper_detail_tables.m -> src/paper/build_markov_paper_detail_tables.m
+A  src/paper/build_paper_detail_samples.m
+A  src/paper/summarize_paper_detail_tables.m
+?? results/logs/paper_detail_git_debug_log.txt
+
+git ls-files src/paper/build_markov_paper_detail_tables.m
+src/paper/build_markov_paper_detail_tables.m
+
+git ls-files results/tables/markov_line_flow_details_manifest.csv
+results/tables/markov_line_flow_details_manifest.csv
+
+git ls-files results/tables/markov_bus_voltage_details_manifest.csv
+results/tables/markov_bus_voltage_details_manifest.csv
+
+git ls-files results/tables/paper_detail_chunks/markov_line_flow_details_part001.csv
+results/tables/paper_detail_chunks/markov_line_flow_details_part001.csv
+
+git ls-files results/tables/paper_detail_chunks/markov_bus_voltage_details_part001.csv
+results/tables/paper_detail_chunks/markov_bus_voltage_details_part001.csv
+
+git check-ignore -v results/tables/paper_detail_chunks/markov_line_flow_details_part001.csv
+<not ignored>
+
+git check-ignore -v results/tables/paper_detail_chunks/markov_bus_voltage_details_part001.csv
+<not ignored>
+
+Get-Item results/tables/markov_line_flow_details.csv
+Length=6001284
+
+Get-Item results/tables/markov_bus_voltage_details.csv
+Length=1732883
+
+Get-Item results/tables/paper_detail_chunks/markov_line_flow_details_part001.csv
+Length=937489
+
+Get-Item results/tables/paper_detail_chunks/markov_bus_voltage_details_part001.csv
+Length=305703
+

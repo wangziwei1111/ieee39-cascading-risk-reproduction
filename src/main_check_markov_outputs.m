@@ -306,14 +306,16 @@ end
 status_message = "严重度公式状态表已检查：paper_formula尚未确认时不会输出有效paper结果。";
 end
 function paper_status = check_optional_paper_severity_outputs(cfg)
-%CHECK_OPTIONAL_PAPER_SEVERITY_OUTPUTS 检查paper_formula严重度输出。
+%CHECK_OPTIONAL_PAPER_SEVERITY_OUTPUTS 检查paper_formula严重度输出与分块归档。
 sample_path = fullfile(cfg.results_table_dir, 'markov_risk_samples_paper_severity.csv');
 var_path = fullfile(cfg.results_table_dir, 'markov_var_metrics_paper_severity.csv');
 by_initial_path = fullfile(cfg.results_table_dir, 'markov_var_by_initial_fault_paper_severity.csv');
 line_detail_path = fullfile(cfg.results_table_dir, 'markov_line_flow_details.csv');
 bus_detail_path = fullfile(cfg.results_table_dir, 'markov_bus_voltage_details.csv');
 stage_prob_path = fullfile(cfg.results_table_dir, 'markov_stage_probability_details.csv');
+stage_summary_path = fullfile(cfg.results_table_dir, 'markov_stage_probability_summary.csv');
 comparison_path = fullfile(cfg.results_table_dir, 'basic_vs_paper_severity_comparison.csv');
+chunk_dir = fullfile(cfg.results_table_dir, 'paper_detail_chunks');
 
 any_paper_file = exist(sample_path, 'file') || exist(var_path, 'file') || ...
     exist(by_initial_path, 'file') || exist(line_detail_path, 'file') || ...
@@ -323,19 +325,41 @@ if ~any_paper_file
     return;
 end
 
+project_root = fileparts(fileparts(mfilename('fullpath')));
+must_exist(fullfile(project_root, 'src', 'paper', 'build_markov_paper_detail_tables.m'));
+must_exist(fullfile(project_root, 'src', 'paper', 'summarize_paper_detail_tables.m'));
+must_exist(fullfile(project_root, 'src', 'paper', 'build_paper_detail_samples.m'));
+
+line_rows = validate_paper_detail_chunks(cfg, chunk_dir, 'markov_line_flow_details', ...
+    {'P_li_pu', 'line_overlimit_component', 'line_severity_component'}, 'line');
+bus_rows = validate_paper_detail_chunks(cfg, chunk_dir, 'markov_bus_voltage_details', ...
+    {'voltage_pu', 'voltage_deviation_component', 'voltage_severity_component'}, 'bus');
+
 must_exist(sample_path);
 must_exist(var_path);
 must_exist(by_initial_path);
-must_exist(line_detail_path);
-must_exist(bus_detail_path);
 must_exist(stage_prob_path);
-
+must_exist(stage_summary_path);
 paper_samples = readtable(sample_path);
 paper_var = readtable(var_path);
 paper_by_initial = readtable(by_initial_path);
-line_detail = readtable(line_detail_path);
-bus_detail = readtable(bus_detail_path);
 stage_prob = readtable(stage_prob_path);
+stage_summary = readtable(stage_summary_path);
+
+if isempty(stage_prob)
+    error('markov_stage_probability_details.csv不能为空。');
+end
+if any(isnan(stage_prob.stage_cumulative_probability)) || any(stage_prob.stage_cumulative_probability < 0)
+    error('stage_cumulative_probability不能为NaN或负数。');
+end
+if ~all(contains(string(stage_prob.probability_source), "paper_table_4_1_initial_probability") | ...
+        contains(string(stage_prob.probability_source), "uniform_initial_probability"))
+    error('stage_probability_details中的probability_source缺少初始概率来源说明。');
+end
+if isempty(stage_summary) || stage_summary.total_rows(1) ~= height(stage_prob)
+    error('markov_stage_probability_summary.csv与stage_probability_details行数不一致。');
+end
+validate_stage_initial_probabilities(cfg, stage_prob);
 
 required_paper = {'paper_LLR', 'paper_LFOR', 'paper_NVOR', 'paper_CRI'};
 missing = setdiff(required_paper, paper_samples.Properties.VariableNames);
@@ -347,9 +371,6 @@ for i = 1:numel(required_paper)
     if all(isnan(paper_samples.(field)))
         error('%s不能全为NaN。', field);
     end
-end
-if isempty(line_detail) || isempty(bus_detail) || isempty(stage_prob)
-    error('paper_formula明细表不能为空。');
 end
 for i = 1:numel(cfg.var_confidence_levels)
     if ~any(abs(paper_var.sigma - cfg.var_confidence_levels(i)) < 1e-12)
@@ -366,5 +387,78 @@ if exist(comparison_path, 'file')
     end
 end
 
-paper_status = "paper_formula严重度输出已检查：样本、VaR、分初始线路VaR和三张明细表均可用。";
+paper_status = sprintf('paper_formula严重度输出已检查：line chunks=%d行，bus chunks=%d行，stage概率、paper VaR和源码均可追溯。', ...
+    line_rows, bus_rows);
+end
+
+function total_rows = validate_paper_detail_chunks(cfg, chunk_dir, base_name, numeric_columns, detail_type)
+%VALIDATE_PAPER_DETAIL_CHUNKS 校验paper full明细对应的manifest和chunks。
+manifest_path = fullfile(cfg.results_table_dir, [base_name, '_manifest.csv']);
+summary_path = fullfile(cfg.results_table_dir, [base_name, '_summary.csv']);
+sample_path = fullfile(cfg.results_table_dir, [base_name, '_sample.csv']);
+must_exist(manifest_path);
+must_exist(summary_path);
+must_exist(sample_path);
+if ~exist(chunk_dir, 'dir')
+    error('paper_detail_chunks目录不存在：%s', chunk_dir);
+end
+manifest = readtable(manifest_path);
+summary = readtable(summary_path);
+sample = readtable(sample_path);
+if isempty(manifest) || isempty(summary) || isempty(sample)
+    error('%s manifest/summary/sample不能为空。', base_name);
+end
+
+total_rows = 0;
+max_seen = -Inf;
+for i = 1:height(manifest)
+    chunk_path = fullfile(chunk_dir, char(manifest.file_name(i)));
+    must_exist(chunk_path);
+    if get_file_bytes(chunk_path) < 100
+        error('paper detail chunk文件过小：%s', chunk_path);
+    end
+    chunk = readtable(chunk_path);
+    if height(chunk) ~= manifest.row_count(i)
+        error('%s chunk行数与manifest不一致：%s', base_name, chunk_path);
+    end
+    if isempty(chunk)
+        error('%s chunk为空：%s', base_name, chunk_path);
+    end
+    for c = 1:numel(numeric_columns)
+        col = numeric_columns{c};
+        if any(chunk.(col) < 0 | isnan(chunk.(col)))
+            error('%s中的%s存在负数或NaN。', base_name, col);
+        end
+        max_seen = max(max_seen, max(chunk.(col)));
+    end
+    total_rows = total_rows + height(chunk);
+end
+if total_rows ~= summary.total_rows(1)
+    error('%s chunks总行数%d与summary.total_rows=%d不一致。', base_name, total_rows, summary.total_rows(1));
+end
+if max_seen < 0
+    error('%s没有读到有效非负明细值。', detail_type);
+end
+end
+
+function validate_stage_initial_probabilities(cfg, stage_prob)
+%VALIDATE_STAGE_INITIAL_PROBABILITIES 校验阶段概率中的初始停运概率可映射回表4-1。
+project_root = fileparts(fileparts(mfilename('fullpath')));
+prob_file = fullfile(project_root, 'data', 'line_initial_outage_probability_paper_table_4_1.csv');
+if ~exist(prob_file, 'file')
+    return;
+end
+prob_table = readtable(prob_file);
+branches = unique(stage_prob.initial_branch);
+for i = 1:numel(branches)
+    branch = branches(i);
+    srow = stage_prob(stage_prob.initial_branch == branch, :);
+    prow = prob_table(prob_table.branch_index == branch, :);
+    if isempty(prow)
+        error('表4-1源文件缺少branch %d。', branch);
+    end
+    if any(abs(srow.initial_outage_probability - prow.initial_outage_probability(1)) > 1e-12)
+        error('stage_probability_details中branch %d的initial_outage_probability与表4-1不一致。', branch);
+    end
+end
 end

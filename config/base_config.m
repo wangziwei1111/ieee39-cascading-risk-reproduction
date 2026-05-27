@@ -93,6 +93,10 @@ cfg.candidate_detail_chunk_size = 10000;
 cfg.export_candidate_detail_chunks = true;
 cfg.export_candidate_detail_full_csv = true;
 cfg.export_candidate_detail_sample = true;
+cfg.paper_detail_chunk_size = 10000;
+cfg.export_paper_detail_chunks = true;
+cfg.export_paper_detail_full_csv = true;
+cfg.export_paper_detail_sample = true;
 
 % 输出目录。
 cfg.results_table_dir = fullfile('results', 'tables');

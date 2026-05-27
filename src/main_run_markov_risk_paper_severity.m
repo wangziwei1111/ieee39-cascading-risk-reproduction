@@ -3,16 +3,10 @@ function main_run_markov_risk_paper_severity()
 % 输入：
 %   无。读取markov_chain_records.mat、markov_chain_summary.csv和表4-1初始停运概率源文件。
 % 输出：
-%   results/tables/markov_line_flow_details.csv
-%   results/tables/markov_bus_voltage_details.csv
-%   results/tables/markov_stage_probability_details.csv
-%   results/tables/markov_risk_samples_paper_severity.csv
-%   results/tables/markov_var_metrics_paper_severity.csv
-%   results/tables/markov_var_by_initial_fault_paper_severity.csv
-%   results/logs/markov_risk_paper_severity_log.txt
+%   paper_formula三类明细表、sample、summary、manifest、chunks，以及paper VaR结果。
 % 物理含义：
-%   本入口不改变Markov事故链抽样结果，只回放已记录的停运线路集合，补充论文LLR/LFOR/NVOR公式
-%   所需的逐级状态变量，并计算line-only paper_formula风险样本。
+%   本入口不改变Markov事故链抽样结果，只回放已记录的停运线路集合，补充论文LLR/LFOR/NVOR
+%   公式所需的逐级状态变量，并计算line-only paper_formula风险样本。
 
 project_root = fileparts(fileparts(mfilename('fullpath')));
 addpath(fullfile(project_root, 'config'));
@@ -75,12 +69,23 @@ end
     build_markov_paper_detail_tables(loaded.chain_records, base_mpc, cfg, scenario, ...
     renewable_info, initial_probability_table);
 
-line_flow_csv = fullfile(cfg.results_table_dir, 'markov_line_flow_details.csv');
-bus_voltage_csv = fullfile(cfg.results_table_dir, 'markov_bus_voltage_details.csv');
+[line_flow_summary_table, bus_voltage_summary_table, stage_probability_summary_table] = ...
+    summarize_paper_detail_tables(line_flow_detail_table, bus_voltage_detail_table, stage_probability_table);
+[line_flow_sample_table, bus_voltage_sample_table] = ...
+    build_paper_detail_samples(line_flow_detail_table, bus_voltage_detail_table);
+
+paper_chunk_dir = fullfile(cfg.results_table_dir, 'paper_detail_chunks');
+[line_manifest_table, line_full_rows, line_full_bytes] = export_paper_detail_table( ...
+    line_flow_detail_table, line_flow_sample_table, line_flow_summary_table, ...
+    'markov_line_flow_details', cfg, paper_chunk_dir);
+[bus_manifest_table, bus_full_rows, bus_full_bytes] = export_paper_detail_table( ...
+    bus_voltage_detail_table, bus_voltage_sample_table, bus_voltage_summary_table, ...
+    'markov_bus_voltage_details', cfg, paper_chunk_dir);
+
 stage_probability_csv = fullfile(cfg.results_table_dir, 'markov_stage_probability_details.csv');
-save_result_table(line_flow_detail_table, line_flow_csv, true);
-save_result_table(bus_voltage_detail_table, bus_voltage_csv, true);
+stage_probability_summary_csv = fullfile(cfg.results_table_dir, 'markov_stage_probability_summary.csv');
 save_result_table(stage_probability_table, stage_probability_csv, true);
+save_result_table(stage_probability_summary_table, stage_probability_summary_csv, true);
 
 paper_severity = calc_paper_chain_severity(chain_summary_table, cfg, ...
     line_flow_detail_table, bus_voltage_detail_table, stage_probability_table);
@@ -113,13 +118,54 @@ note = ["当前basic流程验证严重度仍保留"; ...
 severity_status_table = table(severity_type, status, note);
 save_result_table(severity_status_table, fullfile(cfg.results_table_dir, 'severity_formula_status.csv'), true);
 
-fprintf('线路有功潮流明细行数：%d\n', height(line_flow_detail_table));
-fprintf('节点电压明细行数：%d\n', height(bus_voltage_detail_table));
-fprintf('阶段概率明细行数：%d\n', height(stage_probability_table));
-fprintf('paper风险样本行数：%d\n', height(risk_samples_paper));
-fprintf('paper VaR结果：\n');
+fprintf('line full CSV bytes：%d\n', line_full_bytes);
+fprintf('line full CSV readback rows：%d\n', line_full_rows);
+fprintf('line chunk文件数量：%d\n', height(line_manifest_table));
+fprintf('line chunk总行数：%d\n', sum(line_manifest_table.row_count));
+fprintf('bus full CSV bytes：%d\n', bus_full_bytes);
+fprintf('bus full CSV readback rows：%d\n', bus_full_rows);
+fprintf('bus chunk文件数量：%d\n', height(bus_manifest_table));
+fprintf('bus chunk总行数：%d\n', sum(bus_manifest_table.row_count));
+fprintf('stage_probability行数：%d\n', height(stage_probability_table));
+fprintf('paper risk sample行数：%d\n', height(risk_samples_paper));
+fprintf('paper VaR表：\n');
 disp(markov_var_table);
 fprintf('paper_formula严重度计算结束：%s\n', datestr(now, 'yyyy-mm-dd HH:MM:SS'));
+end
+
+function [manifest_table, readback_rows, file_bytes] = export_paper_detail_table( ...
+    detail_table, sample_table, summary_table, base_name, cfg, chunk_dir)
+%EXPORT_PAPER_DETAIL_TABLE 保存paper明细full/sample/summary/manifest/chunks。
+full_csv = fullfile(cfg.results_table_dir, [base_name, '.csv']);
+sample_csv = fullfile(cfg.results_table_dir, [base_name, '_sample.csv']);
+summary_csv = fullfile(cfg.results_table_dir, [base_name, '_summary.csv']);
+manifest_csv = fullfile(cfg.results_table_dir, [base_name, '_manifest.csv']);
+
+if cfg.export_paper_detail_full_csv
+    save_result_table(detail_table, full_csv, true);
+end
+save_result_table(sample_table, sample_csv, true);
+save_result_table(summary_table, summary_csv, true);
+
+file_bytes = get_file_bytes(full_csv);
+readback = readtable(full_csv);
+readback_rows = height(readback);
+if height(detail_table) > 0 && readback_rows == 0
+    warning('%s full CSV读回为空，将依赖chunks复核。', base_name);
+end
+if height(detail_table) > 0 && readback_rows ~= height(detail_table)
+    error('%s full CSV读回行数%d与原表%d不一致。', base_name, readback_rows, height(detail_table));
+end
+
+if cfg.export_paper_detail_chunks
+    manifest_table = save_table_chunks(detail_table, chunk_dir, base_name, cfg.paper_detail_chunk_size);
+    if sum(manifest_table.row_count) ~= height(detail_table)
+        error('%s chunks总行数与原表不一致。', base_name);
+    end
+    save_result_table(manifest_table, manifest_csv, true);
+else
+    manifest_table = table();
+end
 end
 
 function initial_branch_weight = map_initial_branch_weight(initial_branch, initial_probability_table)

@@ -438,3 +438,37 @@ main_compare_basic_vs_paper_severity
 - `results/figures/basic_vs_paper_cri_comparison.png`
 
 当前结果不能声称与论文数值完全一致。后续需要补充新能源机组脱网概率、传统机组停运概率、更严格的线路容量校准和最优负荷削减模型，才能接近完整论文复现。
+
+## paper_formula 明细表可追溯归档
+
+`paper_formula` 需要逐级全线路有功潮流、全节点电压和阶段状态概率。由于 `markov_line_flow_details.csv` 与 `markov_bus_voltage_details.csv` 行数较多，GitHub 页面或连接器可能出现大CSV显示异常。因此，本工程不只依赖 full CSV，而是为 paper 明细表建立与候选线路明细相同的 manifest + chunks 归档机制。
+
+核心源码：
+
+```matlab
+src/paper/build_markov_paper_detail_tables.m
+src/paper/summarize_paper_detail_tables.m
+src/paper/build_paper_detail_samples.m
+```
+
+其中 `build_markov_paper_detail_tables.m` 负责从 `markov_chain_records.mat` 回放已记录的每一级停运线路集合，重新运行故障后标准化潮流，提取：
+
+- `line_flow_details`：用于 LFOR，包含每级所有线路的 `PF/PT`、`P_li_pu` 和线路严重度分量。
+- `bus_voltage_details`：用于 NVOR，包含每级所有节点电压和电压严重度分量。
+- `stage_probability_details`：用于 LLR/LFOR/NVOR 的状态概率加权，包含初始停运概率、候选线路转移概率和累计状态概率。
+
+归档文件：
+
+- `results/tables/markov_line_flow_details.csv`
+- `results/tables/markov_line_flow_details_sample.csv`
+- `results/tables/markov_line_flow_details_summary.csv`
+- `results/tables/markov_line_flow_details_manifest.csv`
+- `results/tables/markov_bus_voltage_details.csv`
+- `results/tables/markov_bus_voltage_details_sample.csv`
+- `results/tables/markov_bus_voltage_details_summary.csv`
+- `results/tables/markov_bus_voltage_details_manifest.csv`
+- `results/tables/paper_detail_chunks/*.csv`
+- `results/tables/markov_stage_probability_details.csv`
+- `results/tables/markov_stage_probability_summary.csv`
+
+后续复核 paper_formula 明细时，应优先检查 manifest 和 `paper_detail_chunks`，再查看 full CSV。`sample` 文件仅用于快速人工浏览高风险行，不能替代完整明细。
