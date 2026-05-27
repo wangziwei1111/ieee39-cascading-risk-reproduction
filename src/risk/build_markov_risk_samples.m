@@ -2,14 +2,13 @@ function risk_samples = build_markov_risk_samples(chain_summary_table, cfg, init
 %BUILD_MARKOV_RISK_SAMPLES 从Markov事故链汇总表构造风险样本。
 % 输入：
 %   chain_summary_table - markov_chain_summary.csv 读入后的表格。
-%   cfg - 全局配置，包含风险权重和样本权重模式。
+%   cfg - 全局配置，包含风险权重、严重度模式和样本权重模式。
 %   initial_probability_table - 可选，初始线路故障概率与归一化权重表。
 % 输出：
 %   risk_samples - 每条事故链一行的风险样本表。
 % 物理含义：
-%   当前严重度是最小版定义：负荷损失用总失负荷比例，线路风险用全链最大
-%   负载率超过1的部分，电压风险用全链最大电压偏差。若启用表4-1权重，则
-%   每条事故链样本权重 = 初始线路归一化权重 / 该初始线路下的Monte Carlo样本数。
+%   当前 chain_* 字段为了兼容既有VaR流程，仍指向 basic_* 严重度。
+%   paper_formula 只有在公式人工确认后才会并列输出，不会替代或伪装basic结果。
 
 n = height(chain_summary_table);
 initial_branch = chain_summary_table.initial_branch;
@@ -18,10 +17,17 @@ total_load_shed_frac = chain_summary_table.total_load_shed_frac;
 max_line_loading_pu = chain_summary_table.max_line_loading_pu;
 max_voltage_deviation_pu = chain_summary_table.max_voltage_deviation_pu;
 
-chain_LLR = total_load_shed_frac;
-chain_LFOR = max(max_line_loading_pu - 1, 0);
-chain_NVOR = max_voltage_deviation_pu;
-chain_CRI = calc_cri(chain_LLR, chain_LFOR, chain_NVOR, cfg.risk_weights);
+severity_table = calc_chain_severity(chain_summary_table, cfg);
+basic_LLR = severity_table.basic_LLR;
+basic_LFOR = severity_table.basic_LFOR;
+basic_NVOR = severity_table.basic_NVOR;
+basic_CRI = severity_table.basic_CRI;
+
+% 兼容字段：当前 chain_* 明确等同于 basic_*。论文公式确认后再并列使用 paper_* 字段。
+chain_LLR = basic_LLR;
+chain_LFOR = basic_LFOR;
+chain_NVOR = basic_NVOR;
+chain_CRI = basic_CRI;
 
 use_weighted = nargin >= 3 && ~isempty(initial_probability_table) && ...
     isfield(cfg, 'var_use_chain_weights') && cfg.var_use_chain_weights;
@@ -67,6 +73,11 @@ end
 
 risk_samples = table(initial_branch, trial_id, total_load_shed_frac, ...
     max_line_loading_pu, max_voltage_deviation_pu, ...
+    basic_LLR, basic_LFOR, basic_NVOR, basic_CRI, ...
     chain_LLR, chain_LFOR, chain_NVOR, chain_CRI, ...
     initial_branch_weight, num_trials_for_initial_branch, sample_weight, sample_weight_source);
+
+if all(ismember({'paper_LLR', 'paper_LFOR', 'paper_NVOR', 'paper_CRI'}, severity_table.Properties.VariableNames))
+    risk_samples = [risk_samples, severity_table(:, {'paper_LLR', 'paper_LFOR', 'paper_NVOR', 'paper_CRI'})];
+end
 end

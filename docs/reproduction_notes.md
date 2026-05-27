@@ -365,3 +365,33 @@ cfg.export_candidate_detail_sample = true;
 ```
 
 `main_run_markov_line` 会在写出 full CSV、sample、summary、chunk 和 manifest 后进行落盘校验；`main_check_markov_outputs` 会逐个读取 manifest 中的 chunk 文件，检查行数、字段、文件大小、`random_u` 范围、`outage_probability` 范围、`loading_pu` 非负性，以及是否存在 `trip_selected=1`。如果 full CSV 读取异常但所有 chunk 均通过检查，会打印 warning；如果 chunk 也失败，则直接报错并停止后续分析。
+## 风险严重度函数：basic版与论文公式版
+
+当前工程已经把风险严重度拆分为两个层次：
+
+- `basic_*`：当前最小可运行版严重度，用于验证 Markov 事故链样本、uniform VaR 和表4-1加权VaR 的计算闭环。
+- `paper_*`：论文公式版严重度接口，等待人工核对论文 LLR/LFOR/NVOR 公式后再启用。
+
+当前 `build_markov_risk_samples` 会输出：
+
+```text
+basic_LLR, basic_LFOR, basic_NVOR, basic_CRI
+chain_LLR, chain_LFOR, chain_NVOR, chain_CRI
+```
+
+其中 `chain_*` 为兼容旧流程，当前明确等同于 `basic_*`。表4-1加权VaR已经接入，但严重度函数仍使用 basic 指标，因此这些结果不能直接声称为论文完整复现。
+
+论文公式版的记录文件为：
+
+```text
+docs/paper_severity_formula_notes.md
+```
+
+在 `cfg.paper_severity_formula_confirmed=false` 时，`paper_formula` 模式不会输出有效 `paper_CRI`；接口测试脚本 `main_test_paper_severity_interface` 会捕获预期错误，并生成：
+
+```text
+results/tables/severity_formula_status.csv
+results/logs/paper_severity_interface_log.txt
+```
+
+后续一旦补充并核对论文公式，应同时报告 basic 流程验证结果、paper_formula 对照结果，以及与原论文结果的差异来源，例如线路容量、后续停运概率模型、保护参数和严重度函数校准差异。

@@ -1,12 +1,9 @@
 function main_check_markov_outputs()
-%MAIN_CHECK_MARKOV_OUTPUTS 自检Markov事故链、候选明细和VaR输出。
+%MAIN_CHECK_MARKOV_OUTPUTS Check Markov, candidate, VaR and severity outputs.
 % 输入：
-%   无。读取 results/tables 下已经生成的结果文件。
+%   无。读取results目录下已经生成的CSV文件。
 % 输出：
-%   无。检查失败时抛出error；检查通过时打印中文自检报告。
-% 物理含义：
-%   在继续接入论文表4-1加权VaR或后续场景扫描前，确认已有uniform流程、
-%   候选线路分块归档，以及可选weighted输出均处于可追溯状态。
+%   无。检查失败时报错；检查通过时打印中文自检报告。
 
 project_root = fileparts(fileparts(mfilename('fullpath')));
 addpath(fullfile(project_root, 'config'));
@@ -25,6 +22,7 @@ candidate_chunk_dir = fullfile(cfg.results_table_dir, 'candidate_chunks');
 risk_sample_path = fullfile(cfg.results_table_dir, 'markov_risk_samples.csv');
 var_path = fullfile(cfg.results_table_dir, 'markov_var_metrics.csv');
 by_initial_path = fullfile(cfg.results_table_dir, 'markov_var_by_initial_fault.csv');
+severity_status_path = fullfile(cfg.results_table_dir, 'severity_formula_status.csv');
 
 must_exist(summary_path);
 must_exist(stage_path);
@@ -47,8 +45,7 @@ by_initial_table = readtable(by_initial_path);
 
 expected_summary_rows = 46 * cfg.markov_num_trials_per_initial_fault;
 if height(summary_table) ~= expected_summary_rows
-    error('markov_chain_summary.csv行数应为%d，实际为%d。', ...
-        expected_summary_rows, height(summary_table));
+    error('markov_chain_summary.csv行数应为%d，实际为%d。', expected_summary_rows, height(summary_table));
 end
 if isempty(stage_table)
     error('markov_chain_stages.csv为空。');
@@ -68,10 +65,8 @@ end
 
 required_candidate_columns = {'initial_branch', 'trial_id', 'stage_id', 'candidate_branch', ...
     'from_bus', 'to_bus', 'loading_pu', 'outage_probability', 'random_u', 'trip_selected'};
-
 [full_candidate_ok, full_candidate_rows] = validate_full_candidate_csv( ...
     candidate_path, cfg, stage_table, required_candidate_columns);
-
 [chunk_total_rows, chunk_selected_count, chunk_max_loading, chunk_max_probability] = ...
     validate_candidate_chunks_from_manifest(candidate_chunk_dir, candidate_manifest_table, ...
     candidate_summary_table, cfg, required_candidate_columns);
@@ -79,6 +74,9 @@ required_candidate_columns = {'initial_branch', 'trial_id', 'stage_id', 'candida
 if height(risk_samples) ~= height(summary_table)
     error('markov_risk_samples.csv行数应与markov_chain_summary.csv一致。');
 end
+validate_basic_severity_fields(risk_samples, cfg, 'markov_risk_samples.csv');
+severity_status_message = check_severity_status_table(severity_status_path, cfg);
+
 required_sigmas = cfg.var_confidence_levels(:);
 for i = 1:numel(required_sigmas)
     if ~any(abs(var_table.sigma - required_sigmas(i)) < 1e-12)
@@ -110,19 +108,18 @@ fprintf('markov_risk_samples行数：%d\n', height(risk_samples));
 fprintf('markov_var_metrics sigma列表：%s\n', mat2str(var_table.sigma'));
 fprintf('markov_var_metrics行数：%d\n', height(var_table));
 fprintf('markov_var_by_initial_fault行数：%d\n', height(by_initial_table));
+fprintf('%s\n', severity_status_message);
 fprintf('%s\n', paper_validated_status);
 fprintf('%s\n', weighted_status);
 end
 
 function must_exist(path_text)
-%MUST_EXIST 检查文件是否存在。
 if ~exist(path_text, 'file')
     error('缺少输出文件：%s', path_text);
 end
 end
 
 function [full_ok, row_count] = validate_full_candidate_csv(candidate_path, cfg, stage_table, required_columns)
-%VALIDATE_FULL_CANDIDATE_CSV 校验完整候选线路CSV。
 full_ok = true;
 row_count = 0;
 file_info = dir(candidate_path);
@@ -131,7 +128,6 @@ if isempty(file_info) || file_info.bytes < 100
     full_ok = false;
     return;
 end
-
 candidate_table = readtable(candidate_path);
 row_count = height(candidate_table);
 if isempty(candidate_table)
@@ -139,23 +135,18 @@ if isempty(candidate_table)
     full_ok = false;
     return;
 end
-
 missing_columns = setdiff(required_columns, candidate_table.Properties.VariableNames);
 if ~isempty(missing_columns)
-    warning('full markov_candidate_details.csv缺少列：%s，将依赖chunks检查。', ...
-        strjoin(missing_columns, ', '));
+    warning('full markov_candidate_details.csv缺少列：%s，将依赖chunks检查。', strjoin(missing_columns, ', '));
     full_ok = false;
     return;
 end
-
 validate_candidate_values(candidate_table, cfg, stage_table, 'full markov_candidate_details.csv');
 end
 
 function validate_candidate_values(candidate_table, cfg, stage_table, label)
-%VALIDATE_CANDIDATE_VALUES 校验候选线路表字段和值域。
 if height(candidate_table) <= height(stage_table)
-    error('%s行数%d应大于事故链逐级状态行数%d。', ...
-        label, height(candidate_table), height(stage_table));
+    error('%s行数%d应大于事故链逐级状态行数%d。', label, height(candidate_table), height(stage_table));
 end
 if max(candidate_table.outage_probability) <= cfg.line_outage_p0
     error('%s最大停运概率未高于基础概率line_outage_p0。', label);
@@ -176,12 +167,10 @@ end
 
 function [total_rows, selected_count, max_loading, max_probability] = validate_candidate_chunks_from_manifest( ...
     chunk_dir, manifest_table, summary_table, cfg, required_columns)
-%VALIDATE_CANDIDATE_CHUNKS_FROM_MANIFEST 根据manifest逐块校验候选线路明细。
 total_rows = 0;
 selected_count = 0;
 max_loading = -Inf;
 max_probability = -Inf;
-
 for i = 1:height(manifest_table)
     chunk_path = fullfile(chunk_dir, char(manifest_table.file_name(i)));
     if ~exist(chunk_path, 'file')
@@ -205,10 +194,8 @@ for i = 1:height(manifest_table)
     max_loading = max(max_loading, max(chunk.loading_pu));
     max_probability = max(max_probability, max(chunk.outage_probability));
 end
-
 if total_rows ~= summary_table.total_candidate_rows(1)
-    error('chunk总行数%d与candidate_summary总行数%d不一致。', ...
-        total_rows, summary_table.total_candidate_rows(1));
+    error('chunk总行数%d与candidate_summary总行数%d不一致。', total_rows, summary_table.total_candidate_rows(1));
 end
 if selected_count <= 0
     error('所有chunk中都没有trip_selected=1记录。');
@@ -218,12 +205,30 @@ if max_probability <= cfg.line_outage_p0
 end
 end
 
+function validate_basic_severity_fields(risk_samples, cfg, label)
+required_basic = {'basic_LLR', 'basic_LFOR', 'basic_NVOR', 'basic_CRI'};
+missing_basic = setdiff(required_basic, risk_samples.Properties.VariableNames);
+if ~isempty(missing_basic)
+    error('%s缺少basic严重度字段：%s', label, strjoin(missing_basic, ', '));
+end
+required_chain = {'chain_LLR', 'chain_LFOR', 'chain_NVOR', 'chain_CRI'};
+if all(ismember(required_chain, risk_samples.Properties.VariableNames))
+    pairs = {'LLR', 'LFOR', 'NVOR', 'CRI'};
+    for i = 1:numel(pairs)
+        basic_field = ['basic_', pairs{i}];
+        chain_field = ['chain_', pairs{i}];
+        if any(abs(risk_samples.(basic_field) - risk_samples.(chain_field)) > 1e-12)
+            error('%s中%s必须与%s一致。', label, chain_field, basic_field);
+        end
+    end
+end
+if isfield(cfg, 'paper_severity_formula_confirmed') && ~cfg.paper_severity_formula_confirmed && ...
+        ismember('paper_CRI', risk_samples.Properties.VariableNames) && any(~isnan(risk_samples.paper_CRI))
+    error('论文严重度公式未确认时，不允许存在有效paper_CRI输出。');
+end
+end
+
 function [paper_status, weighted_status] = check_optional_weighted_outputs(cfg)
-%CHECK_OPTIONAL_WEIGHTED_OUTPUTS 检查可选表4-1校验和weighted VaR输出。
-% 输入：
-%   cfg - 全局配置，包含结果目录和置信水平。
-% 输出：
-%   paper_status, weighted_status - 中文状态说明。
 validated_path = fullfile(cfg.results_table_dir, 'paper_table_4_1_probability_validated.csv');
 weighted_samples_path = fullfile(cfg.results_table_dir, 'markov_risk_samples_weighted.csv');
 weighted_var_path = fullfile(cfg.results_table_dir, 'markov_var_metrics_weighted.csv');
@@ -246,6 +251,7 @@ if exist(weighted_samples_path, 'file') || exist(weighted_var_path, 'file') || e
     must_exist(weighted_by_initial_path);
     evalc('main_check_paper_table_4_1_consistency');
     weighted_samples = readtable(weighted_samples_path);
+    validate_basic_severity_fields(weighted_samples, cfg, 'markov_risk_samples_weighted.csv');
     weighted_var = readtable(weighted_var_path);
     weighted_by_initial = readtable(weighted_by_initial_path);
     if abs(sum(weighted_samples.sample_weight) - 1) > 1e-10
@@ -270,4 +276,27 @@ if exist(comparison_path, 'file')
         error('var_uniform_vs_weighted_comparison.csv行数应等于置信水平数量。');
     end
 end
+end
+
+function status_message = check_severity_status_table(severity_status_path, cfg)
+if ~exist(severity_status_path, 'file')
+    status_message = "severity_formula_status.csv尚未生成。";
+    return;
+end
+status_table = readtable(severity_status_path);
+required = {'severity_type', 'status', 'note'};
+missing = setdiff(required, status_table.Properties.VariableNames);
+if ~isempty(missing)
+    error('severity_formula_status.csv缺少字段：%s', strjoin(missing, ', '));
+end
+severity_type = string(status_table.severity_type);
+status = string(status_table.status);
+if ~any(severity_type == "basic" & status == "available")
+    error('severity_formula_status.csv必须说明basic严重度可用。');
+end
+if isfield(cfg, 'paper_severity_formula_confirmed') && ~cfg.paper_severity_formula_confirmed && ...
+        any(severity_type == "paper_formula" & status == "available")
+    error('论文严重度公式未确认时，severity_formula_status.csv不能标记paper_formula可用。');
+end
+status_message = "严重度公式状态表已检查：paper_formula尚未确认时不会输出有效paper结果。";
 end

@@ -44,6 +44,17 @@ cfg.enable_wind_voltage_trip_sampling = false;
 % 简化风险指标权重。论文给出 SLLR/SLFOR/SNVOR 权重为 0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];
 
+% 风险严重度函数模式。默认仅使用basic最小版严重度；论文公式未人工核对前，
+% 不允许启用paper_formula作为有效结果。
+cfg.severity_mode = 'basic';
+cfg.enable_paper_severity = false;
+cfg.paper_severity_formula_confirmed = false;
+cfg.paper_lfor_use_line_count = true;
+cfg.paper_nvor_use_bus_count = true;
+cfg.voltage_upper_limit_pu = 1.05;
+cfg.voltage_lower_limit_pu = 0.95;
+cfg.paper_severity_note = '论文严重度函数待人工核对，未确认前不得用于最终结果';
+
 % 主岛选择规则参数。原平衡节点所在岛至少承担该比例负荷时，才允许
 % 优先保留原平衡节点所在岛；否则选择更能代表主网的最大负荷岛。
 cfg.main_island_min_load_share = 0.5; % 待校准
