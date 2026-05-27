@@ -79,6 +79,13 @@ cfg.initial_fault_probability_file = fullfile('data', 'line_initial_outage_proba
 cfg.initial_fault_probability_unit = 'probability';
 cfg.export_probability_template_if_missing = true;
 
+% 候选线路明细导出设置。完整CSV保留，同时输出分块文件和manifest，
+% 便于GitHub稳定查看与复核大表。
+cfg.candidate_detail_chunk_size = 10000;
+cfg.export_candidate_detail_chunks = true;
+cfg.export_candidate_detail_full_csv = true;
+cfg.export_candidate_detail_sample = true;
+
 % 输出目录。
 cfg.results_table_dir = fullfile('results', 'tables');
 cfg.results_log_dir = fullfile('results', 'logs');

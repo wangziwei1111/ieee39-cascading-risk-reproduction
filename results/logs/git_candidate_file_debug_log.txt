@@ -1,0 +1,66 @@
+﻿===== pwd =====
+
+Path                                   
+----                                   
+C:\Users\24186\Documents\New project 13
+
+===== git status --short =====
+ M config/base_config.m
+ M docs/reproduction_notes.md
+ M results/chains/markov_chain_records.mat
+ M results/figures/markov_initial_fault_cri_top10.png
+ M results/figures/markov_var_metrics.png
+ M results/logs/basecase_validation_log.txt
+ M results/logs/markov_line_run_log.txt
+ M results/logs/markov_risk_log.txt
+ M results/logs/minimal_run_log.txt
+ M src/main_check_markov_outputs.m
+ M src/main_run_markov_line.m
+ M src/utils/save_result_table.m
+?? results/logs/git_candidate_file_debug_log.txt
+?? results/tables/candidate_chunks/
+?? results/tables/markov_candidate_details_manifest.csv
+?? src/utils/get_file_bytes.m
+?? src/utils/save_table_chunks.m
+
+===== git branch --show-current =====
+codex/minimal-reproduction-backup
+
+===== git ls-files results/tables/markov_candidate_details.csv =====
+results/tables/markov_candidate_details.csv
+
+===== git ls-files results/tables/markov_candidate_details_sample.csv =====
+results/tables/markov_candidate_details_sample.csv
+
+===== git ls-files results/tables/markov_candidate_summary.csv =====
+results/tables/markov_candidate_summary.csv
+
+===== git check-ignore -v results/tables/markov_candidate_details.csv =====
+not ignored
+
+===== git check-ignore -v results/tables/candidate_chunks/markov_candidate_details_part001.csv =====
+not ignored
+
+===== Get-Item results/tables/markov_candidate_details.csv =====
+
+FullName                                                                             Length LastWriteTime     
+--------                                                                             ------ -------------     
+C:\Users\24186\Documents\New project 13\results\tables\markov_candidate_details.csv 3577209 2026/5/27 15:07:55
+
+===== Get-Item results/tables/markov_candidate_details_manifest.csv =====
+
+FullName                                                                                     Length LastWriteTime     
+--------                                                                                     ------ -------------     
+C:\Users\24186\Documents\New project 13\results\tables\markov_candidate_details_manifest.csv    447 2026/5/27 15:07:57
+
+===== Get-Item candidate chunks =====
+
+Name                                 Length LastWriteTime     
+----                                 ------ -------------     
+markov_candidate_details_part001.csv 612895 2026/5/27 15:07:56
+markov_candidate_details_part002.csv 626586 2026/5/27 15:07:56
+markov_candidate_details_part003.csv 622536 2026/5/27 15:07:56
+markov_candidate_details_part004.csv 621634 2026/5/27 15:07:57
+markov_candidate_details_part005.csv 628143 2026/5/27 15:07:57
+markov_candidate_details_part006.csv 466015 2026/5/27 15:07:57
+

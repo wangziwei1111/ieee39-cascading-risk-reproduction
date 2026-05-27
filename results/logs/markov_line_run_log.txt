@@ -1,9 +1,8 @@
-线路马尔可夫事故链搜索开始：2026-05-27 13:51:40
+线路马尔可夫事故链搜索开始：2026-05-27 15:06:32
 场景：minimal_distributed_wind_40pct
 新能源调度模式：wind_plus_redispatch
 随机种子：202405
 每个初始故障样本数：20，最大深度：5
-已自动加入MATPOWER路径：E:\Matlab\toolbox\matpower6.0\matpower6.0
 已完成初始故障 1/46：branch 1 (1-2)
 已完成初始故障 2/46：branch 2 (1-39)
 已完成初始故障 3/46：branch 3 (2-3)
@@ -56,11 +55,21 @@
 抽中停运候选数量：1090
 候选线路最大负载率：2.886841
 候选线路最大停运概率：1.000000
+候选线路分块文件数量：6
+候选线路分块总行数：57448
+候选线路manifest路径：C:\Users\24186\Documents\New project 13\results\tables\markov_candidate_details_manifest.csv
+候选线路样本文件行数：1590
+    total_candidate_rows    selected_candidate_rows    max_loading_pu    max_outage_probability    mean_outage_probability    p95_loading_pu    p95_outage_probability    num_probability_above_0_1    num_probability_equal_1    num_selected_with_probability_equal_1
+    ____________________    _______________________    ______________    ______________________    _______________________    ______________    ______________________    _________________________    _______________________    _____________________________________
+
+           57448                     1090                  2.8868                  1                      0.023201               0.91227               0.056179                     1766                         771                               613                 
+
 事故链汇总结果已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_chain_summary.csv
 事故链逐级结果已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_chain_stages.csv
 候选线路抽样明细已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_candidate_details.csv
 候选线路抽样汇总已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_candidate_summary.csv
 候选线路抽样样本已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_candidate_details_sample.csv
+候选线路分块目录：C:\Users\24186\Documents\New project 13\results\tables\candidate_chunks
 事故链MAT记录已写入：C:\Users\24186\Documents\New project 13\results\chains\markov_chain_records.mat
 终止原因统计：
       terminated_reason      GroupCount
@@ -70,4 +79,4 @@
     "max_depth_reached"          40    
     "no_new_outage"             800    
 
-线路马尔可夫事故链搜索结束：2026-05-27 13:52:01
+线路马尔可夫事故链搜索结束：2026-05-27 15:08:11

@@ -252,3 +252,24 @@ cfg.var_use_chain_weights = true;
 4. 在 `src/risk/` 中新增单事故链 LLR/LFOR/NVOR 和多事故链 VaR 计算函数。
 5. 在 `experiments/` 中增加论文第4章场景脚本，包括无新能源、40%分散式、集中式接入、渗透率扫描和风速扫描。
 6. 保留所有未明确参数在 `config` 中集中管理，并在校准前继续标注“待校准”。
+## 候选线路明细分块归档
+
+为避免完整候选线路明细 `markov_candidate_details.csv` 因文件较大或在线读取环境差异而表现为空，本工程保留 full CSV 的同时，新增了可追溯的分块归档机制。后续论文复现审查建议优先检查 manifest 和 chunk 文件，而不是只依赖 full CSV。
+
+当前候选线路抽样结果同时输出四类文件：
+
+- `results/tables/markov_candidate_details.csv`：完整候选线路抽样明细，用于本地完整追溯每条事故链、每一级、每条候选线路的 `loading_pu`、`outage_probability`、`random_u` 和 `trip_selected`。
+- `results/tables/markov_candidate_summary.csv`：轻量统计汇总，用于快速确认候选总行数、抽中行数、最大负载率、最大停运概率、95%分位统计等。
+- `results/tables/markov_candidate_details_sample.csv`：人工快速查看样本，包含所有 `trip_selected=1` 的记录，以及未抽中候选中停运概率最高的前500条记录。
+- `results/tables/candidate_chunks/` 与 `results/tables/markov_candidate_details_manifest.csv`：稳定复核大表的分块归档。manifest 记录每个 chunk 的文件名、起止行、行数和文件大小；每个 chunk 写出后都会立即 `readtable` 读回校验。
+
+当前默认配置为：
+
+```matlab
+cfg.candidate_detail_chunk_size = 10000;
+cfg.export_candidate_detail_chunks = true;
+cfg.export_candidate_detail_full_csv = true;
+cfg.export_candidate_detail_sample = true;
+```
+
+`main_run_markov_line` 会在写出 full CSV、sample、summary、chunk 和 manifest 后进行落盘校验；`main_check_markov_outputs` 会逐个读取 manifest 中的 chunk 文件，检查行数、字段、文件大小、`random_u` 范围、`outage_probability` 范围、`loading_pu` 非负性，以及是否存在 `trip_selected=1`。如果 full CSV 读取异常但所有 chunk 均通过检查，会打印 warning；如果 chunk 也失败，则直接报错并停止后续分析。

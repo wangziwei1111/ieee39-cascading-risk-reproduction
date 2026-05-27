@@ -19,6 +19,9 @@ cfg = base_config();
 cfg.results_table_dir = fullfile(project_root, cfg.results_table_dir);
 cfg.results_log_dir = fullfile(project_root, cfg.results_log_dir);
 cfg.results_chain_dir = fullfile(project_root, cfg.results_chain_dir);
+if isfield(cfg, 'results_figure_dir')
+    cfg.results_figure_dir = fullfile(project_root, cfg.results_figure_dir);
+end
 scenario = scenario_config();
 
 init_random_seed(cfg.markov_random_seed);
@@ -94,26 +97,48 @@ stage_csv = fullfile(cfg.results_table_dir, 'markov_chain_stages.csv');
 candidate_csv = fullfile(cfg.results_table_dir, 'markov_candidate_details.csv');
 candidate_summary_csv = fullfile(cfg.results_table_dir, 'markov_candidate_summary.csv');
 candidate_sample_csv = fullfile(cfg.results_table_dir, 'markov_candidate_details_sample.csv');
+candidate_chunk_dir = fullfile(cfg.results_table_dir, 'candidate_chunks');
+candidate_manifest_csv = fullfile(cfg.results_table_dir, 'markov_candidate_details_manifest.csv');
 records_mat = fullfile(cfg.results_chain_dir, 'markov_chain_records.mat');
 
 save_result_table(chain_summary_table, summary_csv);
 save_result_table(chain_stage_table, stage_csv);
-save_result_table(candidate_detail_table, candidate_csv);
+if cfg.export_candidate_detail_full_csv
+    save_result_table(candidate_detail_table, candidate_csv, true);
+end
 save_result_table(candidate_summary_table, candidate_summary_csv);
-save_result_table(candidate_sample_table, candidate_sample_csv);
-validate_candidate_csv(candidate_csv, candidate_detail_table);
+if cfg.export_candidate_detail_sample
+    save_result_table(candidate_sample_table, candidate_sample_csv, true);
+end
+if cfg.export_candidate_detail_chunks
+    manifest_table = save_table_chunks(candidate_detail_table, candidate_chunk_dir, ...
+        'markov_candidate_details', cfg.candidate_detail_chunk_size);
+    save_result_table(manifest_table, candidate_manifest_csv, true);
+else
+    manifest_table = table();
+end
+if cfg.export_candidate_detail_full_csv
+    validate_candidate_csv(candidate_csv, candidate_detail_table);
+end
+validate_candidate_chunks(candidate_chunk_dir, manifest_table, candidate_detail_table, candidate_summary_table);
 save(records_mat, 'chain_records', 'cfg', 'scenario', 'renewable_info', '-v7');
 
 fprintf('候选线路明细行数：%d\n', candidate_row_count);
 fprintf('抽中停运候选数量：%d\n', selected_candidate_count);
 fprintf('候选线路最大负载率：%.6f\n', max_candidate_loading);
 fprintf('候选线路最大停运概率：%.6f\n', max_candidate_probability);
+fprintf('候选线路分块文件数量：%d\n', height(manifest_table));
+fprintf('候选线路分块总行数：%d\n', sum(manifest_table.row_count));
+fprintf('候选线路manifest路径：%s\n', candidate_manifest_csv);
+fprintf('候选线路样本文件行数：%d\n', height(candidate_sample_table));
+disp(candidate_summary_table);
 
 fprintf('事故链汇总结果已写入：%s\n', summary_csv);
 fprintf('事故链逐级结果已写入：%s\n', stage_csv);
 fprintf('候选线路抽样明细已写入：%s\n', candidate_csv);
 fprintf('候选线路抽样汇总已写入：%s\n', candidate_summary_csv);
 fprintf('候选线路抽样样本已写入：%s\n', candidate_sample_csv);
+fprintf('候选线路分块目录：%s\n', candidate_chunk_dir);
 fprintf('事故链MAT记录已写入：%s\n', records_mat);
 fprintf('终止原因统计：\n');
 disp(groupsummary(chain_summary_table, 'terminated_reason'));
@@ -139,6 +164,65 @@ unselected = candidate_detail_table(candidate_detail_table.trip_selected == 0, :
 unselected = sortrows(unselected, 'outage_probability', 'descend');
 top_n = min(500, height(unselected));
 candidate_sample_table = [selected; unselected(1:top_n, :)];
+end
+
+function validate_candidate_chunks(candidate_chunk_dir, manifest_table, candidate_detail_table, candidate_summary_table)
+%VALIDATE_CANDIDATE_CHUNKS 校验候选线路明细分块文件。
+% 输入：
+%   candidate_chunk_dir - 分块目录。
+%   manifest_table - 分块清单。
+%   candidate_detail_table - 内存完整候选明细表。
+%   candidate_summary_table - 候选汇总表。
+% 输出：
+%   无。任何不一致直接报错。
+% 物理含义：
+%   分块文件是大候选明细在GitHub上稳定复核的主要依据。
+
+if isempty(manifest_table)
+    error('候选线路分块manifest为空。');
+end
+if ~exist(candidate_chunk_dir, 'dir')
+    error('候选线路分块目录不存在：%s', candidate_chunk_dir);
+end
+
+total_rows = 0;
+has_selected = false;
+max_prob = -Inf;
+for i = 1:height(manifest_table)
+    file_path = fullfile(candidate_chunk_dir, char(manifest_table.file_name(i)));
+    if ~exist(file_path, 'file')
+        error('候选线路分块文件不存在：%s', file_path);
+    end
+    bytes = get_file_bytes(file_path);
+    if bytes ~= manifest_table.file_bytes(i)
+        error('候选线路分块文件大小与manifest不一致：%s', file_path);
+    end
+    chunk = readtable(file_path);
+    if height(chunk) ~= manifest_table.row_count(i)
+        error('候选线路分块读回行数与manifest不一致：%s', file_path);
+    end
+    total_rows = total_rows + height(chunk);
+    if any(chunk.trip_selected == 1)
+        has_selected = true;
+    end
+    if ~isempty(chunk)
+        max_prob = max(max_prob, max(chunk.outage_probability));
+    end
+end
+
+if total_rows ~= height(candidate_detail_table)
+    error('候选线路分块总行数%d与完整候选表%d不一致。', total_rows, height(candidate_detail_table));
+end
+if total_rows ~= candidate_summary_table.total_candidate_rows(1)
+    error('候选线路分块总行数%d与summary总行数%d不一致。', ...
+        total_rows, candidate_summary_table.total_candidate_rows(1));
+end
+if ~has_selected
+    error('候选线路分块文件中未发现trip_selected=1记录。');
+end
+if max_prob <= 0
+    error('候选线路分块文件最大停运概率异常。');
+end
 end
 
 function validate_candidate_csv(candidate_csv, candidate_detail_table)
