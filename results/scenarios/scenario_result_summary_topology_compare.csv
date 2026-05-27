@@ -1,0 +1,4 @@
+scenario_id,total_wind_capacity_mw,wind_buses,wind_speed_mps,renewable_dispatch_mode,basecase_converged,chain_count,invalid_stage_ratio,basic_CRI_095,weighted_CRI_095,paper_CRI_095,paper_result_status,overall_status,paper_note
+no_renewable_base,0,"",NaN,none,1,230,0.00974025974025974,0.332922285846262,0.459301455259781,0.00181064186409657,valid,success_all_valid,
+distributed_wind_40pct,3000,"30,31,32,33,34,35,36,37,38,39",12,wind_plus_redispatch,1,230,0.0223463687150838,0.602348573797092,0.59475840134054,0.00240430199980094,valid,success_all_valid,
+centralized_wind_40pct,3000,"39",12,wind_plus_redispatch,1,230,0.106818181818182,0.741865993346573,0.744020265997949,NaN,diagnostic_only,success_with_diagnostic_paper,paper_formula invalid chain ratio exceeds threshold: 0.086957

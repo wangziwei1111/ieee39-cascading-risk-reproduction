@@ -1,12 +1,14 @@
-function summary_table = collect_scenario_results(scenario_ids, scenario_root)
+function summary_table = collect_scenario_results(scenario_ids, scenario_root, batch_mode)
 %COLLECT_SCENARIO_RESULTS 汇总多个场景的VaR和诊断结果。
 % 输入：
-%   scenario_ids - 场景编号cell数组；为空时自动读取scenario_root下的目录。
+%   scenario_ids - 场景编号cell数组；为空时自动读取scenario_root下目录。
 %   scenario_root - results/scenarios目录。
+%   batch_mode - 可选批处理模式；提供时额外输出scenario_result_summary_<batch_mode>.csv。
 % 输出：
 %   summary_table - 场景结果汇总表。
 % 物理含义：
-%   将每个场景的basic、weighted、paper_formula VaR和无效stage比例汇总，便于第4章横向对比。
+%   汇总basic、weighted、paper_formula VaR和paper状态。diagnostic_only保留NaN paper_CRI，
+%   不把不可用于论文对照的结果画成或汇总成有效数值。
 
 if nargin < 2 || isempty(scenario_root)
     project_root = fileparts(fileparts(fileparts(mfilename('fullpath'))));
@@ -16,6 +18,9 @@ end
 if nargin < 1 || isempty(scenario_ids)
     listing = dir(scenario_root);
     scenario_ids = {listing([listing.isdir] & ~startsWith({listing.name}, '.')).name};
+end
+if nargin < 3
+    batch_mode = '';
 end
 
 rows = {};
@@ -27,12 +32,7 @@ for k = 1:numel(scenario_ids)
         continue;
     end
     scenario = load_scenario_metadata(config_dir);
-    basecase_converged = read_basecase_status(table_dir);
-    chain_count = read_table_height(fullfile(table_dir, 'markov_chain_summary.csv'));
-    invalid_stage_ratio = read_invalid_stage_ratio(table_dir);
     [paper_cri, paper_status, paper_note] = read_paper_cri_status(table_dir);
-    basic_cri = read_cri(table_dir, 'markov_var_metrics.csv');
-    weighted_cri = read_cri(table_dir, 'markov_var_metrics_weighted.csv');
     if paper_status == "valid"
         overall_status = "success_all_valid";
     elseif paper_status == "diagnostic_only"
@@ -40,10 +40,15 @@ for k = 1:numel(scenario_ids)
     else
         overall_status = "failed";
     end
+
     rows{end + 1, 1} = table(string(scenario_id), scenario.total_wind_capacity_mw, ...
         string(join_vector(scenario.wind_buses)), scenario.wind_speed_mps, ...
-        string(scenario.renewable_dispatch_mode), basecase_converged, chain_count, invalid_stage_ratio, ...
-        basic_cri, weighted_cri, paper_cri, paper_status, overall_status, paper_note, ...
+        string(scenario.renewable_dispatch_mode), read_basecase_status(table_dir), ...
+        read_table_height(fullfile(table_dir, 'markov_chain_summary.csv')), ...
+        read_invalid_stage_ratio(table_dir), ...
+        read_cri(table_dir, 'markov_var_metrics.csv'), ...
+        read_cri(table_dir, 'markov_var_metrics_weighted.csv'), ...
+        paper_cri, paper_status, overall_status, paper_note, ...
         'VariableNames', {'scenario_id', 'total_wind_capacity_mw', 'wind_buses', 'wind_speed_mps', ...
         'renewable_dispatch_mode', 'basecase_converged', 'chain_count', 'invalid_stage_ratio', ...
         'basic_CRI_095', 'weighted_CRI_095', 'paper_CRI_095', ...
@@ -55,7 +60,11 @@ if isempty(rows)
 else
     summary_table = vertcat(rows{:});
 end
+
 save_result_table(summary_table, fullfile(scenario_root, 'scenario_result_summary.csv'), true);
+if strlength(string(batch_mode)) > 0
+    save_result_table(summary_table, fullfile(scenario_root, sprintf('scenario_result_summary_%s.csv', batch_mode)), true);
+end
 end
 
 function scenario = load_scenario_metadata(config_dir)

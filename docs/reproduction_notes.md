@@ -37,6 +37,21 @@ smoke batch 将 `markov_num_trials_per_initial_fault` 临时设为 5，只用于
 
 `diagnostic_only` 表示场景程序运行成功，但 paper_formula 因无效阶段比例过高等原因不能作为有效论文对照。此时 `paper_CRI_095` 允许为 `NaN`，但 `overall_status` 必须为 `success_with_diagnostic_paper`，不能标记为 `success_all_valid`。smoke test 仍然只是框架检查结果；只有状态体系正确后，后续才适合运行 full batch。
 
+## full batch 分组运行与断点续跑
+
+完整第4章场景扫描不建议一次性运行。当前已新增通用入口 `main_run_scenario_batch(batch_mode, run_options)`，支持以下 `batch_mode`：
+
+- `smoke`：无新能源、分散式40%、集中式40%。
+- `topology_compare`：无新能源、分散式40%、集中式40%，用于接入方式对比。
+- `penetration_scan`：分散式40%到80%渗透率扫描。
+- `wind_speed_scan`：8/10/12/14/16 m/s风速扫描。
+- `renewable_trip_record`：分散式40%与“仅记录新能源脱网概率”对比。
+- `all_full`：全部场景。
+
+`resume_existing=true` 时，如果场景目录已经包含完整结果并通过 `check_single_scenario_complete`，批处理会跳过该场景并在汇总表中写入 `execution_status=skipped_existing`。`force_rerun=true` 时会重新运行场景；它不能与 `resume_existing=true` 同时启用。
+
+`diagnostic_only` 可以表示场景运行完整，因此断点续跑允许跳过这类场景；但它只代表 paper_formula 结果可用于诊断，不能作为有效论文对照。推荐运行顺序为：`smoke`、`topology_compare`、`penetration_scan`、`wind_speed_scan`、`renewable_trip_record`，最后在确认各组状态后再运行 `all_full`。
+
 ## 当前已实现内容
 
 - 使用 MATLAB + MATPOWER 的 `case39` 作为 IEEE 10机39节点基础系统。

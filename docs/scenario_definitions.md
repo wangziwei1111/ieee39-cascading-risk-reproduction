@@ -39,3 +39,16 @@ results/scenarios/<scenario_id>/
 | `overall_status` | 综合状态 |
 
 当前 `no_renewable_base` 和 `distributed_wind_40pct` 的 paper_formula 结果为 `valid`，综合状态应为 `success_all_valid`。`centralized_wind_40pct` 可能因为集中接入导致无效阶段比例较高，当前 paper_formula 可被标记为 `diagnostic_only`，综合状态应为 `success_with_diagnostic_paper`，不能作为有效论文对照。集中接入节点仍暂取39节点，属于待校准设置。
+
+## Batch Mode 与场景对应
+
+| batch_mode | 场景 |
+|---|---|
+| `smoke` | `no_renewable_base`, `distributed_wind_40pct`, `centralized_wind_40pct` |
+| `topology_compare` | `no_renewable_base`, `distributed_wind_40pct`, `centralized_wind_40pct` |
+| `penetration_scan` | `distributed_wind_40pct`, `distributed_wind_45pct`, `distributed_wind_50pct`, `distributed_wind_55pct`, `distributed_wind_60pct`, `distributed_wind_65pct`, `distributed_wind_70pct`, `distributed_wind_75pct`, `distributed_wind_80pct` |
+| `wind_speed_scan` | `wind_speed_8mps`, `wind_speed_10mps`, `wind_speed_12mps`, `wind_speed_14mps`, `wind_speed_16mps` |
+| `renewable_trip_record` | `distributed_wind_40pct`, `distributed_wind_40pct_trip_record_only` |
+| `all_full` | 场景库中的全部场景 |
+
+已在 `smoke` 中运行的场景也是 `topology_compare` 的全部场景。因此在 `resume_existing=true`、`force_rerun=false` 时，`main_run_scenario_batch_topology` 应跳过已有完整场景，并在 `scenario_batch_summary_topology_compare.csv` 中记录 `execution_status=skipped_existing`。当前 `centralized_wind_40pct` 的 paper结果为 `diagnostic_only`，该场景运行完整但不能作为有效paper_formula论文对照。
