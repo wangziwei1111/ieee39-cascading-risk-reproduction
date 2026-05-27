@@ -72,17 +72,21 @@ end
 chain_records = vertcat(chain_cells{:});
 
 [chain_summary_table, chain_stage_table] = flatten_chain_records(chain_records, cfg);
+candidate_detail_table = flatten_candidate_tables(chain_records);
 
 summary_csv = fullfile(cfg.results_table_dir, 'markov_chain_summary.csv');
 stage_csv = fullfile(cfg.results_table_dir, 'markov_chain_stages.csv');
+candidate_csv = fullfile(cfg.results_table_dir, 'markov_candidate_details.csv');
 records_mat = fullfile(cfg.results_chain_dir, 'markov_chain_records.mat');
 
 save_result_table(chain_summary_table, summary_csv);
 save_result_table(chain_stage_table, stage_csv);
+save_result_table(candidate_detail_table, candidate_csv);
 save(records_mat, 'chain_records', 'cfg', 'scenario', 'renewable_info', '-v7');
 
 fprintf('事故链汇总结果已写入：%s\n', summary_csv);
 fprintf('事故链逐级结果已写入：%s\n', stage_csv);
+fprintf('候选线路抽样明细已写入：%s\n', candidate_csv);
 fprintf('事故链MAT记录已写入：%s\n', records_mat);
 fprintf('终止原因统计：\n');
 disp(groupsummary(chain_summary_table, 'terminated_reason'));

@@ -137,6 +137,49 @@ line_outage_probability
 
 这些字段不是论文中的 VaR 型 `SLLR/SLFOR/SNVOR/CRI`，只是基于当前事故链后果的简化风险值。后续论文对照版将基于全部事故链样本分布计算 VaR 型系统风险指标，再命名为 `SLLR`、`SLFOR`、`SNVOR` 和论文意义下的 `CRI`。
 
+## 第三阶段：基于 Markov 事故链样本的经验 VaR 风险指标
+
+当前新增独立入口：
+
+```matlab
+main_run_markov_risk
+```
+
+该入口读取 `results/tables/markov_chain_summary.csv`，将每条 Markov 事故链转换为一条风险样本，然后在 `sigma = 0.90, 0.95, 0.98` 三个置信水平下计算经验 VaR 型风险指标。
+
+当前 VaR 使用 Monte Carlo 样本的经验分位数：
+
+- 风险越大越严重，因此取右尾 `sigma` 分位数。
+- 当前每条事故链等权。
+- 尚未引入论文表4-1中的初始线路故障概率。
+- 当前不做 Logistic、指数分布或其他概率密度拟合。
+
+当前风险样本定义为：
+
+- `chain_LLR = total_load_shed_frac`
+- `chain_LFOR = max(max_line_loading_pu - 1, 0)`
+- `chain_NVOR = max_voltage_deviation_pu`
+- `chain_CRI = 0.6*chain_LLR + 0.2*chain_LFOR + 0.2*chain_NVOR`
+
+其中 `chain_LFOR` 和 `chain_NVOR` 仍是最小版严重度定义，不是论文中完整的效用函数形式；后续论文对照版需要进一步引入越限线路数量、电压越限节点数量和效用严重度函数。
+
+第三阶段输出文件：
+
+- `results/tables/markov_risk_samples.csv`
+- `results/tables/markov_var_metrics.csv`
+- `results/tables/markov_var_by_initial_fault.csv`
+- `results/logs/markov_risk_log.txt`
+- `results/figures/markov_var_metrics.png`
+- `results/figures/markov_initial_fault_cri_top10.png`
+
+同时，第二阶段入口已增加候选线路抽样明细：
+
+- `results/tables/markov_candidate_details.csv`
+
+该表记录每一级候选线路的 `loading_pu`、`outage_probability`、`random_u` 和 `trip_selected`，用于检查高负载率线路是否对应更高停运概率。
+
+当前结果可用于验证“Markov事故链样本 -> 风险样本 -> 经验VaR指标 -> 全局和分初始故障风险表”的计算流程，但不能直接声称复现论文第4章数值。下一步将接入论文表4-1初始线路停运概率，并补充更接近论文公式的 LLR/LFOR/NVOR 严重度函数。
+
 ## 当前简化内容
 
 - 系统频率固定为 50 Hz。
