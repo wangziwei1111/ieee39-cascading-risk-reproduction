@@ -1,0 +1,11 @@
+最小复现实验开始：2026-05-27 11:42:38
+场景：minimal_distributed_wind_40pct
+节点30至39分散式接入总容量3000 MW风电；各节点等容量分配为最小版假设，待校准。
+随机种子：202405
+已自动加入MATPOWER路径：E:\Matlab\toolbox\matpower6.0\matpower6.0
+基础系统：39个节点，46条线路，10台机组。
+枚举初始线路故障数：46
+结果已写入：C:\Users\24186\Documents\New project 13\results\tables\minimal_result.csv
+日志已写入：C:\Users\24186\Documents\New project 13\results\logs\minimal_run_log.txt
+汇总指标：SLLR=0.402174, SLFOR=4.176239, SNVOR=0.366239, CRI=1.149800
+最小复现实验结束：2026-05-27 11:42:40
