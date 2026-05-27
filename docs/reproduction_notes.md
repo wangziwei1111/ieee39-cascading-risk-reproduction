@@ -292,6 +292,34 @@ sample_weight = 初始线路normalized_weight / 该初始线路下的Monte Carlo
 
 当前加权VaR框架仍不代表论文数值完全复现，因为后续还需要校准线路容量、线路停运概率模型、保护参数和 LLR/LFOR/NVOR 严重度函数。
 
+目前已经根据论文表4-1录入 IEEE-10机39节点系统46条输电线路的初始停运概率。论文表头单位为 `停运概率(*10^-4)`，因此工程只在
+`data/line_initial_outage_probability_paper_table_4_1.csv` 中填写 `paper_prob_times_1e_minus_4`，由
+`main_validate_paper_table_4_1` 自动换算：
+
+```text
+initial_outage_probability = paper_prob_times_1e_minus_4 * 1e-4
+```
+
+校验后的概率文件输出为：
+
+```text
+results/tables/paper_table_4_1_probability_validated.csv
+```
+
+加权VaR结果输出为：
+
+```text
+results/tables/markov_risk_samples_weighted.csv
+results/tables/markov_var_metrics_weighted.csv
+results/tables/markov_var_by_initial_fault_weighted.csv
+results/tables/var_uniform_vs_weighted_comparison.csv
+results/figures/var_uniform_vs_weighted_cri.png
+```
+
+`uniform` VaR表示每条事故链样本等权，适合检查算法闭环；`paper_table_4_1 weighted` VaR表示按照论文表4-1中不同初始线路故障概率对事故链样本加权，反映“初始故障发生可能性”对全局风险分位数的影响。
+
+需要注意，当前结果仍不是论文数值的完全复现：线路容量参数、后续线路停运概率模型、保护隐性故障参数、负荷削减模型以及 LLR/LFOR/NVOR 严重度函数仍处于最小可运行版或待校准状态。
+
 ## 候选线路明细分块归档
 
 为避免完整候选线路明细 `markov_candidate_details.csv` 因文件较大或在线读取环境差异而表现为空，本工程保留 full CSV 的同时，新增了可追溯的分块归档机制。后续论文复现审查建议优先检查 manifest 和 chunk 文件，而不是只依赖 full CSV。
