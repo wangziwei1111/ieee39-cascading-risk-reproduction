@@ -18,6 +18,7 @@ cfg.results_table_dir = fullfile(project_root, cfg.results_table_dir);
 summary_path = fullfile(cfg.results_table_dir, 'markov_chain_summary.csv');
 stage_path = fullfile(cfg.results_table_dir, 'markov_chain_stages.csv');
 candidate_path = fullfile(cfg.results_table_dir, 'markov_candidate_details.csv');
+candidate_sample_path = fullfile(cfg.results_table_dir, 'markov_candidate_details_sample.csv');
 risk_sample_path = fullfile(cfg.results_table_dir, 'markov_risk_samples.csv');
 var_path = fullfile(cfg.results_table_dir, 'markov_var_metrics.csv');
 by_initial_path = fullfile(cfg.results_table_dir, 'markov_var_by_initial_fault.csv');
@@ -25,6 +26,7 @@ by_initial_path = fullfile(cfg.results_table_dir, 'markov_var_by_initial_fault.c
 must_exist(summary_path);
 must_exist(stage_path);
 must_exist(candidate_path);
+must_exist(candidate_sample_path);
 must_exist(risk_sample_path);
 must_exist(var_path);
 must_exist(by_initial_path);
@@ -32,6 +34,7 @@ must_exist(by_initial_path);
 summary_table = readtable(summary_path);
 stage_table = readtable(stage_path);
 candidate_table = readtable(candidate_path);
+candidate_sample_table = readtable(candidate_sample_path);
 risk_samples = readtable(risk_sample_path);
 var_table = readtable(var_path);
 by_initial_table = readtable(by_initial_path);
@@ -46,11 +49,36 @@ end
 if isempty(candidate_table)
     error('markov_candidate_details.csv为空。');
 end
+candidate_info = dir(candidate_path);
+if candidate_info.bytes < 100
+    error('markov_candidate_details.csv文件过小：%d bytes。', candidate_info.bytes);
+end
+required_candidate_columns = {'initial_branch', 'trial_id', 'stage_id', 'candidate_branch', ...
+    'from_bus', 'to_bus', 'loading_pu', 'outage_probability', 'random_u', 'trip_selected'};
+missing_candidate_columns = setdiff(required_candidate_columns, candidate_table.Properties.VariableNames);
+if ~isempty(missing_candidate_columns)
+    error('markov_candidate_details.csv缺少列：%s', strjoin(missing_candidate_columns, ', '));
+end
+if height(candidate_table) <= height(stage_table)
+    error('候选线路明细行数%d应大于事故链逐级状态行数%d。', height(candidate_table), height(stage_table));
+end
 if max(candidate_table.outage_probability) <= cfg.line_outage_p0
     error('候选线路最大停运概率未高于基础概率line_outage_p0。');
 end
 if ~any(candidate_table.trip_selected == 1)
     error('候选线路明细中不存在trip_selected=1的记录。');
+end
+if any(candidate_table.random_u < 0 | candidate_table.random_u > 1)
+    error('candidate_details中random_u存在[0,1]以外的值。');
+end
+if any(candidate_table.outage_probability < 0 | candidate_table.outage_probability > 1)
+    error('candidate_details中outage_probability存在[0,1]以外的值。');
+end
+if any(candidate_table.loading_pu < 0)
+    error('candidate_details中loading_pu存在负值。');
+end
+if isempty(candidate_sample_table)
+    error('markov_candidate_details_sample.csv为空。');
 end
 if height(risk_samples) ~= height(summary_table)
     error('markov_risk_samples.csv行数应与markov_chain_summary.csv一致。');
@@ -69,6 +97,7 @@ fprintf('Markov输出自检通过。\n');
 fprintf('事故链汇总行数：%d\n', height(summary_table));
 fprintf('事故链逐级状态行数：%d\n', height(stage_table));
 fprintf('候选线路明细行数：%d\n', height(candidate_table));
+fprintf('候选线路样本行数：%d\n', height(candidate_sample_table));
 fprintf('抽中停运候选数量：%d\n', sum(candidate_table.trip_selected == 1));
 fprintf('最大候选线路负载率：%.6f\n', max(candidate_table.loading_pu));
 fprintf('最大候选线路停运概率：%.6f\n', max(candidate_table.outage_probability));

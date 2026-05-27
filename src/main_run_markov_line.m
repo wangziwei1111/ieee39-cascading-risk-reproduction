@@ -73,6 +73,8 @@ chain_records = vertcat(chain_cells{:});
 
 [chain_summary_table, chain_stage_table] = flatten_chain_records(chain_records, cfg);
 candidate_detail_table = flatten_candidate_tables(chain_records);
+candidate_summary_table = summarize_candidate_details(candidate_detail_table);
+candidate_sample_table = build_candidate_sample(candidate_detail_table);
 candidate_row_count = height(candidate_detail_table);
 selected_candidate_count = 0;
 max_candidate_loading = NaN;
@@ -90,11 +92,16 @@ end
 summary_csv = fullfile(cfg.results_table_dir, 'markov_chain_summary.csv');
 stage_csv = fullfile(cfg.results_table_dir, 'markov_chain_stages.csv');
 candidate_csv = fullfile(cfg.results_table_dir, 'markov_candidate_details.csv');
+candidate_summary_csv = fullfile(cfg.results_table_dir, 'markov_candidate_summary.csv');
+candidate_sample_csv = fullfile(cfg.results_table_dir, 'markov_candidate_details_sample.csv');
 records_mat = fullfile(cfg.results_chain_dir, 'markov_chain_records.mat');
 
 save_result_table(chain_summary_table, summary_csv);
 save_result_table(chain_stage_table, stage_csv);
 save_result_table(candidate_detail_table, candidate_csv);
+save_result_table(candidate_summary_table, candidate_summary_csv);
+save_result_table(candidate_sample_table, candidate_sample_csv);
+validate_candidate_csv(candidate_csv, candidate_detail_table);
 save(records_mat, 'chain_records', 'cfg', 'scenario', 'renewable_info', '-v7');
 
 fprintf('候选线路明细行数：%d\n', candidate_row_count);
@@ -105,8 +112,58 @@ fprintf('候选线路最大停运概率：%.6f\n', max_candidate_probability);
 fprintf('事故链汇总结果已写入：%s\n', summary_csv);
 fprintf('事故链逐级结果已写入：%s\n', stage_csv);
 fprintf('候选线路抽样明细已写入：%s\n', candidate_csv);
+fprintf('候选线路抽样汇总已写入：%s\n', candidate_summary_csv);
+fprintf('候选线路抽样样本已写入：%s\n', candidate_sample_csv);
 fprintf('事故链MAT记录已写入：%s\n', records_mat);
 fprintf('终止原因统计：\n');
 disp(groupsummary(chain_summary_table, 'terminated_reason'));
 fprintf('线路马尔可夫事故链搜索结束：%s\n', datestr(now, 'yyyy-mm-dd HH:MM:SS'));
+end
+
+function candidate_sample_table = build_candidate_sample(candidate_detail_table)
+%BUILD_CANDIDATE_SAMPLE 构造便于GitHub人工查看的候选线路样本表。
+% 输入：
+%   candidate_detail_table - 完整候选线路明细表。
+% 输出：
+%   candidate_sample_table - 全部抽中记录 + 概率排名前500的未抽中记录。
+% 物理含义：
+%   完整候选表较大，样本表用于快速检查高概率线路和抽中线路。
+
+if isempty(candidate_detail_table) || height(candidate_detail_table) == 0
+    candidate_sample_table = candidate_detail_table;
+    return;
+end
+
+selected = candidate_detail_table(candidate_detail_table.trip_selected == 1, :);
+unselected = candidate_detail_table(candidate_detail_table.trip_selected == 0, :);
+unselected = sortrows(unselected, 'outage_probability', 'descend');
+top_n = min(500, height(unselected));
+candidate_sample_table = [selected; unselected(1:top_n, :)];
+end
+
+function validate_candidate_csv(candidate_csv, candidate_detail_table)
+%VALIDATE_CANDIDATE_CSV 强制校验候选线路明细CSV落盘结果。
+% 输入：
+%   candidate_csv - 候选明细CSV路径。
+%   candidate_detail_table - 内存中的候选明细表。
+% 输出：
+%   无。任何不一致直接报错。
+% 物理含义：
+%   防止日志显示内存表非空，但GitHub提交的CSV为空或损坏。
+
+file_info = dir(candidate_csv);
+fprintf('候选线路CSV文件大小：%d bytes\n', file_info.bytes);
+candidate_readback = readtable(candidate_csv);
+fprintf('候选线路CSV读回行数：%d\n', height(candidate_readback));
+
+if height(candidate_detail_table) > 0 && height(candidate_readback) == 0
+    error('候选线路CSV读回为空，但内存候选表非空。');
+end
+if height(candidate_readback) ~= height(candidate_detail_table)
+    error('候选线路CSV读回行数%d与内存表行数%d不一致。', ...
+        height(candidate_readback), height(candidate_detail_table));
+end
+if ~any(candidate_readback.trip_selected == 1)
+    error('候选线路CSV中不存在trip_selected=1记录。');
+end
 end
