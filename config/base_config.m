@@ -49,7 +49,28 @@ cfg.risk_weights = [0.6, 0.2, 0.2];
 cfg.main_island_min_load_share = 0.5; % 待校准
 cfg.main_island_selection_mode = 'largest_load_with_slack_bonus';
 
+% 马尔可夫线路事故链搜索参数。当前仅用于跑通线路后续停运的最小闭环。
+cfg.markov_enable = true;
+cfg.markov_num_trials_per_initial_fault = 20;   % 待校准：每个初始故障的蒙特卡洛样本数
+cfg.markov_max_depth = 5;                       % 待校准：最大事故链深度
+cfg.markov_min_trip_probability = 1e-6;         % 待校准：小于该概率的候选停运可忽略
+cfg.markov_trip_sampling_mode = 'independent';  % independent表示每条候选线路独立抽样
+cfg.markov_allow_multiple_trips_per_stage = true;
+cfg.markov_stop_if_no_new_outage = true;
+cfg.markov_stop_if_load_loss_frac_gt = 0.30;
+cfg.markov_random_seed = cfg.seed;
+
+% 线路停运概率模型参数。论文中完整模型还包含保护隐性故障等参数，
+% 这里先使用潮流负载率驱动的简化模型，所有参数均待校准。
+cfg.line_outage_p0 = 1e-4;              % 正常负载区基础停运概率，待校准
+cfg.line_rated_loading_pu = 0.80;       % Lrated/Lmax，待校准
+cfg.line_limit_loading_pu = 1.00;       % Lmax，对应RATE_A，待校准
+cfg.line_prob_at_limit = 0.10;          % 负载率到达Lmax时的中间概率，待校准
+cfg.line_forced_trip_loading_pu = 1.20; % 超过该负载率，停运概率置1，待校准
+cfg.line_outage_prob_cap = 1.0;
+
 % 输出目录。
 cfg.results_table_dir = fullfile('results', 'tables');
 cfg.results_log_dir = fullfile('results', 'logs');
+cfg.results_chain_dir = fullfile('results', 'chains');
 end

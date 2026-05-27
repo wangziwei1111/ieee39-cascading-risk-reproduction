@@ -1,0 +1,64 @@
+线路马尔可夫事故链搜索开始：2026-05-27 13:31:58
+场景：minimal_distributed_wind_40pct
+新能源调度模式：wind_plus_redispatch
+随机种子：202405
+每个初始故障样本数：20，最大深度：5
+已自动加入MATPOWER路径：E:\Matlab\toolbox\matpower6.0\matpower6.0
+已完成初始故障 1/46：branch 1 (1-2)
+已完成初始故障 2/46：branch 2 (1-39)
+已完成初始故障 3/46：branch 3 (2-3)
+已完成初始故障 4/46：branch 4 (2-25)
+已完成初始故障 5/46：branch 5 (2-30)
+已完成初始故障 6/46：branch 6 (3-4)
+已完成初始故障 7/46：branch 7 (3-18)
+已完成初始故障 8/46：branch 8 (4-5)
+已完成初始故障 9/46：branch 9 (4-14)
+已完成初始故障 10/46：branch 10 (5-6)
+已完成初始故障 11/46：branch 11 (5-8)
+已完成初始故障 12/46：branch 12 (6-7)
+已完成初始故障 13/46：branch 13 (6-11)
+已完成初始故障 14/46：branch 14 (6-31)
+已完成初始故障 15/46：branch 15 (7-8)
+已完成初始故障 16/46：branch 16 (8-9)
+已完成初始故障 17/46：branch 17 (9-39)
+已完成初始故障 18/46：branch 18 (10-11)
+已完成初始故障 19/46：branch 19 (10-13)
+已完成初始故障 20/46：branch 20 (10-32)
+已完成初始故障 21/46：branch 21 (12-11)
+已完成初始故障 22/46：branch 22 (12-13)
+已完成初始故障 23/46：branch 23 (13-14)
+已完成初始故障 24/46：branch 24 (14-15)
+已完成初始故障 25/46：branch 25 (15-16)
+已完成初始故障 26/46：branch 26 (16-17)
+已完成初始故障 27/46：branch 27 (16-19)
+已完成初始故障 28/46：branch 28 (16-21)
+已完成初始故障 29/46：branch 29 (16-24)
+已完成初始故障 30/46：branch 30 (17-18)
+已完成初始故障 31/46：branch 31 (17-27)
+已完成初始故障 32/46：branch 32 (19-20)
+已完成初始故障 33/46：branch 33 (19-33)
+已完成初始故障 34/46：branch 34 (20-34)
+已完成初始故障 35/46：branch 35 (21-22)
+已完成初始故障 36/46：branch 36 (22-23)
+已完成初始故障 37/46：branch 37 (22-35)
+已完成初始故障 38/46：branch 38 (23-24)
+已完成初始故障 39/46：branch 39 (23-36)
+已完成初始故障 40/46：branch 40 (25-26)
+已完成初始故障 41/46：branch 41 (25-37)
+已完成初始故障 42/46：branch 42 (26-27)
+已完成初始故障 43/46：branch 43 (26-28)
+已完成初始故障 44/46：branch 44 (26-29)
+已完成初始故障 45/46：branch 45 (28-29)
+已完成初始故障 46/46：branch 46 (29-38)
+事故链汇总结果已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_chain_summary.csv
+事故链逐级结果已写入：C:\Users\24186\Documents\New project 13\results\tables\markov_chain_stages.csv
+事故链MAT记录已写入：C:\Users\24186\Documents\New project 13\results\chains\markov_chain_records.mat
+终止原因统计：
+      terminated_reason      GroupCount
+    _____________________    __________
+
+    "load_loss_threshold"        80    
+    "max_depth_reached"          40    
+    "no_new_outage"             800    
+
+线路马尔可夫事故链搜索结束：2026-05-27 13:32:09
