@@ -1,0 +1,2 @@
+scenario_name,renewable_dispatch_mode,converged,total_load_mw,total_generation_mw,total_wind_output_mw,slack_bus,slack_pg_mw,num_pg_violations,num_pg_below_pmin,num_pg_above_pmax,num_overloaded_lines,max_line_loading_pu,num_voltage_violations,max_voltage_deviation_pu,redispatch_reduction_mw,redispatch_shortfall_mw
+minimal_distributed_wind_40pct,wind_plus_redispatch,1,6254.23,6297.29077021513,3000,31,645.611063463387,0,0,0,0,0.789325382060708,0,0,2968.32029324826,31.6797067517409

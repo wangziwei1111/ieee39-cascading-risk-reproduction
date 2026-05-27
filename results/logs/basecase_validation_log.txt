@@ -1,0 +1,16 @@
+基础运行点校验开始：2026-05-27 12:17:32
+场景：minimal_distributed_wind_40pct
+新能源调度模式：wind_plus_redispatch
+节点30至39分散式接入总容量3000 MW风电；默认采用wind_plus_redispatch，新增风电并下调常规机组；各节点等容量分配为最小版假设，待校准。
+已自动加入MATPOWER路径：E:\Matlab\toolbox\matpower6.0\matpower6.0
+潮流是否收敛：1
+系统总负荷：6254.230000 MW
+系统总发电：6297.290770 MW
+总风电出力：3000.000000 MW
+平衡机节点：31，平衡机总PG：645.611063 MW
+机组PG越限数量：0（低于PMIN=0，高于PMAX=0）
+基础状态线路越限数量：0，最大线路负载率：0.789325
+基础状态电压越限节点数量：0，最大电压越限偏差：0.000000 p.u.
+基础运行点校验结果已写入：C:\Users\24186\Documents\New project 13\results\tables\basecase_validation.csv
+基础运行点校验日志已写入：C:\Users\24186\Documents\New project 13\results\logs\basecase_validation_log.txt
+基础运行点校验结束：2026-05-27 12:17:33
