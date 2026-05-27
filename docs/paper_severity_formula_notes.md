@@ -195,3 +195,17 @@ CRI = 0.6 * SLLR + 0.2 * SLFOR + 0.2 * SNVOR
 - 线路容量和有功上限的论文一致性校准。
 - 更严格的最优负荷削减模型。
 - 与论文第4章场景结果的系统化对照。
+
+## 非收敛阶段与指数严重度安全处理
+
+论文 LFOR/NVOR 严重度需要物理有效的线路有功潮流和节点电压。非收敛潮流的最后迭代结果不能作为 `P_li(n)` 或 `U_m` 使用，否则会产生几十万 MW 潮流、极端电压和 `Inf` 指数严重度。
+
+当前实现采用严格策略：
+
+- `paper_strict_convergence=true` 时，只有收敛潮流才允许进入 LFOR/NVOR。
+- 非收敛 stage 只保留 LLR 所需的负荷损失和阶段概率。
+- 非收敛或数值异常 stage 写入 `markov_paper_invalid_stage_details.csv`。
+- `markov_line_flow_details.csv` 与 `markov_bus_voltage_details.csv` 只包含 `severity_valid=1` 的物理有效 stage。
+- `safe_exponential_severity(component,cfg)` 用于计算 `(exp(component)-1)/(exp(1)-1)*100`，并阻止 `component` 过大、`NaN` 或 `Inf` 进入结果。
+
+旧版本中由非收敛潮流最后迭代值导致的 `Inf` 严重度已经废弃，不可用于论文对照或风险结论。

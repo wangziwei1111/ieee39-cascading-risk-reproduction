@@ -19,6 +19,8 @@
 | `R_LFOR` | 单条事故链线路越限风险值 | VaR SLFOR | `results/tables/markov_risk_samples_paper_severity.csv` | `paper_LFOR` | true | 当前为line-only概率近似 |
 | `U_m` | 第 m 个节点电压标幺值 | NVOR | full CSV + `markov_bus_voltage_details_manifest.csv` + `results/tables/paper_detail_chunks/markov_bus_voltage_details_part*.csv` | `voltage_pu` | true | chunks 是稳定复核依据 |
 | `sev_ev_nvor(E_k)` | 第 k 级节点电压越限严重度 | NVOR | full CSV + `markov_bus_voltage_details_manifest.csv` + `results/tables/paper_detail_chunks/markov_bus_voltage_details_part*.csv` | `voltage_severity_component` 按stage求和 | true | chunks 是稳定复核依据 |
+| `severity_valid` | stage 是否可用于 LFOR/NVOR | LFOR/NVOR | `results/tables/markov_stage_probability_details.csv` and `markov_paper_invalid_stage_details.csv` | `severity_valid`, `invalid_reason` | true | 非收敛 stage 不能用于 LFOR/NVOR |
+| `invalid_reason` | stage 无效原因 | diagnostics | `results/tables/markov_paper_invalid_stage_details.csv` | `invalid_reason` | true | 用于区分 nonconverged、unreasonable、Inf/NaN 等问题 |
 | `R_NVOR` | 单条事故链节点电压越限风险值 | VaR SNVOR | `results/tables/markov_risk_samples_paper_severity.csv` | `paper_NVOR` | true | 当前为line-only概率近似 |
 | `R_SLLR` | 负荷损失VaR风险指标 | VaR | `results/tables/markov_var_metrics_paper_severity.csv` | `SLLR` | true | 使用经验右尾分位数 |
 | `R_SLFOR` | 线路越限VaR风险指标 | VaR | `results/tables/markov_var_metrics_paper_severity.csv` | `SLFOR` | true | 使用经验右尾分位数 |

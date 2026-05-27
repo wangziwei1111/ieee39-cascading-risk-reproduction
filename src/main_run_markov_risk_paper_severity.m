@@ -65,12 +65,14 @@ if ~isfield(loaded, 'chain_records')
     error('markov_chain_records.mat中缺少chain_records变量。');
 end
 
-[line_flow_detail_table, bus_voltage_detail_table, stage_probability_table] = ...
+[line_flow_detail_table, bus_voltage_detail_table, stage_probability_table, ...
+    invalid_stage_detail_table, invalid_stage_summary_table] = ...
     build_markov_paper_detail_tables(loaded.chain_records, base_mpc, cfg, scenario, ...
     renewable_info, initial_probability_table);
 
 [line_flow_summary_table, bus_voltage_summary_table, stage_probability_summary_table] = ...
-    summarize_paper_detail_tables(line_flow_detail_table, bus_voltage_detail_table, stage_probability_table);
+    summarize_paper_detail_tables(line_flow_detail_table, bus_voltage_detail_table, ...
+    stage_probability_table, invalid_stage_detail_table);
 [line_flow_sample_table, bus_voltage_sample_table] = ...
     build_paper_detail_samples(line_flow_detail_table, bus_voltage_detail_table);
 
@@ -84,8 +86,12 @@ paper_chunk_dir = fullfile(cfg.results_table_dir, 'paper_detail_chunks');
 
 stage_probability_csv = fullfile(cfg.results_table_dir, 'markov_stage_probability_details.csv');
 stage_probability_summary_csv = fullfile(cfg.results_table_dir, 'markov_stage_probability_summary.csv');
+invalid_stage_csv = fullfile(cfg.results_table_dir, 'markov_paper_invalid_stage_details.csv');
+invalid_stage_summary_csv = fullfile(cfg.results_table_dir, 'markov_paper_invalid_stage_summary.csv');
 save_result_table(stage_probability_table, stage_probability_csv, true);
 save_result_table(stage_probability_summary_table, stage_probability_summary_csv, true);
+save_result_table(invalid_stage_detail_table, invalid_stage_csv, true);
+save_result_table(invalid_stage_summary_table, invalid_stage_summary_csv, true);
 
 paper_severity = calc_paper_chain_severity(chain_summary_table, cfg, ...
     line_flow_detail_table, bus_voltage_detail_table, stage_probability_table);
@@ -103,6 +109,19 @@ risk_samples_paper = [risk_samples_paper, paper_severity];
 
 markov_var_table = calc_markov_var_metrics(risk_samples_paper, cfg, 'paper');
 initial_fault_var_table = calc_markov_var_by_initial_fault(risk_samples_paper, cfg, 'paper');
+invalid_chain_ratio = mean(~risk_samples_paper.paper_lfor_nvor_complete);
+var_output_valid = invalid_chain_ratio <= cfg.paper_max_invalid_chain_ratio_for_var && ...
+    ~any(isinf(risk_samples_paper.paper_CRI)) && ...
+    mean(isnan(risk_samples_paper.paper_LFOR) | isnan(risk_samples_paper.paper_NVOR)) <= cfg.paper_max_invalid_chain_ratio_for_var;
+if var_output_valid
+    markov_var_table.result_status = repmat("valid", height(markov_var_table), 1);
+    initial_fault_var_table.result_status = repmat("valid", height(initial_fault_var_table), 1);
+else
+    markov_var_table.result_status = repmat("diagnostic_only", height(markov_var_table), 1);
+    initial_fault_var_table.result_status = repmat("diagnostic_only", height(initial_fault_var_table), 1);
+    deprecate_existing_paper_var_files(cfg);
+    warning('paper_formula存在过多无效阶段，当前结果仅可用于诊断，不能作为论文对照。');
+end
 
 risk_samples_csv = fullfile(cfg.results_table_dir, 'markov_risk_samples_paper_severity.csv');
 var_metrics_csv = fullfile(cfg.results_table_dir, 'markov_var_metrics_paper_severity.csv');
@@ -127,6 +146,18 @@ fprintf('bus full CSV readback rows：%d\n', bus_full_rows);
 fprintf('bus chunk文件数量：%d\n', height(bus_manifest_table));
 fprintf('bus chunk总行数：%d\n', sum(bus_manifest_table.row_count));
 fprintf('stage_probability行数：%d\n', height(stage_probability_table));
+fprintf('total_stage_count：%d\n', invalid_stage_summary_table.total_stage_count(1));
+fprintf('valid_stage_count：%d\n', invalid_stage_summary_table.valid_stage_count(1));
+fprintf('invalid_stage_count：%d\n', invalid_stage_summary_table.invalid_stage_count(1));
+fprintf('invalid_stage_ratio：%.6f\n', invalid_stage_summary_table.invalid_stage_ratio(1));
+fprintf('nonconverged_stage_count：%d\n', invalid_stage_summary_table.nonconverged_stage_count(1));
+fprintf('max valid P_li_pu：%.6f\n', line_flow_summary_table.max_P_li_pu(1));
+fprintf('min valid voltage_pu：%.6f\n', bus_voltage_summary_table.min_voltage_pu(1));
+fprintf('max valid voltage_pu：%.6f\n', bus_voltage_summary_table.max_voltage_pu(1));
+fprintf('是否生成paper VaR：%d\n', double(var_output_valid));
+if ~var_output_valid
+    fprintf('未生成有效paper VaR原因：paper_formula存在过多无效阶段，当前结果仅可用于诊断。\n');
+end
 fprintf('paper risk sample行数：%d\n', height(risk_samples_paper));
 fprintf('paper VaR表：\n');
 disp(markov_var_table);
@@ -165,6 +196,15 @@ if cfg.export_paper_detail_chunks
     save_result_table(manifest_table, manifest_csv, true);
 else
     manifest_table = table();
+end
+end
+
+function deprecate_existing_paper_var_files(cfg)
+%DEPRECATE_EXISTING_PAPER_VAR_FILES 标记旧paper VaR为不可用于论文对照。
+src = fullfile(cfg.results_table_dir, 'markov_var_metrics_paper_severity.csv');
+dst = fullfile(cfg.results_table_dir, 'deprecated_markov_var_metrics_paper_severity_invalid.csv');
+if exist(src, 'file')
+    copyfile(src, dst);
 end
 end
 

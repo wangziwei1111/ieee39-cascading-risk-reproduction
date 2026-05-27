@@ -314,6 +314,8 @@ line_detail_path = fullfile(cfg.results_table_dir, 'markov_line_flow_details.csv
 bus_detail_path = fullfile(cfg.results_table_dir, 'markov_bus_voltage_details.csv');
 stage_prob_path = fullfile(cfg.results_table_dir, 'markov_stage_probability_details.csv');
 stage_summary_path = fullfile(cfg.results_table_dir, 'markov_stage_probability_summary.csv');
+invalid_stage_path = fullfile(cfg.results_table_dir, 'markov_paper_invalid_stage_details.csv');
+invalid_stage_summary_path = fullfile(cfg.results_table_dir, 'markov_paper_invalid_stage_summary.csv');
 comparison_path = fullfile(cfg.results_table_dir, 'basic_vs_paper_severity_comparison.csv');
 chunk_dir = fullfile(cfg.results_table_dir, 'paper_detail_chunks');
 
@@ -334,17 +336,21 @@ line_rows = validate_paper_detail_chunks(cfg, chunk_dir, 'markov_line_flow_detai
     {'P_li_pu', 'line_overlimit_component', 'line_severity_component'}, 'line');
 bus_rows = validate_paper_detail_chunks(cfg, chunk_dir, 'markov_bus_voltage_details', ...
     {'voltage_pu', 'voltage_deviation_component', 'voltage_severity_component'}, 'bus');
+validate_paper_detail_summaries(cfg);
 
 must_exist(sample_path);
 must_exist(var_path);
 must_exist(by_initial_path);
 must_exist(stage_prob_path);
 must_exist(stage_summary_path);
+must_exist(invalid_stage_path);
+must_exist(invalid_stage_summary_path);
 paper_samples = readtable(sample_path);
 paper_var = readtable(var_path);
 paper_by_initial = readtable(by_initial_path);
 stage_prob = readtable(stage_prob_path);
 stage_summary = readtable(stage_summary_path);
+invalid_stage_summary = readtable(invalid_stage_summary_path);
 
 if isempty(stage_prob)
     error('markov_stage_probability_details.csv不能为空。');
@@ -359,6 +365,13 @@ end
 if isempty(stage_summary) || stage_summary.total_rows(1) ~= height(stage_prob)
     error('markov_stage_probability_summary.csv与stage_probability_details行数不一致。');
 end
+if isempty(invalid_stage_summary)
+    error('markov_paper_invalid_stage_summary.csv不能为空。');
+end
+if invalid_stage_summary.invalid_stage_ratio(1) > cfg.paper_max_invalid_chain_ratio_for_var && ...
+        ismember('result_status', paper_var.Properties.VariableNames) && any(string(paper_var.result_status) == "valid")
+    error('无效stage比例超过阈值时，paper VaR不能标记为valid。');
+end
 validate_stage_initial_probabilities(cfg, stage_prob);
 
 required_paper = {'paper_LLR', 'paper_LFOR', 'paper_NVOR', 'paper_CRI'};
@@ -372,10 +385,22 @@ for i = 1:numel(required_paper)
         error('%s不能全为NaN。', field);
     end
 end
+if any(isinf(paper_samples.paper_CRI))
+    error('markov_risk_samples_paper_severity.csv中paper_CRI存在Inf。');
+end
 for i = 1:numel(cfg.var_confidence_levels)
     if ~any(abs(paper_var.sigma - cfg.var_confidence_levels(i)) < 1e-12)
         error('markov_var_metrics_paper_severity.csv缺少sigma=%.2f。', cfg.var_confidence_levels(i));
     end
+end
+if any(isinf(paper_var.SLLR) | isinf(paper_var.SLFOR) | isinf(paper_var.SNVOR) | isinf(paper_var.CRI))
+    error('markov_var_metrics_paper_severity.csv中存在Inf。');
+end
+if all(isnan(paper_var.SLLR)) || all(isnan(paper_var.SLFOR)) || all(isnan(paper_var.SNVOR)) || all(isnan(paper_var.CRI))
+    error('markov_var_metrics_paper_severity.csv中风险列不能全为NaN。');
+end
+if ~ismember('result_status', paper_var.Properties.VariableNames)
+    error('markov_var_metrics_paper_severity.csv必须包含result_status字段。');
 end
 if height(paper_by_initial) ~= 46
     error('markov_var_by_initial_fault_paper_severity.csv应包含46行。');
@@ -438,6 +463,28 @@ if total_rows ~= summary.total_rows(1)
 end
 if max_seen < 0
     error('%s没有读到有效非负明细值。', detail_type);
+end
+end
+
+function validate_paper_detail_summaries(cfg)
+%VALIDATE_PAPER_DETAIL_SUMMARIES 严格检查paper明细summary物理边界。
+line_summary = readtable(fullfile(cfg.results_table_dir, 'markov_line_flow_details_summary.csv'));
+bus_summary = readtable(fullfile(cfg.results_table_dir, 'markov_bus_voltage_details_summary.csv'));
+if isinf(line_summary.max_line_severity_component(1)) || line_summary.has_inf_severity(1) ~= 0
+    error('line_flow_summary中存在Inf严重度。');
+end
+if line_summary.has_nan_severity(1) ~= 0
+    error('line_flow_summary中存在NaN严重度。');
+end
+if line_summary.max_P_li_pu(1) > cfg.paper_max_reasonable_line_loading_pu
+    error('line_flow_summary中max_P_li_pu超过合理阈值。');
+end
+if bus_summary.max_voltage_pu(1) > cfg.paper_max_reasonable_voltage_pu || ...
+        bus_summary.min_voltage_pu(1) < cfg.paper_min_reasonable_voltage_pu
+    error('bus_voltage_summary中电压超出合理范围。');
+end
+if bus_summary.has_inf_severity(1) ~= 0 || bus_summary.has_nan_severity(1) ~= 0
+    error('bus_voltage_summary中存在Inf或NaN严重度。');
 end
 end
 

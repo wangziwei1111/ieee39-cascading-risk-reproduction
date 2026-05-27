@@ -54,6 +54,14 @@ cfg.paper_voltage_lower_limit_pu = 0.9;
 cfg.paper_voltage_upper_limit_pu = 1.1;
 cfg.paper_line_limit_source = 'RATE_A_as_active_limit_approximation';
 cfg.paper_stage_probability_mode = 'initial_probability_times_candidate_transition_probability';
+cfg.paper_strict_convergence = true;
+cfg.paper_nonconverged_stage_policy = 'exclude_lfor_nvor_with_diagnostic';
+cfg.paper_max_reasonable_line_loading_pu = 5.0;
+cfg.paper_min_reasonable_voltage_pu = 0.0;
+cfg.paper_max_reasonable_voltage_pu = 2.0;
+cfg.paper_max_exp_argument = 20.0;
+cfg.paper_fail_if_inf_severity = true;
+cfg.paper_max_invalid_chain_ratio_for_var = 0.05;
 
 % 主岛选择规则参数。原平衡节点所在岛至少承担该负荷比例时才可优先保留，待校准。
 cfg.main_island_min_load_share = 0.5; % 待校准

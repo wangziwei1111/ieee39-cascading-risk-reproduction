@@ -472,3 +472,22 @@ src/paper/build_paper_detail_samples.m
 - `results/tables/markov_stage_probability_summary.csv`
 
 后续复核 paper_formula 明细时，应优先检查 manifest 和 `paper_detail_chunks`，再查看 full CSV。`sample` 文件仅用于快速人工浏览高风险行，不能替代完整明细。
+
+## paper_formula 非收敛阶段处理
+
+上一版 paper_formula 明细曾把非收敛潮流的最后迭代 `PF/PT/VM` 写入线路和电压严重度，导致 `P_li_pu`、节点电压和指数严重度出现非物理极值，甚至出现 `Inf`。这类结果不能作为论文 LFOR/NVOR 的输入。
+
+当前采用严格收敛策略：
+
+- `cfg.paper_strict_convergence = true`。
+- 只有收敛潮流且数值通过合理性检查的 stage 才能写入 `markov_line_flow_details.csv` 和 `markov_bus_voltage_details.csv`。
+- 非收敛 stage 仍保留 `stage_load_shed_mw`、`stage_cumulative_probability`，因此可用于 LLR 诊断。
+- 非收敛 stage 不再用于 LFOR/NVOR，不把最后迭代 `PF/PT/VM` 当作有效物理状态。
+- 指数严重度通过 `src/paper/safe_exponential_severity.m` 计算，若自变量过大或产生 `Inf/NaN`，会标记无效或报错。
+
+新增诊断表：
+
+- `results/tables/markov_paper_invalid_stage_details.csv`：逐条记录无效 stage 的初始线路、样本编号、级数、收敛状态、无效原因、阶段切负荷和累计概率。
+- `results/tables/markov_paper_invalid_stage_summary.csv`：汇总总 stage 数、有效 stage 数、无效 stage 数、非收敛 stage 数和无效比例。
+
+paper_formula VaR 只有在无效事故链比例不超过 `cfg.paper_max_invalid_chain_ratio_for_var` 时才标记为 `valid`。若超过阈值，结果会标记为 `diagnostic_only`，不能作为论文对照结果。当前策略仍不回退 basic，也不修改 Markov 抽样结果。

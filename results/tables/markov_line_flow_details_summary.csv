@@ -1,2 +1,2 @@
-total_rows,unique_chain_count,unique_stage_count,max_P_li_pu,max_line_overlimit_component,max_line_severity_component,num_overlimit_rows,p95_P_li_pu,p95_line_severity_component
-63940,920,1390,1265.99926972579,1264.99926972579,Inf,1681,0.854307870066568,0
+total_rows,valid_row_count,invalid_or_excluded_stage_count,unique_chain_count,unique_stage_count,max_P_li_pu,max_line_overlimit_component,max_line_severity_component,num_overlimit_rows,p95_P_li_pu,p95_line_severity_component,has_inf_severity,has_nan_severity
+62100,62100,40,920,1350,2.77442831752643,1.77442831752643,284.988698121747,1379,0.831796537494601,0,0,0
