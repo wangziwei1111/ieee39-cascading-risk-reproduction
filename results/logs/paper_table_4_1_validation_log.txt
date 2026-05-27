@@ -1,0 +1,4 @@
+论文表4-1线路初始停运概率校验开始：2026-05-27 15:24:45
+概率文件：C:\Users\24186\Documents\New project 13\data\line_initial_outage_probability_paper_table_4_1.csv
+校验失败：请先根据论文表4-1填写线路初始停运概率，不能自动编造。
+请先根据论文表4-1填写线路初始停运概率，不能自动编造。

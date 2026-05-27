@@ -252,6 +252,46 @@ cfg.var_use_chain_weights = true;
 4. 在 `src/risk/` 中新增单事故链 LLR/LFOR/NVOR 和多事故链 VaR 计算函数。
 5. 在 `experiments/` 中增加论文第4章场景脚本，包括无新能源、40%分散式、集中式接入、渗透率扫描和风速扫描。
 6. 保留所有未明确参数在 `config` 中集中管理，并在校准前继续标注“待校准”。
+## 论文表4-1初始停运概率与加权VaR接口
+
+当前默认配置仍为：
+
+```matlab
+cfg.initial_fault_probability_mode = 'uniform';
+cfg.var_use_chain_weights = false;
+```
+
+因此已有 `main_run_markov_risk` 结果仍表示每条 Monte Carlo 事故链等权，不会因为新增表4-1接口而改变。论文表4-1概率需要用户手动填写：
+
+```text
+data/line_initial_outage_probability_paper_table_4_1.csv
+```
+
+该文件中的 `paper_prob_times_1e_minus_4` 表示论文表4-1中以 `1e-4` 为单位的数值；如果用户只填写这一列，程序会自动计算 `initial_outage_probability = paper_prob_times_1e_minus_4 * 1e-4`。如果同时填写 `paper_prob_times_1e_minus_4` 和 `initial_outage_probability`，两者必须一致，否则会报错。若两列仍为 `NaN`，`paper_table_4_1` 模式必须停止，不能自动编造或回退到 uniform。
+
+表4-1数据录入后，先运行：
+
+```matlab
+main_validate_paper_table_4_1
+```
+
+校验通过后才可以运行：
+
+```matlab
+main_run_markov_risk_weighted
+main_compare_uniform_vs_weighted_var
+```
+
+加权VaR的样本权重定义为：
+
+```text
+sample_weight = 初始线路normalized_weight / 该初始线路下的Monte Carlo样本数
+```
+
+其中 `normalized_weight` 由表4-1线路初始停运概率归一化得到。`uniform` 结果表示事故链样本等权，用于验证风险指标计算闭环；`weighted` 结果表示考虑论文表4-1初始故障概率分布后的全局风险分位数。两者差异反映“哪些初始故障更可能发生”对全局风险指标的影响。
+
+当前加权VaR框架仍不代表论文数值完全复现，因为后续还需要校准线路容量、线路停运概率模型、保护参数和 LLR/LFOR/NVOR 严重度函数。
+
 ## 候选线路明细分块归档
 
 为避免完整候选线路明细 `markov_candidate_details.csv` 因文件较大或在线读取环境差异而表现为空，本工程保留 full CSV 的同时，新增了可追溯的分块归档机制。后续论文复现审查建议优先检查 manifest 和 chunk 文件，而不是只依赖 full CSV。
