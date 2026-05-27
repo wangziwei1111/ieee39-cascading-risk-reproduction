@@ -76,6 +76,9 @@ if height(risk_samples) ~= height(summary_table)
 end
 validate_basic_severity_fields(risk_samples, cfg, 'markov_risk_samples.csv');
 severity_status_message = check_severity_status_table(severity_status_path, cfg);
+if isfield(cfg, 'paper_severity_formula_confirmed') && cfg.paper_severity_formula_confirmed
+    severity_status_message = "严重度公式状态表已检查：paper_formula已确认，允许输出有效paper结果。";
+end
 
 required_sigmas = cfg.var_confidence_levels(:);
 for i = 1:numel(required_sigmas)
@@ -88,6 +91,7 @@ if height(by_initial_table) ~= 46
 end
 
 [paper_validated_status, weighted_status] = check_optional_weighted_outputs(cfg);
+paper_severity_status = check_optional_paper_severity_outputs(cfg);
 
 fprintf('Markov输出自检通过。\n');
 fprintf('markov_chain_summary行数：%d\n', height(summary_table));
@@ -111,6 +115,7 @@ fprintf('markov_var_by_initial_fault行数：%d\n', height(by_initial_table));
 fprintf('%s\n', severity_status_message);
 fprintf('%s\n', paper_validated_status);
 fprintf('%s\n', weighted_status);
+fprintf('%s\n', paper_severity_status);
 end
 
 function must_exist(path_text)
@@ -299,4 +304,67 @@ if isfield(cfg, 'paper_severity_formula_confirmed') && ~cfg.paper_severity_formu
     error('论文严重度公式未确认时，severity_formula_status.csv不能标记paper_formula可用。');
 end
 status_message = "严重度公式状态表已检查：paper_formula尚未确认时不会输出有效paper结果。";
+end
+function paper_status = check_optional_paper_severity_outputs(cfg)
+%CHECK_OPTIONAL_PAPER_SEVERITY_OUTPUTS 检查paper_formula严重度输出。
+sample_path = fullfile(cfg.results_table_dir, 'markov_risk_samples_paper_severity.csv');
+var_path = fullfile(cfg.results_table_dir, 'markov_var_metrics_paper_severity.csv');
+by_initial_path = fullfile(cfg.results_table_dir, 'markov_var_by_initial_fault_paper_severity.csv');
+line_detail_path = fullfile(cfg.results_table_dir, 'markov_line_flow_details.csv');
+bus_detail_path = fullfile(cfg.results_table_dir, 'markov_bus_voltage_details.csv');
+stage_prob_path = fullfile(cfg.results_table_dir, 'markov_stage_probability_details.csv');
+comparison_path = fullfile(cfg.results_table_dir, 'basic_vs_paper_severity_comparison.csv');
+
+any_paper_file = exist(sample_path, 'file') || exist(var_path, 'file') || ...
+    exist(by_initial_path, 'file') || exist(line_detail_path, 'file') || ...
+    exist(bus_detail_path, 'file') || exist(stage_prob_path, 'file');
+if ~any_paper_file
+    paper_status = "paper_formula严重度结果尚未生成。";
+    return;
+end
+
+must_exist(sample_path);
+must_exist(var_path);
+must_exist(by_initial_path);
+must_exist(line_detail_path);
+must_exist(bus_detail_path);
+must_exist(stage_prob_path);
+
+paper_samples = readtable(sample_path);
+paper_var = readtable(var_path);
+paper_by_initial = readtable(by_initial_path);
+line_detail = readtable(line_detail_path);
+bus_detail = readtable(bus_detail_path);
+stage_prob = readtable(stage_prob_path);
+
+required_paper = {'paper_LLR', 'paper_LFOR', 'paper_NVOR', 'paper_CRI'};
+missing = setdiff(required_paper, paper_samples.Properties.VariableNames);
+if ~isempty(missing)
+    error('markov_risk_samples_paper_severity.csv缺少字段：%s', strjoin(missing, ', '));
+end
+for i = 1:numel(required_paper)
+    field = required_paper{i};
+    if all(isnan(paper_samples.(field)))
+        error('%s不能全为NaN。', field);
+    end
+end
+if isempty(line_detail) || isempty(bus_detail) || isempty(stage_prob)
+    error('paper_formula明细表不能为空。');
+end
+for i = 1:numel(cfg.var_confidence_levels)
+    if ~any(abs(paper_var.sigma - cfg.var_confidence_levels(i)) < 1e-12)
+        error('markov_var_metrics_paper_severity.csv缺少sigma=%.2f。', cfg.var_confidence_levels(i));
+    end
+end
+if height(paper_by_initial) ~= 46
+    error('markov_var_by_initial_fault_paper_severity.csv应包含46行。');
+end
+if exist(comparison_path, 'file')
+    comparison = readtable(comparison_path);
+    if height(comparison) ~= numel(cfg.var_confidence_levels)
+        error('basic_vs_paper_severity_comparison.csv应包含%d行。', numel(cfg.var_confidence_levels));
+    end
+end
+
+paper_status = "paper_formula严重度输出已检查：样本、VaR、分初始线路VaR和三张明细表均可用。";
 end

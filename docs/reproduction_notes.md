@@ -395,3 +395,46 @@ results/logs/paper_severity_interface_log.txt
 ```
 
 后续一旦补充并核对论文公式，应同时报告 basic 流程验证结果、paper_formula 对照结果，以及与原论文结果的差异来源，例如线路容量、后续停运概率模型、保护参数和严重度函数校准差异。
+## 论文严重度函数实现状态
+
+本阶段新增了 `paper_formula` 严重度函数，并继续保留原有 `basic_*` 指标。二者含义不同：
+
+- `basic_*` 是流程验证指标，直接使用总切负荷比例、最大线路负载越限和最大电压偏差。
+- `paper_formula` 使用用户提供的论文式负荷损失、线路潮流越限、节点电压越限严重度函数，以及经验右尾 VaR。
+
+当前 `paper_formula` 对应论文式 LLR、LFOR、NVOR 和 CRI 框架：
+
+- 负荷损失：`sev_ev_llr(E_k)=C_c(E_k)/P_load*100%`。
+- 线路越限：对每级所有线路求和 `[(exp(max(P_li-P_li,max,0))-1)/(e-1)]*100`。
+- 电压越限：对每级所有节点求和 `[(exp(max(0.9-U_m,U_m-1.1,0))-1)/(e-1)]*100`。
+- 综合风险：`CRI=0.6*SLLR+0.2*SLFOR+0.2*SNVOR`。
+
+当前版本仍是 `line-only paper severity approximation`：
+
+- `P_wt(E_k)=1`，暂未计入新能源机组实际脱网状态概率。
+- `P_ge(E_k)=1`，暂未计入传统机组停运状态概率。
+- `P_line(E_k)` 由表4-1初始线路停运概率与每级候选线路抽样转移概率构造。
+- 线路有功上限当前使用 MATPOWER `RATE_A` 近似，仍待校准。
+
+为避免用摘要最大值代替论文全量求和，工程新增三张可检查明细表：
+
+- `results/tables/markov_line_flow_details.csv`：每条事故链、每一级、每条线路的 `PF/PT`、有功潮流标幺值和线路越限严重度分量。
+- `results/tables/markov_bus_voltage_details.csv`：每条事故链、每一级、每个节点的电压和电压越限严重度分量。
+- `results/tables/markov_stage_probability_details.csv`：每条事故链、每一级的初始概率、候选线路转移概率、累计状态概率和阶段负荷损失。
+
+新增入口：
+
+```matlab
+main_run_markov_risk_paper_severity
+main_compare_basic_vs_paper_severity
+```
+
+输出：
+
+- `results/tables/markov_risk_samples_paper_severity.csv`
+- `results/tables/markov_var_metrics_paper_severity.csv`
+- `results/tables/markov_var_by_initial_fault_paper_severity.csv`
+- `results/tables/basic_vs_paper_severity_comparison.csv`
+- `results/figures/basic_vs_paper_cri_comparison.png`
+
+当前结果不能声称与论文数值完全一致。后续需要补充新能源机组脱网概率、传统机组停运概率、更严格的线路容量校准和最优负荷削减模型，才能接近完整论文复现。

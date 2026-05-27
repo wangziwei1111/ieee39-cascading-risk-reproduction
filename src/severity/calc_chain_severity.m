@@ -1,4 +1,4 @@
-function severity_table = calc_chain_severity(chain_summary_table, cfg)
+function severity_table = calc_chain_severity(chain_summary_table, cfg, varargin)
 %CALC_CHAIN_SEVERITY 根据配置计算事故链严重度。
 % 输入：
 %   chain_summary_table - Markov事故链汇总表。
@@ -19,12 +19,21 @@ switch mode
         severity_table = calc_basic_chain_severity(chain_summary_table, cfg);
 
     case "paper_formula"
-        severity_table = calc_paper_chain_severity(chain_summary_table, cfg);
+        severity_table = calc_paper_chain_severity(chain_summary_table, cfg, varargin{:});
 
     case "both"
         basic_table = calc_basic_chain_severity(chain_summary_table, cfg);
         if isfield(cfg, 'paper_severity_formula_confirmed') && cfg.paper_severity_formula_confirmed
-            paper_table = calc_paper_chain_severity(chain_summary_table, cfg);
+            if isempty(varargin)
+                n = height(chain_summary_table);
+                paper_LLR = NaN(n, 1);
+                paper_LFOR = NaN(n, 1);
+                paper_NVOR = NaN(n, 1);
+                paper_CRI = NaN(n, 1);
+                paper_table = table(paper_LLR, paper_LFOR, paper_NVOR, paper_CRI);
+            else
+                paper_table = calc_paper_chain_severity(chain_summary_table, cfg, varargin{:});
+            end
         else
             n = height(chain_summary_table);
             paper_LLR = NaN(n, 1);

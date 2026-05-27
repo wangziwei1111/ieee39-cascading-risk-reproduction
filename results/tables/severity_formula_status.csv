@@ -1,3 +1,3 @@
 severity_type,status,note
-basic,available,当前最小版严重度
-paper_formula,not_available,论文公式尚未确认
+basic,available,当前basic流程验证严重度仍保留
+paper_formula,available,论文公式严重度已按用户提供公式实现；当前为line-only近似
