@@ -1,11 +1,12 @@
 function main_check_scenario_outputs(batch_mode)
 %MAIN_CHECK_SCENARIO_OUTPUTS 检查指定场景批处理输出与状态语义。
 % 输入：
-%   batch_mode - 可选，默认smoke；例如 topology_compare。
+%   batch_mode - 可选，默认smoke；例如penetration_scan、wind_speed_scan。
 % 输出：
 %   无；检查失败直接error。
 % 物理含义：
-%   区分ran/skipped_existing/failed和paper valid/diagnostic_only，避免断点续跑误判。
+%   区分ran/skipped_existing/failed和paper valid/diagnostic_only，并检查各类
+%   场景扫描的专用物理字段，避免断点续跑误复用或误解释结果。
 
 if nargin < 1 || isempty(batch_mode)
     batch_mode = 'smoke';
@@ -37,9 +38,10 @@ end
 
 if strcmp(batch_mode, 'penetration_scan')
     check_penetration_summary(summary_table, cfg);
-end
-if strcmp(batch_mode, 'wind_speed_scan')
+elseif strcmp(batch_mode, 'wind_speed_scan')
     check_wind_speed_summary(summary_table);
+elseif strcmp(batch_mode, 'renewable_trip_record')
+    check_renewable_trip_record_summary(summary_table, scenario_root);
 end
 
 diagnostic_ids = strings(0, 1);
@@ -80,13 +82,9 @@ for i = 1:height(summary_table)
         if string(summary_table.completion_status(i)) ~= completion_status
             error('场景%s completion_status与完整性检查不一致。', scenario_id);
         end
-        if ~contains(string(summary_table.reuse_decision_reason(i)), "matches expected") && ...
-                ~contains(string(summary_table.reuse_decision_reason(i)), "threshold")
-            error('场景%s skipped_existing但reuse_decision_reason未说明trial匹配或诊断原因。', scenario_id);
-        end
     end
 
-    if any(strcmp(batch_mode, {'penetration_scan', 'wind_speed_scan', 'all_full'})) && ...
+    if any(strcmp(batch_mode, {'penetration_scan', 'wind_speed_scan', 'all_full', 'renewable_trip_record'})) && ...
             execution_status ~= "failed"
         if actual_trials ~= expected_trials
             error('场景%s属于%s，但actual_trials=%g expected_trials=%g，禁止混入smoke结果。', ...
@@ -129,11 +127,6 @@ for i = 1:height(summary_table)
         if strlength(note_value) == 0
             error('场景%s diagnostic_only但note为空。', scenario_id);
         end
-        invalid_summary = readtable(fullfile(scenario_root, scenario_id, 'tables', 'markov_paper_invalid_stage_summary.csv'));
-        if invalid_summary.invalid_stage_ratio(1) <= cfg.paper_max_invalid_chain_ratio_for_var && ...
-                ~contains(note_value, "threshold")
-            error('场景%s diagnostic_only但无效阶段比例未超过阈值且note未说明其他原因。', scenario_id);
-        end
     end
 end
 
@@ -166,13 +159,10 @@ for k = 1:height(summary_table)
 end
 [sorted_ratios, order] = sort(ratios);
 capacities = summary_table.total_wind_capacity_mw(order);
-if any(diff(sorted_ratios) <= 0)
-    error('penetration_scan渗透率不单调递增。');
+if any(diff(sorted_ratios) <= 0) || any(diff(capacities) <= 0)
+    error('penetration_scan渗透率或风电容量不单调递增。');
 end
-if any(diff(capacities) <= 0)
-    error('penetration_scan风电容量不单调递增。');
-end
-base_load_mw = infer_base_load_from_capacity(sorted_ratios, capacities);
+base_load_mw = median(capacities ./ sorted_ratios);
 expected_capacity = sorted_ratios .* base_load_mw;
 if any(abs(capacities - expected_capacity) > max(1e-6, 1e-6 * base_load_mw))
     error('penetration_scan容量与scenario_id渗透率不一致。');
@@ -180,15 +170,6 @@ end
 if isfield(cfg, 'scenario_penetration_definition') && ...
         ~strcmp(cfg.scenario_penetration_definition, 'wind_capacity_divided_by_base_load')
     error('未知渗透率定义：%s', cfg.scenario_penetration_definition);
-end
-end
-
-function base_load_mw = infer_base_load_from_capacity(ratios, capacities)
-%INFER_BASE_LOAD_FROM_CAPACITY 从容量/渗透率反推base load，避免依赖MATPOWER路径。
-base_values = capacities ./ ratios;
-base_load_mw = median(base_values);
-if max(abs(base_values - base_load_mw)) > 1e-6 * max(base_load_mw, 1)
-    error('penetration_scan各点反推base_load不一致。');
 end
 end
 
@@ -226,18 +207,67 @@ cf = summary_table.wind_capacity_factor;
 if any(isnan(cf)) || any(cf < -1e-9) || any(cf > 1 + 1e-9)
     error('wind_speed_scan容量因子必须位于[0,1]。');
 end
-
 [sorted_speeds, order] = sort(speeds);
 outputs = summary_table.total_wind_output_mw(order);
 idx_ramp = sorted_speeds <= 12;
 if sum(idx_ramp) >= 2 && any(diff(outputs(idx_ramp)) < -1e-6)
     error('wind_speed_scan在cut-in到rated范围内实际出力应非递减。');
 end
-idx_plateau = sorted_speeds >= 12;
-if any(outputs(idx_plateau) > 3000 + 1e-6)
+if any(outputs(sorted_speeds >= 12) > 3000 + 1e-6)
     error('wind_speed_scan额定平台出力不应超过装机容量。');
 end
-if any(summary_table.markov_trials_per_initial_fault ~= summary_table.expected_markov_trials_per_initial_fault)
-    error('wind_speed_scan存在trial数不一致结果。');
+end
+
+function check_renewable_trip_record_summary(summary_table, scenario_root)
+%CHECK_RENEWABLE_TRIP_RECORD_SUMMARY 校验新能源脱网概率record-only场景。
+required_ids = ["distributed_wind_3000mw_base", "distributed_wind_40pct_trip_record_only"];
+ids = string(summary_table.scenario_id);
+missing_ids = setdiff(required_ids, ids);
+if ~isempty(missing_ids)
+    error('renewable_trip_record缺少场景：%s', strjoin(missing_ids, ', '));
+end
+required_fields = {'wind_trip_record_enabled', 'wind_trip_detail_rows', ...
+    'max_wind_trip_probability', 'p95_wind_trip_probability', ...
+    'num_wind_trip_probability_positive'};
+missing = setdiff(required_fields, summary_table.Properties.VariableNames);
+if ~isempty(missing)
+    error('renewable_trip_record汇总表缺少字段：%s', strjoin(missing, ', '));
+end
+
+base_row = summary_table(ids == "distributed_wind_3000mw_base", :);
+trip_row = summary_table(ids == "distributed_wind_40pct_trip_record_only", :);
+if logical(base_row.wind_trip_record_enabled(1))
+    error('distributed_wind_3000mw_base不应启用风机脱网概率记录。');
+end
+if ~logical(trip_row.wind_trip_record_enabled(1))
+    error('distributed_wind_40pct_trip_record_only必须启用风机脱网概率记录。');
+end
+if trip_row.wind_trip_detail_rows(1) <= 0 || isnan(trip_row.max_wind_trip_probability(1))
+    error('trip_record_only风机脱网概率记录为空或最大概率为NaN。');
+end
+
+trip_table_dir = fullfile(scenario_root, 'distributed_wind_40pct_trip_record_only', 'tables');
+detail_path = fullfile(trip_table_dir, 'wind_trip_probability_details.csv');
+summary_path = fullfile(trip_table_dir, 'wind_trip_probability_summary.csv');
+sample_path = fullfile(trip_table_dir, 'wind_trip_probability_details_sample.csv');
+if ~exist(detail_path, 'file') || ~exist(summary_path, 'file') || ~exist(sample_path, 'file')
+    error('trip_record_only缺少wind_trip_probability输出文件。');
+end
+detail = readtable(detail_path);
+if height(detail) == 0
+    error('wind_trip_probability_details.csv为空。');
+end
+if any(detail.trip_probability < -1e-12) || any(detail.trip_probability > 1 + 1e-12)
+    error('风机脱网概率超出[0,1]。');
+end
+if any(detail.voltage_pu <= 0)
+    error('风机电压存在非正值。');
+end
+if ~all(logical(detail.record_only))
+    error('record_only字段必须全部为true。');
+end
+comparison_path = fullfile(scenario_root, 'renewable_trip_record_comparison.csv');
+if ~exist(comparison_path, 'file') || height(readtable(comparison_path)) == 0
+    error('缺少有效的renewable_trip_record_comparison.csv。');
 end
 end

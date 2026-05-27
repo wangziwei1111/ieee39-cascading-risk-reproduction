@@ -12,6 +12,8 @@
 | `distributed_wind_40pct` | legacy 别名 | 30:39 | 3000 MW | 12 m/s | `wind_plus_redispatch` | 兼容旧结果；它是 `distributed_wind_3000mw_base` 的历史别名，不再用于 `penetration_scan`。 |
 | `distributed_wind_40pct_trip_record_only` | 3000 MW 分散式脱网概率记录 | 30:39 | 3000 MW | 12 m/s | `wind_plus_redispatch` | 仅记录风机电压脱网概率，暂不实际触发风机脱网。 |
 
+`distributed_wind_40pct_trip_record_only` 与 `distributed_wind_3000mw_base` 使用相同的3000 MW分散式风电接入和相同线路 Markov 抽样设置，区别只在于前者启用 `enable_wind_voltage_trip_sampling` 并输出 `wind_trip_probability_details.csv`、`wind_trip_probability_summary.csv` 和 `wind_trip_probability_details_sample.csv`。该模式只记录概率，不改变风机机组状态，不是完整新能源脱网仿真。
+
 ## 渗透率扫描场景
 
 渗透率扫描使用统一定义：

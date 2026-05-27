@@ -74,6 +74,14 @@ smoke test 使用 `cfg.scenario_smoke_trials_per_initial_fault=5`，只用于快
 
 这些风速点仍属于工程扫描设置，待与论文参数进一步校准。`smoke`、`penetration_scan`、`wind_speed_scan` 的结果用途不同，不能混用或互相替代。
 
+## 新能源电压脱网概率记录模式
+
+`renewable_trip_record` 用于检查新能源电压脱网概率接口。当前只记录 `P_WT(h)`，不实际切除风电机组，不改变 `mpc.gen` 状态，也不把风机概率并入线路 Markov 抽样。
+
+`distributed_wind_40pct_trip_record_only` 会在每个收敛的 Markov stage 读取风电接入节点电压，并用配置化分段模型计算脱网概率。该过程不调用 `rand`，因此不应改变线路连锁故障路径。本轮对比表 `results/scenarios/renewable_trip_record_comparison.csv` 显示 record-only 场景与 `distributed_wind_3000mw_base` 的 basic、weighted、paper CRI 差值均为 0，说明诊断记录未扰动线路事故链。
+
+当前 `P_wt(E_k)` 尚未并入 `paper_formula`。完整新能源脱网模型还需要实际风机状态转移、`P_wt(E_k)` 与事故链状态概率耦合，以及相应保护参数校准；因此 record-only 结果只能用于诊断论文中新能源脱网概率机制的接口，不能称为完整新能源脱网仿真。
+
 ## 当前已实现内容
 
 - 使用 MATLAB + MATPOWER 的 `case39` 作为 IEEE 10机39节点基础系统。

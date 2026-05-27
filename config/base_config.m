@@ -36,6 +36,13 @@ cfg.load_shed_max_iter = 6;
 
 % 风机电压穿越脱网概率只记录，默认不在当前line-only Markov中触发。
 cfg.enable_wind_voltage_trip_sampling = false;
+cfg.wind_trip_record_only = true;
+cfg.wind_trip_probability_model = 'voltage_piecewise_diagnostic';
+cfg.wind_trip_low_voltage_start_pu = 0.90;   % 待校准：低电压概率开始区
+cfg.wind_trip_low_voltage_trip_pu = 0.20;    % 待校准：低于该电压概率记为1
+cfg.wind_trip_high_voltage_start_pu = 1.10;  % 待校准：高电压概率开始区
+cfg.wind_trip_high_voltage_trip_pu = 1.30;   % 待校准：高于该电压概率记为1
+cfg.wind_trip_probability_cap = 1.0;
 
 % 综合风险权重。用户提供的论文权重为0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];

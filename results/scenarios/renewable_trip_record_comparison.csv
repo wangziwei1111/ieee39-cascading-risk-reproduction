@@ -1,0 +1,10 @@
+metric_type,sigma,base_CRI,trip_record_CRI,delta_CRI,note
+basic,0.9,0.396859512859246,0.396859512859246,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero
+basic,0.95,0.606777481661994,0.606777481661994,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero
+basic,0.98,0.813455018064531,0.813455018064531,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero
+weighted,0.9,0.391025328403313,0.391025328403313,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero
+weighted,0.95,0.616438348328113,0.616438348328113,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero
+weighted,0.98,0.843589284606768,0.843589284606768,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero
+paper_formula,0.9,0.000290408562485307,0.000290408562485307,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero
+paper_formula,0.95,0.00219600110468604,0.00219600110468604,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero
+paper_formula,0.98,0.00648700649120147,0.00648700649120147,0,record_only should not change line cascade; investigate RNG/config if delta is not near zero

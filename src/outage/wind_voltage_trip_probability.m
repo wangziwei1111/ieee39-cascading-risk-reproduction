@@ -1,24 +1,53 @@
-function p = wind_voltage_trip_probability(v_pu)
-%WIND_VOLTAGE_TRIP_PROBABILITY 计算风机电压穿越失败脱网概率。
+function [p, region] = wind_voltage_trip_probability(v_pu, cfg)
+%WIND_VOLTAGE_TRIP_PROBABILITY 兼容旧路径的风机电压脱网概率诊断函数。
 % 输入：
-%   v_pu - 风机并网点/机端电压标幺值。
+%   v_pu - 风机并网点电压标幺值。
+%   cfg - 可选配置，包含待校准的分段电压阈值。
 % 输出：
-%   p - 电压穿越失败脱网概率，范围[0,1]。
+%   p - 脱网概率诊断值，范围[0,1]。
+%   region - 电压区间标签。
 % 物理含义：
-%   对应论文式(3-13)的折线概率模型。0.9-1.1 p.u.内不脱网；
-%   严重低压或高压时脱网概率为1，中间区间线性变化。
+%   仅用于记录P_WT(h)，不触发实际脱网；保留在outage目录是为了兼容旧调用。
+if nargin < 2
+    cfg = struct();
+end
+low_start = get_cfg(cfg, 'wind_trip_low_voltage_start_pu', 0.90);
+low_trip = get_cfg(cfg, 'wind_trip_low_voltage_trip_pu', 0.20);
+high_start = get_cfg(cfg, 'wind_trip_high_voltage_start_pu', 1.10);
+high_trip = get_cfg(cfg, 'wind_trip_high_voltage_trip_pu', 1.30);
+prob_cap = get_cfg(cfg, 'wind_trip_probability_cap', 1.0);
 
-if v_pu < 0.2
-    p = 1;
-elseif v_pu < 0.9
-    p = (0.9 - v_pu) / 0.7;
-elseif v_pu <= 1.1
-    p = 0;
-elseif v_pu <= 1.3
-    p = (v_pu - 1.1) / 0.2;
-else
-    p = 1;
+p = zeros(size(v_pu));
+region = strings(size(v_pu));
+for k = 1:numel(v_pu)
+    v = v_pu(k);
+    if isnan(v)
+        p(k) = NaN;
+        region(k) = "missing_voltage";
+    elseif v <= low_trip
+        p(k) = 1;
+        region(k) = "low_voltage_forced_trip";
+    elseif v < low_start
+        p(k) = (low_start - v) / max(low_start - low_trip, eps);
+        region(k) = "low_voltage_ramp";
+    elseif v <= high_start
+        p(k) = 0;
+        region(k) = "normal";
+    elseif v < high_trip
+        p(k) = (v - high_start) / max(high_trip - high_start, eps);
+        region(k) = "high_voltage_ramp";
+    else
+        p(k) = 1;
+        region(k) = "high_voltage_forced_trip";
+    end
+end
+p = min(max(p, 0), prob_cap);
 end
 
-p = min(max(p, 0), 1);
+function value = get_cfg(cfg, field_name, default_value)
+if isfield(cfg, field_name)
+    value = cfg.(field_name);
+else
+    value = default_value;
+end
 end

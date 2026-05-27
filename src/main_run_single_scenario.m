@@ -93,6 +93,9 @@ result = struct('scenario_id', string(scenario_id), 'total_wind_capacity_mw', Na
     'total_wind_output_mw', NaN, 'wind_capacity_factor', NaN, ...
     'basecase_slack_pg_mw', NaN, 'basecase_overloaded_line_count', NaN, ...
     'basecase_voltage_violation_count', NaN, ...
+    'wind_trip_record_enabled', false, 'wind_trip_detail_rows', 0, ...
+    'max_wind_trip_probability', NaN, 'p95_wind_trip_probability', NaN, ...
+    'num_wind_trip_probability_positive', 0, ...
     'markov_trials_per_initial_fault', cfg.markov_num_trials_per_initial_fault, ...
     'basecase_converged', false, 'chain_count', 0, 'invalid_stage_ratio', NaN, ...
     'basic_CRI_095', NaN, 'weighted_CRI_095', NaN, 'paper_CRI_095', NaN, ...
@@ -212,6 +215,15 @@ save_result_table(candidate_sample_table, fullfile(cfg.results_table_dir, 'marko
 manifest = save_table_chunks(candidate_detail_table, fullfile(cfg.results_table_dir, 'candidate_chunks'), ...
     'markov_candidate_details', cfg.candidate_detail_chunk_size);
 save_result_table(manifest, fullfile(cfg.results_table_dir, 'markov_candidate_details_manifest.csv'), true);
+
+if isfield(cfg, 'enable_wind_voltage_trip_sampling') && cfg.enable_wind_voltage_trip_sampling
+    wind_trip_detail_table = flatten_wind_trip_records(chain_records);
+    wind_trip_summary_table = summarize_wind_trip_records(wind_trip_detail_table);
+    wind_trip_sample_table = build_wind_trip_sample(wind_trip_detail_table);
+    save_result_table(wind_trip_detail_table, fullfile(cfg.results_table_dir, 'wind_trip_probability_details.csv'), true);
+    save_result_table(wind_trip_summary_table, fullfile(cfg.results_table_dir, 'wind_trip_probability_summary.csv'), true);
+    save_result_table(wind_trip_sample_table, fullfile(cfg.results_table_dir, 'wind_trip_probability_details_sample.csv'), true);
+end
 
 save(fullfile(cfg.results_chain_dir, 'markov_chain_records.mat'), 'chain_records', 'cfg', 'scenario', 'renewable_info', 'base_load_mw', '-v7');
 end
@@ -390,6 +402,18 @@ if isempty(sample_table)
 end
 end
 
+function sample_table = build_wind_trip_sample(wind_trip_detail_table)
+if isempty(wind_trip_detail_table) || height(wind_trip_detail_table) == 0
+    sample_table = wind_trip_detail_table;
+    return;
+end
+[~, prob_order] = sort(wind_trip_detail_table.trip_probability, 'descend');
+[~, voltage_order] = sort(wind_trip_detail_table.voltage_pu, 'ascend');
+selected = unique([prob_order(1:min(1000, numel(prob_order))); ...
+    voltage_order(1:min(1000, numel(voltage_order)))], 'stable');
+sample_table = wind_trip_detail_table(selected, :);
+end
+
 function shed = empty_shed(existing_shed_mw)
 shed = struct('island_load_shed_mw', existing_shed_mw, ...
     'corrective_load_shed_mw', 0, ...
@@ -427,6 +451,8 @@ end
 basecase_slack_pg_mw = get_scalar_or_nan(basecase_table, 'slack_pg_mw');
 basecase_overloaded_line_count = get_scalar_or_nan(basecase_table, 'base_overloaded_line_count');
 basecase_voltage_violation_count = get_scalar_or_nan(basecase_table, 'base_voltage_violation_count');
+[wind_trip_record_enabled, wind_trip_detail_rows, max_wind_trip_probability, ...
+    p95_wind_trip_probability, num_wind_trip_probability_positive] = read_wind_trip_status(cfg.results_table_dir);
 if paper_result_status == "valid" && basic_result_status == "valid" && weighted_result_status == "valid"
     overall_status = "success_all_valid";
 elseif paper_result_status == "diagnostic_only" && basic_result_status == "valid" && weighted_result_status == "valid"
@@ -448,6 +474,11 @@ scenario_result = struct('scenario_id', string(scenario_id), ...
     'basecase_slack_pg_mw', basecase_slack_pg_mw, ...
     'basecase_overloaded_line_count', basecase_overloaded_line_count, ...
     'basecase_voltage_violation_count', basecase_voltage_violation_count, ...
+    'wind_trip_record_enabled', wind_trip_record_enabled, ...
+    'wind_trip_detail_rows', wind_trip_detail_rows, ...
+    'max_wind_trip_probability', max_wind_trip_probability, ...
+    'p95_wind_trip_probability', p95_wind_trip_probability, ...
+    'num_wind_trip_probability_positive', num_wind_trip_probability_positive, ...
     'markov_trials_per_initial_fault', cfg.markov_num_trials_per_initial_fault, ...
     'basecase_converged', logical(basecase_converged), ...
     'chain_count', chain_count, ...
@@ -532,6 +563,23 @@ if ismember(field_name, tbl.Properties.VariableNames) && height(tbl) >= 1
 else
     value = NaN;
 end
+end
+
+function [enabled, rows, max_prob, p95_prob, positive_count] = read_wind_trip_status(table_dir)
+summary_path = fullfile(table_dir, 'wind_trip_probability_summary.csv');
+enabled = exist(summary_path, 'file') == 2;
+rows = 0;
+max_prob = NaN;
+p95_prob = NaN;
+positive_count = 0;
+if ~enabled
+    return;
+end
+tbl = readtable(summary_path);
+rows = get_scalar_or_nan(tbl, 'total_rows');
+max_prob = get_scalar_or_nan(tbl, 'max_trip_probability');
+p95_prob = get_scalar_or_nan(tbl, 'p95_trip_probability');
+positive_count = get_scalar_or_nan(tbl, 'num_probability_positive');
 end
 
 function s = join_vector(v)

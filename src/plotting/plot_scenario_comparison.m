@@ -101,6 +101,34 @@ if height(wind_table) >= 3
         close(fig);
     end
 end
+
+if string(batch_mode) == "renewable_trip_record"
+    trip_detail_path = fullfile(scenario_root, 'distributed_wind_40pct_trip_record_only', ...
+        'tables', 'wind_trip_probability_details.csv');
+    if exist(trip_detail_path, 'file')
+        trip_detail = readtable(trip_detail_path);
+        if height(trip_detail) > 0
+            wind_buses = unique(trip_detail.wind_bus);
+            max_prob = nan(numel(wind_buses), 1);
+            p95_prob = nan(numel(wind_buses), 1);
+            for k = 1:numel(wind_buses)
+                rows = trip_detail.wind_bus == wind_buses(k);
+                probs = trip_detail.trip_probability(rows);
+                max_prob(k) = max(probs, [], 'omitnan');
+                p95_prob(k) = percentile_local(probs, 95);
+            end
+            fig = figure('Visible', 'off', 'Color', 'w');
+            bar(categorical(string(wind_buses)), [max_prob, p95_prob]);
+            grid on;
+            xlabel('风电接入节点');
+            ylabel('脱网概率诊断值');
+            title({'风机电压脱网概率诊断', '仅记录概率，未实际触发脱网'});
+            legend({'max', 'p95'}, 'Location', 'best');
+            saveas(fig, fullfile(fig_dir, 'renewable_trip_probability_summary.png'));
+            close(fig);
+        end
+    end
+end
 end
 
 function ratios = extract_penetration_ratio(ids)
@@ -123,4 +151,14 @@ for k = 1:numel(ids)
         speeds(k) = str2double(token{1});
     end
 end
+end
+
+function value = percentile_local(x, p)
+x = sort(x(~isnan(x)));
+if isempty(x)
+    value = NaN;
+    return;
+end
+idx = max(1, min(numel(x), ceil(p / 100 * numel(x))));
+value = x(idx);
 end

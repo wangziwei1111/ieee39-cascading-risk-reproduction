@@ -46,6 +46,16 @@ for stage_id = 1:cfg.markov_max_depth
     final_converged = converged;
 
     violations = check_violations(pf_result, cfg);
+    if isstruct(pf_result)
+        pf_result.success = logical(converged);
+    end
+
+    if isfield(cfg, 'enable_wind_voltage_trip_sampling') && cfg.enable_wind_voltage_trip_sampling && ...
+            isfield(renewable_info, 'wind_buses') && ~isempty(renewable_info.wind_buses) && converged
+        wind_trip_table = record_wind_trip_probability(pf_result, stage_id, initial_branch, trial_id, renewable_info, cfg);
+    else
+        wind_trip_table = table();
+    end
 
     if converged
         candidate_table = update_line_outage_probabilities( ...
@@ -86,6 +96,7 @@ for stage_id = 1:cfg.markov_max_depth
     stage_records(stage_id).shed = shed;
     stage_records(stage_id).violations = violations;
     stage_records(stage_id).candidate_table = candidate_table;
+    stage_records(stage_id).wind_trip_table = wind_trip_table;
 
     if isempty(selected)
         break;
