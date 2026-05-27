@@ -63,6 +63,9 @@ online_wind_mw = zeros(island_count, 1);
 online_conventional_mw = zeros(island_count, 1);
 has_online_gen = false(island_count, 1);
 has_online_conventional_gen = false(island_count, 1);
+has_load = false(island_count, 1);
+has_generation = false(island_count, 1);
+has_conventional_generation = false(island_count, 1);
 
 for island = 1:island_count
     rows = find(bus_island_id == island);
@@ -80,6 +83,9 @@ for island = 1:island_count
     online_conventional_mw(island) = sum(mpc.gen(conventional_rows, 2));
     has_online_gen(island) = ~isempty(gen_rows);
     has_online_conventional_gen(island) = ~isempty(conventional_rows);
+    has_load(island) = total_load_mw(island) > 1e-6;
+    has_generation(island) = online_generation_mw(island) > 1e-6;
+    has_conventional_generation(island) = online_conventional_mw(island) > 1e-6;
 end
 
 has_original_slack = false(island_count, 1);
@@ -89,7 +95,21 @@ if ~isempty(slack_rows)
     has_original_slack(ismember(island_id, slack_islands)) = true;
 end
 
+total_system_load_mw = sum(total_load_mw);
+total_system_online_generation_mw = sum(online_generation_mw);
+if total_system_load_mw > 0
+    load_share = total_load_mw / total_system_load_mw;
+else
+    load_share = zeros(island_count, 1);
+end
+if total_system_online_generation_mw > 0
+    gen_share = online_generation_mw / total_system_online_generation_mw;
+else
+    gen_share = zeros(island_count, 1);
+end
+
 island_summary = table(island_id, bus_count, bus_list, total_load_mw, ...
     online_generation_mw, online_conventional_mw, online_wind_mw, ...
+    load_share, gen_share, has_load, has_generation, has_conventional_generation, ...
     has_online_gen, has_online_conventional_gen, has_original_slack);
 end

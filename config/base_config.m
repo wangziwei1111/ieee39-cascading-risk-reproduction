@@ -44,6 +44,11 @@ cfg.enable_wind_voltage_trip_sampling = false;
 % 简化风险指标权重。论文给出 SLLR/SLFOR/SNVOR 权重为 0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];
 
+% 主岛选择规则参数。原平衡节点所在岛至少承担该比例负荷时，才允许
+% 优先保留原平衡节点所在岛；否则选择更能代表主网的最大负荷岛。
+cfg.main_island_min_load_share = 0.5; % 待校准
+cfg.main_island_selection_mode = 'largest_load_with_slack_bonus';
+
 % 输出目录。
 cfg.results_table_dir = fullfile('results', 'tables');
 cfg.results_log_dir = fullfile('results', 'logs');

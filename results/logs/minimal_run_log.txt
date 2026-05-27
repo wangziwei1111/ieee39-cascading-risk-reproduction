@@ -1,4 +1,4 @@
-最小复现实验开始：2026-05-27 12:27:28
+最小复现实验开始：2026-05-27 12:32:19
 场景：minimal_distributed_wind_40pct
 节点30至39分散式接入总容量3000 MW风电；默认采用wind_plus_redispatch，新增风电并下调常规机组；各节点等容量分配为最小版假设，待校准。
 随机种子：202405
@@ -9,5 +9,5 @@
 孤岛诊断结果已写入：C:\Users\24186\Documents\New project 13\results\tables\island_diagnostics.csv
 日志已写入：C:\Users\24186\Documents\New project 13\results\logs\minimal_run_log.txt
 孤岛诊断日志已写入：C:\Users\24186\Documents\New project 13\results\logs\island_diagnostics_log.txt
-汇总指标：SLLR=0.026434, SLFOR=0.046379, SNVOR=0.000000, CRI=0.025136
-最小复现实验结束：2026-05-27 12:27:30
+汇总指标：SLLR=0.004759, SLFOR=0.052495, SNVOR=0.000000, CRI=0.013355
+最小复现实验结束：2026-05-27 12:32:20

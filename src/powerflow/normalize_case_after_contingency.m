@@ -33,8 +33,22 @@ else
 end
 
 [bus_island_id, island_summary] = detect_islands(mpc);
-main_island_id = select_main_island(island_summary);
+[main_island_id, selection_reason] = select_main_island(island_summary, cfg);
 main_bus_numbers = island_summary.bus_list{island_summary.island_id == main_island_id};
+main_row = island_summary(island_summary.island_id == main_island_id, :);
+
+original_slack_island_id = NaN;
+original_slack_row = island_summary(island_summary.has_original_slack, :);
+if ~isempty(original_slack_row)
+    original_slack_island_id = original_slack_row.island_id(1);
+    original_slack_island_load_mw = original_slack_row.total_load_mw(1);
+    original_slack_island_load_share = original_slack_row.load_share(1);
+    original_slack_island_generation_mw = original_slack_row.online_generation_mw(1);
+else
+    original_slack_island_load_mw = 0;
+    original_slack_island_load_share = 0;
+    original_slack_island_generation_mw = 0;
+end
 
 bus_in_main = ismember(mpc.bus(:, 1), main_bus_numbers);
 gen_in_main = ismember(mpc.gen(:, 1), main_bus_numbers);
@@ -67,6 +81,15 @@ island_info.disconnected_generation_mw = disconnected_generation_mw;
 island_info.disconnected_wind_mw = disconnected_wind_mw;
 island_info.original_slack_in_main_island = original_slack_in_main_island;
 island_info.new_slack_bus = new_slack_bus;
+island_info.main_island_load_mw = main_row.total_load_mw;
+island_info.main_island_load_share = main_row.load_share;
+island_info.main_island_generation_mw = main_row.online_generation_mw;
+island_info.main_island_gen_share = main_row.gen_share;
+island_info.original_slack_island_id = original_slack_island_id;
+island_info.original_slack_island_load_mw = original_slack_island_load_mw;
+island_info.original_slack_island_load_share = original_slack_island_load_share;
+island_info.original_slack_island_generation_mw = original_slack_island_generation_mw;
+island_info.main_island_selection_reason = selection_reason;
 island_info.island_bus_summary = island_summary;
 island_info.bus_island_id = bus_island_id;
 end
