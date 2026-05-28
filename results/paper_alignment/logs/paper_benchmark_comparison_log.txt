@@ -1,5 +1,5 @@
 Paper benchmark comparison generated.
 paper_rows=84
 mapping_rows=17
-comparison_rows=108
+comparison_rows=116
 gap_rows=10

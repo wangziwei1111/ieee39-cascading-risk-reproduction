@@ -49,3 +49,23 @@
 - `results/paper_alignment/tables/next_model_fix_priority.csv`
 
 推荐顺序为：先实现论文式最优负荷削减和线路后续停运概率参数化，再补跑表4-6风速点；之后实现新能源实际脱网状态转移与 `P_wt(E_k)`、传统机组停运与 `P_ge(E_k)`，最后对齐集中式接入节点和完整 IEEE39 参数。
+
+## Table 4-6 风速点复现实验
+
+已新增并运行论文表4-6指定风速点：
+
+- 11.28 m/s
+- 11.52 m/s
+- 11.76 m/s
+- 12.00 m/s
+
+对应工程场景为：
+
+- `paper_wind_speed_11_28mps`
+- `paper_wind_speed_11_52mps`
+- `paper_wind_speed_11_76mps`
+- `paper_wind_speed_12_00mps`
+
+这些场景不同于早期工程扫描 `wind_speed_8/10/12/14/16mps`。本批次使用 3000 MW 分散式风电、20-trial Markov 样本，并写入 `results/scenarios/scenario_result_summary_paper_wind_speed_scan.csv`。
+
+当前对照仍只能称为谨慎对比：模型仍是 line-only paper_formula，尚未实现 `P_wt(E_k)` 与 `P_ge(E_k)`，线路后续停运概率、最优负荷削减、单位尺度和原文完整 IEEE39 参数也尚未完全对齐。若与论文 Table 4-6 误差较大，应优先从这些缺口解释，而不是通过缩放或调参强行贴近。

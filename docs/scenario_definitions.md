@@ -72,3 +72,15 @@ total_wind_capacity_mw = penetration_ratio * base_load_mw
 - `distributed_wind_40pct_trip_record_only` 是 record-only 诊断，不是完整新能源脱网仿真。
 - `distributed_wind_40pct` 是 legacy alias，不进入最终汇总。
 - `distributed_wind_3000mw_base` 是 3000 MW 基准；`distributed_wind_penetration_40pct` 是按 `wind_capacity/base_load` 定义的 40% 渗透率点。
+## paper_wind_speed_scan 场景组
+
+该组专门用于论文表4-6风速波动 benchmark 的复现实验，不复用早期工程扫描 `wind_speed_8mps`、`wind_speed_10mps`、`wind_speed_12mps`、`wind_speed_14mps`、`wind_speed_16mps`。
+
+| scenario_id | source_paper_scenario_id | wind_speed_mps | total_wind_capacity_mw | wind_buses | 说明 |
+|---|---:|---:|---:|---|---|
+| `paper_wind_speed_11_28mps` | `wind_speed_11_28mps` | 11.28 | 3000 | 30-39 | 论文表4-6风速点；当前line-only模型 |
+| `paper_wind_speed_11_52mps` | `wind_speed_11_52mps` | 11.52 | 3000 | 30-39 | 论文表4-6风速点；当前line-only模型 |
+| `paper_wind_speed_11_76mps` | `wind_speed_11_76mps` | 11.76 | 3000 | 30-39 | 论文表4-6风速点；当前line-only模型 |
+| `paper_wind_speed_12_00mps` | `wind_speed_12_00mps` | 12.00 | 3000 | 30-39 | 论文表4-6风速点；当前line-only模型 |
+
+运行入口为 `main_run_scenario_batch_paper_wind_speed`，批次名为 `paper_wind_speed_scan`。该结果只能作为当前 line-only paper_formula 下对论文风速点的复现实验，不能称为严格复现论文表4-6。

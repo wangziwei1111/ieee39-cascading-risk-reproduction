@@ -71,6 +71,10 @@ end
 
 is_wind_speed = startsWith(string(summary_table.scenario_id), "wind_speed_") & ...
     endsWith(string(summary_table.scenario_id), "mps");
+if string(batch_mode) == "paper_wind_speed_scan"
+    is_wind_speed = startsWith(string(summary_table.scenario_id), "paper_wind_speed_") & ...
+        endsWith(string(summary_table.scenario_id), "mps");
+end
 wind_table = summary_table(is_wind_speed, :);
 if height(wind_table) >= 3
     speeds = extract_wind_speed(wind_table.scenario_id);
@@ -87,7 +91,13 @@ if height(wind_table) >= 3
     title({'不同风速下风险指标变化（3000MW装机，实际出力由风速曲线决定）', ...
         'paper\_formula diagnostic\_only 点未计入有效 paper 曲线'});
     legend({'basic', 'weighted', 'paper formula'}, 'Location', 'best');
-    saveas(fig, fullfile(fig_dir, 'wind_speed_cri_curve.png'));
+    if string(batch_mode) == "paper_wind_speed_scan"
+        title({'论文表4-6风速点复现实验（当前line-only模型）', ...
+            'paper\_formula diagnostic\_only 点未计入有效 paper 曲线'});
+        saveas(fig, fullfile(fig_dir, 'paper_table46_wind_speed_cri_curve.png'));
+    else
+        saveas(fig, fullfile(fig_dir, 'wind_speed_cri_curve.png'));
+    end
     close(fig);
 
     if ismember('total_wind_output_mw', wind_table.Properties.VariableNames)
@@ -96,8 +106,13 @@ if height(wind_table) >= 3
         grid on;
         xlabel('风速 (m/s)');
         ylabel('实际风电出力 (MW)');
-        title('风速-实际风电出力检查（3000MW装机）');
-        saveas(fig, fullfile(fig_dir, 'wind_speed_power_curve_check.png'));
+        if string(batch_mode) == "paper_wind_speed_scan"
+            title('论文表4-6风速点-实际风电出力检查（3000MW装机）');
+            saveas(fig, fullfile(fig_dir, 'paper_table46_wind_speed_power_curve.png'));
+        else
+            title('风速-实际风电出力检查（3000MW装机）');
+            saveas(fig, fullfile(fig_dir, 'wind_speed_power_curve_check.png'));
+        end
         close(fig);
     end
 end
@@ -147,6 +162,13 @@ ids = string(ids);
 speeds = nan(numel(ids), 1);
 for k = 1:numel(ids)
     token = regexp(char(ids(k)), 'wind_speed_(\d+)mps', 'tokens', 'once');
+    if isempty(token)
+        token = regexp(char(ids(k)), 'paper_wind_speed_(\d+)_(\d+)mps', 'tokens', 'once');
+        if ~isempty(token)
+            speeds(k) = str2double(token{1}) + str2double(token{2}) / 100;
+            continue;
+        end
+    end
     if ~isempty(token)
         speeds(k) = str2double(token{1});
     end

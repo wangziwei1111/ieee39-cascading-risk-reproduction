@@ -1,0 +1,5 @@
+wind_speed_mps,paper_SLLR,paper_SLFOR,paper_SNVOR,paper_CRI,repro_basic_CRI,repro_weighted_CRI,repro_paper_CRI,paper_result_status,comparison_status,diagnosis_note
+11.28,7.5361,6.0213,6.5482,7.0356,0.56247895407337,0.532384565277598,0.00185767060737346,valid,comparable_with_caution,"thesis wind-speed point is reproduced, but current model is line-only and unit alignment is pending"
+11.52,7.1037,5.4123,5.2681,6.3983,0.562382596016668,0.558808093126181,0.00189049854665166,valid,comparable_with_caution,"thesis wind-speed point is reproduced, but current model is line-only and unit alignment is pending"
+11.76,7.1037,5.4123,5.2681,6.3983,0.547046061674051,0.543497537682434,0.00232977388878459,valid,comparable_with_caution,"thesis wind-speed point is reproduced, but current model is line-only and unit alignment is pending"
+12,6.6351,4.7631,4.9822,5.9301,0.606777481661994,0.616438348328113,0.00219600110468604,valid,comparable_with_caution,"thesis wind-speed point is reproduced, but current model is line-only and unit alignment is pending"

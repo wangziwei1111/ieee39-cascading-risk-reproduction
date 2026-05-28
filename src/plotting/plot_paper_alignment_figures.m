@@ -20,6 +20,7 @@ mapping = readtable(fullfile(table_dir, 'paper_to_reproduction_scenario_mapping.
 plot_table45(comparison, fig_dir);
 plot_table44(comparison, fig_dir);
 plot_status_matrix(mapping, comparison, fig_dir);
+plot_table46(table_dir, fig_dir);
 end
 
 function plot_table45(comparison, fig_dir)
@@ -139,5 +140,29 @@ for i = 1:numel(groups)
     text(i, status_score(i) + 0.15, status_label(i), 'HorizontalAlignment', 'center');
 end
 saveas(gcf, fullfile(fig_dir, 'paper_alignment_status_matrix.png'));
+close(gcf);
+end
+
+function plot_table46(table_dir, fig_dir)
+path = fullfile(table_dir, 'table46_wind_speed_paper_vs_reproduction.csv');
+if ~exist(path, 'file')
+    return;
+end
+tbl = readtable(path, 'Delimiter', ',', 'VariableNamingRule', 'preserve');
+if isempty(tbl) || height(tbl) == 0
+    return;
+end
+[speeds, order] = sort(tbl.wind_speed_mps);
+figure('Visible', 'off', 'Color', 'w');
+plot(speeds, tbl.paper_CRI(order), '-o', 'LineWidth', 1.5, 'DisplayName', 'paper benchmark CRI (10^{-4})');
+hold on;
+plot(speeds, tbl.repro_paper_CRI(order), '-^', 'LineWidth', 1.5, 'DisplayName', 'reproduction paper\_formula raw');
+plot(speeds, tbl.repro_weighted_CRI(order), '-s', 'LineWidth', 1.5, 'DisplayName', 'reproduction weighted raw');
+grid on;
+xlabel('风速 (m/s)');
+ylabel('CRI');
+title('表4-6 风速 CRI 对照（raw comparison; unit alignment pending）');
+legend('Location', 'best');
+saveas(gcf, fullfile(fig_dir, 'table46_wind_speed_cri_paper_vs_reproduction.png'));
 close(gcf);
 end

@@ -20,6 +20,8 @@ switch mode
         wanted = "distributed_wind_penetration_" + string(40:5:80) + "pct";
     case "wind_speed_scan"
         wanted = "wind_speed_" + string([8, 10, 12, 14, 16]) + "mps";
+    case "paper_wind_speed_scan"
+        wanted = "paper_wind_speed_" + ["11_28", "11_52", "11_76", "12_00"] + "mps";
     case "renewable_trip_record"
         wanted = ["distributed_wind_3000mw_base", "distributed_wind_40pct_trip_record_only"];
     case "all_full"

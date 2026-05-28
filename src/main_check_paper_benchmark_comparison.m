@@ -38,8 +38,32 @@ for i = 1:10
 end
 
 table46 = comparison(string(comparison.paper_table) == "Table 4-6", :);
-if isempty(table46) || ~all(string(table46.comparison_status) == "not_comparable_missing_reproduction")
-    error('Table 4-6 必须存在且标记为 not_comparable_missing_reproduction。');
+paper_wind_summary = fullfile(project_root, 'results', 'scenarios', 'scenario_result_summary_paper_wind_speed_scan.csv');
+if exist(paper_wind_summary, 'file')
+    table46_special = readtable(require_file(table_dir, 'table46_wind_speed_paper_vs_reproduction.csv'), ...
+        'Delimiter', ',', 'VariableNamingRule', 'preserve');
+    if height(table46_special) < 4
+        error('table46_wind_speed_paper_vs_reproduction.csv 至少应包含4行。');
+    end
+    expected_speeds = [11.28; 11.52; 11.76; 12.00];
+    if any(abs(sort(table46_special.wind_speed_mps) - expected_speeds) > 1e-9)
+        error('Table 4-6 专用对照表风速必须为 11.28、11.52、11.76、12.00。');
+    end
+    if any(table46_special.repro_paper_CRI == 0 & isnan(table46_special.repro_paper_CRI))
+        error('NaN reproduction 不得填0。');
+    end
+    allowed = ["comparable_with_caution", "not_comparable_diagnostic_only"];
+    if any(~ismember(string(table46_special.comparison_status), allowed))
+        error('Table 4-6 专用对照状态必须为 caution 或 diagnostic_only。');
+    end
+    if all(string(table46.comparison_status) == "not_comparable_missing_reproduction")
+        error('paper_wind_speed_scan 已存在，Table 4-6 不应仍全部是 missing_reproduction。');
+    end
+    require_file(fig_dir, 'table46_wind_speed_cri_paper_vs_reproduction.png');
+else
+    if isempty(table46) || ~all(string(table46.comparison_status) == "not_comparable_missing_reproduction")
+        error('paper_wind_speed_scan 未运行时，Table 4-6 必须标记为 missing_reproduction。');
+    end
 end
 
 table42 = comparison(string(comparison.paper_table) == "Table 4-2", :);
@@ -57,8 +81,8 @@ if any(comparison.reproduction_value_raw(nan_rows) == 0)
     error('NaN reproduction 不得被填 0。');
 end
 
-if ~any(string(mapping.mapping_status) == "missing_reproduction")
-    error('映射表必须保留 missing_reproduction 状态。');
+if ~any(ismember(string(mapping.mapping_status), ["missing_reproduction", "mapped_after_paper_wind_speed_batch"]))
+    error('映射表必须保留 missing_reproduction 或 mapped_after_paper_wind_speed_batch 状态。');
 end
 if ~any(string(paper.paper_unit) == "10^-4")
     error('paper benchmark 标准化表必须保留 10^-4 单位。');

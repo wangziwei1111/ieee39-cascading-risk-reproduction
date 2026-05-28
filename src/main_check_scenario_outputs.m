@@ -40,6 +40,8 @@ if strcmp(batch_mode, 'penetration_scan')
     check_penetration_summary(summary_table, cfg);
 elseif strcmp(batch_mode, 'wind_speed_scan')
     check_wind_speed_summary(summary_table);
+elseif strcmp(batch_mode, 'paper_wind_speed_scan')
+    check_paper_wind_speed_summary(summary_table, cfg);
 elseif strcmp(batch_mode, 'renewable_trip_record')
     check_renewable_trip_record_summary(summary_table, scenario_root);
 end
@@ -84,7 +86,7 @@ for i = 1:height(summary_table)
         end
     end
 
-    if any(strcmp(batch_mode, {'penetration_scan', 'wind_speed_scan', 'all_full', 'renewable_trip_record'})) && ...
+    if any(strcmp(batch_mode, {'penetration_scan', 'wind_speed_scan', 'paper_wind_speed_scan', 'all_full', 'renewable_trip_record'})) && ...
             execution_status ~= "failed"
         if actual_trials ~= expected_trials
             error('场景%s属于%s，但actual_trials=%g expected_trials=%g，禁止混入smoke结果。', ...
@@ -215,6 +217,73 @@ if sum(idx_ramp) >= 2 && any(diff(outputs(idx_ramp)) < -1e-6)
 end
 if any(outputs(sorted_speeds >= 12) > 3000 + 1e-6)
     error('wind_speed_scan额定平台出力不应超过装机容量。');
+end
+end
+
+function check_paper_wind_speed_summary(summary_table, cfg)
+%CHECK_PAPER_WIND_SPEED_SUMMARY 校验论文表4-6风速点批次。
+required_ids = ["paper_wind_speed_11_28mps", "paper_wind_speed_11_52mps", ...
+    "paper_wind_speed_11_76mps", "paper_wind_speed_12_00mps"];
+ids = string(summary_table.scenario_id);
+missing_ids = setdiff(required_ids, ids);
+if ~isempty(missing_ids)
+    error('paper_wind_speed_scan缺少场景：%s', strjoin(missing_ids, ', '));
+end
+if height(summary_table) ~= numel(required_ids)
+    error('paper_wind_speed_scan应只包含4个论文表4-6风速场景。');
+end
+required = {'wind_speed_mps','total_wind_capacity_mw','total_wind_output_mw', ...
+    'wind_capacity_factor','paper_result_status','paper_CRI_095','chain_count'};
+missing = setdiff(required, summary_table.Properties.VariableNames);
+if ~isempty(missing)
+    error('paper_wind_speed_scan汇总表缺少字段：%s', strjoin(missing, ', '));
+end
+speeds = nan(height(summary_table), 1);
+for k = 1:height(summary_table)
+    token = regexp(char(ids(k)), '^paper_wind_speed_(\d+)_(\d+)mps$', 'tokens', 'once');
+    if isempty(token)
+        error('paper_wind_speed_scan场景命名非法：%s', ids(k));
+    end
+    speeds(k) = str2double(token{1}) + str2double(token{2}) / 100;
+end
+expected_speeds = [11.28; 11.52; 11.76; 12.00];
+if any(abs(sort(speeds) - expected_speeds) > 1e-9)
+    error('paper_wind_speed_scan风速点必须为11.28、11.52、11.76、12.00。');
+end
+if any(abs(summary_table.wind_speed_mps - speeds) > 1e-9)
+    error('paper_wind_speed_scan的wind_speed_mps与scenario_id不一致。');
+end
+if any(abs(summary_table.total_wind_capacity_mw - 3000) > 1e-6)
+    error('paper_wind_speed_scan应保持3000 MW装机容量。');
+end
+if any(isnan(summary_table.total_wind_output_mw))
+    error('paper_wind_speed_scan存在NaN total_wind_output_mw。');
+end
+cf = summary_table.wind_capacity_factor;
+if any(isnan(cf)) || any(cf < -1e-9) || any(cf > 1 + 1e-9)
+    error('paper_wind_speed_scan容量因子必须位于[0,1]。');
+end
+if any(summary_table.chain_count ~= 46 * cfg.markov_num_trials_per_initial_fault)
+    error('paper_wind_speed_scan链数必须等于46*trial数。');
+end
+[sorted_speeds, order] = sort(speeds); %#ok<ASGLU>
+outputs = summary_table.total_wind_output_mw(order);
+if any(diff(outputs) < -1e-3)
+    error('paper_wind_speed_scan实际出力应随风速非递减。');
+end
+idx12 = abs(sorted_speeds - 12.00) < 1e-9;
+if any(idx12) && abs(outputs(idx12) - 3000) > 1e-3
+    error('paper_wind_speed_scan 12.00m/s应接近额定3000 MW。');
+end
+valid_status = string(summary_table.paper_result_status);
+if any(~ismember(valid_status, ["valid", "diagnostic_only", "failed", "not_available"]))
+    error('paper_wind_speed_scan paper_result_status存在未知状态。');
+end
+if any(isnan(summary_table.paper_CRI_095) & valid_status == "valid")
+    error('paper_result_status=valid时paper_CRI_095不得为NaN。');
+end
+if any(summary_table.paper_CRI_095 == 0 & valid_status == "diagnostic_only")
+    error('diagnostic_only的paper_CRI_095不得填0。');
 end
 end
 
