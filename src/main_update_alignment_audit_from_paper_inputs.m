@@ -7,7 +7,7 @@ function main_update_alignment_audit_from_paper_inputs()
 %   results/final_summary/tables/original_paper_gap_audit_with_input_status.csv
 %   results/final_summary/logs/original_paper_gap_audit_input_status_log.txt
 % 物理含义：
-%   不覆盖原审计表，仅增加每个缺口对应原文输入是否已可用于实现的状态。
+%   该脚本不运行仿真，只判断原文参数、公式、场景和 benchmark 是否已经具备后续实现条件。
 
 project_root = fileparts(fileparts(mfilename('fullpath')));
 audit_path = fullfile(project_root, 'results', 'final_summary', 'tables', 'original_paper_gap_audit.csv');
@@ -41,9 +41,13 @@ for i = 1:height(audit)
             statuses(end+1) = "missing"; %#ok<AGROW>
         end
     end
+
     if isempty(statuses)
         audit.input_status(i) = "not_mapped";
         audit.implementation_readiness(i) = "review_manually";
+    elseif any(files == "paper_result_benchmark.csv") && all(ismember(statuses, ["complete", "validated"]))
+        audit.input_status(i) = strjoin(statuses, "|");
+        audit.implementation_readiness(i) = "benchmark_ready";
     elseif all(ismember(statuses, ["complete", "validated"]))
         audit.input_status(i) = strjoin(statuses, "|");
         audit.implementation_readiness(i) = "ready_to_implement";
@@ -64,6 +68,7 @@ cleaner = onCleanup(@() fclose(fid));
 fprintf(fid, 'Original paper gap audit input status generated.\n');
 fprintf(fid, 'audit_rows=%d\n', height(audit));
 fprintf(fid, 'ready_to_implement=%d\n', sum(audit.implementation_readiness == "ready_to_implement"));
+fprintf(fid, 'benchmark_ready=%d\n', sum(audit.implementation_readiness == "benchmark_ready"));
 fprintf(fid, 'partially_ready=%d\n', sum(audit.implementation_readiness == "partially_ready"));
 fprintf(fid, 'need_user_input=%d\n', sum(audit.implementation_readiness == "need_user_input"));
 fprintf('Original paper gap audit input status generated: %s\n', log_file);
@@ -71,21 +76,21 @@ end
 
 function files = map_module_to_inputs(module)
 files = strings(0, 1);
-if contains(module, ["IEEE39", "case39", "基础数据", "负荷水平"])
+if contains(module, ["IEEE39", "case39", "基础数据", "负荷水平", "原始 case39"])
     files = [files; "paper_system_summary.csv"; "paper_case39_bus.csv"; "paper_case39_gen.csv"; "paper_case39_branch.csv"];
-elseif contains(module, "发电机参数")
+elseif contains(module, ["发电机参数", "传统机组"])
     files = [files; "paper_case39_gen.csv"];
 elseif contains(module, "线路容量")
     files = [files; "paper_case39_branch.csv"];
-elseif contains(module, "表4-1")
+elseif contains(module, ["表4-1", "线路初始停运概率"])
     files = [files; "paper_line_initial_outage_probability.csv"];
 elseif contains(module, "线路后续")
     files = [files; "paper_line_subsequent_outage_model.csv"];
-elseif contains(module, ["P_wt", "新能源机组状态概率", "新能源脱网概率"])
+elseif contains(module, ["P_wt", "新能源机组状态概率", "新能源脱网概率", "新能源实际脱网"])
     files = [files; "paper_wind_trip_probability_model.csv"; "paper_state_probability_formula.csv"];
 elseif contains(module, ["P_ge", "传统机组"])
     files = [files; "paper_generator_outage_model.csv"; "paper_state_probability_formula.csv"];
-elseif contains(module, ["P_line", "连锁故障状态概率"])
+elseif contains(module, ["P_line", "连锁故障状态概率", "输电线路状态概率"])
     files = [files; "paper_state_probability_formula.csv"];
 elseif contains(module, ["LLR", "LFOR", "NVOR", "CRI", "VaR"])
     files = [files; "paper_risk_severity_formula.csv"; "paper_state_probability_formula.csv"];

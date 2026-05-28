@@ -1,0 +1,5 @@
+paper_figure_or_table,scenario_count,metric_count,row_count,has_missing_value,status,note
+Table 4-2,2,4,8,0,validated,benchmark table rows complete
+Table 4-4,2,4,24,0,validated,benchmark table rows complete
+Table 4-5,9,4,36,0,validated,benchmark table rows complete
+Table 4-6,4,4,16,0,validated,benchmark table rows complete

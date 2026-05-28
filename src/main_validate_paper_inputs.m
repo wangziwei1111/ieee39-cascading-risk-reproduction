@@ -256,9 +256,37 @@ function [status, missing, can_use, note] = validate_benchmark(tbl)
 missing = missing_columns_or_values(tbl, {'paper_figure_or_table','scenario_id','metric_name','paper_value'});
 if strlength(missing) > 0
     status = "incomplete"; can_use = false; note = "benchmark values incomplete";
+elseif benchmark_tables_complete(tbl)
+    status = "complete"; can_use = true; note = "Table 4-2/4-4/4-5/4-6 benchmark rows complete";
 else
-    status = "complete"; can_use = true; note = "benchmark table complete";
+    status = "complete"; can_use = true; note = "declared benchmark rows complete";
 end
+end
+
+function tf = benchmark_tables_complete(tbl)
+%BENCHMARK_TABLES_COMPLETE 检查本轮已声明录入的论文 benchmark 表是否行数完整。
+% 物理含义：这里只检查论文原文 benchmark 数据层是否完整，不代表复现结果已经对齐。
+tf = true;
+tf = tf && check_benchmark_group(tbl, "Table 4-2", 2, 1, 4);
+tf = tf && check_benchmark_group(tbl, "Table 4-4", 2, 3, 4);
+tf = tf && check_benchmark_group(tbl, "Table 4-5", 9, 1, 4);
+tf = tf && check_benchmark_group(tbl, "Table 4-6", 4, 1, 4);
+end
+
+function tf = check_benchmark_group(tbl, table_name, scenario_count, confidence_count, metric_count)
+rows = string(tbl.paper_figure_or_table) == table_name;
+if ~any(rows)
+    tf = false;
+    return;
+end
+sub = tbl(rows, :);
+tf = height(sub) == scenario_count * confidence_count * metric_count;
+tf = tf && numel(unique(string(sub.scenario_id))) == scenario_count;
+tf = tf && numel(unique(sub.confidence_level)) == confidence_count;
+tf = tf && numel(unique(string(sub.metric_name))) == metric_count;
+tf = tf && all(~ismissing(sub.paper_value));
+tf = tf && all(sub.paper_value >= 0);
+tf = tf && all(string(sub.unit) == "10^-4");
 end
 
 function missing = missing_columns_or_values(tbl, cols)

@@ -1,0 +1,6 @@
+Paper benchmark input check passed.
+benchmark_rows=84
+Table 4-2 rows=8 status=validated
+Table 4-4 rows=24 status=validated
+Table 4-5 rows=36 status=validated
+Table 4-6 rows=16 status=validated
