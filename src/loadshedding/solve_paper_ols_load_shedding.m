@@ -2,9 +2,9 @@ function [mpc_shed, pf_result, shed, ols_detail] = solve_paper_ols_load_shedding
 %SOLVE_PAPER_OLS_LOAD_SHEDDING Solve the paper-style OLS load shedding model.
 % The thesis OLS objective is min sum(C_i), subject to AC balance,
 % generator limits, load shedding bounds, branch limits, and voltage limits.
-% This implementation uses MATPOWER AC OPF with dispatchable positive
-% injection variables at load buses. It remains a calibrated engineering
-% interface, not a claim of exact thesis reproduction.
+% This implementation uses MATPOWER AC OPF with selectable diagnostic
+% formulations for the load shedding variable. It remains a calibrated
+% engineering interface, not a claim of exact thesis reproduction.
 arguments
     mpc_in struct
     cfg struct
@@ -35,7 +35,15 @@ if isempty(load_rows)
 end
 
 try
-    [mpc_opf, shed_gen_rows, load_bus_rows] = build_dispatchable_shed_case(mpc_in, cfg, load_rows);
+    formulation = lower(string(get_cfg(cfg, 'paper_ols_formulation', 'positive_injection_generator')));
+    if formulation == "dispatchable_load"
+        [mpc_opf, shed_gen_rows, load_bus_rows, formulation_meta] = ...
+            build_dispatchable_load_case(mpc_in, cfg, load_rows);
+    else
+        [mpc_opf, shed_gen_rows, load_bus_rows, formulation_meta] = ...
+            build_dispatchable_shed_case(mpc_in, cfg, load_rows);
+    end
+    ols_detail.formulation_meta = formulation_meta;
     mpopt = mpoption('verbose', 0, 'out.all', 0);
     opf_alg = string(get_cfg(cfg, 'paper_ols_opf_alg', 'DEFAULT'));
     ols_detail.mpopt_algorithm = opf_alg;
@@ -59,12 +67,10 @@ end
 ols_detail.opf_success = opf_success;
 
 if opf_success
-    shed_p = max(opf_result.gen(shed_gen_rows, 2), 0);
-    shed_gen_qg = opf_result.gen(shed_gen_rows, 3);
     original_pd = mpc_in.bus(load_bus_rows, 3);
     original_qd = mpc_in.bus(load_bus_rows, 4);
-    shed_p = min(shed_p, original_pd);
-    shed_q = compute_shed_q(original_pd, original_qd, shed_p, cfg);
+    [shed_p, shed_q, shed_gen_qg, served_p, served_q, q_mismatch, max_positive_q_injection] = ...
+        interpret_shed_solution(opf_result, shed_gen_rows, original_pd, original_qd, cfg);
 
     mpc_shed = apply_opf_solution(mpc_in, opf_result, load_bus_rows, shed_p, shed_q, ...
         original_gen_count, cfg);
@@ -83,9 +89,13 @@ if opf_success
     ols_detail.shed_gen_qg_sum = sum(shed_gen_qg);
     ols_detail.max_abs_shed_gen_qg = max([abs(shed_gen_qg); 0]);
     ols_detail.shed_q_applied_sum = sum(shed_q);
-    ols_detail.q_mismatch_between_opf_and_applied = sum(abs(shed_gen_qg - shed_q));
+    ols_detail.q_mismatch_between_opf_and_applied = q_mismatch;
+    ols_detail.served_load_mw = sum(served_p);
+    ols_detail.shed_load_mw = corrective_load_shed_mw;
+    ols_detail.served_q_mvar = sum(served_q);
+    ols_detail.max_positive_q_injection = max_positive_q_injection;
     if ols_detail.q_mismatch_between_opf_and_applied > 1e-4
-        ols_detail.q_mismatch_warning = "OPF shed-generator QG differs from applied constant-power-factor shed_Q.";
+        ols_detail.q_mismatch_warning = "OPF shed/load reactive behavior differs from the applied load-side shed_Q.";
     else
         ols_detail.q_mismatch_warning = "none";
     end
@@ -121,12 +131,13 @@ ols_detail.diagnosis_failure_type = failure_info.failure_type;
 ols_detail.diagnosis_likely_cause = failure_info.likely_cause;
 end
 
-function [mpc_opf, shed_gen_rows, load_bus_rows] = build_dispatchable_shed_case(mpc_in, cfg, load_rows)
+function [mpc_opf, shed_gen_rows, load_bus_rows, meta] = build_dispatchable_shed_case(mpc_in, cfg, load_rows)
 mpc_opf = mpc_in;
 if get_cfg(cfg, 'paper_ols_relax_voltage_limits', false)
     mpc_opf.bus(:, 12) = max(mpc_opf.bus(:, 12), get_cfg(cfg, 'paper_ols_relaxed_voltage_max_pu', 1.15));
     mpc_opf.bus(:, 13) = min(mpc_opf.bus(:, 13), get_cfg(cfg, 'paper_ols_relaxed_voltage_min_pu', 0.85));
 end
+
 rate_factor = get_cfg(cfg, 'paper_ols_rate_limit_relax_factor', 1.0);
 if rate_factor ~= 1.0
     positive_rate = mpc_opf.branch(:, 6) > 0;
@@ -138,6 +149,11 @@ num_shed = numel(load_bus_rows);
 num_gen0 = size(mpc_in.gen, 1);
 num_gen_col = size(mpc_in.gen, 2);
 new_gen = zeros(num_shed, num_gen_col);
+meta = struct();
+meta.formulation = "positive_injection_generator";
+meta.q_mode = string(get_cfg(cfg, 'paper_ols_shed_gen_q_mode', 'free_q'));
+meta.original_pd = mpc_in.bus(load_bus_rows, 3);
+meta.original_qd = mpc_in.bus(load_bus_rows, 4);
 
 for k = 1:num_shed
     bus_row = load_bus_rows(k);
@@ -181,6 +197,42 @@ if cost_col >= 6
     gencost(num_gen0 + 1:end, 5) = get_cfg(cfg, 'paper_ols_shed_cost', 1.0);
 end
 mpc_opf.gencost = gencost;
+end
+
+function [shed_p, shed_q, shed_gen_qg, served_p, served_q, q_mismatch, max_positive_q_injection] = ...
+    interpret_shed_solution(opf_result, shed_gen_rows, original_pd, original_qd, cfg)
+formulation = lower(string(get_cfg(cfg, 'paper_ols_formulation', 'positive_injection_generator')));
+pg = opf_result.gen(shed_gen_rows, 2);
+shed_gen_qg = opf_result.gen(shed_gen_rows, 3);
+if formulation == "dispatchable_load"
+    q_mode = lower(string(get_cfg(cfg, 'paper_ols_dispatchable_load_q_mode', 'variable_absorption')));
+    served_p = min(max(-pg, 0), original_pd);
+    shed_p = max(original_pd - served_p, 0);
+    switch q_mode
+        case "variable_absorption"
+            served_q = min(max(-shed_gen_qg, 0), max(original_qd, 0));
+            shed_q = original_qd - served_q;
+            q_mismatch = sum(abs((-shed_gen_qg) - served_q));
+        case "constant_pf_after_apply"
+            shed_q = compute_shed_q(original_pd, original_qd, shed_p, cfg);
+            served_q = original_qd - shed_q;
+            q_mismatch = sum(abs(shed_gen_qg + served_q));
+        case "p_only"
+            shed_q = zeros(size(shed_p));
+            served_q = original_qd;
+            q_mismatch = sum(abs(shed_gen_qg));
+        otherwise
+            error('Unsupported paper_ols_dispatchable_load_q_mode: %s', q_mode);
+    end
+    max_positive_q_injection = max([shed_gen_qg; 0]);
+else
+    shed_p = min(max(pg, 0), original_pd);
+    shed_q = compute_shed_q(original_pd, original_qd, shed_p, cfg);
+    served_p = max(original_pd - shed_p, 0);
+    served_q = original_qd - shed_q;
+    q_mismatch = sum(abs(shed_gen_qg - shed_q));
+    max_positive_q_injection = max([shed_gen_qg; 0]);
+end
 end
 
 function shed_q = compute_shed_q(original_pd, original_qd, shed_p, cfg)
@@ -280,7 +332,12 @@ detail.status = "not_started";
 detail.solver = string(get_cfg(cfg, 'paper_ols_solver', 'matpower_opf_dispatchable_shed'));
 detail.paper_ols_formulation = string(get_cfg(cfg, 'paper_ols_formulation', 'positive_injection_generator'));
 detail.paper_ols_shed_gen_q_mode = string(get_cfg(cfg, 'paper_ols_shed_gen_q_mode', 'free_q'));
-detail.shed_gen_q_mode = detail.paper_ols_shed_gen_q_mode;
+detail.paper_ols_dispatchable_load_q_mode = string(get_cfg(cfg, 'paper_ols_dispatchable_load_q_mode', 'variable_absorption'));
+if lower(detail.paper_ols_formulation) == "dispatchable_load"
+    detail.shed_gen_q_mode = detail.paper_ols_dispatchable_load_q_mode;
+else
+    detail.shed_gen_q_mode = detail.paper_ols_shed_gen_q_mode;
+end
 detail.apply_solution_mode = string(get_cfg(cfg, 'paper_ols_apply_solution_mode', 'load_only'));
 detail.pf_after_apply_mode = string(get_cfg(cfg, 'paper_ols_pf_after_apply_mode', 'runpf_from_updated_dispatch'));
 detail.original_gen_count = original_gen_count;
@@ -318,6 +375,11 @@ detail.max_abs_shed_gen_qg = NaN;
 detail.shed_q_applied_sum = NaN;
 detail.q_mismatch_between_opf_and_applied = NaN;
 detail.q_mismatch_warning = "";
+detail.served_load_mw = NaN;
+detail.shed_load_mw = NaN;
+detail.served_q_mvar = NaN;
+detail.max_positive_q_injection = NaN;
+detail.formulation_meta = struct();
 detail.opf_branch_max_loading = NaN;
 detail.opf_min_voltage = NaN;
 detail.opf_max_voltage = NaN;

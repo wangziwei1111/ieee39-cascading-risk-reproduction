@@ -53,6 +53,7 @@ cfg.paper_ols_apply_solution_mode = 'load_only'; % load_only / load_and_dispatch
 cfg.paper_ols_pf_after_apply_mode = 'runpf_from_updated_dispatch'; % runpf_from_flat_or_existing / runpf_from_updated_dispatch / accept_opf_if_success_diagnostic_only
 cfg.paper_ols_formulation = 'positive_injection_generator'; % positive_injection_generator / fixed_q_shed_generator / dispatchable_load / dc_ols_preview
 cfg.paper_ols_shed_gen_q_mode = 'free_q'; % free_q / fixed_zero_q / constant_pf_q_bounds
+cfg.paper_ols_dispatchable_load_q_mode = 'variable_absorption'; % p_only / variable_absorption / constant_pf_after_apply
 cfg.load_shedding_trigger_mode = 'nonconverged_only'; % 可选：nonconverged_only / nonconverged_or_violation / violation_only_diagnostic
 cfg.load_shedding_violation_check_enable = true;
 cfg.load_shedding_trigger_line_overload = true;

@@ -1,0 +1,5 @@
+formulation,q_mode,test_case_count,opf_success_count,pf_success_after_apply_count,opf_success_but_pf_failed_count,mean_objective_load_shed_mw,mean_q_mismatch,max_positive_q_injection,success_rate,recommendation
+positive_injection_generator,free_q,6,2,0,2,3.63947663025895,1207.83687128971,183.999999287389,0,diagnostic_only
+positive_injection_generator,fixed_zero_q,6,3,3,0,0.000775015844925449,0.000945823328343697,0,0.5,diagnostic_only
+dispatchable_load,variable_absorption,6,5,5,0,116.735939619135,0,0,0.833333333333333,candidate_for_next_diagnostic_smoke
+dispatchable_load,constant_pf_after_apply,6,0,0,0,NaN,NaN,NaN,0,not_ready_for_formal_benchmark

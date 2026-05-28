@@ -25,12 +25,18 @@ dc_preview_path = fullfile(table_dir, 'dc_ols_feasibility_preview.csv');
 fixed_test_path = fullfile(table_dir, 'ols_fixed_q_shed_test.csv');
 fixed_summary_path = fullfile(table_dir, 'ols_fixed_q_shed_summary.csv');
 fixed_delta_path = fullfile(table_dir, 'ols_fixed_q_vs_free_q_delta.csv');
+dispatch_sign_path = fullfile(table_dir, 'dispatchable_load_sign_convention_test.csv');
+dispatch_case_path = fullfile(table_dir, 'ols_dispatchable_load_case_test.csv');
+dispatch_case_summary_path = fullfile(table_dir, 'ols_dispatchable_load_case_summary.csv');
+formulation_comparison_path = fullfile(table_dir, 'ols_formulation_comparison.csv');
 must_exist(summary_path); must_exist(delta_path); must_exist(bench_path);
 must_exist(failure_diag_path); must_exist(failure_summary_path); must_exist(robust_path);
 must_exist(apply_test_path); must_exist(apply_summary_path);
 must_exist(modeling_path); must_exist(case_index_path); must_exist(case_replay_path);
 must_exist(alternative_path); must_exist(dc_preview_path);
 must_exist(fixed_test_path); must_exist(fixed_summary_path); must_exist(fixed_delta_path);
+must_exist(dispatch_sign_path); must_exist(dispatch_case_path);
+must_exist(dispatch_case_summary_path); must_exist(formulation_comparison_path);
 summary = readtable(summary_path);
 delta = readtable(delta_path);
 bench = readtable(bench_path);
@@ -47,6 +53,10 @@ dc_preview = readtable(dc_preview_path, 'Delimiter', ',');
 fixed_test = readtable(fixed_test_path);
 fixed_summary = readtable(fixed_summary_path);
 fixed_delta = readtable(fixed_delta_path);
+dispatch_sign = readtable(dispatch_sign_path);
+dispatch_case = readtable(dispatch_case_path);
+dispatch_case_summary = readtable(dispatch_case_summary_path);
+formulation_comparison = readtable(formulation_comparison_path);
 
 scenarios = string(unique(summary.scenario_id, 'stable'));
 for i = 1:numel(scenarios)
@@ -88,6 +98,9 @@ must_exist(fullfile(figure_dir, 'dc_ols_feasibility_preview.png'));
 must_exist(fullfile(figure_dir, 'ols_fixed_q_success_comparison.png'));
 must_exist(fullfile(figure_dir, 'ols_fixed_q_q_mismatch.png'));
 must_exist(fullfile(figure_dir, 'ols_fixed_q_cri_delta.png'));
+must_exist(fullfile(figure_dir, 'ols_formulation_failure_rate.png'));
+must_exist(fullfile(figure_dir, 'ols_formulation_q_behavior.png'));
+must_exist(fullfile(figure_dir, 'ols_formulation_cri_comparison.png'));
 if exist(fullfile(project_root, 'results', 'final_summary', 'tables', 'ols_benchmark_smoke_summary.csv'), 'file')
     error('OLS benchmark smoke must not write into final_summary.');
 end
@@ -132,6 +145,12 @@ end
 if isempty(fixed_test) || isempty(fixed_summary) || isempty(fixed_delta)
     error('Fixed-Q shed diagnostic tables must not be empty.');
 end
+if isempty(dispatch_sign) || isempty(dispatch_case) || isempty(dispatch_case_summary) || isempty(formulation_comparison)
+    error('Dispatchable-load diagnostic tables must not be empty.');
+end
+if any(string(dispatch_sign.status) == "fail")
+    error('Dispatchable-load sign convention has failed rows.');
+end
 fixed_rows = fixed_test(string(fixed_test.shed_gen_q_mode) == "fixed_zero_q", :);
 if isempty(fixed_rows)
     error('Fixed-Q shed test must contain fixed_zero_q rows.');
@@ -148,6 +167,22 @@ for fd = 1:numel(fixed_dirs)
     must_exist(fullfile(fixed_dir, 'markov_chain_summary.csv'));
     must_exist(fullfile(fixed_dir, 'ols_stage_details.csv'));
     must_exist(fullfile(fixed_dir, 'ols_summary.csv'));
+    dispatch_dir = fullfile(root_dir, 'dispatchable_load', char(fixed_dirs(fd)), 'tables');
+    must_exist(fullfile(dispatch_dir, 'markov_chain_summary.csv'));
+    must_exist(fullfile(dispatch_dir, 'ols_stage_details.csv'));
+    must_exist(fullfile(dispatch_dir, 'ols_summary.csv'));
+end
+dispatch_rows = dispatch_case(string(dispatch_case.formulation) == "dispatchable_load", :);
+if isempty(dispatch_rows)
+    error('Dispatchable-load case test must contain dispatchable_load rows.');
+end
+max_positive_dispatch_q = max(dispatch_rows.max_positive_q_injection, [], 'omitnan');
+dispatch_form_rows = formulation_comparison(string(formulation_comparison.formulation) == "dispatchable_load", :);
+if isempty(dispatch_form_rows)
+    error('Formulation comparison must include dispatchable_load rows.');
+end
+if exist(fullfile(project_root, 'results', 'final_summary', 'tables', 'ols_formulation_comparison.csv'), 'file')
+    error('Dispatchable-load diagnostics must not write into final_summary.');
 end
 for ci = 1:height(case_index)
     if ~exist(char(string(case_index.case_dir(ci))), 'dir')
@@ -202,6 +237,16 @@ fprintf(fid, 'exported_failure_case_count=%d replay_rows=%d alternative_rows=%d 
     height(case_index), height(case_replay), height(alternative), height(dc_preview));
 fprintf(fid, '%s\n', q_note);
 fprintf(fid, '%s\n', fixed_q_note);
+if max_positive_dispatch_q > 1e-6
+    fprintf(fid, 'dispatchable_load_q_warning=max_positive_q_injection %.12g exceeds 1e-6; inspect reactive sign convention.\n', max_positive_dispatch_q);
+else
+    fprintf(fid, 'dispatchable_load_q_warning=none; dispatchable-load case tests did not produce positive Q injection above tolerance.\n');
+end
+if any(dispatch_form_rows.failure_rate > 0.1)
+    fprintf(fid, 'dispatchable_load_recommendation=Failure rate remains above 0.1 for at least one scenario; do not proceed to formal benchmark.\n');
+else
+    fprintf(fid, 'dispatchable_load_recommendation=Failure rate is below 0.1 in this 5-trial diagnostic; still requires separate review before formal benchmark.\n');
+end
 fprintf(fid, 'check_status=passed; note=5-trial smoke only, not final thesis result.\n');
 fprintf('OLS benchmark smoke check passed: %s\n', log_path);
 end

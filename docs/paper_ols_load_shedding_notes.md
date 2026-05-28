@@ -148,3 +148,11 @@ cfg.paper_ols_shed_gen_q_mode = 'free_q';
 导出失败样本测试表明，`fixed_zero_q` 能把 Q mismatch 从约 `1207.84` 降到约 `0.000946`，且在 6 个导出失败样本中将 PF 后验成功数从 0 提升到 3。但在 5-trial Markov smoke 中，`fixed_zero_q` 反而增加了失败次数：3000MW 基准和 12.00m/s 场景从 47 增至 67，40% 渗透率场景从 25 增至 64。
 
 因此，`fixed_zero_q` 只证明 free-Q 人工无功支撑是一个真实建模问题，不能作为正式 OLS 默认方案。后续更推荐实现 `matpower_dispatchable_load` 或其它一致处理有功/无功削减的负荷变量建模，并继续用导出的 failure cases 逐例 replay。
+
+## dispatchable load 建模说明与符号约定
+
+`dispatchable_load` 是新增的 OLS 诊断 formulation。它把可削减负荷从 bus 的固定 `PD/QD` 中移出，并在同一节点加入 MATPOWER dispatchable load（负发电机）：`PMIN=-Pd`、`PMAX=0`。OPF 中 `PG=-Pd` 表示负荷全部服务，`PG=0` 表示该节点可调负荷全部切除，故切负荷量为 `C_i = Pd + PG_i`。由于 `Pd` 是常数，使用正线性成本 `c*PG` 时，最小化目标会优先把 `PG` 推向更负，即尽量保留负荷；只有网络、发电或电压约束需要时才削减负荷。
+
+本轮实现的无功诊断模式为 `paper_ols_dispatchable_load_q_mode='variable_absorption'`。对于感性无功负荷，dispatchable load 的 `QMIN=-Qd`、`QMAX=0`，允许吸收无功但禁止正无功注入；对于 `Qd<=0` 的节点，容性无功保持为固定 bus `QD`，避免通过可调负荷提供人工无功支撑。该处理比正注入 shed generator 更接近“负荷侧变量”，但仍是诊断建模，尚未确认等同于论文第3.2.3节的最终 OLS。
+
+当前 5-trial smoke 结果显示，dispatchable-load 形式能显著改善导出失败样本的后验 PF 成功率，但没有降低完整 smoke 的总体 OLS 失败率。因此它应继续作为诊断候选，而不是正式默认。默认配置仍保持 `cfg.paper_ols_formulation='positive_injection_generator'` 和 `cfg.load_shedding_mode='simple'`，避免影响已有复现结果。

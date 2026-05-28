@@ -1,0 +1,4 @@
+test_name,opf_success,expected_behavior,observed_shed_mw,observed_served_load_mw,max_positive_q_injection,status,note
+no_constraint_case,1,No binding branch limit; dispatchable load should preserve almost all load.,0.00119842378603252,6254.22880157621,0,pass,OLS solved and AC PF converged after applying load shedding.
+artificial_branch_limit_case,0,Artificially tight branch limit should require positive load shedding if OPF converges.,NaN,NaN,NaN,diagnostic_warning,OPF did not converge; sign convention could not be fully verified. OLS OPF did not converge.
+q_absorption_case,0,Dispatchable load QG must be nonpositive; it must not provide reactive support.,NaN,NaN,NaN,diagnostic_warning,OPF did not converge; sign convention could not be fully verified. OLS OPF did not converge.

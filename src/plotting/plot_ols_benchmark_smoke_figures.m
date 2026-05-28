@@ -46,6 +46,13 @@ end
 if exist(fixed_delta_path, 'file')
     plot_fixed_q_cri_delta(readtable(fixed_delta_path), fullfile(figure_dir, 'ols_fixed_q_cri_delta.png'));
 end
+formulation_path = fullfile(table_dir, 'ols_formulation_comparison.csv');
+if exist(formulation_path, 'file')
+    formulation = readtable(formulation_path);
+    plot_formulation_failure_rate(formulation, fullfile(figure_dir, 'ols_formulation_failure_rate.png'));
+    plot_formulation_q_behavior(formulation, fullfile(figure_dir, 'ols_formulation_q_behavior.png'));
+    plot_formulation_cri(formulation, fullfile(figure_dir, 'ols_formulation_cri_comparison.png'));
+end
 end
 
 function plot_cri(summary, out_path)
@@ -238,6 +245,54 @@ set(gca, 'XTickLabel', cellstr(scenarios), 'XTickLabelRotation', 25);
 ylabel('fixed\_zero\_q - free\_q CRI');
 title('Fixed-zero-Q OLS diagnostic: CRI delta (5-trial)');
 legend(cellstr(metrics), 'Location', 'best');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_formulation_failure_rate(tbl, out_path)
+labels = strcat(string(tbl.formulation), "/", string(tbl.q_mode));
+scenarios = unique(string(tbl.scenario_id), 'stable');
+forms = unique(labels, 'stable');
+values = nan(numel(scenarios), numel(forms));
+for s = 1:numel(scenarios)
+    for f = 1:numel(forms)
+        row = tbl(string(tbl.scenario_id) == scenarios(s) & labels == forms(f), :);
+        if ~isempty(row), values(s, f) = row.failure_rate(1); end
+    end
+end
+figure('Visible', 'off', 'Color', 'w');
+bar(values);
+set(gca, 'XTickLabel', cellstr(scenarios), 'XTickLabelRotation', 25);
+ylabel('OLS failure rate');
+title('OLS formulation diagnostic: failure rate (5-trial)');
+legend(cellstr(forms), 'Location', 'bestoutside');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_formulation_q_behavior(tbl, out_path)
+labels = strcat(string(tbl.formulation), "/", string(tbl.q_mode));
+figure('Visible', 'off', 'Color', 'w');
+bar([tbl.mean_q_mismatch, tbl.max_positive_q_injection]);
+set(gca, 'XTickLabel', cellstr(labels + newline + string(tbl.scenario_id)), 'XTickLabelRotation', 35);
+ylabel('MVar');
+title('OLS formulation diagnostic: reactive behavior');
+legend({'mean Q mismatch','max positive Q injection'}, 'Location', 'best');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_formulation_cri(tbl, out_path)
+labels = strcat(string(tbl.formulation), "/", string(tbl.q_mode));
+figure('Visible', 'off', 'Color', 'w');
+bar([tbl.weighted_CRI_095, tbl.paper_CRI_095]);
+set(gca, 'XTickLabel', cellstr(labels + newline + string(tbl.scenario_id)), 'XTickLabelRotation', 35);
+ylabel('CRI');
+title('OLS formulation diagnostic: CRI comparison (5-trial)');
+legend({'weighted CRI','paper formula CRI'}, 'Location', 'best');
 grid on;
 saveas(gcf, out_path);
 close(gcf);

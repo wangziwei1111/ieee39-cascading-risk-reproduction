@@ -124,3 +124,13 @@ DC-OLS 可行性预览只用于判断网络层面线性可行性，不替代 AC-
 - `paper_wind_speed_12_00mps` 的 failed OLS count 从 47 增至 67。
 
 因此结论是：`fixed_zero_q` 证明了 free-Q 建模中的无功 mismatch 是真实问题，也能修复一部分导出失败样本；但在完整 5-trial smoke 中，它会让更多 OLS 尝试失败。当前不建议把 `fixed_zero_q` 作为正式 benchmark 默认方案。下一步更合适的方向仍是实现 `matpower_dispatchable_load` 或其它不会引入人工电压支撑、同时能一致处理有功/无功削减的建模方式。
+
+## dispatchable load OLS 诊断变体
+
+本轮新增 `cfg.paper_ols_formulation='dispatchable_load'`，使用 MATPOWER 负发电机/可调负荷形式表示可削减负荷，而不是继续把切负荷变量建成正注入发电机。符号约定为：`PG=-Pd` 表示该节点可调负荷全部保留，`PG=0` 表示全部切除，因此 `shed_P = Pd + PG`。本轮默认诊断组合为 `paper_ols_dispatchable_load_q_mode='variable_absorption'`，只允许可调负荷吸收无功，不允许提供正无功支撑。
+
+sign convention 自检结果写入 `results/loadshedding/ols_benchmark_smoke/tables/dispatchable_load_sign_convention_test.csv`。无约束用例 OPF 成功，切负荷约为 0.0012 MW，相对 6254.23 MW 总负荷可视为数值容差内的零切负荷，且 `max_positive_q_injection=0`。人工收紧线路和 Q absorption 用例仍为 diagnostic_warning，说明该 formulation 在更紧约束下仍存在 OPF 数值难点，但没有出现硬性符号错误。
+
+导出失败样本测试显示，`dispatchable_load + variable_absorption` 在 6 个典型失败样本中 OPF 成功 5 个、应用后 PF 成功 5 个，平均 Q mismatch 为 0，明显好于 `positive_injection_generator/free_q`，也优于 `fixed_zero_q`。这说明 dispatchable-load 形式确实修复了相当一部分正注入建模造成的 OPF/PF 不一致。
+
+但是完整 5-trial smoke 的结论更保守：`dispatchable_load + variable_absorption` 在三个代表场景中的 OLS 失败数分别为 52、30、52；原 `free_q` 分别为 47、25、47；`fixed_zero_q` 分别为 67、64、67。因此 dispatchable-load 改善了典型失败样本，但尚未在完整 smoke 中降低整体失败率。当前推荐为：可作为下一阶段诊断候选，不建议直接进入正式 20-trial benchmark，也不能写入 final_summary 或称为原文最终 OLS。
