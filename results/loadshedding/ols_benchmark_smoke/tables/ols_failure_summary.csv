@@ -1,0 +1,4 @@
+scenario_id,total_ols_attempts,failed_ols_count,failure_rate,opf_nonconverged_count,opf_infeasible_count,pf_after_apply_nonconverged_count,rateA_zero_or_too_tight_count,voltage_constraint_too_tight_count,generator_limit_binding_count,island_or_slack_issue_count,unknown_count,top_failure_type,recommended_next_action
+distributed_wind_3000mw_base,197,47,0.238578680203046,25,0,22,0,0,0,0,0,opf_nonconverged,Test OPF algorithm/scaling options and inspect binding constraints.
+distributed_wind_penetration_40pct,139,25,0.179856115107914,15,0,10,0,0,0,0,0,opf_nonconverged,Test OPF algorithm/scaling options and inspect binding constraints.
+paper_wind_speed_12_00mps,197,47,0.238578680203046,25,0,22,0,0,0,0,0,opf_nonconverged,Test OPF algorithm/scaling options and inspect binding constraints.

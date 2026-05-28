@@ -58,3 +58,17 @@ For this 5-trial smoke, `paper_ols_violation` lowered `basic_CRI_095` and `weigh
 ## Next Step
 
 Use this smoke result to decide whether a separate `paper_ols` benchmark batch is worthwhile. Do not overwrite existing simple or final summary outputs.
+
+## OLS Failure Diagnosis
+
+The follow-up failure diagnosis reads only the existing `paper_ols_violation` smoke details and does not rerun benchmark scenarios. The current failure rates are:
+
+- `distributed_wind_3000mw_base`: 47 failed attempts out of 197, failure rate 0.2386.
+- `distributed_wind_penetration_40pct`: 25 failed attempts out of 139, failure rate 0.1799.
+- `paper_wind_speed_12_00mps`: 47 failed attempts out of 197, failure rate 0.2386.
+
+The dominant categories are `opf_nonconverged` and `pf_after_apply_nonconverged`. No failed sample was silently removed. The detailed rows are in `results/loadshedding/ols_benchmark_smoke/tables/ols_failure_diagnosis.csv`.
+
+The robustness test replayed the first five failed samples with four diagnostic settings: baseline, relaxed voltage limits, 1.05x line-rate relaxation, and both relaxations. Some samples became solvable under relaxed settings, but several cases still had post-OLS AC PF nonconvergence. This means the current OLS path is not yet robust enough for a formal 20-trial benchmark rerun.
+
+Recommendation: do not proceed to formal OLS benchmark reruns until the OPF-to-PF handoff and infeasible/nonconverged cases are further reduced or explained. Relaxed settings are diagnostic only and are not formal benchmark results.

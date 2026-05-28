@@ -1,4 +1,5 @@
 OLS benchmark smoke check log
-generated_at=2026-05-28 19:32:58
-scenario_count=3 summary_rows=6 delta_rows=33 benchmark_rows=3
+generated_at=2026-05-28 20:05:57
+scenario_count=3 summary_rows=6 delta_rows=33 benchmark_rows=3 failure_rows=119 robustness_rows=20
+failure_recommendation=Do not proceed to formal OLS benchmark rerun before reducing or explaining OLS failures.
 check_status=passed; note=5-trial smoke only, not final thesis result.

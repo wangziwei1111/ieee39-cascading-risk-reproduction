@@ -16,6 +16,14 @@ bench = readtable(fullfile(table_dir, 'ols_smoke_vs_paper_benchmark.csv'));
 plot_cri(summary, fullfile(figure_dir, 'ols_vs_simple_cri_comparison.png'));
 plot_trigger_counts(summary, fullfile(figure_dir, 'ols_trigger_counts.png'));
 plot_paper_compare(bench, fullfile(figure_dir, 'ols_smoke_vs_paper_cri.png'));
+failure_path = fullfile(table_dir, 'ols_failure_summary.csv');
+if exist(failure_path, 'file')
+    plot_failure_types(readtable(failure_path), fullfile(figure_dir, 'ols_failure_type_summary.png'));
+end
+robust_path = fullfile(table_dir, 'ols_solver_robustness_test.csv');
+if exist(robust_path, 'file')
+    plot_robustness(readtable(robust_path), fullfile(figure_dir, 'ols_solver_robustness.png'));
+end
 end
 
 function plot_cri(summary, out_path)
@@ -63,6 +71,45 @@ set(gca, 'XTickLabel', cellstr(string(bench.reproduction_scenario_id)), 'XTickLa
 ylabel('CRI raw value');
 title('OLS smoke vs paper benchmark CRI (raw comparison; unit alignment pending)');
 legend({'paper benchmark','simple paper\_formula','OLS paper\_formula'}, 'Location', 'best');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_failure_types(failure_summary, out_path)
+count_fields = {'opf_nonconverged_count','opf_infeasible_count', ...
+    'pf_after_apply_nonconverged_count','rateA_zero_or_too_tight_count', ...
+    'voltage_constraint_too_tight_count','generator_limit_binding_count', ...
+    'island_or_slack_issue_count','unknown_count'};
+labels = {'OPF nonconv','OPF infeasible','PF after apply','RATE_A','Voltage','Gen limits','Island/slack','Unknown'};
+counts = zeros(height(failure_summary), numel(count_fields));
+for i = 1:numel(count_fields)
+    counts(:, i) = failure_summary.(count_fields{i});
+end
+figure('Visible', 'off', 'Color', 'w');
+bar(counts, 'stacked');
+set(gca, 'XTickLabel', cellstr(string(failure_summary.scenario_id)), 'XTickLabelRotation', 25);
+ylabel('Failed OLS count');
+title('OLS failure type summary');
+legend(labels, 'Location', 'bestoutside');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_robustness(robustness, out_path)
+settings = string(unique(robustness.setting_name, 'stable'));
+success_rate = zeros(numel(settings), 1);
+for i = 1:numel(settings)
+    rows = robustness(string(robustness.setting_name) == settings(i), :);
+    success_rate(i) = mean(rows.pf_success_after_apply);
+end
+figure('Visible', 'off', 'Color', 'w');
+bar(success_rate);
+set(gca, 'XTickLabel', cellstr(settings), 'XTickLabelRotation', 20);
+ylim([0, 1]);
+ylabel('Post-apply PF success rate');
+title('OLS solver robustness diagnostic');
 grid on;
 saveas(gcf, out_path);
 close(gcf);
