@@ -573,3 +573,60 @@ src/paper/build_paper_detail_samples.m
 - `results/tables/markov_paper_invalid_stage_summary.csv`：汇总总 stage 数、有效 stage 数、无效 stage 数、非收敛 stage 数和无效比例。
 
 paper_formula VaR 只有在无效事故链比例不超过 `cfg.paper_max_invalid_chain_ratio_for_var` 时才标记为 `valid`。若超过阈值，结果会标记为 `diagnostic_only`，不能作为论文对照结果。当前策略仍不回退 basic，也不修改 Markov 抽样结果。
+## 最终结果汇总与论文使用建议
+
+当前已生成第4章结果汇总包：
+
+```text
+results/final_summary/
+```
+
+该目录只读取已经完成的 `topology_compare`、`penetration_scan`、`wind_speed_scan` 和 `renewable_trip_record` 结果，不重新运行场景仿真，不修改表4-1概率，也不修改 Markov 事故链抽样逻辑。
+
+最终汇总表包括：
+
+- `results/final_summary/tables/final_scenario_overview.csv`
+- `results/final_summary/tables/final_topology_comparison.csv`
+- `results/final_summary/tables/final_penetration_scan.csv`
+- `results/final_summary/tables/final_wind_speed_scan.csv`
+- `results/final_summary/tables/final_renewable_trip_record.csv`
+- `results/final_summary/tables/final_metric_validity_matrix.csv`
+- `results/final_summary/tables/final_thesis_key_results.csv`
+
+最终图包括：
+
+- `results/final_summary/figures/final_topology_cri_comparison.png`
+- `results/final_summary/figures/final_penetration_cri_curve.png`
+- `results/final_summary/figures/final_wind_speed_power_and_cri.png`
+- `results/final_summary/figures/final_renewable_trip_probability.png`
+- `results/final_summary/figures/final_invalid_stage_ratio.png`
+
+这些图表可用于论文第4章展示“当前参数和 line-only paper_formula 近似下的复现实验结果”。使用时必须说明：
+
+1. `basic` 指标用于流程验证，不等同论文完整严重度。
+2. `weighted` 指标使用表4-1线路初始停运概率加权。
+3. `paper_formula` 是 line-only 论文公式近似，当前尚未真实耦合 `P_wt(E_k)` 和 `P_ge(E_k)`。
+4. `diagnostic_only` 场景只能用于诊断，不能作为有效论文对照。
+5. `record_only` 新能源脱网概率只记录 `P_WT(h)`，未实际触发风电机组脱网。
+6. `smoke` 结果只用于工程快速检查，不作为最终论文结果。
+
+建议论文表述为：
+
+> 本文完成了基于 IEEE 39 节点系统的连锁故障风险评估复现实验框架，并在当前参数和 line-only paper_formula 近似下获得趋势性结果。
+
+不建议表述为：
+
+> 本文已完全复现原论文第4章全部数值。
+
+最终复核脚本为：
+
+```matlab
+main_build_final_summary
+main_check_final_summary
+```
+
+自检日志输出到：
+
+```text
+results/final_summary/logs/final_summary_check_log.txt
+```

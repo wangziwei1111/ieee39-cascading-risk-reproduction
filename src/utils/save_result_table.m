@@ -52,7 +52,7 @@ if original_height > 0 && file_info.bytes < 100
 end
 
 if original_height > 0
-    readback = readtable(file_path);
+    readback = readtable(file_path, 'Delimiter', ',', 'VariableNamingRule', 'preserve');
     if height(readback) == 0
         handle_write_issue(sprintf('结果表写入异常：原表非空，但读回为空：%s', file_path), strict_mode);
     end

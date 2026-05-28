@@ -1,0 +1,9 @@
+result_family,scenario_group,metric_type,validity_status,can_use_for_thesis_comparison,limitation_note
+risk_metric,all,basic VaR,valid_for_process_check,1,"Process-check metric, not the full paper severity."
+risk_metric,all,weighted VaR,valid_for_table_4_1_weighting,1,"Uses Table 4-1 initial line outage probability weights."
+risk_metric,all,paper_formula VaR,line_only_approximation,1,"Current line-only approximation; P_wt and P_ge are not coupled yet."
+scenario,topology_compare,paper_formula VaR,diagnostic_only_if_flagged,0,"If centralized_wind_40pct is diagnostic_only, it is not valid for thesis comparison."
+scenario,renewable_trip_record,P_WT record_only,diagnostic_only,0,"Records P_WT(h) only and does not trip renewable generators."
+batch,smoke,all,not_final,0,"Smoke uses 5 trials and is not a final result."
+batch,penetration_scan,all,20_trial_trend,1,"20-trial trend result under current parameters; penetration definition needs calibration."
+batch,wind_speed_scan,all,20_trial_trend,1,"20-trial trend result under current parameters; wind speed points need calibration."

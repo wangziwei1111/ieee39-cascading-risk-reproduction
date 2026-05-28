@@ -1,0 +1,5 @@
+section_hint,result_name,scenario_or_group,metric,value,unit,interpretation,caution
+penetration_scan,80pct penetration basic_CRI_095,distributed_wind_penetration_80pct,basic_CRI_095,0.687486882992135,p.u.,Basic risk metric at the high-penetration point under current parameters.,Penetration definition and outage probability model still need calibration.
+wind_speed_scan,Wind output reaches rated platform at and above 12mps,wind_speed_scan,total_wind_output_mw,3000,MW,The current wind power curve reaches the 3000MW rated platform at 12m/s and above.,Wind speed scan points are engineering settings and need paper-parameter calibration.
+trip_record,Maximum wind trip probability,distributed_wind_40pct_trip_record_only,max_wind_trip_probability,0,probability,Wind-bus voltages in current samples did not enter the trip-probability region.,record_only does not actually trip wind generators.
+table_4_1_weighting,3000MW baseline weighted-basic difference,distributed_wind_3000mw_base,weighted_CRI_095 - basic_CRI_095,0.00966086666611898,p.u.,Shows the influence of Table 4-1 initial probability weighting on CRI.,This is not a complete numerical reproduction of the thesis.
