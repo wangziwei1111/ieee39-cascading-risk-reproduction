@@ -1,0 +1,5 @@
+OLS modeling consistency log
+generated_at=2026-05-28 20:42:39
+sample=distributed_wind_3000mw_base initial=10 trial=2 stage=3
+opf_success=1 pf_success_after_apply=0 q_mismatch=1207.84
+warning_count=6 fail_count=0

@@ -17,9 +17,16 @@ failure_summary_path = fullfile(table_dir, 'ols_failure_summary.csv');
 robust_path = fullfile(table_dir, 'ols_solver_robustness_test.csv');
 apply_test_path = fullfile(table_dir, 'ols_apply_solution_mode_test.csv');
 apply_summary_path = fullfile(table_dir, 'ols_apply_solution_mode_summary.csv');
+modeling_path = fullfile(table_dir, 'ols_modeling_consistency_check.csv');
+case_index_path = fullfile(table_dir, 'ols_failure_case_index.csv');
+case_replay_path = fullfile(table_dir, 'ols_failure_case_replay_check.csv');
+alternative_path = fullfile(table_dir, 'ols_alternative_formulation_review.csv');
+dc_preview_path = fullfile(table_dir, 'dc_ols_feasibility_preview.csv');
 must_exist(summary_path); must_exist(delta_path); must_exist(bench_path);
 must_exist(failure_diag_path); must_exist(failure_summary_path); must_exist(robust_path);
 must_exist(apply_test_path); must_exist(apply_summary_path);
+must_exist(modeling_path); must_exist(case_index_path); must_exist(case_replay_path);
+must_exist(alternative_path); must_exist(dc_preview_path);
 summary = readtable(summary_path);
 delta = readtable(delta_path);
 bench = readtable(bench_path);
@@ -28,6 +35,11 @@ failure_summary = readtable(failure_summary_path);
 robust = readtable(robust_path);
 apply_test = readtable(apply_test_path);
 apply_summary = readtable(apply_summary_path);
+modeling = readtable(modeling_path, 'Delimiter', ',');
+case_index = readtable(case_index_path);
+case_replay = readtable(case_replay_path);
+alternative = readtable(alternative_path);
+dc_preview = readtable(dc_preview_path, 'Delimiter', ',');
 
 scenarios = string(unique(summary.scenario_id, 'stable'));
 for i = 1:numel(scenarios)
@@ -64,6 +76,8 @@ must_exist(fullfile(figure_dir, 'ols_smoke_vs_paper_cri.png'));
 must_exist(fullfile(figure_dir, 'ols_failure_type_summary.png'));
 must_exist(fullfile(figure_dir, 'ols_solver_robustness.png'));
 must_exist(fullfile(figure_dir, 'ols_apply_solution_mode_success.png'));
+must_exist(fullfile(figure_dir, 'ols_modeling_issue_summary.png'));
+must_exist(fullfile(figure_dir, 'dc_ols_feasibility_preview.png'));
 if exist(fullfile(project_root, 'results', 'final_summary', 'tables', 'ols_benchmark_smoke_summary.csv'), 'file')
     error('OLS benchmark smoke must not write into final_summary.');
 end
@@ -93,6 +107,31 @@ end
 if exist(fullfile(table_dir, 'ols_benchmark_smoke_summary_with_apply_modes.csv'), 'file')
     error('Apply solution mode diagnostics must not be written into the main benchmark summary.');
 end
+if height(case_index) < 3
+    error('At least 3 exported OLS failure cases are required, or the export script must fail explicitly.');
+end
+if isempty(case_replay)
+    error('Failure case replay check must not be empty.');
+end
+if isempty(alternative)
+    error('Alternative OLS formulation review must not be empty.');
+end
+if isempty(dc_preview)
+    error('DC-OLS feasibility preview must not be empty.');
+end
+for ci = 1:height(case_index)
+    if ~exist(char(string(case_index.case_dir(ci))), 'dir')
+        error('Exported failure case directory is missing: %s', string(case_index.case_dir(ci)));
+    end
+end
+q_rows = modeling(contains(lower(string(modeling.check_name)), "opf shed q") | ...
+    contains(lower(string(modeling.check_name)), "applied shed_q"), :);
+q_status = string(get_table_column(q_rows, "status"));
+if any(q_status == "warning")
+    q_note = 'q_mismatch_warning=Detected shed-generator Q / applied shed_Q warning; next step should review reactive shedding formulation.';
+else
+    q_note = 'q_mismatch_warning=None detected in the representative consistency check.';
+end
 load_only = apply_summary(string(apply_summary.apply_solution_mode) == "load_only", :);
 with_init = apply_summary(string(apply_summary.apply_solution_mode) == "load_dispatch_and_voltage_init", :);
 if ~isempty(load_only) && ~isempty(with_init) && with_init.success_rate(1) > load_only.success_rate(1)
@@ -110,6 +149,9 @@ fprintf(fid, 'scenario_count=%d summary_rows=%d delta_rows=%d benchmark_rows=%d 
     numel(scenarios), height(summary), height(delta), height(bench), height(failure_diag), height(robust), height(apply_test));
 fprintf(fid, 'failure_recommendation=%s\n', high_failure_note);
 fprintf(fid, 'apply_solution_mode_recommendation=%s\n', apply_mode_note);
+fprintf(fid, 'exported_failure_case_count=%d replay_rows=%d alternative_rows=%d dc_preview_rows=%d\n', ...
+    height(case_index), height(case_replay), height(alternative), height(dc_preview));
+fprintf(fid, '%s\n', q_note);
 fprintf(fid, 'check_status=passed; note=5-trial smoke only, not final thesis result.\n');
 fprintf('OLS benchmark smoke check passed: %s\n', log_path);
 end
@@ -118,4 +160,16 @@ function must_exist(path)
 if ~exist(path, 'file')
     error('Required file is missing: %s', path);
 end
+end
+
+function col = get_table_column(tbl, name)
+vars = string(tbl.Properties.VariableNames);
+idx = find(vars == name, 1);
+if isempty(idx)
+    idx = find(vars == name + "_", 1);
+end
+if isempty(idx)
+    error('Missing expected table column: %s', name);
+end
+col = tbl.(vars(idx));
 end

@@ -1,0 +1,2 @@
+case_export_id,scenario_id,initial_branch,trial_id,stage_id,failure_type,trigger_reason,message,why_selected,cumulative_load_shed_mw
+case_001,distributed_wind_3000mw_base,12,1,1,opf_nonconverged,line_overload,OLS OPF未收敛。,representative OPF nonconverged failure,0

@@ -1,0 +1,2 @@
+case_export_id,scenario_id,initial_branch,trial_id,stage_id,failure_type,trigger_reason,message,why_selected,cumulative_load_shed_mw
+case_004,distributed_wind_3000mw_base,10,2,3,pf_after_apply_nonconverged,nonconverged_powerflow,OLS OPF成功，但应用切负荷后AC潮流仍不收敛。,representative OPF success but PF after apply failed,17.9470652538594

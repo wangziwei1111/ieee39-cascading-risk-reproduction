@@ -112,3 +112,18 @@ cfg.paper_ols_pf_after_apply_mode = 'runpf_from_updated_dispatch';
 本轮只在既有 OLS smoke 的失败样本上做诊断测试，不改写主 benchmark 结果。前 10 个失败样本中，三种应用模式均为 OPF 成功 2 个、后续 AC PF 成功 0 个、OPF 成功但 PF 失败 2 个。说明在当前样本下，同步发电机调度和电压初值没有显著改善 PF 收敛。
 
 因此，`load_dispatch_and_voltage_init` 暂不应直接升级为正式 OLS benchmark 默认设置。后续需要继续检查故障后主岛、平衡机、无功裕度、线路容量和普通 PF 可行化策略。`accept_opf_if_success_diagnostic_only` 只能用于诊断 OPF 解本身是否存在，不能当作正式潮流收敛结果。
+
+## 可替代的负荷削减建模形式
+
+本轮 OLS 建模一致性检查显示，当前 `current_positive_injection_generator` 方案虽然便于用 MATPOWER OPF 快速建立 `min sum(C_i)` 接口，但存在一个关键诊断风险：负荷削减变量作为正注入 generator 后，OPF 可能使用这些人工 generator 的 QG 和 VG 参与无功/电压控制。代表性样本中 shed generator 的 `shed_gen_qg_sum=942.315`，`max_abs_shed_gen_qg=184`，而实际应用到母线负荷的 constant-power-factor `shed_Q` 总量只有约 `1.33933`，两者不一致量达到 `1207.84`。因此，OPF 解和后续普通 AC PF 使用的削减后系统并不严格等价。
+
+已生成 `ols_alternative_formulation_review.csv`，列出后续可选方案：
+
+- `current_positive_injection_generator`：保留为当前诊断基线，但不宜直接进入正式 benchmark；
+- `matpower_dispatchable_load`：建议作为下一步优先尝试的 AC 建模方案，目标是减少人工无功支撑；
+- `dc_ols_linear_program`：适合作为失败样本的线性可行性预检查，不是论文 AC-OLS 正式结果；
+- `ac_opf_with_soft_limits`：只适合诊断硬约束不可行性，不能默认替代论文约束；
+- `two_stage_dc_then_ac_pf`：可作为后续稳态可行化策略；
+- `proportional_shed_then_ac_opf_polish`：可用于数值调试，但可能偏离 `min sum(C_i)` 目标。
+
+当前已导出 6 个典型失败样本并完成 replay。DC-OLS 预览显示这些样本在线性有功网络层面均可找到可行解，但这不能说明 AC-OLS 已可行；它只提示后续应优先检查无功、电压、PV/PQ 切换和负荷削减变量建模。正式 benchmark 重跑仍应暂停，直到新的 OLS 建模方式在导出样本上显著降低失败率。

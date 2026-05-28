@@ -84,3 +84,25 @@ Recommendation: do not proceed to formal OLS benchmark reruns until the OPF-to-P
 测试对象为既有 OLS smoke 中前 10 个失败样本，不放松电压或线路容量约束，也不改写主 benchmark 结果。结果显示三种模式均为 10 个样本中 OPF 成功 2 个、应用后 AC PF 成功 0 个、OPF 成功但 PF 失败 2 个。也就是说，仅补充发电机调度和电压初值没有提高这批失败样本的 PF 收敛率。
 
 当前建议是：暂不进入正式 OLS benchmark 重跑。失败原因更可能与故障后网络约束、孤岛/平衡机状态、无功约束或普通 PF 可行域有关，而不只是 OPF 解没有完整应用到后续潮流初值。后续若继续推进 OLS，应优先做主岛标准化、平衡机/无功裕度诊断和可行化策略，而不是直接采用 relaxed solver 或把 OPF 成功视作正式 PF 成功。
+
+## OLS建模一致性与失败样本复核
+
+本轮新增 OLS 建模一致性检查和失败样本导出，不运行新的 Markov 批次，也不覆盖 `results/scenarios` 或 `final_summary`。检查结果显示当前“正注入 generator 表示负荷削减变量 C_i”的 AC-OLS 建模存在重要诊断风险：
+
+- shed generator 会作为在线发电机参与 OPF，可能被当作电压控制资源；
+- shed generator 的 QMAX/QMIN 允许其在 OPF 中提供或吸收无功；
+- 代表性样本中 `shed_gen_qg_sum=942.315`、`max_abs_shed_gen_qg=184`；
+- OPF 中 shed generator QG 与实际按 constant power factor 应用的 `shed_Q` 不一致，`q_mismatch_between_opf_and_applied=1207.84`。
+
+这说明 OPF 可行点和后续普通 PF 使用的削减后系统并不完全等价。当前不能把正注入 generator 建模视作严格等价于论文 OLS。更合理的下一步是优先尝试 MATPOWER dispatchable load / costed load 形式，或显式约束 shed 变量的无功行为，使 OPF 中的 Q 处理与应用到 Pd/Qd 的结果一致。
+
+已导出 6 个典型失败样本到 `results/loadshedding/ols_benchmark_smoke/failure_cases/`，其中包括 3 个 `opf_nonconverged` 和 3 个 OPF 成功但 PF 后验失败候选样本。每个样本包含 `mpc_before_ols.mat`、`mpc_opf_with_shed_generators.mat`、`opf_result.mat`、`mpc_after_apply_load_only.mat`、`runpf_after_apply_result.mat` 和 `ols_detail.mat`。Replay 检查中 5 个样本复现了原失败类型，1 个样本复现了失败但 failure_type 从 `pf_after_apply_nonconverged` 变为 `opf_nonconverged`，因此后续逐例调试时应以导出文件中的 replay 记录为准。
+
+DC-OLS 可行性预览只用于判断网络层面线性可行性，不替代 AC-OLS。当前 6 个导出失败样本的 DC LP 均找到线性可行解，提示部分 AC-OLS 失败可能来自 AC 无功/电压建模、OPF 数值稳定性或正注入 shed generator 建模，而不一定是有功网络层面完全不可行。
+
+推荐下一步：
+
+1. 优先实现一个诊断性的 `matpower_dispatchable_load` OLS 版本，消除正注入 generator 人工无功支撑问题；
+2. 保留 DC-OLS 作为失败样本可行性筛查工具，不作为正式论文结果；
+3. 在新建模通过 replay 后，再考虑小样本 OLS smoke 重跑；
+4. 在失败率显著降低前，不进入正式 20-trial benchmark 重跑。

@@ -28,6 +28,14 @@ apply_path = fullfile(table_dir, 'ols_apply_solution_mode_summary.csv');
 if exist(apply_path, 'file')
     plot_apply_solution_modes(readtable(apply_path), fullfile(figure_dir, 'ols_apply_solution_mode_success.png'));
 end
+modeling_path = fullfile(table_dir, 'ols_modeling_consistency_check.csv');
+if exist(modeling_path, 'file')
+    plot_modeling_issues(readtable(modeling_path, 'Delimiter', ','), fullfile(figure_dir, 'ols_modeling_issue_summary.png'));
+end
+dc_path = fullfile(table_dir, 'dc_ols_feasibility_preview.csv');
+if exist(dc_path, 'file')
+    plot_dc_preview(readtable(dc_path, 'Delimiter', ','), fullfile(figure_dir, 'dc_ols_feasibility_preview.png'));
+end
 end
 
 function plot_cri(summary, out_path)
@@ -126,6 +134,48 @@ set(gca, 'XTickLabel', cellstr(string(summary.apply_solution_mode)), 'XTickLabel
 ylim([0, 1]);
 ylabel('PF success rate after applying OLS');
 title('OLS OPF solution application mode diagnostic');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_modeling_issues(consistency, out_path)
+statuses = ["pass", "warning", "fail", "not_applicable"];
+counts = zeros(numel(statuses), 1);
+status_col = string(get_table_column(consistency, "status"));
+for i = 1:numel(statuses)
+    counts(i) = sum(status_col == statuses(i));
+end
+figure('Visible', 'off', 'Color', 'w');
+bar(counts);
+set(gca, 'XTickLabel', cellstr(statuses), 'XTickLabelRotation', 20);
+ylabel('Check count');
+title('OLS modeling consistency issue summary');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function col = get_table_column(tbl, name)
+vars = string(tbl.Properties.VariableNames);
+idx = find(vars == name, 1);
+if isempty(idx)
+    idx = find(vars == name + "_", 1);
+end
+if isempty(idx)
+    error('Missing expected table column: %s', name);
+end
+col = tbl.(vars(idx));
+end
+
+function plot_dc_preview(preview, out_path)
+figure('Visible', 'off', 'Color', 'w');
+success = double(logical(preview.dc_lp_success));
+bar(success);
+set(gca, 'XTickLabel', cellstr(string(preview.case_export_id)), 'XTickLabelRotation', 25);
+ylim([0, 1]);
+ylabel('DC LP success');
+title('DC-OLS feasibility preview for exported failures');
 grid on;
 saveas(gcf, out_path);
 close(gcf);

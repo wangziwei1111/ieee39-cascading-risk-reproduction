@@ -27,6 +27,7 @@ if isempty(load_rows)
     ols_detail.opf_success = true;
     ols_detail.opf_raw_success = true;
     ols_detail.pf_success_after_apply = pf_success;
+    ols_detail.runpf_after_apply_success = pf_success;
     ols_detail.converged_after_shed = pf_success;
     ols_detail.message = "No load bus is available for shedding; PF was checked only.";
     shed.converged_after_shed = pf_success;
@@ -59,6 +60,7 @@ ols_detail.opf_success = opf_success;
 
 if opf_success
     shed_p = max(opf_result.gen(shed_gen_rows, 2), 0);
+    shed_gen_qg = opf_result.gen(shed_gen_rows, 3);
     original_pd = mpc_in.bus(load_bus_rows, 3);
     original_qd = mpc_in.bus(load_bus_rows, 4);
     shed_p = min(shed_p, original_pd);
@@ -77,6 +79,12 @@ if opf_success
     ols_detail.converged_after_shed = pf_success;
     ols_detail.opf_solution_feasible = true;
     ols_detail.opf_success_but_pf_failed = opf_success && ~pf_success;
+    ols_detail.shed_gen_pg_sum = sum(shed_p);
+    ols_detail.shed_gen_qg_sum = sum(shed_gen_qg);
+    ols_detail.max_abs_shed_gen_qg = max([abs(shed_gen_qg); 0]);
+    ols_detail.shed_q_applied_sum = sum(shed_q);
+    ols_detail.q_mismatch_between_opf_and_applied = sum(abs(shed_gen_qg - shed_q));
+    ols_detail = attach_opf_solution_metrics(ols_detail, opf_result, original_gen_count);
     ols_detail.num_shed_buses = sum(shed_p > 1e-7);
     ols_detail.max_bus_shed_mw = max([shed_p; 0]);
     [p_count, q_count] = count_binding_generators(opf_result, original_gen_count);
@@ -90,9 +98,11 @@ if opf_success
     if pf_success
         ols_detail.status = "success";
         ols_detail.message = "OLS solved and AC PF converged after applying load shedding.";
+        ols_detail.runpf_after_apply_message = "runpf converged after applying OLS state.";
     else
         ols_detail.status = "failed";
         ols_detail.message = "OLS OPF succeeded, but AC PF did not converge after applying load shedding.";
+        ols_detail.runpf_after_apply_message = "runpf did not converge after applying OLS state.";
     end
 else
     ols_detail.status = "failed";
@@ -207,6 +217,36 @@ else
 end
 end
 
+function ols_detail = attach_opf_solution_metrics(ols_detail, opf_result, original_gen_count)
+ols_detail.opf_branch_max_loading = NaN;
+ols_detail.opf_min_voltage = NaN;
+ols_detail.opf_max_voltage = NaN;
+ols_detail.opf_num_binding_branch = NaN;
+ols_detail.opf_num_binding_q_generators = NaN;
+ols_detail.opf_num_binding_p_generators = NaN;
+if isfield(opf_result, 'bus') && ~isempty(opf_result.bus)
+    ols_detail.opf_min_voltage = min(opf_result.bus(:, 8));
+    ols_detail.opf_max_voltage = max(opf_result.bus(:, 8));
+end
+if isfield(opf_result, 'branch') && size(opf_result.branch, 2) >= 16
+    rate_a = opf_result.branch(:, 6);
+    positive_rate = rate_a > 0;
+    loading = nan(size(rate_a));
+    loading(positive_rate) = max(abs(opf_result.branch(positive_rate, 14)), ...
+        abs(opf_result.branch(positive_rate, 16))) ./ rate_a(positive_rate);
+    ols_detail.opf_branch_max_loading = max(loading, [], 'omitnan');
+    ols_detail.opf_num_binding_branch = sum(loading >= 1 - 1e-5, 'omitnan');
+end
+if isfield(opf_result, 'gen') && ~isempty(opf_result.gen)
+    gen = opf_result.gen(1:original_gen_count, :);
+    tol = 1e-5;
+    p_bind = abs(gen(:, 2) - gen(:, 9)) <= tol | abs(gen(:, 2) - gen(:, 10)) <= tol;
+    q_bind = abs(gen(:, 3) - gen(:, 4)) <= tol | abs(gen(:, 3) - gen(:, 5)) <= tol;
+    ols_detail.opf_num_binding_p_generators = sum(p_bind);
+    ols_detail.opf_num_binding_q_generators = sum(q_bind);
+end
+end
+
 function tbl = build_bus_shed_table(bus_id, original_pd, original_qd, shed_p, shed_q)
 remaining_pd = max(original_pd - shed_p, 0);
 remaining_qd = original_qd - shed_q;
@@ -255,6 +295,19 @@ detail.pf_after_apply_message = "";
 detail.max_line_loading_after_apply = NaN;
 detail.min_voltage_after_apply = NaN;
 detail.max_voltage_after_apply = NaN;
+detail.shed_gen_pg_sum = NaN;
+detail.shed_gen_qg_sum = NaN;
+detail.max_abs_shed_gen_qg = NaN;
+detail.shed_q_applied_sum = NaN;
+detail.q_mismatch_between_opf_and_applied = NaN;
+detail.opf_branch_max_loading = NaN;
+detail.opf_min_voltage = NaN;
+detail.opf_max_voltage = NaN;
+detail.opf_num_binding_branch = NaN;
+detail.opf_num_binding_q_generators = NaN;
+detail.opf_num_binding_p_generators = NaN;
+detail.runpf_after_apply_success = false;
+detail.runpf_after_apply_message = "";
 end
 
 function shed = init_shed(cumulative_load_shed_mw, base_load_mw, converged)

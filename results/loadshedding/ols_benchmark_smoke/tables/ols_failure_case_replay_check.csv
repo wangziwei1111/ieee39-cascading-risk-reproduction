@@ -1,0 +1,7 @@
+case_export_id,replay_opf_success,replay_pf_success_after_apply,original_failure_type,replay_failure_type,match_original,message
+case_001,0,0,opf_nonconverged,opf_nonconverged,1,"OLS OPF did not converge."
+case_002,0,0,opf_nonconverged,opf_nonconverged,1,"OLS OPF did not converge."
+case_003,0,0,opf_nonconverged,opf_nonconverged,1,"OLS OPF did not converge."
+case_004,1,0,pf_after_apply_nonconverged,pf_after_apply_nonconverged,1,"OLS OPF succeeded, but AC PF did not converge after applying load shedding."
+case_005,1,0,pf_after_apply_nonconverged,pf_after_apply_nonconverged,1,"OLS OPF succeeded, but AC PF did not converge after applying load shedding."
+case_006,0,0,pf_after_apply_nonconverged,opf_nonconverged,0,"OLS OPF did not converge."

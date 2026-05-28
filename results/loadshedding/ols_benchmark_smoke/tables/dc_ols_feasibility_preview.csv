@@ -1,0 +1,7 @@
+case_export_id,dc_lp_success,dc_objective_load_shed_mw,max_dc_line_loading_after,ac_ols_failure_type,interpretation
+case_001,1,0,1,opf_nonconverged,DC-OLS LP found a linear feasible shed pattern; diagnostic only.
+case_002,1,0,1,opf_nonconverged,DC-OLS LP found a linear feasible shed pattern; diagnostic only.
+case_003,1,0,1,opf_nonconverged,DC-OLS LP found a linear feasible shed pattern; diagnostic only.
+case_004,1,0,1,pf_after_apply_nonconverged,DC-OLS LP found a linear feasible shed pattern; diagnostic only.
+case_005,1,0,1,pf_after_apply_nonconverged,DC-OLS LP found a linear feasible shed pattern; diagnostic only.
+case_006,1,365.066062500001,1,pf_after_apply_nonconverged,DC-OLS LP found a linear feasible shed pattern; diagnostic only.
