@@ -24,6 +24,10 @@ robust_path = fullfile(table_dir, 'ols_solver_robustness_test.csv');
 if exist(robust_path, 'file')
     plot_robustness(readtable(robust_path), fullfile(figure_dir, 'ols_solver_robustness.png'));
 end
+apply_path = fullfile(table_dir, 'ols_apply_solution_mode_summary.csv');
+if exist(apply_path, 'file')
+    plot_apply_solution_modes(readtable(apply_path), fullfile(figure_dir, 'ols_apply_solution_mode_success.png'));
+end
 end
 
 function plot_cri(summary, out_path)
@@ -110,6 +114,18 @@ set(gca, 'XTickLabel', cellstr(settings), 'XTickLabelRotation', 20);
 ylim([0, 1]);
 ylabel('Post-apply PF success rate');
 title('OLS solver robustness diagnostic');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_apply_solution_modes(summary, out_path)
+figure('Visible', 'off', 'Color', 'w');
+bar(summary.success_rate);
+set(gca, 'XTickLabel', cellstr(string(summary.apply_solution_mode)), 'XTickLabelRotation', 20);
+ylim([0, 1]);
+ylabel('PF success rate after applying OLS');
+title('OLS OPF solution application mode diagnostic');
 grid on;
 saveas(gcf, out_path);
 close(gcf);

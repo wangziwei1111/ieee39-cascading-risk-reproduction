@@ -1,4 +1,4 @@
 OLS failure diagnosis log
-generated_at=2026-05-28 20:05:28
+generated_at=2026-05-28 20:24:34
 diagnosis_rows=119 summary_rows=3
 recommendation=Do not proceed to formal OLS benchmark rerun before reducing or explaining OLS failures.

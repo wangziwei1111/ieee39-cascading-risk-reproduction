@@ -1,0 +1,4 @@
+apply_solution_mode,test_case_count,opf_success_count,pf_success_after_apply_count,opf_success_but_pf_failed_count,success_rate,mean_objective_load_shed_mw,note
+load_only,10,2,0,2,0,3.63947663025895,Diagnostic only; not a formal benchmark result.
+load_and_dispatch,10,2,0,2,0,3.63947663025895,Diagnostic only; not a formal benchmark result.
+load_dispatch_and_voltage_init,10,2,0,2,0,3.63947663025895,Diagnostic only; not a formal benchmark result.

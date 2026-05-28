@@ -1,6 +1,5 @@
 function failure_info = diagnose_ols_failure(mpc_before_ols, pf_before_ols, ols_detail, trigger_detail, cfg)
 %DIAGNOSE_OLS_FAILURE Classify OLS failure causes without changing results.
-% Inputs may be partial. Missing physical data are reported as NaN/unknown.
 arguments
     mpc_before_ols = []
     pf_before_ols = []
@@ -18,14 +17,35 @@ failure_info.max_voltage_before = get_field(trigger_detail, 'max_voltage_pu', Na
 failure_info.max_line_loading_before = get_field(trigger_detail, 'max_line_loading_pu', NaN);
 failure_info.num_zero_rateA_lines = NaN;
 failure_info.num_binding_generators = get_field(ols_detail, 'num_binding_generators', NaN);
+failure_info.num_binding_p_generators = get_field(ols_detail, 'num_binding_p_generators', NaN);
+failure_info.num_binding_q_generators = get_field(ols_detail, 'num_binding_q_generators', NaN);
 failure_info.has_slack_online = get_field(ols_detail, 'has_slack_online', NaN);
+failure_info.has_online_slack_after_island = failure_info.has_slack_online;
+failure_info.slack_bus_id = NaN;
+failure_info.online_gen_count = NaN;
+failure_info.online_gen_pmax_sum = NaN;
+failure_info.load_mw_before_ols = NaN;
+failure_info.load_mw_after_ols = NaN;
+failure_info.generation_pmax_margin_mw = NaN;
+failure_info.opf_success_but_pf_failed = logical_value(get_field(ols_detail, 'opf_success_but_pf_failed', false));
 failure_info.message = string(get_field(ols_detail, 'message', ""));
 
+if isstruct(mpc_before_ols) && isfield(mpc_before_ols, 'bus') && isfield(mpc_before_ols, 'gen')
+    online_gen = mpc_before_ols.gen(:, 8) > 0;
+    failure_info.slack_bus_id = first_or_nan(mpc_before_ols.bus(mpc_before_ols.bus(:, 2) == 3, 1));
+    failure_info.online_gen_count = sum(online_gen);
+    failure_info.online_gen_pmax_sum = sum(mpc_before_ols.gen(online_gen, 9), 'omitnan');
+    failure_info.load_mw_before_ols = sum(mpc_before_ols.bus(:, 3), 'omitnan');
+    failure_info.has_slack_online = has_online_slack(mpc_before_ols);
+    failure_info.has_online_slack_after_island = failure_info.has_slack_online;
+    failure_info.generation_pmax_margin_mw = failure_info.online_gen_pmax_sum - failure_info.load_mw_before_ols;
+    corrective = get_field(ols_detail, 'corrective_load_shed_mw', NaN);
+    if ~isnan(corrective)
+        failure_info.load_mw_after_ols = failure_info.load_mw_before_ols - corrective;
+    end
+end
 if isstruct(mpc_before_ols) && isfield(mpc_before_ols, 'branch')
     failure_info.num_zero_rateA_lines = sum(mpc_before_ols.branch(:, 6) <= 0);
-end
-if isstruct(mpc_before_ols) && isfield(mpc_before_ols, 'bus') && isfield(mpc_before_ols, 'gen')
-    failure_info.has_slack_online = has_online_slack(mpc_before_ols);
 end
 if isstruct(pf_before_ols) && isfield(pf_before_ols, 'bus') && ~isempty(pf_before_ols.bus)
     vm = pf_before_ols.bus(:, 8);
@@ -46,34 +66,46 @@ if ~isnan(failure_info.has_slack_online) && ~failure_info.has_slack_online
     set_result("island_or_slack_issue", ...
         "No online slack generator is available in the retained island.", ...
         "Check island selection and slack reassignment before OLS.");
+elseif ~isnan(failure_info.generation_pmax_margin_mw) && failure_info.generation_pmax_margin_mw < -1e-6
+    set_result("generation_capacity_insufficient", ...
+        "Online generation Pmax is below the retained load before OLS.", ...
+        "Inspect island generation adequacy and generator limits.");
 elseif contains(message, "infeasible")
     set_result("opf_infeasible", ...
         "MATPOWER OPF reports infeasibility or an infeasibility-like failure.", ...
-        "Inspect voltage, branch, generator, and load-shed bounds for feasibility.");
-elseif ~opf_success || contains(message, "opf") && (contains(message, "not converge") || contains(message, "未收敛"))
+        "Inspect voltage, branch, generator, and load-shed bounds.");
+elseif ~opf_success
     set_result("opf_nonconverged", ...
         "The OLS OPF did not converge.", ...
-        "Inspect OPF algorithm, scaling, binding constraints, and island/slack status.");
+        "Inspect OPF algorithm, scaling, and binding constraints.");
 elseif opf_success && ~pf_success_after
     set_result("pf_after_apply_nonconverged", ...
-        "OPF solved, but the post-OLS AC power flow did not converge.", ...
-        "Check whether OPF dispatchable-shed result is compatible with the follow-up AC PF validation.");
-elseif failure_info.num_zero_rateA_lines > 0
-    set_result("rateA_zero_or_too_tight", ...
-        "One or more branch RATE_A values are zero or unavailable.", ...
-        "Confirm thesis line limits and default RATE_A replacement before formal OLS runs.");
-elseif is_voltage_extreme(failure_info, cfg)
-    set_result("voltage_constraint_too_tight", ...
-        "Pre-OLS voltage is far outside the configured voltage limits.", ...
-        "Run a diagnostic-only sensitivity with relaxed voltage limits.");
+        "OPF solved, but post-OLS AC PF did not converge.", ...
+        "Test whether applying OPF dispatch and voltage initial values improves PF convergence.");
+elseif is_network_tight(failure_info, cfg)
+    set_result("network_constraint_tight", ...
+        "Pre-OLS line loading is close to or above the OLS trigger threshold.", ...
+        "Inspect line limits and run diagnostic-only rate relaxation.");
+elseif ~isnan(failure_info.num_binding_q_generators) && failure_info.num_binding_q_generators > 0
+    set_result("generator_q_limit_binding", ...
+        "One or more generators are at Q limits in the OPF result.", ...
+        "Inspect generator Q limits and voltage support assumptions.");
 elseif ~isnan(failure_info.num_binding_generators) && failure_info.num_binding_generators > 0
     set_result("generator_limit_binding", ...
         "One or more generators are at P/Q limits in the OPF result.", ...
-        "Inspect generator P/Q limits and thesis generator parameter alignment.");
+        "Inspect generator limits and thesis case parameters.");
+elseif failure_info.num_zero_rateA_lines > 0
+    set_result("rateA_zero_or_too_tight", ...
+        "One or more branch RATE_A values are zero or unavailable.", ...
+        "Confirm thesis line limits and RATE_A replacement assumptions.");
+elseif is_voltage_extreme(failure_info, cfg)
+    set_result("voltage_constraint_too_tight", ...
+        "Pre-OLS voltage is far outside the configured voltage limits.", ...
+        "Run diagnostic-only relaxed voltage sensitivity.");
 else
     set_result("unknown", ...
         "The available diagnostics do not uniquely identify the OLS failure.", ...
-        "Review OPF raw output and reconstruct the stage for detailed debugging.");
+        "Review OPF raw output and reconstruct representative failed stages.");
 end
 
     function set_result(failure_type, likely_cause, recommended_fix)
@@ -81,6 +113,11 @@ end
         failure_info.likely_cause = string(likely_cause);
         failure_info.recommended_fix = string(recommended_fix);
     end
+end
+
+function tf = is_network_tight(info, cfg)
+threshold = get_cfg(cfg, 'load_shedding_line_overload_threshold_pu', 1.0);
+tf = ~isnan(info.max_line_loading_before) && info.max_line_loading_before >= threshold;
 end
 
 function tf = is_voltage_extreme(info, cfg)
@@ -115,6 +152,14 @@ elseif isstring(x) || ischar(x)
     value = any(strcmpi(string(x), ["true", "1", "success"]));
 else
     value = false;
+end
+end
+
+function value = first_or_nan(values)
+if isempty(values)
+    value = NaN;
+else
+    value = values(1);
 end
 end
 

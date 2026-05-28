@@ -1,9 +1,10 @@
 function [mpc_shed, pf_result, shed, ols_detail] = solve_paper_ols_load_shedding(mpc_in, cfg, cumulative_load_shed_mw)
 %SOLVE_PAPER_OLS_LOAD_SHEDDING Solve the paper-style OLS load shedding model.
-% The implementation maps thesis equations (3-19) to (3-26) to a MATPOWER
-% AC OPF with dispatchable positive injections at load buses. It is an
-% engineering interface for diagnosis and still requires thesis parameter
-% calibration before final reproduction use.
+% The thesis OLS objective is min sum(C_i), subject to AC balance,
+% generator limits, load shedding bounds, branch limits, and voltage limits.
+% This implementation uses MATPOWER AC OPF with dispatchable positive
+% injection variables at load buses. It remains a calibrated engineering
+% interface, not a claim of exact thesis reproduction.
 arguments
     mpc_in struct
     cfg struct
@@ -11,7 +12,8 @@ arguments
 end
 
 base_load_mw = sum(mpc_in.bus(:, 3)) + cumulative_load_shed_mw;
-ols_detail = init_detail(cfg, cumulative_load_shed_mw);
+original_gen_count = size(mpc_in.gen, 1);
+ols_detail = init_detail(cfg, cumulative_load_shed_mw, original_gen_count);
 ols_detail.num_zero_rateA_lines = sum(mpc_in.branch(:, 6) <= 0);
 ols_detail.has_slack_online = has_online_slack(mpc_in);
 mpc_shed = mpc_in;
@@ -60,20 +62,10 @@ if opf_success
     original_pd = mpc_in.bus(load_bus_rows, 3);
     original_qd = mpc_in.bus(load_bus_rows, 4);
     shed_p = min(shed_p, original_pd);
+    shed_q = compute_shed_q(original_pd, original_qd, shed_p, cfg);
 
-    switch lower(string(get_cfg(cfg, 'paper_ols_q_shed_mode', 'constant_power_factor')))
-        case "constant_power_factor"
-            q_ratio = zeros(size(original_qd));
-            positive_p = abs(original_pd) > 1e-9;
-            q_ratio(positive_p) = original_qd(positive_p) ./ original_pd(positive_p);
-            shed_q = shed_p .* q_ratio;
-            shed_q = min(max(shed_q, min(original_qd, 0)), max(original_qd, 0));
-        otherwise
-            shed_q = zeros(size(shed_p));
-    end
-
-    mpc_shed.bus(load_bus_rows, 3) = max(original_pd - shed_p, 0);
-    mpc_shed.bus(load_bus_rows, 4) = original_qd - shed_q;
+    mpc_shed = apply_opf_solution(mpc_in, opf_result, load_bus_rows, shed_p, shed_q, ...
+        original_gen_count, cfg);
     [pf_result, pf_success] = run_ac_powerflow(mpc_shed);
 
     corrective_load_shed_mw = sum(shed_p);
@@ -83,11 +75,17 @@ if opf_success
     ols_detail.total_load_shed_mw = shed.total_load_shed_mw;
     ols_detail.pf_success_after_apply = pf_success;
     ols_detail.converged_after_shed = pf_success;
+    ols_detail.opf_solution_feasible = true;
+    ols_detail.opf_success_but_pf_failed = opf_success && ~pf_success;
     ols_detail.num_shed_buses = sum(shed_p > 1e-7);
     ols_detail.max_bus_shed_mw = max([shed_p; 0]);
-    ols_detail.num_binding_generators = count_binding_generators(opf_result);
+    [p_count, q_count] = count_binding_generators(opf_result, original_gen_count);
+    ols_detail.num_binding_p_generators = p_count;
+    ols_detail.num_binding_q_generators = q_count;
+    ols_detail.num_binding_generators = p_count + q_count;
     ols_detail.bus_shed_table = build_bus_shed_table( ...
         mpc_in.bus(load_bus_rows, 1), original_pd, original_qd, shed_p, shed_q);
+    ols_detail = attach_after_apply_metrics(ols_detail, pf_result, pf_success, cfg);
 
     if pf_success
         ols_detail.status = "success";
@@ -103,7 +101,7 @@ else
     end
 end
 
-failure_info = diagnose_ols_failure(mpc_in, [], ols_detail, struct(), cfg);
+failure_info = diagnose_ols_failure(mpc_in, pf_result, ols_detail, struct(), cfg);
 ols_detail.diagnosis_failure_type = failure_info.failure_type;
 ols_detail.diagnosis_likely_cause = failure_info.likely_cause;
 end
@@ -161,6 +159,54 @@ end
 mpc_opf.gencost = gencost;
 end
 
+function shed_q = compute_shed_q(original_pd, original_qd, shed_p, cfg)
+switch lower(string(get_cfg(cfg, 'paper_ols_q_shed_mode', 'constant_power_factor')))
+    case "constant_power_factor"
+        q_ratio = zeros(size(original_qd));
+        positive_p = abs(original_pd) > 1e-9;
+        q_ratio(positive_p) = original_qd(positive_p) ./ original_pd(positive_p);
+        shed_q = shed_p .* q_ratio;
+        shed_q = min(max(shed_q, min(original_qd, 0)), max(original_qd, 0));
+    otherwise
+        shed_q = zeros(size(shed_p));
+end
+end
+
+function mpc_shed = apply_opf_solution(mpc_in, opf_result, load_bus_rows, shed_p, shed_q, original_gen_count, cfg)
+mpc_shed = mpc_in;
+original_pd = mpc_in.bus(load_bus_rows, 3);
+original_qd = mpc_in.bus(load_bus_rows, 4);
+mpc_shed.bus(load_bus_rows, 3) = max(original_pd - shed_p, 0);
+mpc_shed.bus(load_bus_rows, 4) = original_qd - shed_q;
+
+mode = lower(string(get_cfg(cfg, 'paper_ols_apply_solution_mode', 'load_only')));
+if mode == "load_and_dispatch" || mode == "load_dispatch_and_voltage_init"
+    mpc_shed.gen(:, 2) = opf_result.gen(1:original_gen_count, 2);
+    mpc_shed.gen(:, 3) = opf_result.gen(1:original_gen_count, 3);
+    mpc_shed.gen(:, 6) = opf_result.gen(1:original_gen_count, 6);
+    mpc_shed.gen(:, 8) = opf_result.gen(1:original_gen_count, 8);
+end
+if mode == "load_dispatch_and_voltage_init"
+    mpc_shed.bus(:, 8) = opf_result.bus(:, 8);
+    mpc_shed.bus(:, 9) = opf_result.bus(:, 9);
+end
+end
+
+function ols_detail = attach_after_apply_metrics(ols_detail, pf_result, pf_success, cfg)
+ols_detail.pf_after_apply_message = "";
+if pf_success && isstruct(pf_result) && isfield(pf_result, 'bus')
+    violations = check_violations(pf_result, cfg);
+    ols_detail.max_line_loading_after_apply = violations.max_line_loading_pu;
+    ols_detail.min_voltage_after_apply = min(pf_result.bus(:, 8));
+    ols_detail.max_voltage_after_apply = max(pf_result.bus(:, 8));
+else
+    ols_detail.max_line_loading_after_apply = NaN;
+    ols_detail.min_voltage_after_apply = NaN;
+    ols_detail.max_voltage_after_apply = NaN;
+    ols_detail.pf_after_apply_message = "runpf did not converge after applying OLS state.";
+end
+end
+
 function tbl = build_bus_shed_table(bus_id, original_pd, original_qd, shed_p, shed_q)
 remaining_pd = max(original_pd - shed_p, 0);
 remaining_qd = original_qd - shed_q;
@@ -173,11 +219,14 @@ tbl = table(bus_id(:), original_pd(:), original_qd(:), shed_p(:), shed_q(:), ...
     'remaining_Pd', 'remaining_Qd', 'shed_fraction'});
 end
 
-function detail = init_detail(cfg, cumulative_load_shed_mw)
+function detail = init_detail(cfg, cumulative_load_shed_mw, original_gen_count)
 detail = struct();
 detail.mode = "paper_ols";
 detail.status = "not_started";
 detail.solver = string(get_cfg(cfg, 'paper_ols_solver', 'matpower_opf_dispatchable_shed'));
+detail.apply_solution_mode = string(get_cfg(cfg, 'paper_ols_apply_solution_mode', 'load_only'));
+detail.pf_after_apply_mode = string(get_cfg(cfg, 'paper_ols_pf_after_apply_mode', 'runpf_from_updated_dispatch'));
+detail.original_gen_count = original_gen_count;
 detail.objective_load_shed_mw = NaN;
 detail.total_load_shed_mw = cumulative_load_shed_mw;
 detail.corrective_load_shed_mw = NaN;
@@ -185,6 +234,8 @@ detail.island_load_shed_mw = cumulative_load_shed_mw;
 detail.converged_after_shed = false;
 detail.opf_success = false;
 detail.pf_success_after_apply = false;
+detail.opf_success_but_pf_failed = false;
+detail.opf_solution_feasible = false;
 detail.num_shed_buses = 0;
 detail.max_bus_shed_mw = 0;
 detail.message = "";
@@ -195,9 +246,15 @@ detail.opf_objective = NaN;
 detail.opf_message = "";
 detail.num_zero_rateA_lines = NaN;
 detail.num_binding_generators = NaN;
+detail.num_binding_p_generators = NaN;
+detail.num_binding_q_generators = NaN;
 detail.has_slack_online = false;
 detail.diagnosis_failure_type = "unknown";
 detail.diagnosis_likely_cause = "";
+detail.pf_after_apply_message = "";
+detail.max_line_loading_after_apply = NaN;
+detail.min_voltage_after_apply = NaN;
+detail.max_voltage_after_apply = NaN;
 end
 
 function shed = init_shed(cumulative_load_shed_mw, base_load_mw, converged)
@@ -247,16 +304,18 @@ elseif isfield(opf_result, 'output') && isfield(opf_result.output, 'message')
 end
 end
 
-function count = count_binding_generators(opf_result)
-count = NaN;
+function [p_count, q_count] = count_binding_generators(opf_result, original_gen_count)
+p_count = NaN;
+q_count = NaN;
 if ~isfield(opf_result, 'gen') || isempty(opf_result.gen)
     return;
 end
-gen = opf_result.gen;
+gen = opf_result.gen(1:original_gen_count, :);
 tol = 1e-5;
 pg_bind = abs(gen(:, 2) - gen(:, 9)) <= tol | abs(gen(:, 2) - gen(:, 10)) <= tol;
 qg_bind = abs(gen(:, 3) - gen(:, 4)) <= tol | abs(gen(:, 3) - gen(:, 5)) <= tol;
-count = sum(pg_bind | qg_bind);
+p_count = sum(pg_bind);
+q_count = sum(qg_bind);
 end
 
 function tf = has_online_slack(mpc)

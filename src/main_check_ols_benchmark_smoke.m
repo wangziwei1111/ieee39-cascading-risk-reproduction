@@ -15,14 +15,19 @@ bench_path = fullfile(table_dir, 'ols_smoke_vs_paper_benchmark.csv');
 failure_diag_path = fullfile(table_dir, 'ols_failure_diagnosis.csv');
 failure_summary_path = fullfile(table_dir, 'ols_failure_summary.csv');
 robust_path = fullfile(table_dir, 'ols_solver_robustness_test.csv');
+apply_test_path = fullfile(table_dir, 'ols_apply_solution_mode_test.csv');
+apply_summary_path = fullfile(table_dir, 'ols_apply_solution_mode_summary.csv');
 must_exist(summary_path); must_exist(delta_path); must_exist(bench_path);
 must_exist(failure_diag_path); must_exist(failure_summary_path); must_exist(robust_path);
+must_exist(apply_test_path); must_exist(apply_summary_path);
 summary = readtable(summary_path);
 delta = readtable(delta_path);
 bench = readtable(bench_path);
 failure_diag = readtable(failure_diag_path);
 failure_summary = readtable(failure_summary_path);
 robust = readtable(robust_path);
+apply_test = readtable(apply_test_path);
+apply_summary = readtable(apply_summary_path);
 
 scenarios = string(unique(summary.scenario_id, 'stable'));
 for i = 1:numel(scenarios)
@@ -58,6 +63,7 @@ must_exist(fullfile(figure_dir, 'ols_trigger_counts.png'));
 must_exist(fullfile(figure_dir, 'ols_smoke_vs_paper_cri.png'));
 must_exist(fullfile(figure_dir, 'ols_failure_type_summary.png'));
 must_exist(fullfile(figure_dir, 'ols_solver_robustness.png'));
+must_exist(fullfile(figure_dir, 'ols_apply_solution_mode_success.png'));
 if exist(fullfile(project_root, 'results', 'final_summary', 'tables', 'ols_benchmark_smoke_summary.csv'), 'file')
     error('OLS benchmark smoke must not write into final_summary.');
 end
@@ -80,15 +86,30 @@ end
 if isempty(robust)
     error('OLS solver robustness test must not be empty.');
 end
+required_modes = ["load_only", "load_and_dispatch", "load_dispatch_and_voltage_init"];
+if ~all(ismember(required_modes, string(apply_summary.apply_solution_mode)))
+    error('OLS apply solution mode summary must include all three apply modes.');
+end
+if exist(fullfile(table_dir, 'ols_benchmark_smoke_summary_with_apply_modes.csv'), 'file')
+    error('Apply solution mode diagnostics must not be written into the main benchmark summary.');
+end
+load_only = apply_summary(string(apply_summary.apply_solution_mode) == "load_only", :);
+with_init = apply_summary(string(apply_summary.apply_solution_mode) == "load_dispatch_and_voltage_init", :);
+if ~isempty(load_only) && ~isempty(with_init) && with_init.success_rate(1) > load_only.success_rate(1)
+    apply_mode_note = 'load_dispatch_and_voltage_init improves diagnostic PF success rate; consider a separate diagnostic rerun before formal benchmarks.';
+else
+    apply_mode_note = 'apply_solution_mode did not improve PF success rate in this diagnostic sample; failures may not be state-application issues.';
+end
 
 log_path = fullfile(log_dir, 'ols_benchmark_smoke_check_log.txt');
 fid = fopen(log_path, 'w');
 cleanup = onCleanup(@() fclose(fid));
 fprintf(fid, 'OLS benchmark smoke check log\n');
 fprintf(fid, 'generated_at=%s\n', datestr(now, 'yyyy-mm-dd HH:MM:SS'));
-fprintf(fid, 'scenario_count=%d summary_rows=%d delta_rows=%d benchmark_rows=%d failure_rows=%d robustness_rows=%d\n', ...
-    numel(scenarios), height(summary), height(delta), height(bench), height(failure_diag), height(robust));
+fprintf(fid, 'scenario_count=%d summary_rows=%d delta_rows=%d benchmark_rows=%d failure_rows=%d robustness_rows=%d apply_mode_rows=%d\n', ...
+    numel(scenarios), height(summary), height(delta), height(bench), height(failure_diag), height(robust), height(apply_test));
 fprintf(fid, 'failure_recommendation=%s\n', high_failure_note);
+fprintf(fid, 'apply_solution_mode_recommendation=%s\n', apply_mode_note);
 fprintf(fid, 'check_status=passed; note=5-trial smoke only, not final thesis result.\n');
 fprintf('OLS benchmark smoke check passed: %s\n', log_path);
 end

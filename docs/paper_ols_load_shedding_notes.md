@@ -93,3 +93,22 @@ cfg.paper_ols_rate_limit_relax_factor = 1.0;
 ```
 
 默认不放松约束。这些配置只用于诊断实验，不能把 relaxed 结果当作正式论文 benchmark。当前失败率仍高于 10%，因此不建议直接进入正式 OLS benchmark 重跑。
+
+## OPF解应用策略
+
+为诊断 “OPF 成功但应用切负荷后 AC PF 不收敛” 的失败类型，新增以下配置：
+
+```matlab
+cfg.paper_ols_apply_solution_mode = 'load_only';
+cfg.paper_ols_pf_after_apply_mode = 'runpf_from_updated_dispatch';
+```
+
+`paper_ols_apply_solution_mode` 可选：
+
+- `load_only`：只将 OLS 得到的负荷削减量应用到 Pd/Qd，保持历史默认行为；
+- `load_and_dispatch`：同时把 OPF 解中的原始发电机 Pg/Qg/Vg/status 写回最终 `mpc_shed`；
+- `load_dispatch_and_voltage_init`：进一步把 OPF bus Vm/Va 写回，作为后续 `runpf` 初值。
+
+本轮只在既有 OLS smoke 的失败样本上做诊断测试，不改写主 benchmark 结果。前 10 个失败样本中，三种应用模式均为 OPF 成功 2 个、后续 AC PF 成功 0 个、OPF 成功但 PF 失败 2 个。说明在当前样本下，同步发电机调度和电压初值没有显著改善 PF 收敛。
+
+因此，`load_dispatch_and_voltage_init` 暂不应直接升级为正式 OLS benchmark 默认设置。后续需要继续检查故障后主岛、平衡机、无功裕度、线路容量和普通 PF 可行化策略。`accept_opf_if_success_diagnostic_only` 只能用于诊断 OPF 解本身是否存在，不能当作正式潮流收敛结果。
