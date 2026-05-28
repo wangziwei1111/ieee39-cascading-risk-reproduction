@@ -1,0 +1,4 @@
+OLS benchmark smoke run log
+generated_at=2026-05-28 19:32:57
+summary rows=6 delta rows=33
+note=5-trial smoke only, not final paper result.

@@ -65,3 +65,9 @@ cfg.paper_ols_enable = false;
 - `violation_only_diagnostic`：只用于诊断。潮流收敛但越限时可记录 OLS 旁路结果，主链路不改变。
 
 新增 `should_trigger_load_shedding.m` 统一判断触发原因，并在 `stage_records` 中记录 `load_shedding_trigger`、`load_shedding_trigger_reason` 和切负荷前的线路/电压诊断。当前仍需确认原文是否在所有越限状态下均执行 OLS；后续重跑 benchmark 前，建议先用 `nonconverged_or_violation` 做独立对比实验，不覆盖已有 simple 结果。
+
+## OLS benchmark smoke 对比结果
+
+已新增 `main_run_ols_benchmark_smoke`，在独立目录 `results/loadshedding/ols_benchmark_smoke/` 下用 5-trial 小样本比较默认 `simple + nonconverged_only` 与 `paper_ols + nonconverged_or_violation`。该实验覆盖 3000MW 分散式基准、40%渗透率点和论文表4-6的12.00m/s风速点。
+
+该结果只用于判断 OLS 对 basic/weighted/paper_formula CRI 的方向性影响，不写入 `results/scenarios` 或 `final_summary`，也不能作为最终论文结果。

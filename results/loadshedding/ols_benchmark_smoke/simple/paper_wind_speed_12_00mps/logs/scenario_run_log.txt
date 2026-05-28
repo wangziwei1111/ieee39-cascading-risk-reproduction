@@ -1,0 +1,3 @@
+OLS benchmark smoke scenario=paper_wind_speed_12_00mps mode=simple
+5-trial smoke only, not final thesis result.
+chain_count=230 basic_CRI_095=0.602348573797 weighted_CRI_095=0.594758401341 paper_CRI_095=0.0024043019998

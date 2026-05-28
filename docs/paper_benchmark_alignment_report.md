@@ -81,3 +81,9 @@
 OLS 接口现已新增触发条件诊断：默认 `nonconverged_only` 保持旧结果不变，`nonconverged_or_violation` 可在潮流收敛但线路/电压越限时触发切负荷策略，`violation_only_diagnostic` 可仅记录越限阶段的 OLS 旁路结果。已生成小规模 `trigger_diagnostic_smoke`，用于比较两种触发模式的阶段数和切负荷影响。
 
 截至本报告，本工程仍未用 OLS 触发模式重跑 Table 4-2、Table 4-4、Table 4-5 或 Table 4-6 benchmark。benchmark 重跑前仍需确认 OLS 触发逻辑、单位尺度、线路容量参数和原文是否对所有越限状态执行最优负荷削减。
+
+## OLS benchmark smoke 状态
+
+已完成 OLS 小样本 benchmark smoke，对比 simple 与 `paper_ols_violation` 两种切负荷路径在 5-trial 下对 CRI 和触发次数的影响。输出位于 `results/loadshedding/ols_benchmark_smoke/`。
+
+该结果仍是 raw comparison，未做单位缩放，也未实现 P_wt/P_ge。是否进入正式 OLS benchmark 重跑，应根据 fallback 次数、CRI方向性变化和触发阶段诊断决定。

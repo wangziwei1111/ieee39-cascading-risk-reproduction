@@ -1,0 +1,34 @@
+scenario_id,metric_name,simple_value,paper_ols_violation_value,delta_value,relative_delta,interpretation
+distributed_wind_3000mw_base,basic_CRI_095,0.602348573797092,0.534812346909027,-0.0675362268880644,-0.112121502110196,OLS constraint correction lowers the current risk indicator; interpret with paper scale checks.
+distributed_wind_3000mw_base,weighted_CRI_095,0.594758401340539,0.528204854316776,-0.0665535470237636,-0.111900137726104,OLS constraint correction lowers the current risk indicator; interpret with paper scale checks.
+distributed_wind_3000mw_base,paper_CRI_095,0.00240430199980094,0.00306575265170077,0.000661450651899824,0.275111301306819,OLS introduces load shedding or violation constraints that raise the current risk indicator.
+distributed_wind_3000mw_base,invalid_stage_ratio,0.0223463687150838,0.0247252747252747,0.00237890601019092,0.106456043956044,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_3000mw_base,triggered_stage_count,55,197,142,2.58181818181818,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_3000mw_base,total_ols_attempts,0,197,197,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_3000mw_base,successful_ols_count,0,150,150,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_3000mw_base,failed_ols_count,0,47,47,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_3000mw_base,fallback_count,0,0,0,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_3000mw_base,mean_objective_load_shed_mw,NaN,152.126311100881,NaN,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_3000mw_base,max_objective_load_shed_mw,NaN,1665.28421143989,NaN,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_penetration_40pct,basic_CRI_095,0.552028434538813,0.394570299644726,-0.157458134894087,-0.285235551363644,OLS constraint correction lowers the current risk indicator; interpret with paper scale checks.
+distributed_wind_penetration_40pct,weighted_CRI_095,0.588192982864648,0.401551981042108,-0.18664100182254,-0.317312527112363,OLS constraint correction lowers the current risk indicator; interpret with paper scale checks.
+distributed_wind_penetration_40pct,paper_CRI_095,0.00218683096802691,0.00168826637977195,-0.000498564588254963,-0.227984967994484,OLS constraint correction lowers the current risk indicator; interpret with paper scale checks.
+distributed_wind_penetration_40pct,invalid_stage_ratio,0.0230547550432277,0.0215384615384615,-0.00151629350476613,-0.0657692307692307,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_penetration_40pct,triggered_stage_count,44,139,95,2.15909090909091,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_penetration_40pct,total_ols_attempts,0,139,139,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_penetration_40pct,successful_ols_count,0,114,114,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_penetration_40pct,failed_ols_count,0,25,25,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_penetration_40pct,fallback_count,0,0,0,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_penetration_40pct,mean_objective_load_shed_mw,NaN,130.773314143716,NaN,NaN,Small-sample diagnostic metric difference; directionality only.
+distributed_wind_penetration_40pct,max_objective_load_shed_mw,NaN,1832.94224256116,NaN,NaN,Small-sample diagnostic metric difference; directionality only.
+paper_wind_speed_12_00mps,basic_CRI_095,0.602348573797092,0.534812346909027,-0.0675362268880644,-0.112121502110196,OLS constraint correction lowers the current risk indicator; interpret with paper scale checks.
+paper_wind_speed_12_00mps,weighted_CRI_095,0.594758401340539,0.528204854316776,-0.0665535470237636,-0.111900137726104,OLS constraint correction lowers the current risk indicator; interpret with paper scale checks.
+paper_wind_speed_12_00mps,paper_CRI_095,0.00240430199980094,0.00306575265170077,0.000661450651899824,0.275111301306819,OLS introduces load shedding or violation constraints that raise the current risk indicator.
+paper_wind_speed_12_00mps,invalid_stage_ratio,0.0223463687150838,0.0247252747252747,0.00237890601019092,0.106456043956044,Small-sample diagnostic metric difference; directionality only.
+paper_wind_speed_12_00mps,triggered_stage_count,55,197,142,2.58181818181818,Small-sample diagnostic metric difference; directionality only.
+paper_wind_speed_12_00mps,total_ols_attempts,0,197,197,NaN,Small-sample diagnostic metric difference; directionality only.
+paper_wind_speed_12_00mps,successful_ols_count,0,150,150,NaN,Small-sample diagnostic metric difference; directionality only.
+paper_wind_speed_12_00mps,failed_ols_count,0,47,47,NaN,Small-sample diagnostic metric difference; directionality only.
+paper_wind_speed_12_00mps,fallback_count,0,0,0,NaN,Small-sample diagnostic metric difference; directionality only.
+paper_wind_speed_12_00mps,mean_objective_load_shed_mw,NaN,152.126311100881,NaN,NaN,Small-sample diagnostic metric difference; directionality only.
+paper_wind_speed_12_00mps,max_objective_load_shed_mw,NaN,1665.28421143989,NaN,NaN,Small-sample diagnostic metric difference; directionality only.

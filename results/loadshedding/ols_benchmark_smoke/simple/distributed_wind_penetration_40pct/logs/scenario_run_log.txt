@@ -1,0 +1,3 @@
+OLS benchmark smoke scenario=distributed_wind_penetration_40pct mode=simple
+5-trial smoke only, not final thesis result.
+chain_count=230 basic_CRI_095=0.552028434539 weighted_CRI_095=0.588192982865 paper_CRI_095=0.00218683096803
