@@ -1,8 +1,8 @@
 paper OLS切负荷单元诊断日志
-生成时间：2026-05-28 17:42:01
+生成时间：2026-05-28 18:56:46
 测试样例数：5
 n1_high_loading_branch_1: simple=312.711500 MW, ols=0.001055 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
 n2_branch_1_2: simple=405.431500 MW, ols=97.601267 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
 n2_branch_6_7: simple=312.711500 MW, ols=0.000225 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
 n3_branch_1_2_3: simple=405.431500 MW, ols=97.600127 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
-n2_last_corridor: simple=312.711500 MW, ols=312.711500 MW, status=fallback_to_simple, note=OLS OPF未收敛。 已按配置回退到simple_load_shedding。
+n2_last_corridor: simple=312.711500 MW, ols=0.000000 MW, status=failed, note=OLS OPF未收敛。

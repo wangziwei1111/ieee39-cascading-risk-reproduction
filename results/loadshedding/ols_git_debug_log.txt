@@ -1,0 +1,76 @@
+﻿===== git status --short =====
+git status --short
+ M results/loadshedding/diagnostic_smoke/ols_diagnostic_log.txt
+ M results/loadshedding/ols_test_comparison.csv
+ M results/loadshedding/ols_test_log.txt
+ M results/loadshedding/paper_ols_check_log.txt
+ M src/loadshedding/apply_load_shedding_strategy.m
+ M src/loadshedding/solve_paper_ols_load_shedding.m
+ M src/main_check_paper_ols_outputs.m
+?? results/loadshedding/diagnostic_smoke/markov_chain_records.mat
+?? results/loadshedding/ols_git_debug_log.txt
+
+===== git branch --show-current =====
+git branch --show-current
+codex/minimal-reproduction-backup
+
+===== git ls-files src/loadshedding/solve_paper_ols_load_shedding.m =====
+git ls-files src/loadshedding/solve_paper_ols_load_shedding.m
+src/loadshedding/solve_paper_ols_load_shedding.m
+
+===== git ls-files src/loadshedding/apply_load_shedding_strategy.m =====
+git ls-files src/loadshedding/apply_load_shedding_strategy.m
+src/loadshedding/apply_load_shedding_strategy.m
+
+===== git ls-files src/loadshedding/flatten_ols_records.m =====
+git ls-files src/loadshedding/flatten_ols_records.m
+src/loadshedding/flatten_ols_records.m
+
+===== git ls-files src/loadshedding/summarize_ols_records.m =====
+git ls-files src/loadshedding/summarize_ols_records.m
+src/loadshedding/summarize_ols_records.m
+
+===== git ls-files src/main_test_paper_ols_load_shedding.m =====
+git ls-files src/main_test_paper_ols_load_shedding.m
+src/main_test_paper_ols_load_shedding.m
+
+===== git ls-files src/main_run_markov_ols_diagnostic_smoke.m =====
+git ls-files src/main_run_markov_ols_diagnostic_smoke.m
+src/main_run_markov_ols_diagnostic_smoke.m
+
+===== git ls-files src/main_check_paper_ols_outputs.m =====
+git ls-files src/main_check_paper_ols_outputs.m
+src/main_check_paper_ols_outputs.m
+
+===== git ls-files results/loadshedding/paper_ols_check_log.txt =====
+git ls-files results/loadshedding/paper_ols_check_log.txt
+results/loadshedding/paper_ols_check_log.txt
+
+===== dir src/loadshedding =====
+Get-ChildItem src/loadshedding
+
+Name                            Length
+----                            ------
+apply_load_shedding_strategy.m    4164
+flatten_ols_records.m             3563
+solve_paper_ols_load_shedding.m   8092
+summarize_ols_records.m           1977
+
+===== dir results/loadshedding =====
+Get-ChildItem results/loadshedding
+
+Name                          Length
+----                          ------
+diagnostic_smoke                    
+ols_git_debug_log.txt         2391  
+ols_test_bus_shed_details.csv 10484 
+ols_test_comparison.csv       1073  
+ols_test_log.txt              712   
+paper_ols_check_log.txt       330
+
+===== git log -3 --oneline =====
+git log -3 --oneline
+67c13ea Add paper OLS load shedding diagnostics
+4c95c52 Run paper Table 4-6 wind speed batch
+a5afdae Add paper benchmark alignment comparison
+

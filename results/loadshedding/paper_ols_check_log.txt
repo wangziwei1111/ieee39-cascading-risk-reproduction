@@ -1,7 +1,9 @@
 paper OLS输出自检日志
-生成时间：2026-05-28 17:42:02
+生成时间：2026-05-28 18:56:48
 默认load_shedding_mode=simple
 ols_test_comparison行数=5
 diagnostic_smoke ols_summary行数=1
 total_ols_attempts=3, successful=3, failed=0, fallback=0
+配置字段检查：通过。
+search_cascade_markov_line策略入口检查：通过。
 自检结论：通过。

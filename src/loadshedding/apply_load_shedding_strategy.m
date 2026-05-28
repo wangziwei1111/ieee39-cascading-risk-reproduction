@@ -29,8 +29,24 @@ switch mode
         if isfield(cfg, 'paper_ols_enable') && ~cfg.paper_ols_enable
             error('paper_ols requested but cfg.paper_ols_enable=false。');
         end
+        input_mpc = mpc_current;
         [mpc_current, pf_result, shed, shed_detail] = solve_paper_ols_load_shedding( ...
-            mpc_current, cfg, cumulative_load_shed_mw);
+            input_mpc, cfg, cumulative_load_shed_mw);
+        if string(shed_detail.status) ~= "success"
+            fail_policy = lower(string(get_field_or_default(cfg, 'paper_ols_fail_policy', 'fallback_to_simple_with_warning')));
+            if fail_policy == "fallback_to_simple_with_warning"
+                failed_detail = shed_detail;
+                [mpc_current, pf_result, shed] = simple_load_shedding( ...
+                    input_mpc, cfg, cumulative_load_shed_mw);
+                shed_detail = simple_detail(shed);
+                shed_detail.mode = "paper_ols";
+                shed_detail.status = "fallback_to_simple";
+                shed_detail.paper_ols_detail = failed_detail;
+                shed_detail.message = failed_detail.message + " 已按配置回退到simple_load_shedding。";
+            elseif fail_policy == "strict_error"
+                error('paper_ols_load_shedding:failed', '%s', char(shed_detail.message));
+            end
+        end
 
     case "both_diagnostic"
         input_mpc = mpc_current;
@@ -50,6 +66,14 @@ switch mode
 
     otherwise
         error('未知 load_shedding_mode：%s', mode);
+end
+
+function value = get_field_or_default(s, field_name, default_value)
+if isfield(s, field_name)
+    value = s.(field_name);
+else
+    value = default_value;
+end
 end
 end
 

@@ -89,26 +89,13 @@ if opf_success
         return;
     end
 
-    ols_detail.status = "failed_pf_after_apply";
+    ols_detail.status = "failed";
     ols_detail.message = "OLS OPF成功，但应用切负荷后AC潮流仍不收敛。";
 else
-    ols_detail.status = "failed_opf";
+    ols_detail.status = "failed";
     if strlength(string(ols_detail.message)) == 0
         ols_detail.message = "OLS OPF未收敛。";
     end
-end
-
-fail_policy = lower(string(get_cfg(cfg, 'paper_ols_fail_policy', 'fallback_to_simple_with_warning')));
-if fail_policy == "fallback_to_simple_with_warning"
-    [mpc_shed, pf_result, shed] = simple_load_shedding(mpc_in, cfg, cumulative_load_shed_mw);
-    ols_detail.status = "fallback_to_simple";
-    ols_detail.total_load_shed_mw = shed.total_load_shed_mw;
-    ols_detail.corrective_load_shed_mw = shed.corrective_load_shed_mw;
-    ols_detail.converged_after_shed = shed.converged_after_shed;
-    ols_detail.pf_success_after_apply = shed.converged_after_shed;
-    ols_detail.message = ols_detail.message + " 已按配置回退到simple_load_shedding。";
-elseif fail_policy == "strict_error"
-    error('paper_ols_load_shedding:failed', '%s', char(ols_detail.message));
 end
 end
 
