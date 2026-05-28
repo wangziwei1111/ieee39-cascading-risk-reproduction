@@ -84,6 +84,11 @@ if opf_success
     ols_detail.max_abs_shed_gen_qg = max([abs(shed_gen_qg); 0]);
     ols_detail.shed_q_applied_sum = sum(shed_q);
     ols_detail.q_mismatch_between_opf_and_applied = sum(abs(shed_gen_qg - shed_q));
+    if ols_detail.q_mismatch_between_opf_and_applied > 1e-4
+        ols_detail.q_mismatch_warning = "OPF shed-generator QG differs from applied constant-power-factor shed_Q.";
+    else
+        ols_detail.q_mismatch_warning = "none";
+    end
     ols_detail = attach_opf_solution_metrics(ols_detail, opf_result, original_gen_count);
     ols_detail.num_shed_buses = sum(shed_p > 1e-7);
     ols_detail.max_bus_shed_mw = max([shed_p; 0]);
@@ -142,8 +147,17 @@ for k = 1:num_shed
     new_gen(k, 1) = bus_id;
     new_gen(k, 2) = 0;
     new_gen(k, 3) = 0;
-    new_gen(k, 4) = max(abs(qd), 0);
-    new_gen(k, 5) = -max(abs(qd), 0);
+    q_mode = lower(string(get_cfg(cfg, 'paper_ols_shed_gen_q_mode', 'free_q')));
+    switch q_mode
+        case "free_q"
+            new_gen(k, 4) = max(abs(qd), 0);
+            new_gen(k, 5) = -max(abs(qd), 0);
+        case "fixed_zero_q"
+            new_gen(k, 4) = 0;
+            new_gen(k, 5) = 0;
+        otherwise
+            error('Unsupported paper_ols_shed_gen_q_mode: %s', q_mode);
+    end
     new_gen(k, 6) = max(mpc_in.bus(bus_row, 8), 1.0);
     new_gen(k, 7) = mpc_in.baseMVA;
     new_gen(k, 8) = 1;
@@ -264,6 +278,9 @@ detail = struct();
 detail.mode = "paper_ols";
 detail.status = "not_started";
 detail.solver = string(get_cfg(cfg, 'paper_ols_solver', 'matpower_opf_dispatchable_shed'));
+detail.paper_ols_formulation = string(get_cfg(cfg, 'paper_ols_formulation', 'positive_injection_generator'));
+detail.paper_ols_shed_gen_q_mode = string(get_cfg(cfg, 'paper_ols_shed_gen_q_mode', 'free_q'));
+detail.shed_gen_q_mode = detail.paper_ols_shed_gen_q_mode;
 detail.apply_solution_mode = string(get_cfg(cfg, 'paper_ols_apply_solution_mode', 'load_only'));
 detail.pf_after_apply_mode = string(get_cfg(cfg, 'paper_ols_pf_after_apply_mode', 'runpf_from_updated_dispatch'));
 detail.original_gen_count = original_gen_count;
@@ -300,6 +317,7 @@ detail.shed_gen_qg_sum = NaN;
 detail.max_abs_shed_gen_qg = NaN;
 detail.shed_q_applied_sum = NaN;
 detail.q_mismatch_between_opf_and_applied = NaN;
+detail.q_mismatch_warning = "";
 detail.opf_branch_max_loading = NaN;
 detail.opf_min_voltage = NaN;
 detail.opf_max_voltage = NaN;

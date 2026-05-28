@@ -22,11 +22,15 @@ case_index_path = fullfile(table_dir, 'ols_failure_case_index.csv');
 case_replay_path = fullfile(table_dir, 'ols_failure_case_replay_check.csv');
 alternative_path = fullfile(table_dir, 'ols_alternative_formulation_review.csv');
 dc_preview_path = fullfile(table_dir, 'dc_ols_feasibility_preview.csv');
+fixed_test_path = fullfile(table_dir, 'ols_fixed_q_shed_test.csv');
+fixed_summary_path = fullfile(table_dir, 'ols_fixed_q_shed_summary.csv');
+fixed_delta_path = fullfile(table_dir, 'ols_fixed_q_vs_free_q_delta.csv');
 must_exist(summary_path); must_exist(delta_path); must_exist(bench_path);
 must_exist(failure_diag_path); must_exist(failure_summary_path); must_exist(robust_path);
 must_exist(apply_test_path); must_exist(apply_summary_path);
 must_exist(modeling_path); must_exist(case_index_path); must_exist(case_replay_path);
 must_exist(alternative_path); must_exist(dc_preview_path);
+must_exist(fixed_test_path); must_exist(fixed_summary_path); must_exist(fixed_delta_path);
 summary = readtable(summary_path);
 delta = readtable(delta_path);
 bench = readtable(bench_path);
@@ -40,6 +44,9 @@ case_index = readtable(case_index_path);
 case_replay = readtable(case_replay_path);
 alternative = readtable(alternative_path);
 dc_preview = readtable(dc_preview_path, 'Delimiter', ',');
+fixed_test = readtable(fixed_test_path);
+fixed_summary = readtable(fixed_summary_path);
+fixed_delta = readtable(fixed_delta_path);
 
 scenarios = string(unique(summary.scenario_id, 'stable'));
 for i = 1:numel(scenarios)
@@ -78,6 +85,9 @@ must_exist(fullfile(figure_dir, 'ols_solver_robustness.png'));
 must_exist(fullfile(figure_dir, 'ols_apply_solution_mode_success.png'));
 must_exist(fullfile(figure_dir, 'ols_modeling_issue_summary.png'));
 must_exist(fullfile(figure_dir, 'dc_ols_feasibility_preview.png'));
+must_exist(fullfile(figure_dir, 'ols_fixed_q_success_comparison.png'));
+must_exist(fullfile(figure_dir, 'ols_fixed_q_q_mismatch.png'));
+must_exist(fullfile(figure_dir, 'ols_fixed_q_cri_delta.png'));
 if exist(fullfile(project_root, 'results', 'final_summary', 'tables', 'ols_benchmark_smoke_summary.csv'), 'file')
     error('OLS benchmark smoke must not write into final_summary.');
 end
@@ -119,6 +129,26 @@ end
 if isempty(dc_preview)
     error('DC-OLS feasibility preview must not be empty.');
 end
+if isempty(fixed_test) || isempty(fixed_summary) || isempty(fixed_delta)
+    error('Fixed-Q shed diagnostic tables must not be empty.');
+end
+fixed_rows = fixed_test(string(fixed_test.shed_gen_q_mode) == "fixed_zero_q", :);
+if isempty(fixed_rows)
+    error('Fixed-Q shed test must contain fixed_zero_q rows.');
+end
+if max(abs(fixed_rows.max_abs_shed_gen_qg), [], 'omitnan') > 1e-5
+    error('fixed_zero_q shed generator QG must be approximately zero.');
+end
+if ~ismember("fixed_zero_q", string(fixed_summary.shed_gen_q_mode))
+    error('Fixed-Q shed summary must contain fixed_zero_q.');
+end
+fixed_dirs = ["distributed_wind_3000mw_base", "distributed_wind_penetration_40pct", "paper_wind_speed_12_00mps"];
+for fd = 1:numel(fixed_dirs)
+    fixed_dir = fullfile(root_dir, 'fixed_q_shed', char(fixed_dirs(fd)), 'tables');
+    must_exist(fullfile(fixed_dir, 'markov_chain_summary.csv'));
+    must_exist(fullfile(fixed_dir, 'ols_stage_details.csv'));
+    must_exist(fullfile(fixed_dir, 'ols_summary.csv'));
+end
 for ci = 1:height(case_index)
     if ~exist(char(string(case_index.case_dir(ci))), 'dir')
         error('Exported failure case directory is missing: %s', string(case_index.case_dir(ci)));
@@ -139,6 +169,25 @@ if ~isempty(load_only) && ~isempty(with_init) && with_init.success_rate(1) > loa
 else
     apply_mode_note = 'apply_solution_mode did not improve PF success rate in this diagnostic sample; failures may not be state-application issues.';
 end
+free_q_summary = fixed_summary(string(fixed_summary.shed_gen_q_mode) == "free_q", :);
+fixed_q_summary = fixed_summary(string(fixed_summary.shed_gen_q_mode) == "fixed_zero_q", :);
+fixed_q_note = "fixed_q_note=Unable to compare fixed_zero_q against free_q.";
+if ~isempty(free_q_summary) && ~isempty(fixed_q_summary)
+    if fixed_q_summary.mean_q_mismatch(1) < free_q_summary.mean_q_mismatch(1)
+        fixed_q_note = "fixed_q_note=fixed_zero_q lowered Q mismatch in exported failure case tests.";
+    end
+    if fixed_q_summary.success_rate(1) <= free_q_summary.success_rate(1)
+        fixed_q_note = fixed_q_note + " Success rate did not improve enough for direct formal rerun recommendation.";
+    else
+        fixed_q_note = fixed_q_note + " Success rate improved; use only for a separate diagnostic rerun before formal benchmarks.";
+    end
+end
+failure_delta_rows = fixed_delta(string(fixed_delta.metric_name) == "failure_rate", :);
+if ~isempty(failure_delta_rows) && any(failure_delta_rows.delta_value > 0)
+    fixed_q_note = fixed_q_note + " In the 5-trial fixed_q_shed smoke, failure_rate increased for at least one scenario; do not adopt fixed_zero_q as formal default.";
+elseif ~isempty(failure_delta_rows) && all(failure_delta_rows.delta_value <= 0)
+    fixed_q_note = fixed_q_note + " In the 5-trial fixed_q_shed smoke, failure_rate did not increase; still diagnostic only.";
+end
 
 log_path = fullfile(log_dir, 'ols_benchmark_smoke_check_log.txt');
 fid = fopen(log_path, 'w');
@@ -152,6 +201,7 @@ fprintf(fid, 'apply_solution_mode_recommendation=%s\n', apply_mode_note);
 fprintf(fid, 'exported_failure_case_count=%d replay_rows=%d alternative_rows=%d dc_preview_rows=%d\n', ...
     height(case_index), height(case_replay), height(alternative), height(dc_preview));
 fprintf(fid, '%s\n', q_note);
+fprintf(fid, '%s\n', fixed_q_note);
 fprintf(fid, 'check_status=passed; note=5-trial smoke only, not final thesis result.\n');
 fprintf('OLS benchmark smoke check passed: %s\n', log_path);
 end

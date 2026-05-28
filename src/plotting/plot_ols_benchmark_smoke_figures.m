@@ -36,6 +36,16 @@ dc_path = fullfile(table_dir, 'dc_ols_feasibility_preview.csv');
 if exist(dc_path, 'file')
     plot_dc_preview(readtable(dc_path, 'Delimiter', ','), fullfile(figure_dir, 'dc_ols_feasibility_preview.png'));
 end
+fixed_summary_path = fullfile(table_dir, 'ols_fixed_q_shed_summary.csv');
+fixed_delta_path = fullfile(table_dir, 'ols_fixed_q_vs_free_q_delta.csv');
+if exist(fixed_summary_path, 'file')
+    fixed_summary = readtable(fixed_summary_path);
+    plot_fixed_q_success(fixed_summary, fullfile(figure_dir, 'ols_fixed_q_success_comparison.png'));
+    plot_fixed_q_mismatch(fixed_summary, fullfile(figure_dir, 'ols_fixed_q_q_mismatch.png'));
+end
+if exist(fixed_delta_path, 'file')
+    plot_fixed_q_cri_delta(readtable(fixed_delta_path), fullfile(figure_dir, 'ols_fixed_q_cri_delta.png'));
+end
 end
 
 function plot_cri(summary, out_path)
@@ -176,6 +186,58 @@ set(gca, 'XTickLabel', cellstr(string(preview.case_export_id)), 'XTickLabelRotat
 ylim([0, 1]);
 ylabel('DC LP success');
 title('DC-OLS feasibility preview for exported failures');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_fixed_q_success(summary, out_path)
+figure('Visible', 'off', 'Color', 'w');
+bar(summary.success_rate);
+set(gca, 'XTickLabel', cellstr(string(summary.shed_gen_q_mode)), 'XTickLabelRotation', 20);
+ylim([0, 1]);
+ylabel('PF success rate after apply');
+title('Fixed-zero-Q OLS diagnostic: success rate');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_fixed_q_mismatch(summary, out_path)
+figure('Visible', 'off', 'Color', 'w');
+bar([summary.mean_q_mismatch, summary.max_q_mismatch]);
+set(gca, 'XTickLabel', cellstr(string(summary.shed_gen_q_mode)), 'XTickLabelRotation', 20);
+ylabel('Q mismatch (MVar)');
+title('Fixed-zero-Q OLS diagnostic: Q mismatch');
+legend({'mean mismatch','max mismatch'}, 'Location', 'best');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_fixed_q_cri_delta(delta, out_path)
+mask = ismember(string(delta.metric_name), ["basic_CRI_095", "weighted_CRI_095", "paper_CRI_095"]);
+sub = delta(mask, :);
+if isempty(sub)
+    return;
+end
+scenarios = unique(string(sub.scenario_id), 'stable');
+metrics = ["basic_CRI_095", "weighted_CRI_095", "paper_CRI_095"];
+values = nan(numel(scenarios), numel(metrics));
+for s = 1:numel(scenarios)
+    for m = 1:numel(metrics)
+        row = sub(string(sub.scenario_id) == scenarios(s) & string(sub.metric_name) == metrics(m), :);
+        if ~isempty(row)
+            values(s, m) = row.delta_value(1);
+        end
+    end
+end
+figure('Visible', 'off', 'Color', 'w');
+bar(values);
+set(gca, 'XTickLabel', cellstr(scenarios), 'XTickLabelRotation', 25);
+ylabel('fixed\_zero\_q - free\_q CRI');
+title('Fixed-zero-Q OLS diagnostic: CRI delta (5-trial)');
+legend(cellstr(metrics), 'Location', 'best');
 grid on;
 saveas(gcf, out_path);
 close(gcf);

@@ -106,3 +106,21 @@ DC-OLS 可行性预览只用于判断网络层面线性可行性，不替代 AC-
 2. 保留 DC-OLS 作为失败样本可行性筛查工具，不作为正式论文结果；
 3. 在新建模通过 replay 后，再考虑小样本 OLS smoke 重跑；
 4. 在失败率显著降低前，不进入正式 20-trial benchmark 重跑。
+
+## fixed_zero_q OLS 诊断变体
+
+为验证 free-Q shed generator 的人工无功支撑是否是主要失败来源，本轮新增 `cfg.paper_ols_shed_gen_q_mode='fixed_zero_q'`。该模式仍使用正注入 generator 表示负荷削减变量，但把 shed generator 的 QMAX/QMIN 固定为 0，禁止它在 OPF 中提供或吸收无功。它是诊断变体，不是原文最终 OLS。
+
+在已导出的 6 个失败 case 上，`fixed_zero_q` 的效果很明确：
+
+- `free_q`：OPF 成功 2/6，PF 后验成功 0/6，平均 Q mismatch 约 1207.84；
+- `fixed_zero_q`：OPF 成功 3/6，PF 后验成功 3/6，平均 Q mismatch 约 0.000946；
+- `fixed_zero_q` 将 shed generator QG 压到接近 0，显著降低了 OPF 与实际应用到负荷侧的无功不一致。
+
+但 5-trial Markov smoke 的整体结果并不支持直接采用该变体：
+
+- `distributed_wind_3000mw_base` 的 failed OLS count 从 47 增至 67；
+- `distributed_wind_penetration_40pct` 的 failed OLS count 从 25 增至 64；
+- `paper_wind_speed_12_00mps` 的 failed OLS count 从 47 增至 67。
+
+因此结论是：`fixed_zero_q` 证明了 free-Q 建模中的无功 mismatch 是真实问题，也能修复一部分导出失败样本；但在完整 5-trial smoke 中，它会让更多 OLS 尝试失败。当前不建议把 `fixed_zero_q` 作为正式 benchmark 默认方案。下一步更合适的方向仍是实现 `matpower_dispatchable_load` 或其它不会引入人工电压支撑、同时能一致处理有功/无功削减的建模方式。

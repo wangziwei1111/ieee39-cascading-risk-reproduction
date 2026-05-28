@@ -1,0 +1,31 @@
+scenario_id,metric_name,free_q_value,fixed_zero_q_value,delta_value,relative_delta,interpretation
+distributed_wind_3000mw_base,total_ols_attempts,197,158,-39,-0.197969543147208,fixed_zero_q still has OLS failures; diagnostic only.
+distributed_wind_3000mw_base,successful_ols_count,150,91,-59,-0.393333333333333,fixed_zero_q still has OLS failures; diagnostic only.
+distributed_wind_3000mw_base,failed_ols_count,47,67,20,0.425531914893617,fixed_zero_q increases OLS failures; do not adopt without more diagnosis.
+distributed_wind_3000mw_base,failure_rate,0.238578680203046,0.424050632911392,0.185471952708347,0.777403716671155,fixed_zero_q increases OLS failures; do not adopt without more diagnosis.
+distributed_wind_3000mw_base,mean_q_mismatch,NaN,27.7056463135726,NaN,NaN,fixed_zero_q does not reduce this Q mismatch metric.
+distributed_wind_3000mw_base,max_q_mismatch,NaN,543.152313563045,NaN,NaN,fixed_zero_q does not reduce this Q mismatch metric.
+distributed_wind_3000mw_base,basic_CRI_095,0.534812346909027,0.445193259840246,-0.0896190870687814,-0.167571088413981,CRI direction is diagnostic only; do not use as final paper result.
+distributed_wind_3000mw_base,weighted_CRI_095,0.528204854316776,0.528528047013123,0.000323192696347396,0.000611869985112955,CRI direction is diagnostic only; do not use as final paper result.
+distributed_wind_3000mw_base,paper_CRI_095,0.00306575265170077,0.00368839464212138,0.000622641990420609,0.203095964077594,CRI direction is diagnostic only; do not use as final paper result.
+distributed_wind_3000mw_base,invalid_stage_ratio,0.0247252747252747,0.00895522388059702,-0.0157700508446777,-0.637810945273631,fixed_zero_q still has OLS failures; diagnostic only.
+distributed_wind_penetration_40pct,total_ols_attempts,139,150,11,0.079136690647482,fixed_zero_q still has OLS failures; diagnostic only.
+distributed_wind_penetration_40pct,successful_ols_count,114,86,-28,-0.245614035087719,fixed_zero_q still has OLS failures; diagnostic only.
+distributed_wind_penetration_40pct,failed_ols_count,25,64,39,1.56,fixed_zero_q increases OLS failures; do not adopt without more diagnosis.
+distributed_wind_penetration_40pct,failure_rate,0.179856115107914,0.426666666666667,0.246810551558753,1.37226666666667,fixed_zero_q increases OLS failures; do not adopt without more diagnosis.
+distributed_wind_penetration_40pct,mean_q_mismatch,NaN,57.6748463436069,NaN,NaN,fixed_zero_q does not reduce this Q mismatch metric.
+distributed_wind_penetration_40pct,max_q_mismatch,NaN,506.798420086114,NaN,NaN,fixed_zero_q does not reduce this Q mismatch metric.
+distributed_wind_penetration_40pct,basic_CRI_095,0.394570299644726,0.428434534870512,0.0338642352257864,0.0858256063780724,CRI direction is diagnostic only; do not use as final paper result.
+distributed_wind_penetration_40pct,weighted_CRI_095,0.401551981042108,0.403362802700311,0.00181082165820301,0.00450955727700201,CRI direction is diagnostic only; do not use as final paper result.
+distributed_wind_penetration_40pct,paper_CRI_095,0.00168826637977195,0.0021930599073301,0.000504793527558151,0.2990011135721,CRI direction is diagnostic only; do not use as final paper result.
+distributed_wind_penetration_40pct,invalid_stage_ratio,0.0215384615384615,0.0236686390532544,0.00213017751479294,0.0989010989011009,fixed_zero_q still has OLS failures; diagnostic only.
+paper_wind_speed_12_00mps,total_ols_attempts,197,158,-39,-0.197969543147208,fixed_zero_q still has OLS failures; diagnostic only.
+paper_wind_speed_12_00mps,successful_ols_count,150,91,-59,-0.393333333333333,fixed_zero_q still has OLS failures; diagnostic only.
+paper_wind_speed_12_00mps,failed_ols_count,47,67,20,0.425531914893617,fixed_zero_q increases OLS failures; do not adopt without more diagnosis.
+paper_wind_speed_12_00mps,failure_rate,0.238578680203046,0.424050632911392,0.185471952708347,0.777403716671155,fixed_zero_q increases OLS failures; do not adopt without more diagnosis.
+paper_wind_speed_12_00mps,mean_q_mismatch,NaN,27.7056463135726,NaN,NaN,fixed_zero_q does not reduce this Q mismatch metric.
+paper_wind_speed_12_00mps,max_q_mismatch,NaN,543.152313563045,NaN,NaN,fixed_zero_q does not reduce this Q mismatch metric.
+paper_wind_speed_12_00mps,basic_CRI_095,0.534812346909027,0.445193259840246,-0.0896190870687814,-0.167571088413981,CRI direction is diagnostic only; do not use as final paper result.
+paper_wind_speed_12_00mps,weighted_CRI_095,0.528204854316776,0.528528047013123,0.000323192696347396,0.000611869985112955,CRI direction is diagnostic only; do not use as final paper result.
+paper_wind_speed_12_00mps,paper_CRI_095,0.00306575265170077,0.00368839464212138,0.000622641990420609,0.203095964077594,CRI direction is diagnostic only; do not use as final paper result.
+paper_wind_speed_12_00mps,invalid_stage_ratio,0.0247252747252747,0.00895522388059702,-0.0157700508446777,-0.637810945273631,fixed_zero_q still has OLS failures; diagnostic only.

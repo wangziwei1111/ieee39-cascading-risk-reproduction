@@ -127,3 +127,24 @@ cfg.paper_ols_pf_after_apply_mode = 'runpf_from_updated_dispatch';
 - `proportional_shed_then_ac_opf_polish`：可用于数值调试，但可能偏离 `min sum(C_i)` 目标。
 
 当前已导出 6 个典型失败样本并完成 replay。DC-OLS 预览显示这些样本在线性有功网络层面均可找到可行解，但这不能说明 AC-OLS 已可行；它只提示后续应优先检查无功、电压、PV/PQ 切换和负荷削减变量建模。正式 benchmark 重跑仍应暂停，直到新的 OLS 建模方式在导出样本上显著降低失败率。
+
+## shed generator 无功建模问题
+
+当前 `positive_injection_generator + free_q` OLS 方案把每个负荷削减变量建成正注入 generator。诊断显示，这会让 MATPOWER OPF 使用 shed generator 的 QG 参与电压/无功支撑，而后续应用到负荷侧时又按 constant-power-factor 计算 `shed_Q`，从而造成 OPF 解和应用后普通 AC PF 状态不一致。
+
+本轮新增配置：
+
+```matlab
+cfg.paper_ols_formulation = 'positive_injection_generator';
+cfg.paper_ols_shed_gen_q_mode = 'free_q';
+```
+
+`paper_ols_shed_gen_q_mode` 可选：
+
+- `free_q`：历史默认，shed generator 的 QMAX/QMIN 为 `±abs(Qd)`；
+- `fixed_zero_q`：诊断变体，shed generator 的 QMAX=QMIN=0，不允许人工无功支撑；
+- `constant_pf_q_bounds`：预留，暂未实现。
+
+导出失败样本测试表明，`fixed_zero_q` 能把 Q mismatch 从约 `1207.84` 降到约 `0.000946`，且在 6 个导出失败样本中将 PF 后验成功数从 0 提升到 3。但在 5-trial Markov smoke 中，`fixed_zero_q` 反而增加了失败次数：3000MW 基准和 12.00m/s 场景从 47 增至 67，40% 渗透率场景从 25 增至 64。
+
+因此，`fixed_zero_q` 只证明 free-Q 人工无功支撑是一个真实建模问题，不能作为正式 OLS 默认方案。后续更推荐实现 `matpower_dispatchable_load` 或其它一致处理有功/无功削减的负荷变量建模，并继续用导出的 failure cases 逐例 replay。

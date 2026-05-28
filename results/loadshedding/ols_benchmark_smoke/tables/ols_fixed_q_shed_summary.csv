@@ -1,0 +1,3 @@
+formulation,shed_gen_q_mode,test_case_count,opf_success_count,pf_success_after_apply_count,opf_success_but_pf_failed_count,mean_q_mismatch,max_q_mismatch,mean_objective_load_shed_mw,success_rate,recommendation
+positive_injection_generator,free_q,6,2,0,2,1207.83687128971,1207.83687128971,3.63947663025895,0,baseline free_q diagnostic.
+positive_injection_generator,fixed_zero_q,6,3,3,0,0.000945823328343697,0.000945823328343697,0.000775015844925449,0.5,fixed_zero_q improves PF success in exported failures; consider a separate smoke rerun.

@@ -1,8 +1,9 @@
 OLS benchmark smoke check log
-generated_at=2026-05-28 20:44:27
+generated_at=2026-05-28 21:39:49
 scenario_count=3 summary_rows=6 delta_rows=33 benchmark_rows=3 failure_rows=119 robustness_rows=20 apply_mode_rows=30
 failure_recommendation=Do not proceed to formal OLS benchmark rerun before reducing or explaining OLS failures.
 apply_solution_mode_recommendation=apply_solution_mode did not improve PF success rate in this diagnostic sample; failures may not be state-application issues.
 exported_failure_case_count=6 replay_rows=6 alternative_rows=6 dc_preview_rows=6
 q_mismatch_warning=Detected shed-generator Q / applied shed_Q warning; next step should review reactive shedding formulation.
+fixed_q_note=fixed_zero_q lowered Q mismatch in exported failure case tests. Success rate improved; use only for a separate diagnostic rerun before formal benchmarks. In the 5-trial fixed_q_shed smoke, failure_rate increased for at least one scenario; do not adopt fixed_zero_q as formal default.
 check_status=passed; note=5-trial smoke only, not final thesis result.
