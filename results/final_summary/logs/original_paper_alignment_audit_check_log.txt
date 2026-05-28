@@ -1,0 +1,4 @@
+Original paper alignment audit check passed.
+audit_rows=37
+P0_rows=20
+statuses=matched, missing, partially_matched, simplified, unknown_need_paper

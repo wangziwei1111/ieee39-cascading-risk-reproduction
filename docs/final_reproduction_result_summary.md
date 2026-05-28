@@ -65,3 +65,21 @@
 - `distributed_wind_3000mw_base` 是 3000 MW 分散式基准场景。
 - `distributed_wind_penetration_40pct` 是按 `wind_capacity/base_load` 定义的 40% 渗透率扫描点。
 - `topology_compare` 已重跑为正式 20-trial 结果；其中 `centralized_wind_40pct` 若仍为 `diagnostic_only`，只能作为诊断对照。
+
+## 与原文完整复现的差距
+
+当前 `final_summary` 是当前工程参数下的复现实验结果，不是原文数值的严格复现。最主要差距包括：
+
+- `P_wt(E_k)` 尚未真实并入事故链状态概率，当前 line-only paper_formula 中等效为 1。
+- `P_ge(E_k)` 尚未实现，传统机组停运概率和状态转移缺失。
+- 新能源脱网当前为 `record_only`，只记录 `P_WT(h)`，不实际切除风电机组。
+- 线路后续停运概率模型、线路容量、切负荷模型和风电功率曲线仍需原文参数校准。
+- 集中式接入节点、渗透率定义、风速扫描点和第4章场景表仍需原文确认。
+- `centralized_wind_40pct` 的 `paper_formula` 结果仍为 `diagnostic_only`，不可作为有效论文对照。
+
+后续若要尽量完整复现原文，需要用户继续提供第3章完整公式、第4章算例参数、场景定义表和主要结果图表。新增审计文件如下：
+
+- `docs/original_paper_alignment_audit.md`
+- `docs/required_original_paper_inputs.md`
+- `docs/next_reproduction_steps.md`
+- `results/final_summary/tables/original_paper_gap_audit.csv`

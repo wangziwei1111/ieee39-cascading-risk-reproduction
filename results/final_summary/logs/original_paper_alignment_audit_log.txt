@@ -1,0 +1,4 @@
+Original paper alignment audit generated.
+audit_rows=37
+final_summary_scenario_rows=18
+allowed_status=matched,partially_matched,simplified,missing,unknown_need_paper
