@@ -11,6 +11,6 @@ rated_speed_mps,12
 cut_out_speed_mps,25
 slack_bus,31
 renewable_trip_enable,false
-penetration_ratio,0.4
-scenario_group,smoke_and_full
+penetration_ratio,0.47968
+scenario_group,topology_compare
 calibration_note,集中接入节点暂取39节点，待根据论文或用户设置校准。

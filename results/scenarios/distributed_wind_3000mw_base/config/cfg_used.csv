@@ -84,4 +84,4 @@ results_chain_dir,"C:\Users\24186\Documents\New project 13\results\scenarios\dis
 results_figure_dir,"C:\Users\24186\Documents\New project 13\results\scenarios\distributed_wind_3000mw_base\figures"
 project_root,"C:\Users\24186\Documents\New project 13"
 scenario_config_dir,"C:\Users\24186\Documents\New project 13\results\scenarios\distributed_wind_3000mw_base\config"
-scenario_run_note,"renewable_trip_record batch records trip probability only; no actual renewable tripping."
+scenario_run_note,"forced full topology_compare rerun; smoke reuse disabled."

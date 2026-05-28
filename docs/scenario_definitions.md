@@ -66,6 +66,9 @@ total_wind_capacity_mw = penetration_ratio * base_load_mw
 `results/final_summary/` 汇总了当前已完成的 `topology_compare`、`penetration_scan`、`wind_speed_scan` 和 `renewable_trip_record`。其中：
 
 - `penetration_scan` 和 `wind_speed_scan` 为 20-trial，可用于当前参数下的趋势分析。
-- `smoke` 只作为工程检查，不进入论文关键结果表。
+- `topology_compare` 已按正式 20-trial 重跑，可用于拓扑/接入方式对比。
+- `smoke` 只作为工程检查，不进入论文关键结果表或 `final_scenario_overview.csv`。
 - `centralized_wind_40pct` 若为 `diagnostic_only`，表示程序运行完整，但 paper_formula 不能作为有效论文对照。
 - `distributed_wind_40pct_trip_record_only` 是 record-only 诊断，不是完整新能源脱网仿真。
+- `distributed_wind_40pct` 是 legacy alias，不进入最终汇总。
+- `distributed_wind_3000mw_base` 是 3000 MW 基准；`distributed_wind_penetration_40pct` 是按 `wind_capacity/base_load` 定义的 40% 渗透率点。

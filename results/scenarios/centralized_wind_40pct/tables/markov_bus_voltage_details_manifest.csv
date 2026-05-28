@@ -1,3 +1,8 @@
 chunk_index,file_name,start_row,end_row,row_count,file_bytes
-1,markov_bus_voltage_details_part001.csv,1,10000,10000,559772
-2,markov_bus_voltage_details_part002.csv,10001,15327,5327,297020
+1,markov_bus_voltage_details_part001.csv,1,10000,10000,555774
+2,markov_bus_voltage_details_part002.csv,10001,20000,10000,583238
+3,markov_bus_voltage_details_part003.csv,20001,30000,10000,559326
+4,markov_bus_voltage_details_part004.csv,30001,40000,10000,572870
+5,markov_bus_voltage_details_part005.csv,40001,50000,10000,568121
+6,markov_bus_voltage_details_part006.csv,50001,60000,10000,558037
+7,markov_bus_voltage_details_part007.csv,60001,61893,1893,109213

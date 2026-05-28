@@ -1,5 +1,6 @@
 Final summary check passed.
-scenario_overview_rows=19
+scenario_overview_rows=18
+topology_rows=3
 penetration_rows=9
 wind_speed_rows=5
 renewable_trip_record_rows=2

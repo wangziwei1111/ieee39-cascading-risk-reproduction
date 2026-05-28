@@ -56,3 +56,12 @@
 - `paper_formula` 指标当前是 line-only 论文公式近似。
 - `diagnostic_only` 场景只能用于诊断，不应用作论文有效对照。
 - `record_only` 新能源脱网概率结果只记录 `P_WT(h)`，不代表完整新能源脱网仿真。
+
+## final_summary 筛选规则
+
+- `smoke` 结果仅用于流程检查，不进入 `results/final_summary/`。
+- `final_summary` 只采用 `cfg.markov_num_trials_per_initial_fault=20` 的场景结果。
+- `distributed_wind_40pct` 是历史 legacy alias，不进入最终汇总。
+- `distributed_wind_3000mw_base` 是 3000 MW 分散式基准场景。
+- `distributed_wind_penetration_40pct` 是按 `wind_capacity/base_load` 定义的 40% 渗透率扫描点。
+- `topology_compare` 已重跑为正式 20-trial 结果；其中 `centralized_wind_40pct` 若仍为 `diagnostic_only`，只能作为诊断对照。

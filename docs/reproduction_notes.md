@@ -630,3 +630,16 @@ main_check_final_summary
 ```text
 results/final_summary/logs/final_summary_check_log.txt
 ```
+
+## 最终汇总筛选规则
+
+为避免轻量 smoke 结果污染论文图表，`main_build_final_summary` 和 `main_check_final_summary` 已加入严格筛选：
+
+1. `final_scenario_overview.csv` 中所有场景必须满足 `markov_trials_per_initial_fault = cfg.markov_num_trials_per_initial_fault`，当前为 20。
+2. `chain_count` 必须等于 `46 * cfg.markov_num_trials_per_initial_fault`，当前为 920。
+3. `batch_mode='smoke'` 的结果不得进入最终汇总。
+4. legacy 场景 `distributed_wind_40pct` 不得进入最终汇总。
+5. 正式拓扑对比必须使用 `no_renewable_base`、`distributed_wind_3000mw_base` 和 `centralized_wind_40pct` 的 20-trial 结果。
+6. `centralized_wind_40pct` 若为 `diagnostic_only`，保持诊断状态，不强行改为 `valid`。
+
+因此最终汇总中的 3000 MW 分散式基准使用 `distributed_wind_3000mw_base`，渗透率 40% 点使用 `distributed_wind_penetration_40pct`，二者不再混用。

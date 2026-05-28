@@ -1,6 +1,2 @@
 开始运行场景：no_renewable_base
-已自动加入MATPOWER路径：E:\Matlab\toolbox\matpower6.0\matpower6.0
-场景运行完成：no_renewable_base
-开始运行场景：no_renewable_base
-已自动加入MATPOWER路径：E:\Matlab\toolbox\matpower6.0\matpower6.0
 场景运行完成：no_renewable_base

@@ -27,7 +27,7 @@ penetration = load_summary(scenario_root, 'penetration_scan');
 wind_speed = load_summary(scenario_root, 'wind_speed_scan');
 trip_record = load_summary(scenario_root, 'renewable_trip_record');
 
-overview = build_overview({topology, penetration, wind_speed, trip_record});
+overview = build_overview({topology, penetration, wind_speed, trip_record}, cfg);
 save_result_table(overview, fullfile(table_dir, 'final_scenario_overview.csv'), true);
 
 topology_final = build_topology_table(topology, trip_record);
@@ -59,6 +59,7 @@ if ~exist(path, 'file')
 end
 tbl = readtable(path);
 tbl = ensure_common_columns(tbl);
+tbl = normalize_text_columns(tbl);
 tbl = enrich_from_basecase_validation(tbl, scenario_root);
 end
 
@@ -101,6 +102,14 @@ function tbl = enrich_from_basecase_validation(tbl, scenario_root)
 %ENRICH_FROM_BASECASE_VALIDATION 从场景基础潮流校验表回填实际风电出力和基础越限信息。
 for i = 1:height(tbl)
     scenario_id = string(tbl.scenario_id(i));
+    scenario_path = fullfile(scenario_root, char(scenario_id), 'config', 'scenario_used.mat');
+    if exist(scenario_path, 'file')
+        loaded = load(scenario_path, 'scenario');
+        if isfield(loaded, 'scenario') && ...
+                (strlength(string(tbl.wind_buses(i))) == 0 || string(tbl.wind_buses(i)) == "NaN" || ismissing(string(tbl.wind_buses(i))))
+            tbl.wind_buses(i) = join_vector(loaded.scenario.wind_buses);
+        end
+    end
     basecase_path = fullfile(scenario_root, char(scenario_id), 'tables', 'basecase_validation.csv');
     if ~exist(basecase_path, 'file')
         continue;
@@ -127,7 +136,16 @@ for i = 1:height(tbl)
 end
 end
 
-function overview = build_overview(groups)
+function text = join_vector(values)
+%JOIN_VECTOR 将场景中的节点向量写成稳定的逗号分隔字符串。
+if isempty(values)
+    text = "";
+else
+    text = strjoin(string(values(:).'), ",");
+end
+end
+
+function overview = build_overview(groups, cfg)
 overview_cols = {'scenario_id', 'batch_mode', ...
     'total_wind_capacity_mw', 'total_wind_output_mw', 'wind_capacity_factor', ...
     'wind_buses', 'wind_speed_mps', 'markov_trials_per_initial_fault', ...
@@ -142,6 +160,13 @@ all_tbl = vertcat(groups{:});
 all_tbl.scenario_group = strings(height(all_tbl), 1);
 for i = 1:height(all_tbl)
     all_tbl.scenario_group(i) = infer_group(string(all_tbl.scenario_id(i)), string(all_tbl.batch_mode(i)));
+end
+is_final_trial = all_tbl.markov_trials_per_initial_fault == cfg.markov_num_trials_per_initial_fault;
+is_not_smoke = string(all_tbl.batch_mode) ~= "smoke";
+is_not_legacy = string(all_tbl.scenario_id) ~= "distributed_wind_40pct";
+all_tbl = all_tbl(is_final_trial & is_not_smoke & is_not_legacy, :);
+if isempty(all_tbl)
+    error('final_scenario_overview 没有可用的正式20-trial场景结果。');
 end
 
 ids = unique(string(all_tbl.scenario_id), 'stable');
@@ -187,16 +212,16 @@ end
 
 function tbl = build_topology_table(topology, trip_record)
 topology = normalize_text_columns(ensure_common_columns(topology));
-trip_record = normalize_text_columns(ensure_common_columns(trip_record));
 rows = topology(:, {'scenario_id', 'total_wind_capacity_mw', 'total_wind_output_mw', ...
     'wind_buses', 'basic_CRI_095', 'weighted_CRI_095', 'paper_CRI_095', ...
     'paper_result_status', 'invalid_stage_ratio', 'overall_status', 'note'});
-idx_legacy = string(rows.scenario_id) == "distributed_wind_40pct";
-idx_new = string(trip_record.scenario_id) == "distributed_wind_3000mw_base";
-if any(idx_legacy) && any(idx_new)
-    replacement = trip_record(idx_new, rows.Properties.VariableNames);
-    rows(idx_legacy, :) = replacement;
+wanted = ["no_renewable_base", "distributed_wind_3000mw_base", "centralized_wind_40pct"];
+rows = rows(ismember(string(rows.scenario_id), wanted), :);
+[~, order] = ismember(wanted, string(rows.scenario_id));
+if any(order == 0)
+    error('正式 topology_compare 缺少场景：%s', strjoin(wanted(order == 0), ', '));
 end
+rows = rows(order, :);
 tbl = rows;
 end
 
