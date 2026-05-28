@@ -34,3 +34,29 @@
 
 缺失资料不得用 uniform、平均值或经验猜测替代。paper_table_4_1、接入节点、保护参数和严重度函数均必须来自用户提供的原文资料或明确的人工确认。
 
+## 对应模板文件
+
+后续请将原文资料复制或人工录入到 `paper_inputs/filled/`，不要直接修改 `templates/`。
+
+| 原文资料 | 对应模板 |
+|---|---|
+| 第3章风险状态概率公式 | `paper_state_probability_formula_template.csv` |
+| LLR/LFOR/NVOR/CRI/VaR 严重度公式 | `paper_risk_severity_formula_template.csv` |
+| 线路后续停运概率模型 | `paper_line_subsequent_outage_model_template.csv` |
+| 新能源脱网模型 P_WT(h) | `paper_wind_trip_probability_model_template.csv` |
+| 传统机组停运模型 P_G(q) | `paper_generator_outage_model_template.csv` |
+| IEEE39 节点负荷和电压参数 | `paper_case39_bus_template.csv` |
+| IEEE39 发电机参数 | `paper_case39_gen_template.csv` |
+| IEEE39 线路参数和容量 | `paper_case39_branch_template.csv` |
+| 表4-1线路初始停运概率 | `paper_line_initial_outage_probability_template.csv` |
+| 第4章场景定义 | `paper_scenario_definition_template.csv` |
+| 第4章结果表或图 | `paper_result_benchmark_template.csv` |
+| 切负荷/失负荷模型 | `paper_load_shedding_model_template.csv` |
+
+校验入口：
+
+```matlab
+main_validate_paper_inputs
+main_update_alignment_audit_from_paper_inputs
+main_check_paper_input_templates
+```

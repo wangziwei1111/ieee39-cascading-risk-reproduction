@@ -1,0 +1,2 @@
+model_name,objective_function,constraint_name,constraint_formula,parameter_name,parameter_value,unit,source_equation,source_note
+,,,,,NaN,,,fill from thesis load shedding or loss-of-load model; do not use simple_load_shedding as paper model

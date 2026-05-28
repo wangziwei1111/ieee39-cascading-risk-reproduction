@@ -1,0 +1,2 @@
+model_name,input_variable,formula_text,parameter_name,parameter_value,unit,source_equation,source_note
+,,,,NaN,,,fill from thesis P_WT(h) or protection model; do not use diagnostic thresholds

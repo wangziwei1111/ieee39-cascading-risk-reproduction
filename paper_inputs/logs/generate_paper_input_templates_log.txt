@@ -1,0 +1,6 @@
+Paper input templates generated.
+force_overwrite_templates=0
+template_dir=C:\Users\24186\Documents\New project 13\paper_inputs\templates
+bus_rows=39
+gen_rows=10
+branch_rows=46

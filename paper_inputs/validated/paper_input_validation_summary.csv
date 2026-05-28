@@ -1,0 +1,13 @@
+input_file,status,missing_fields,num_rows,can_use_for_implementation,note
+paper_case39_bus.csv,missing,,0,0,filled file not found
+paper_case39_gen.csv,missing,,0,0,filled file not found
+paper_case39_branch.csv,missing,,0,0,filled file not found
+paper_line_initial_outage_probability.csv,missing,,0,0,filled file not found
+paper_line_subsequent_outage_model.csv,missing,,0,0,filled file not found
+paper_wind_trip_probability_model.csv,missing,,0,0,filled file not found
+paper_generator_outage_model.csv,missing,,0,0,filled file not found
+paper_state_probability_formula.csv,missing,,0,0,filled file not found
+paper_risk_severity_formula.csv,missing,,0,0,filled file not found
+paper_scenario_definition.csv,missing,,0,0,filled file not found
+paper_result_benchmark.csv,missing,,0,0,filled file not found
+paper_load_shedding_model.csv,missing,,0,0,filled file not found

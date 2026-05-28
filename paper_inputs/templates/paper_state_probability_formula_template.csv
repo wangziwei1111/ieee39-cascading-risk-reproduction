@@ -1,0 +1,6 @@
+probability_term,formula_text,required_variables,current_status,source_equation,source_note
+P_wt_Ek,,,missing,,fill exact thesis formula; current engineering implementation is not validated
+P_ge_Ek,,,missing,,fill exact thesis formula; current engineering implementation is not validated
+P_line_Ek,,,missing,,fill exact thesis formula; current engineering implementation is not validated
+P_stage_Ek,,,missing,,fill exact thesis formula; current engineering implementation is not validated
+P_chain,,,missing,,fill exact thesis formula; current engineering implementation is not validated

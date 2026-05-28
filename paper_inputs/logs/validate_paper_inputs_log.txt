@@ -1,0 +1,5 @@
+Paper input validation completed.
+strict=0
+input_count=12
+missing_count=12
+complete_or_validated_count=0

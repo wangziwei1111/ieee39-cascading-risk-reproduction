@@ -1,0 +1,2 @@
+scenario_id,paper_section,scenario_type,renewable_dispatch_mode,wind_buses,centralized_bus,distributed_buses,total_wind_capacity_mw,penetration_ratio,penetration_definition,wind_speed_mps,sample_count,confidence_levels,source_note
+,,,,,,,NaN,NaN,,NaN,NaN,,fill from thesis Chapter 4 scenario definition; do not infer missing values

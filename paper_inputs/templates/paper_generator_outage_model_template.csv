@@ -1,0 +1,2 @@
+model_name,generator_type,input_variable,formula_text,parameter_name,parameter_value,unit,source_equation,source_note
+,,,,,NaN,,,fill from thesis P_G(q) or generator protection model; do not guess
