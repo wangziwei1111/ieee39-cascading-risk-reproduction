@@ -34,6 +34,16 @@ cfg.load_shed_step = 0.05;       % 待校准：每轮削减5%
 cfg.load_shed_max_frac = 0.30;   % 待校准：最大削减30%
 cfg.load_shed_max_iter = 6;
 
+% 论文式最优负荷削减（OLS）接口。默认仍使用simple，避免改变既有复现结果。
+cfg.load_shedding_mode = 'simple'; % 可选：simple / paper_ols / both_diagnostic
+cfg.paper_ols_enable = false;
+cfg.paper_ols_solver = 'matpower_opf_dispatchable_shed';
+cfg.paper_ols_shed_cost = 1.0;
+cfg.paper_ols_generation_cost = 0.0;
+cfg.paper_ols_q_shed_mode = 'constant_power_factor';
+cfg.paper_ols_max_iterations = 1;
+cfg.paper_ols_fail_policy = 'fallback_to_simple_with_warning';
+
 % 风机电压穿越脱网概率只记录，默认不在当前line-only Markov中触发。
 cfg.enable_wind_voltage_trip_sampling = false;
 cfg.wind_trip_record_only = true;

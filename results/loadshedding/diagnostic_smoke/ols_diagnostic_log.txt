@@ -1,0 +1,9 @@
+Markov OLS诊断烟测日志
+生成时间：2026-05-28 17:42:01
+链条数：15
+OLS逐级记录行数：23
+total_ols_attempts=3
+successful_ols_count=3
+failed_ols_count=0
+num_fallback_to_simple=0
+说明：both_diagnostic主链路仍使用simple_load_shedding，OLS仅用于旁路诊断。
