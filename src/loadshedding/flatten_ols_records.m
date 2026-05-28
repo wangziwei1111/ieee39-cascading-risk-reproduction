@@ -5,8 +5,8 @@ function ols_stage_details = flatten_ols_records(chain_records)
 % 输出：
 %   ols_stage_details - 每条事故链每一级一行的切负荷诊断表。
 % 物理含义：
-%   用于检查 paper_ols 或 both_diagnostic 是否在非收敛阶段被触发，以及 OLS
-%   求解量、回退情况和最终潮流收敛情况。
+%   记录切负荷触发原因、切负荷前越限状态和 OLS 求解结果，用于区分非收敛
+%   触发与线路/电压越限触发。
 
 rows = {};
 for i = 1:numel(chain_records)
@@ -14,8 +14,13 @@ for i = 1:numel(chain_records)
     for s = 1:numel(c.stage_records)
         st = c.stage_records(s);
         detail = extract_detail(st);
+        trigger_detail = extract_trigger_detail(st);
         rows{end + 1, 1} = table( ... %#ok<AGROW>
             c.initial_branch, c.trial_id, st.stage_id, ...
+            logical_value(get_struct_field(st, 'load_shedding_trigger', false)), ...
+            string(get_struct_field(st, 'load_shedding_trigger_reason', "none")), ...
+            trigger_detail.max_line_loading_pu, trigger_detail.min_voltage_pu, ...
+            trigger_detail.max_voltage_pu, string(trigger_detail.trigger_mode), ...
             string(detail.mode), string(detail.status), ...
             detail.objective_load_shed_mw, detail.total_load_shed_mw, ...
             detail.corrective_load_shed_mw, detail.island_load_shed_mw, ...
@@ -23,6 +28,9 @@ for i = 1:numel(chain_records)
             logical_value(detail.pf_success_after_apply), detail.num_shed_buses, ...
             detail.max_bus_shed_mw, string(detail.message), ...
             'VariableNames', {'initial_branch', 'trial_id', 'stage_id', ...
+            'load_shedding_trigger', 'load_shedding_trigger_reason', ...
+            'max_line_loading_pu_before_shed', 'min_voltage_pu_before_shed', ...
+            'max_voltage_pu_before_shed', 'trigger_mode', ...
             'load_shedding_mode', 'ols_status', ...
             'objective_load_shed_mw', 'total_load_shed_mw', ...
             'corrective_load_shed_mw', 'island_load_shed_mw', ...
@@ -38,6 +46,15 @@ else
 end
 end
 
+function trigger_detail = extract_trigger_detail(stage_record)
+raw = get_struct_field(stage_record, 'load_shedding_trigger_detail', struct());
+trigger_detail = struct();
+trigger_detail.max_line_loading_pu = get_struct_field(raw, 'max_line_loading_pu', NaN);
+trigger_detail.min_voltage_pu = get_struct_field(raw, 'min_voltage_pu', NaN);
+trigger_detail.max_voltage_pu = get_struct_field(raw, 'max_voltage_pu', NaN);
+trigger_detail.trigger_mode = get_struct_field(raw, 'trigger_mode', "unknown");
+end
+
 function detail = extract_detail(stage_record)
 if ~isfield(stage_record, 'shed_detail') || isempty(stage_record.shed_detail)
     detail = empty_detail("missing", "missing_shed_detail", "stage中没有shed_detail。");
@@ -48,10 +65,10 @@ raw = stage_record.shed_detail;
 if isfield(raw, 'paper_ols_detail')
     detail = raw.paper_ols_detail;
     detail.mode = string(raw.mode);
-    return;
+else
+    detail = raw;
 end
 
-detail = raw;
 detail = ensure_field(detail, 'mode', "unknown");
 detail = ensure_field(detail, 'status', "unknown");
 detail = ensure_field(detail, 'objective_load_shed_mw', NaN);
@@ -78,6 +95,14 @@ end
 function s = ensure_field(s, name, default_value)
 if ~isfield(s, name)
     s.(name) = default_value;
+end
+end
+
+function value = get_struct_field(s, name, default_value)
+if isstruct(s) && isfield(s, name)
+    value = s.(name);
+else
+    value = default_value;
 end
 end
 

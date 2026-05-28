@@ -1,9 +1,12 @@
-paper OLS输出自检日志
-生成时间：2026-05-28 18:56:48
+paper OLS触发逻辑自检日志
+生成时间：2026-05-28 19:10:33
 默认load_shedding_mode=simple
+默认load_shedding_trigger_mode=nonconverged_only
 ols_test_comparison行数=5
-diagnostic_smoke ols_summary行数=1
-total_ols_attempts=3, successful=3, failed=0, fallback=0
+trigger_mode_comparison行数=2
+nonconverged_only触发阶段数=3
+nonconverged_or_violation触发阶段数=8
+说明：nonconverged_or_violation触发次数大于nonconverged_only，这是启用越限触发后的预期现象。
 配置字段检查：通过。
-search_cascade_markov_line策略入口检查：通过。
+search_cascade_markov_line触发入口检查：通过。
 自检结论：通过。

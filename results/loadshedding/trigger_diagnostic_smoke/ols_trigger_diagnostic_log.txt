@@ -1,0 +1,6 @@
+OLS触发诊断smoke日志
+生成时间：2026-05-28 19:10:32
+nonconverged_only: chains=15, triggered=3, nonconverged=3, line=0, voltage=0, total_shed=5131.537550
+nonconverged_or_violation: chains=15, triggered=8, nonconverged=1, line=7, voltage=0, total_shed=6733.844649
+说明：nonconverged_or_violation 触发次数大于 nonconverged_only，这是越限触发开启后的预期现象。
+summary rows=2

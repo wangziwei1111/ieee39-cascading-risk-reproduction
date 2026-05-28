@@ -29,6 +29,9 @@ for stage_id = 1:cfg.markov_max_depth
     cumulative_load_shed_mw = cumulative_load_shed_mw + island_info.disconnected_load_mw;
 
     [pf_result, converged_before_shedding] = run_ac_powerflow(mpc_current);
+    preliminary_violations = check_violations(pf_result, cfg);
+    [load_shedding_trigger, load_shedding_trigger_reason, load_shedding_trigger_detail] = ...
+        should_trigger_load_shedding(pf_result, converged_before_shedding, preliminary_violations, cfg);
     shed = struct('island_load_shed_mw', cumulative_load_shed_mw, ...
         'corrective_load_shed_mw', 0, ...
         'load_shed_mw', cumulative_load_shed_mw, ...
@@ -37,7 +40,9 @@ for stage_id = 1:cfg.markov_max_depth
         'iterations', 0, ...
         'converged_after_shed', converged_before_shedding);
 
-    if ~converged_before_shedding
+    if load_shedding_trigger && string(load_shedding_trigger_reason) == "diagnostic_violation_only"
+        shed_detail = build_diagnostic_shed_detail(mpc_current, cfg, cumulative_load_shed_mw, shed, load_shedding_trigger_reason);
+    elseif load_shedding_trigger
         [mpc_current, pf_result, shed, shed_detail] = apply_load_shedding_strategy( ...
             mpc_current, cfg, cumulative_load_shed_mw);
     else
@@ -105,6 +110,9 @@ for stage_id = 1:cfg.markov_max_depth
     stage_records(stage_id).island_info = island_info;
     stage_records(stage_id).converged_before_shedding = converged_before_shedding;
     stage_records(stage_id).converged = converged;
+    stage_records(stage_id).load_shedding_trigger = load_shedding_trigger;
+    stage_records(stage_id).load_shedding_trigger_reason = load_shedding_trigger_reason;
+    stage_records(stage_id).load_shedding_trigger_detail = load_shedding_trigger_detail;
     stage_records(stage_id).shed = shed;
     stage_records(stage_id).shed_detail = shed_detail;
     stage_records(stage_id).violations = violations;
@@ -158,4 +166,39 @@ function candidate_table = empty_candidate_table()
 candidate_table = table([], [], [], [], [], [], [], ...
     'VariableNames', {'branch_index', 'from_bus', 'to_bus', 'loading_pu', ...
     'outage_probability', 'random_u', 'trip_selected'});
+end
+
+function shed_detail = build_diagnostic_shed_detail(mpc_current, cfg, cumulative_load_shed_mw, shed, trigger_reason)
+%BUILD_DIAGNOSTIC_SHED_DETAIL 在越限诊断模式下旁路运行OLS，不改变主链路。
+if isfield(cfg, 'paper_ols_enable') && cfg.paper_ols_enable
+    [~, ~, ~, ols_detail] = solve_paper_ols_load_shedding(mpc_current, cfg, cumulative_load_shed_mw);
+else
+    ols_detail = struct('mode', "paper_ols", 'status', "diagnostic_skipped", ...
+        'solver', "none", 'objective_load_shed_mw', NaN, ...
+        'total_load_shed_mw', shed.total_load_shed_mw, ...
+        'corrective_load_shed_mw', NaN, ...
+        'island_load_shed_mw', shed.island_load_shed_mw, ...
+        'converged_after_shed', shed.converged_after_shed, ...
+        'opf_success', NaN, 'pf_success_after_apply', NaN, ...
+        'num_shed_buses', NaN, 'max_bus_shed_mw', NaN, ...
+        'message', "paper_ols_enable=false，越限诊断未运行OLS。", ...
+        'bus_shed_table', table());
+end
+
+shed_detail = struct();
+shed_detail.mode = "violation_only_diagnostic";
+shed_detail.status = "main_chain_unchanged";
+shed_detail.trigger_reason = trigger_reason;
+shed_detail.paper_ols_detail = ols_detail;
+shed_detail.objective_load_shed_mw = ols_detail.objective_load_shed_mw;
+shed_detail.total_load_shed_mw = shed.total_load_shed_mw;
+shed_detail.corrective_load_shed_mw = 0;
+shed_detail.island_load_shed_mw = shed.island_load_shed_mw;
+shed_detail.converged_after_shed = shed.converged_after_shed;
+shed_detail.opf_success = ols_detail.opf_success;
+shed_detail.pf_success_after_apply = shed.converged_after_shed;
+shed_detail.num_shed_buses = ols_detail.num_shed_buses;
+shed_detail.max_bus_shed_mw = ols_detail.max_bus_shed_mw;
+shed_detail.message = "越限诊断模式：主链路不切负荷，仅记录OLS旁路结果。";
+shed_detail.bus_shed_table = table();
 end

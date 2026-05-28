@@ -1,6 +1,6 @@
-case_id,outaged_branches,pre_shed_converged,simple_converged,ols_converged,simple_total_load_shed_mw,ols_total_load_shed_mw,delta_load_shed_mw,simple_max_line_loading_pu,ols_max_line_loading_pu,simple_max_voltage_deviation_pu,ols_max_voltage_deviation_pu,ols_status,note
-n1_high_loading_branch_1,1,1,1,1,312.7115,0.00105477793133462,-312.710445222069,1.1740631979069,1.11378724135506,0,0,success,OLS求解成功，应用切负荷后潮流收敛。
-n2_branch_1_2,[1 2],1,1,1,405.4315,97.601266884483,-307.830233115517,1.17320025841906,1.11217359248932,0,0,success,OLS求解成功，应用切负荷后潮流收敛。
-n2_branch_6_7,[6 7],1,1,1,312.7115,0.000224981140213519,-312.71127501886,0.843116537696174,0.794639380751009,0,0,success,OLS求解成功，应用切负荷后潮流收敛。
-n3_branch_1_2_3,[1 2 3],1,1,1,405.4315,97.6001270715629,-307.831372928437,1.36911413880616,1.29971365623349,0,0,success,OLS求解成功，应用切负荷后潮流收敛。
-n2_last_corridor,[45 46],1,1,0,312.7115,0,-312.7115,0.863153748661531,NaN,0,NaN,failed,OLS OPF未收敛。
+case_id,outaged_branches,pre_shed_converged,pre_max_line_loading_pu,pre_min_voltage_pu,pre_max_voltage_pu,pre_has_line_overload,pre_has_voltage_violation,trigger_nonconverged_only,trigger_nonconverged_or_violation,trigger_reason_nonconverged_or_violation,simple_converged,ols_converged,simple_total_load_shed_mw,ols_total_load_shed_mw,delta_load_shed_mw,simple_max_line_loading_pu,ols_max_line_loading_pu,simple_max_voltage_deviation_pu,ols_max_voltage_deviation_pu,ols_status,note
+n1_high_loading_branch_1,1,1,1.11378700057911,0.970104893641862,1.0375611031401,1,0,0,1,line_overload,1,1,312.7115,0.00105477793133462,-312.710445222069,1.1740631979069,1.11378724135506,0,0,success,OLS求解成功，应用切负荷后潮流收敛。
+n2_branch_1_2,[1 2],1,1.11217328271711,0.977993450415337,1.0393836,1,0,0,1,line_overload,1,1,405.4315,97.601266884483,-307.830233115517,1.17320025841906,1.11217359248932,0,0,success,OLS求解成功，应用切负荷后潮流收敛。
+n2_branch_6_7,[6 7],1,0.794639373960717,0.972689734435862,1.03756045880656,0,0,0,0,none,1,1,312.7115,0.000224981140213519,-312.71127501886,0.843116537696174,0.794639380751009,0,0,success,OLS求解成功，应用切负荷后潮流收敛。
+n3_branch_1_2_3,[1 2 3],1,1.29971361501107,0.959840831297864,1.0393836,1,0,0,1,line_overload,1,1,405.4315,97.6001270715629,-307.831372928437,1.36911413880616,1.29971365623349,0,0,success,OLS求解成功，应用切负荷后潮流收敛。
+n2_last_corridor,[45 46],1,1.03380531771429,0.942602837527405,1.03063309023523,1,0,0,1,line_overload,1,0,312.7115,0,-312.7115,0.863153748661531,NaN,0,NaN,failed,OLS OPF未收敛。

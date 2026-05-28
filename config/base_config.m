@@ -43,6 +43,13 @@ cfg.paper_ols_generation_cost = 0.0;
 cfg.paper_ols_q_shed_mode = 'constant_power_factor';
 cfg.paper_ols_max_iterations = 1;
 cfg.paper_ols_fail_policy = 'fallback_to_simple_with_warning';
+cfg.load_shedding_trigger_mode = 'nonconverged_only'; % 可选：nonconverged_only / nonconverged_or_violation / violation_only_diagnostic
+cfg.load_shedding_violation_check_enable = true;
+cfg.load_shedding_trigger_line_overload = true;
+cfg.load_shedding_trigger_voltage_violation = true;
+cfg.load_shedding_line_overload_threshold_pu = 1.0;
+cfg.load_shedding_voltage_min_pu = cfg.voltage_min_pu;
+cfg.load_shedding_voltage_max_pu = cfg.voltage_max_pu;
 
 % 风机电压穿越脱网概率只记录，默认不在当前line-only Markov中触发。
 cfg.enable_wind_voltage_trip_sampling = false;

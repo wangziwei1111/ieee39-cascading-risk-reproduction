@@ -75,3 +75,9 @@
 已新增论文第3.2.3节式(3-19)至式(3-26)的 `paper_ols` 负荷削减接口，并保留 `simple_load_shedding` 作为默认模式。当前 OLS 使用 MATPOWER AC OPF 和等效可削减负荷变量实现，可在 `cfg.load_shedding_mode='paper_ols'` 或 `both_diagnostic` 下启用。
 
 本阶段只完成单元验证和小规模 diagnostic smoke，尚未用 OLS 重跑 benchmark 场景。因此现有 paper benchmark 对照表仍对应此前的 simple 切负荷链路。后续若要评估 OLS 对 Table 4-4、Table 4-5、Table 4-6 的影响，应建立独立批次并明确标注 `load_shedding_mode=paper_ols`，不能覆盖既有结果。
+
+## OLS触发条件诊断更新
+
+OLS 接口现已新增触发条件诊断：默认 `nonconverged_only` 保持旧结果不变，`nonconverged_or_violation` 可在潮流收敛但线路/电压越限时触发切负荷策略，`violation_only_diagnostic` 可仅记录越限阶段的 OLS 旁路结果。已生成小规模 `trigger_diagnostic_smoke`，用于比较两种触发模式的阶段数和切负荷影响。
+
+截至本报告，本工程仍未用 OLS 触发模式重跑 Table 4-2、Table 4-4、Table 4-5 或 Table 4-6 benchmark。benchmark 重跑前仍需确认 OLS 触发逻辑、单位尺度、线路容量参数和原文是否对所有越限状态执行最优负荷削减。

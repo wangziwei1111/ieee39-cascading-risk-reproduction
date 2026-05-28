@@ -1,0 +1,3 @@
+trigger_mode,total_stage_count,triggered_stage_count,nonconverged_trigger_count,line_overload_trigger_count,voltage_violation_trigger_count,diagnostic_only_trigger_count,successful_ols_count,failed_ols_count,fallback_count,mean_objective_load_shed_mw,max_objective_load_shed_mw,mean_corrective_load_shed_mw,max_corrective_load_shed_mw,total_ols_attempts,num_fallback_to_simple
+nonconverged_only,23,3,3,0,0,0,3,0,0,370.870998209115,384.580222386408,370.870998209115,384.580222386408,3,0
+nonconverged_or_violation,22,8,1,7,0,0,8,0,0,30.3919383745598,243.130447965627,30.3919383745598,243.130447965627,8,0

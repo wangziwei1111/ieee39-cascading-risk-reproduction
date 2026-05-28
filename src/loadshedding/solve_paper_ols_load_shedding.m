@@ -185,9 +185,11 @@ shed.corrective_load_shed_mw = corrective_load_shed_mw;
 shed.load_shed_mw = cumulative_load_shed_mw + corrective_load_shed_mw;
 shed.total_load_shed_mw = cumulative_load_shed_mw + corrective_load_shed_mw;
 if base_load_mw > 0
-    shed.load_shed_frac = corrective_load_shed_mw / base_load_mw;
+    shed.load_shed_frac = shed.total_load_shed_mw / base_load_mw;
+    shed.corrective_load_shed_frac = corrective_load_shed_mw / base_load_mw;
 else
     shed.load_shed_frac = 0;
+    shed.corrective_load_shed_frac = 0;
 end
 shed.iterations = 1;
 shed.converged_after_shed = logical(converged);

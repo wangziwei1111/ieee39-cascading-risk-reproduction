@@ -1,8 +1,8 @@
 paper OLS切负荷单元诊断日志
-生成时间：2026-05-28 18:56:46
+生成时间：2026-05-28 19:10:30
 测试样例数：5
-n1_high_loading_branch_1: simple=312.711500 MW, ols=0.001055 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
-n2_branch_1_2: simple=405.431500 MW, ols=97.601267 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
-n2_branch_6_7: simple=312.711500 MW, ols=0.000225 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
-n3_branch_1_2_3: simple=405.431500 MW, ols=97.600127 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
-n2_last_corridor: simple=312.711500 MW, ols=0.000000 MW, status=failed, note=OLS OPF未收敛。
+n1_high_loading_branch_1: pre_converged=1, pre_overload=1, trigger_violation=1, simple=312.711500 MW, ols=0.001055 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
+n2_branch_1_2: pre_converged=1, pre_overload=1, trigger_violation=1, simple=405.431500 MW, ols=97.601267 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
+n2_branch_6_7: pre_converged=1, pre_overload=0, trigger_violation=0, simple=312.711500 MW, ols=0.000225 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
+n3_branch_1_2_3: pre_converged=1, pre_overload=1, trigger_violation=1, simple=405.431500 MW, ols=97.600127 MW, status=success, note=OLS求解成功，应用切负荷后潮流收敛。
+n2_last_corridor: pre_converged=1, pre_overload=1, trigger_violation=1, simple=312.711500 MW, ols=0.000000 MW, status=failed, note=OLS OPF未收敛。
