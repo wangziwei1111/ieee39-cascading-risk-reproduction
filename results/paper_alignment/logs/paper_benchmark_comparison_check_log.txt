@@ -1,0 +1,7 @@
+Paper benchmark comparison check passed.
+mapping_rows=17
+paper_rows=84
+comparison_rows=108
+gap_rows=10
+table46_rows=16
+table42_rows=10

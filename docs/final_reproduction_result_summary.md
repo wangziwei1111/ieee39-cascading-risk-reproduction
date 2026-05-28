@@ -83,3 +83,22 @@
 - `docs/required_original_paper_inputs.md`
 - `docs/next_reproduction_steps.md`
 - `results/final_summary/tables/original_paper_gap_audit.csv`
+
+## 与论文 benchmark 的初步对照状态
+
+当前已新增 `results/paper_alignment/` 对照包，用于把论文表4-2、表4-4、表4-5、表4-6 benchmark 与当前工程结果放在同一套审计表中查看。
+
+需要特别注意：
+
+- 论文 benchmark 单位为 `10^-4`，工程结果保留为 final_summary raw value，单位/尺度仍需后续确认。
+- 表4-4 分散式 3000MW 和表4-5 渗透率 CRI 可以做谨慎趋势对比，但不能解释为严格数值复现。
+- 表4-2 暂不可比，因为当前新能源脱网只是 `record_only`，没有实际触发风电机组脱网。
+- 表4-6 暂不可比，因为当前还没有运行论文风速点 11.28、11.52、11.76、12.00 m/s 的正式复现结果。
+- 集中式接入场景因接入节点未确认且当前 `paper_formula` 为 `diagnostic_only`，不能作为有效论文对照。
+
+对照输出包括：
+
+- `results/paper_alignment/tables/paper_vs_reproduction_comparison.csv`
+- `results/paper_alignment/tables/paper_alignment_gap_diagnosis.csv`
+- `results/paper_alignment/tables/next_model_fix_priority.csv`
+- `docs/paper_benchmark_alignment_report.md`

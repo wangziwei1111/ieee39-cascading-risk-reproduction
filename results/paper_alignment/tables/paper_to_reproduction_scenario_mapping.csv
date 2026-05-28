@@ -1,0 +1,18 @@
+paper_table,paper_scenario_id,reproduction_scenario_id,mapping_status,mapping_note,can_compare_directly
+Table 4-2,scenario_1_without_renewable_trip,distributed_wind_3000mw_base,not_directly_mapped,current renewable trip mode is record_only and does not trigger actual renewable outage,0
+Table 4-2,scenario_2_with_renewable_trip,distributed_wind_40pct_trip_record_only,not_directly_mapped,current renewable trip mode is record_only and does not trigger actual renewable outage,0
+Table 4-4,centralized_3000mw,centralized_wind_40pct,partially_mapped,centralized bus is assumed in current engineering case and paper_formula is diagnostic_only,0
+Table 4-4,distributed_3000mw,distributed_wind_3000mw_base,mapped,distributed 3000MW scenario maps to current 3000MW distributed baseline,1
+Table 4-5,penetration_40pct,distributed_wind_penetration_40pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-5,penetration_45pct,distributed_wind_penetration_45pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-5,penetration_50pct,distributed_wind_penetration_50pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-5,penetration_55pct,distributed_wind_penetration_55pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-5,penetration_60pct,distributed_wind_penetration_60pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-5,penetration_65pct,distributed_wind_penetration_65pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-5,penetration_70pct,distributed_wind_penetration_70pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-5,penetration_75pct,distributed_wind_penetration_75pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-5,penetration_80pct,distributed_wind_penetration_80pct,partially_mapped,penetration definition uses current wind_capacity/base_load assumption; trend comparison only,0
+Table 4-6,wind_speed_11_28mps,,missing_reproduction,current project has no formal 11.28/11.52/11.76/12.00 m/s reproduction run,0
+Table 4-6,wind_speed_11_52mps,,missing_reproduction,current project has no formal 11.28/11.52/11.76/12.00 m/s reproduction run,0
+Table 4-6,wind_speed_11_76mps,,missing_reproduction,current project has no formal 11.28/11.52/11.76/12.00 m/s reproduction run,0
+Table 4-6,wind_speed_12_00mps,,missing_reproduction,current project has no formal 11.28/11.52/11.76/12.00 m/s reproduction run,0
