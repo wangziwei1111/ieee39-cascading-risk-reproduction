@@ -1,0 +1,6 @@
+model_name,generator_type,input_variable,formula_text,parameter_name,parameter_value,unit,source_equation,source_note
+frequency_protection_outage,traditional_generator,frequency,"normal frequency interval uses constant P_G_f0; transition interval uses piecewise linear function; beyond limit probability is 1",P_G_f0,,,3-7,公式已由论文给出，数值参数需用户进一步确认或从原文表格提取
+frequency_protection_outage,traditional_generator,frequency,"piecewise frequency protection probability lower/upper threshold model",frequency_thresholds,,,3-8,公式结构已录入，阈值数值需人工确认
+frequency_protection_outage,traditional_generator,frequency,"frequency protection forced outage probability equals 1 beyond extreme threshold",frequency_extreme_threshold,,,3-9,公式结构已录入，阈值数值需人工确认
+voltage_protection_outage,traditional_generator,voltage,"normal voltage interval uses constant P_G_U0; transition interval uses piecewise linear function; beyond limit probability is 1",P_G_U0,,,3-10,公式已由论文给出，数值参数需用户进一步确认或从原文表格提取
+voltage_protection_outage,traditional_generator,voltage,"piecewise voltage protection probability threshold model",voltage_thresholds,,,3-11,公式结构已录入，阈值数值需人工确认

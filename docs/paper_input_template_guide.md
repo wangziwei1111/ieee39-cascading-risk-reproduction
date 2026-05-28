@@ -59,3 +59,22 @@ main_check_paper_input_templates
 - `results/final_summary/tables/original_paper_gap_audit_with_input_status.csv`
 
 只有当相关输入状态为 `complete` 或 `validated`，后续才应进入模型实现阶段。
+
+## 已从王威论文 PDF 录入的第一批信息
+
+本轮已在 `paper_inputs/filled/` 中初步录入以下可明确确认的信息：
+
+- `paper_system_summary.csv`：IEEE-10机39节点系统规模、46条线路、10个发电机节点、31节点平衡、总负荷6254.23 MW、总装机7500 MW。
+- `paper_case39_bus.csv`、`paper_case39_gen.csv`、`paper_case39_branch.csv`：保留 MATPOWER case39 参考结构；`source_note` 明确说明 PDF 未提供完整 bus/gen/branch 数值表，不能视为原文已确认逐项参数。
+- `paper_line_initial_outage_probability.csv`：由已录入的论文表4-1数据标准化复制，单位为 `*10^-4`。
+- `paper_wind_power_curve.csv`：录入论文第2.3节式(2-2)和第4.1节风机参数 `v_in=2 m/s`、`v_r=12 m/s`、`v_out=20 m/s`。
+- `paper_line_subsequent_outage_model.csv`：录入第3.1.1节线路后续停运概率公式结构；具体概率参数仍留空。
+- `paper_generator_outage_model.csv`：录入第3.1.2节传统机组频率/电压保护停运模型结构；阈值和概率参数仍留空。
+- `paper_wind_trip_probability_model.csv`：录入 LVRT/HVRT/FRT 区间规则；具体概率函数参数仍需人工确认。
+- `paper_state_probability_formula.csv`：录入 P_wt、P_ge、P_line、P_stage 公式；P_chain 公式仍缺失，因此文件保持 incomplete。
+- `paper_risk_severity_formula.csv`：录入 LLR、LFOR、NVOR、CRI、VaR 公式，后续仍需人工核对公式编号。
+- `paper_load_shedding_model.csv`：录入第3.2.3节最优负荷削减目标和约束结构；数值参数仍留空。
+- `paper_scenario_definition.csv`：录入第4章已明确的基础、分散式3000MW、渗透率40%-80%等场景信息；集中式接入节点保持 missing。
+- `paper_result_benchmark.csv`：录入表4-4和表4-5中当前可确认的数据；80%渗透率行因 OCR 片段不完整保留空值并标记 needs_manual_check。
+
+当前校验状态中，公式结构已录入但参数缺失的文件会保持 `incomplete`。这不是错误，而是为了防止把工程近似参数冒充为原文参数。

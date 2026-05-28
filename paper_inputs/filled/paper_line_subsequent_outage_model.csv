@@ -1,0 +1,9 @@
+model_name,loading_variable,formula_text,parameter_name,parameter_value,unit,source_equation,source_note
+line_flow_dependent_outage,L,"if 0<L<=L_Rated then P(L)=P_L0",P_L0,,,3-1,PDF给出公式但未给出数值，需后续校准
+line_flow_dependent_outage,L,"if L_Rated<L<=L_max then P(L) increases linearly according to thesis equation",L_Rated,,,3-2,PDF给出公式但未给出数值，需后续校准
+line_flow_dependent_outage,L,"if L>L_max then P(L)=1",L_max,,,3-3,PDF给出公式但未给出数值，需后续校准
+distance_protection_hidden_failure,Z_m,"if Z_m<=3*Z_III then P_HF_D=P_W_D; if Z_m>3*Z_III then P_HF_D=P_W_D*exp(-Z_m/Z_III) or exact PDF formula pending manual check",P_W_D,,,3-4,PDF给出公式但参数数值需后续校准
+distance_protection_hidden_failure,Z_m,"distance protection impedance threshold uses Z_III",Z_III,,,3-4,PDF给出公式但参数数值需后续校准
+flow_overlimit_hidden_failure,L,"if L<L_max then P_HF_L=P_L_D; if L_max<=L<=1.4L_max then linearly increases; if L>1.4L_max then P_HF_L=P_L_r",P_L_D,,,3-5,PDF给出公式但参数数值需后续校准
+flow_overlimit_hidden_failure,L,"upper hidden-failure probability after severe overload",P_L_r,,,3-5,PDF给出公式但参数数值需后续校准
+composite_line_outage_probability,,P_L=P1+P2+P3,P3,,,3-6,P1为故障后保护与断路器正确动作导致停运概率；P2为隐性故障导致停运概率；P3为其他因素常数，数值待校准

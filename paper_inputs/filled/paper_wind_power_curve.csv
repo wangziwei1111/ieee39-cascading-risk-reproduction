@@ -1,0 +1,5 @@
+parameter_name,parameter_value,unit,formula_text,source_section,source_note
+v_in,2,m/s,"P_w=0 when v<v_in or v>v_out; P_w=P_wr*(v^3-v_in^3)/(v_r^3-v_in^3) when v_in<=v<=v_r; P_w=P_wr when v_r<v<=v_out",2.3;4.1,论文第2.3节式(2-2)与第4.1节风机参数
+v_r,12,m/s,"P_w=0 when v<v_in or v>v_out; P_w=P_wr*(v^3-v_in^3)/(v_r^3-v_in^3) when v_in<=v<=v_r; P_w=P_wr when v_r<v<=v_out",2.3;4.1,论文第2.3节式(2-2)与第4.1节风机参数
+v_out,20,m/s,"P_w=0 when v<v_in or v>v_out; P_w=P_wr*(v^3-v_in^3)/(v_r^3-v_in^3) when v_in<=v<=v_r; P_w=P_wr when v_r<v<=v_out",2.3;4.1,论文第2.3节式(2-2)与第4.1节风机参数
+P_wr,,MW,"P_wr is rated power; rated power is assigned by scenario capacity allocation",2.3;4.1,额定功率由具体场景容量分配决定；论文第2.3节式(2-2)与第4.1节风机参数

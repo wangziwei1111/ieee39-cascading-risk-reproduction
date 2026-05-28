@@ -1,0 +1,6 @@
+probability_term,formula_text,required_variables,current_status,source_equation,source_note
+P_wt_Ek,"P_wt(E_k)=prod_{h in H_out} P_WT(h) * prod_{h' in H_on} [1-P_WT(h')]","H_out,H_on,P_WT(h)",formula_recorded,,论文第3章状态概率公式；当前需进一步核对完整变量定义
+P_ge_Ek,"P_ge(E_k)=prod_{q in G_out} P_G(q) * prod_{q' in G_on} [1-P_G(q')]","G_out,G_on,P_G(q)",formula_recorded,,论文第3章状态概率公式；当前需进一步核对完整变量定义
+P_line_Ek,"P_line(E_k)=prod_{n in L_out} P_L(n) * prod_{n' in L_on} [1-P_L(n')]","L_out,L_on,P_L(n)",formula_recorded,,论文第3章状态概率公式；当前需进一步核对完整变量定义
+P_stage_Ek,"P_stage(E_k)=P_wt(E_k)*P_ge(E_k)*P_line(E_k)","P_wt(E_k),P_ge(E_k),P_line(E_k)",formula_recorded,,论文第3章状态概率组合公式；需人工核对公式编号
+P_chain,,事故链概率完整定义,missing,,PDF当前摘录未明确事故链概率公式，保持 incomplete，不能猜测

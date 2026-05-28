@@ -1,0 +1,6 @@
+risk_term,formula_text,required_variables,current_status,source_equation,source_note
+LLR,"sev_ev-llr(E_k)=C_c(E_k)/P_load*100%; R_LLR=sum_k P_wt(E_k)P_ge(E_k)P_line(E_k)sev_ev-llr(E_k)","C_c(E_k),P_load,P_wt(E_k),P_ge(E_k),P_line(E_k)",formula_recorded,3-27,需人工核对公式编号
+LFOR,"sev_ev-lfor(E_k)=sum_n [exp(max(P_li(n)-P_li,max(n),0))-1]/(e-1)*100%; R_LFOR=sum_k P_wt(E_k)P_ge(E_k)P_line(E_k)sev_ev-lfor(E_k)","P_li(n),P_li,max(n),P_wt(E_k),P_ge(E_k),P_line(E_k)",formula_recorded,3-31,需人工核对公式编号
+NVOR,"sev_ev-nvor(E_k)=sum_m [exp(max(0.9-U_m,U_m-1.1,0))-1]/(e-1)*100%; R_NVOR=sum_k P_wt(E_k)P_ge(E_k)P_line(E_k)sev_ev-nvor(E_k)","U_m,P_wt(E_k),P_ge(E_k),P_line(E_k)",formula_recorded,3-32,需人工核对公式编号
+CRI,"CRI=0.6*SLLR+0.2*SLFOR+0.2*SNVOR","SLLR,SLFOR,SNVOR",formula_recorded,3-34,需人工核对公式编号
+VaR,"P(R>R_VaR)=1-sigma; equivalently integral from R_VaR to +inf f(R)dR=1-sigma","R,sigma,f(R)",formula_recorded,3-33,需人工核对公式编号

@@ -1,0 +1,8 @@
+item,value,unit,source_section,source_note
+system_name,IEEE-10机39节点系统,,4.1,论文第4.1节明确系统名称
+bus_count,39,,4.1,论文第4.1节明确节点数量
+branch_count,46,,4.1,论文第4.1节明确输电线路数量
+generator_count,10,,4.1,论文第4.1节明确发电机节点数量
+slack_bus,31,,4.1,论文第4.1节明确31节点为平衡节点
+total_load_mw,6254.23,MW,4.1,论文第4.1节明确系统总负荷量
+total_installed_capacity_mw,7500,MW,4.1,论文第4.1节明确系统总装机容量

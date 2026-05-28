@@ -1,13 +1,15 @@
 input_file,status,missing_fields,num_rows,can_use_for_implementation,note
-paper_case39_bus.csv,missing,,0,0,filled file not found
-paper_case39_gen.csv,missing,,0,0,filled file not found
-paper_case39_branch.csv,missing,,0,0,filled file not found
-paper_line_initial_outage_probability.csv,missing,,0,0,filled file not found
-paper_line_subsequent_outage_model.csv,missing,,0,0,filled file not found
-paper_wind_trip_probability_model.csv,missing,,0,0,filled file not found
-paper_generator_outage_model.csv,missing,,0,0,filled file not found
-paper_state_probability_formula.csv,missing,,0,0,filled file not found
-paper_risk_severity_formula.csv,missing,,0,0,filled file not found
-paper_scenario_definition.csv,missing,,0,0,filled file not found
-paper_result_benchmark.csv,missing,,0,0,filled file not found
-paper_load_shedding_model.csv,missing,,0,0,filled file not found
+paper_system_summary.csv,validated,,7,1,system summary facts validated from filled table
+paper_case39_bus.csv,validated,,39,1,bus table validates against current case39 row count
+paper_case39_gen.csv,validated,,10,1,gen table validates against current case39 row count
+paper_case39_branch.csv,validated,,46,1,branch table validates against current case39 row count
+paper_line_initial_outage_probability.csv,validated,,46,1,line initial outage probability validated
+paper_line_subsequent_outage_model.csv,incomplete,parameter_value value,8,0,formula or parameter values missing; do not use engineering defaults
+paper_wind_power_curve.csv,validated,,4,1,wind power curve parameters recorded; P_wr is scenario-dependent
+paper_wind_trip_probability_model.csv,incomplete,parameter_value value,13,0,formula or parameter values missing; do not use engineering defaults
+paper_generator_outage_model.csv,incomplete,parameter_value value,5,0,formula or parameter values missing; do not use engineering defaults
+paper_state_probability_formula.csv,incomplete,formula_text value,5,0,required formula terms incomplete
+paper_risk_severity_formula.csv,complete,,5,1,required formula terms complete
+paper_scenario_definition.csv,incomplete,sample_count value; confidence_levels value,14,0,scenario definition incomplete
+paper_result_benchmark.csv,incomplete,paper_value value,60,0,benchmark values incomplete
+paper_load_shedding_model.csv,incomplete,parameter_value value,8,0,load shedding model structure recorded but numeric parameters are incomplete

@@ -1,0 +1,9 @@
+model_name,objective_function,constraint_name,constraint_formula,parameter_name,parameter_value,unit,source_equation,source_note
+optimal_load_shedding,"min sum_{i in ND} C_i",objective,"min sum_{i in ND} C_i",C_i,,,3-19,论文第3.2.3节最优负荷削减模型；参数值若未给出则留空
+optimal_load_shedding,,active_power_balance,system active power balance equation,,,,3-20,公式结构由论文给出；具体展开需人工核对
+optimal_load_shedding,,reactive_power_balance,system reactive power balance equation,,,,3-21,公式结构由论文给出；具体展开需人工核对
+optimal_load_shedding,,generator_active_limit,P_Gi_min <= P_Gi <= P_Gi_max,P_Gi_limits,,,3-22,机组有功上下限数值需由原文算例提供
+optimal_load_shedding,,generator_reactive_limit,Q_Gi_min <= Q_Gi <= Q_Gi_max,Q_Gi_limits,,,3-23,机组无功上下限数值需由原文算例提供
+optimal_load_shedding,,load_shedding_limit,0 <= C_i <= P_LDi,P_LDi,,,3-24,负荷削减约束由论文给出
+optimal_load_shedding,,branch_capacity_limit,line transmission capacity constraint,branch_capacity,,,3-25,线路容量数值需由原文算例提供
+optimal_load_shedding,,bus_voltage_limit,V_i_min <= V_i <= V_i_max,V_limits,,,3-26,节点电压上下限需由原文确认

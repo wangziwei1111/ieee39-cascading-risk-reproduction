@@ -60,3 +60,25 @@ main_validate_paper_inputs
 main_update_alignment_audit_from_paper_inputs
 main_check_paper_input_templates
 ```
+
+## 已初步录入，仍需人工核对
+
+以下内容已经从王威论文 PDF 的明确片段或用户前期提供数据中录入到 `paper_inputs/filled/`，但仍建议人工对照 PDF 复核：
+
+- IEEE39 系统规模：39节点、46线路、10个发电机节点、31节点平衡、总负荷6254.23 MW、总装机7500 MW。
+- 风机功率曲线参数：`v_in=2 m/s`、`v_r=12 m/s`、`v_out=20 m/s`。
+- 表4-1线路初始停运概率：已标准化到 `paper_line_initial_outage_probability.csv`。
+- 风险严重度公式：LLR、LFOR、NVOR、CRI、VaR 已录入，公式编号仍需核对。
+- 最优负荷削减模型：目标函数和约束结构已录入，具体参数仍需确认。
+- 表4-4集中式/分散式接入对比 benchmark：已录入可确认 OCR 数据，单位 `10^-4`，仍需人工核对。
+- 表4-5渗透率40%-75% benchmark：已录入可确认 OCR 数据，单位 `10^-4`，仍需人工核对。
+
+仍需人工确认或补充：
+
+- 集中式接入节点。
+- P_wt(E_k) 和 P_ge(E_k) 的完整数值参数。
+- 线路后续停运概率模型的具体参数值。
+- 传统机组频率/电压保护阈值。
+- 新能源脱网概率函数的具体概率参数。
+- 80%渗透率的完整表4-5结果。
+- 第4.5节风速波动完整场景和结果表格。

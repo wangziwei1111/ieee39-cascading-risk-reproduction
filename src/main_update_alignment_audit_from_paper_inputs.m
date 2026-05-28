@@ -47,6 +47,9 @@ for i = 1:height(audit)
     elseif all(ismember(statuses, ["complete", "validated"]))
         audit.input_status(i) = strjoin(statuses, "|");
         audit.implementation_readiness(i) = "ready_to_implement";
+    elseif any(ismember(statuses, ["complete", "validated"])) && any(ismember(statuses, ["missing", "incomplete", "template_only"]))
+        audit.input_status(i) = strjoin(statuses, "|");
+        audit.implementation_readiness(i) = "partially_ready";
     else
         audit.input_status(i) = strjoin(statuses, "|");
         audit.implementation_readiness(i) = "need_user_input";
@@ -61,14 +64,15 @@ cleaner = onCleanup(@() fclose(fid));
 fprintf(fid, 'Original paper gap audit input status generated.\n');
 fprintf(fid, 'audit_rows=%d\n', height(audit));
 fprintf(fid, 'ready_to_implement=%d\n', sum(audit.implementation_readiness == "ready_to_implement"));
+fprintf(fid, 'partially_ready=%d\n', sum(audit.implementation_readiness == "partially_ready"));
 fprintf(fid, 'need_user_input=%d\n', sum(audit.implementation_readiness == "need_user_input"));
 fprintf('Original paper gap audit input status generated: %s\n', log_file);
 end
 
 function files = map_module_to_inputs(module)
 files = strings(0, 1);
-if contains(module, ["IEEE39", "case39", "负荷水平"])
-    files = [files; "paper_case39_bus.csv"; "paper_case39_gen.csv"; "paper_case39_branch.csv"];
+if contains(module, ["IEEE39", "case39", "基础数据", "负荷水平"])
+    files = [files; "paper_system_summary.csv"; "paper_case39_bus.csv"; "paper_case39_gen.csv"; "paper_case39_branch.csv"];
 elseif contains(module, "发电机参数")
     files = [files; "paper_case39_gen.csv"];
 elseif contains(module, "线路容量")
@@ -87,6 +91,8 @@ elseif contains(module, ["LLR", "LFOR", "NVOR", "CRI", "VaR"])
     files = [files; "paper_risk_severity_formula.csv"; "paper_state_probability_formula.csv"];
 elseif contains(module, ["切负荷", "失负荷"])
     files = [files; "paper_load_shedding_model.csv"];
+elseif contains(module, "风电功率曲线")
+    files = [files; "paper_wind_power_curve.csv"];
 elseif contains(module, ["接入场景", "渗透率", "风速", "topology_compare", "penetration_scan", "wind_speed_scan", "renewable_trip_record"])
     files = [files; "paper_scenario_definition.csv"];
 elseif contains(module, ["结果图表", "第4章结果"])

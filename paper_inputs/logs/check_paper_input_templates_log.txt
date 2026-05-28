@@ -3,4 +3,4 @@ template_count=12
 bus_rows=39
 gen_rows=10
 branch_rows=46
-validation_rows=12
+validation_rows=14

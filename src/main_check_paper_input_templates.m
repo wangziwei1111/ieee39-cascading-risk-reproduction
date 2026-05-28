@@ -67,8 +67,9 @@ if ~exist(summary_path, 'file')
     error('validate 脚本未生成 paper_input_validation_summary.csv。');
 end
 summary = readtable(summary_path, 'Delimiter', ',', 'VariableNamingRule', 'preserve');
-if height(summary) ~= numel(required)
-    error('paper_input_validation_summary.csv 行数应为%d，当前为%d。', numel(required), height(summary));
+expected_validation_rows = numel(required) + 2; % system summary and wind power curve are filled-only input files.
+if height(summary) ~= expected_validation_rows
+    error('paper_input_validation_summary.csv 行数应为%d，当前为%d。', expected_validation_rows, height(summary));
 end
 
 log_file = fullfile(log_dir, 'check_paper_input_templates_log.txt');

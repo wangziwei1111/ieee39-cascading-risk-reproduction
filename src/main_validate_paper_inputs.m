@@ -47,11 +47,13 @@ end
 
 function specs = build_specs()
 names = {
+    'paper_system_summary.csv', 'system_summary'
     'paper_case39_bus.csv', 'bus'
     'paper_case39_gen.csv', 'gen'
     'paper_case39_branch.csv', 'branch'
     'paper_line_initial_outage_probability.csv', 'line_initial'
     'paper_line_subsequent_outage_model.csv', 'line_subsequent'
+    'paper_wind_power_curve.csv', 'wind_power_curve'
     'paper_wind_trip_probability_model.csv', 'wind_trip'
     'paper_generator_outage_model.csv', 'generator_outage'
     'paper_state_probability_formula.csv', 'state_probability'
@@ -83,6 +85,8 @@ if height(tbl) == 0
 end
 
 switch spec.kind
+    case 'system_summary'
+        [status, missing, can_use, note] = validate_system_summary(tbl);
     case 'bus'
         [status, missing, can_use, note] = validate_case_table(tbl, {'bus_i','Pd','Qd'}, size(mpc.bus, 1), "bus table");
     case 'gen'
@@ -91,11 +95,15 @@ switch spec.kind
         [status, missing, can_use, note] = validate_branch_table(tbl, mpc);
     case 'line_initial'
         [status, missing, can_use, note] = validate_line_initial(tbl, mpc);
-    case {'line_subsequent','wind_trip','generator_outage','load_shedding'}
+    case {'line_subsequent','wind_trip','generator_outage'}
         [status, missing, can_use, note] = validate_formula_parameter_table(tbl);
+    case 'load_shedding'
+        [status, missing, can_use, note] = validate_load_shedding(tbl);
+    case 'wind_power_curve'
+        [status, missing, can_use, note] = validate_wind_power_curve(tbl);
     case 'state_probability'
         [status, missing, can_use, note] = validate_required_terms(tbl, 'probability_term', ...
-            ["P_wt_Ek","P_ge_Ek","P_line_Ek","P_stage_Ek"]);
+            ["P_wt_Ek","P_ge_Ek","P_line_Ek","P_stage_Ek","P_chain"]);
     case 'risk_severity'
         [status, missing, can_use, note] = validate_required_terms(tbl, 'risk_term', ["LLR","LFOR","NVOR","CRI","VaR"]);
     case 'scenario'
@@ -106,6 +114,50 @@ switch spec.kind
         status = "incomplete"; missing = "unknown spec"; can_use = false; note = "unknown input kind";
 end
 row = make_row(spec.file, status, missing, height(tbl), can_use, note);
+end
+
+function [status, missing, can_use, note] = validate_system_summary(tbl)
+required_items = ["system_name","bus_count","branch_count","generator_count","slack_bus","total_load_mw","total_installed_capacity_mw"];
+missing_items = setdiff(required_items, string(tbl.item));
+missing = missing_columns_or_values(tbl, {'item','source_section'});
+numeric_items = ["bus_count","branch_count","generator_count","slack_bus","total_load_mw","total_installed_capacity_mw"];
+for k = 1:numel(numeric_items)
+    idx = string(tbl.item) == numeric_items(k);
+    if ~any(idx) || isnan(tbl.value(find(idx, 1)))
+        missing = strjoin([string(missing), numeric_items(k) + " value"], "; ");
+    end
+end
+if ~isempty(missing_items)
+    missing = strjoin([string(missing), "missing items: " + strjoin(missing_items, "|")], "; ");
+end
+if strlength(strtrim(missing)) > 0
+    status = "incomplete"; can_use = false; note = "system summary missing required thesis facts";
+else
+    status = "validated"; can_use = true; note = "system summary facts validated from filled table";
+end
+end
+
+function [status, missing, can_use, note] = validate_load_shedding(tbl)
+has_objective = ismember('objective_function', tbl.Properties.VariableNames) && ...
+    any(strlength(strtrim(string(tbl.objective_function))) > 0);
+has_constraints = ismember('constraint_formula', tbl.Properties.VariableNames) && ...
+    any(strlength(strtrim(string(tbl.constraint_formula))) > 0);
+missing_parts = strings(0, 1);
+if ~has_objective
+    missing_parts(end+1) = "objective_function";
+end
+if ~has_constraints
+    missing_parts(end+1) = "constraint_formula";
+end
+if ismember('parameter_value', tbl.Properties.VariableNames) && any(is_missing_value(tbl.parameter_value))
+    missing_parts(end+1) = "parameter_value value";
+end
+missing = strjoin(missing_parts, "; ");
+if strlength(missing) > 0
+    status = "incomplete"; can_use = false; note = "load shedding model structure recorded but numeric parameters are incomplete";
+else
+    status = "complete"; can_use = true; note = "load shedding model complete but still needs manual source review";
+end
 end
 
 function [status, missing, can_use, note] = validate_case_table(tbl, keys, expected_rows, label)
@@ -150,6 +202,27 @@ if strlength(missing) > 0
     status = "incomplete"; can_use = false; note = "formula or parameter values missing; do not use engineering defaults";
 else
     status = "complete"; can_use = true; note = "formula table complete but still needs manual source review";
+end
+end
+
+function [status, missing, can_use, note] = validate_wind_power_curve(tbl)
+required_params = ["v_in","v_r","v_out","P_wr"];
+missing_params = setdiff(required_params, string(tbl.parameter_name));
+missing = missing_columns_or_values(tbl, {'parameter_name','formula_text','source_section'});
+idx_numeric = ismember(string(tbl.parameter_name), ["v_in","v_r","v_out"]);
+if any(idx_numeric)
+    values = tbl.parameter_value(idx_numeric);
+    if any(isnan(values))
+        missing = strjoin([string(missing), "v_in/v_r/v_out value"], "; ");
+    end
+end
+if ~isempty(missing_params)
+    missing = strjoin([string(missing), "missing params: " + strjoin(missing_params, "|")], "; ");
+end
+if strlength(strtrim(missing)) > 0
+    status = "incomplete"; can_use = false; note = "wind power curve missing required fields";
+else
+    status = "validated"; can_use = true; note = "wind power curve parameters recorded; P_wr is scenario-dependent";
 end
 end
 

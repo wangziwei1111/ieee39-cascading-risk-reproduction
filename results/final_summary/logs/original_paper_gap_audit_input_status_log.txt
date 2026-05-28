@@ -1,4 +1,5 @@
 Original paper gap audit input status generated.
 audit_rows=37
-ready_to_implement=0
-need_user_input=30
+ready_to_implement=7
+partially_ready=5
+need_user_input=19

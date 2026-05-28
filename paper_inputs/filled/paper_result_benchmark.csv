@@ -1,0 +1,61 @@
+paper_figure_or_table,scenario_id,metric_name,confidence_level,paper_value,unit,source_note
+Table 4-5,penetration_40pct,SLLR,0.95,6.3899,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_40pct,SLFOR,0.95,4.2521,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_40pct,SNVOR,0.95,4.6697,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_40pct,CRI,0.95,5.6183,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_45pct,SLLR,0.95,6.8751,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_45pct,SLFOR,0.95,4.9652,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_45pct,SNVOR,0.95,4.7865,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_45pct,CRI,0.95,6.0754,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_50pct,SLLR,0.95,7.0954,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_50pct,SLFOR,0.95,5.1026,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_50pct,SNVOR,0.95,5.2638,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_50pct,CRI,0.95,6.3305,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_55pct,SLLR,0.95,7.4752,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_55pct,SLFOR,0.95,5.4688,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_55pct,SNVOR,0.95,5.8961,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_55pct,CRI,0.95,6.7581,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_60pct,SLLR,0.95,7.8006,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_60pct,SLFOR,0.95,5.8361,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_60pct,SNVOR,0.95,6.2773,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_60pct,CRI,0.95,7.1030,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_65pct,SLLR,0.95,8.9065,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_65pct,SLFOR,0.95,6.9644,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_65pct,SNVOR,0.95,7.0957,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_65pct,CRI,0.95,8.1559,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_70pct,SLLR,0.95,9.9854,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_70pct,SLFOR,0.95,8.4065,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_70pct,SNVOR,0.95,8.0069,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_70pct,CRI,0.95,9.2739,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_75pct,SLLR,0.95,11.4613,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_75pct,SLFOR,0.95,10.6552,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_75pct,SNVOR,0.95,9.3324,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_75pct,CRI,0.95,10.8743,10^-4,论文表4-5，需人工核对 OCR
+Table 4-5,penetration_80pct,SLLR,0.95,,10^-4,80%行OCR片段不完整，needs_manual_check，不得猜测
+Table 4-5,penetration_80pct,SLFOR,0.95,,10^-4,80%行OCR片段不完整，needs_manual_check，不得猜测
+Table 4-5,penetration_80pct,SNVOR,0.95,,10^-4,80%行OCR片段不完整，needs_manual_check，不得猜测
+Table 4-5,penetration_80pct,CRI,0.95,,10^-4,80%行OCR片段不完整，needs_manual_check，不得猜测
+Table 4-4,centralized_3000mw,SLLR,0.98,8.9965,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,SLFOR,0.98,6.8952,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,SNVOR,0.98,4.5327,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,CRI,0.98,7.6835,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,SLLR,0.95,8.5328,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,SLFOR,0.95,6.2588,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,SNVOR,0.95,3.8986,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,CRI,0.95,7.1512,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,SLLR,0.90,8.2056,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,SLFOR,0.90,5.6891,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,SNVOR,0.90,3.3658,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,centralized_3000mw,CRI,0.90,6.7343,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SLLR,0.98,6.5590,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SLFOR,0.98,4.8996,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SNVOR,0.98,2.8851,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,CRI,0.98,5.4923,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SLLR,0.95,6.3899,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SLFOR,0.95,4.2521,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SNVOR,0.95,2.6697,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,CRI,0.95,5.2183,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SLLR,0.90,6.0987,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SLFOR,0.90,4.0158,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,SNVOR,0.90,2.3854,10^-4,论文表4-4，需人工核对 OCR
+Table 4-4,distributed_3000mw,CRI,0.90,4.9395,10^-4,论文表4-4，需人工核对 OCR

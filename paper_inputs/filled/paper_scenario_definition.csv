@@ -1,0 +1,15 @@
+scenario_id,paper_section,scenario_type,renewable_dispatch_mode,wind_buses,centralized_bus,distributed_buses,total_wind_capacity_mw,penetration_ratio,penetration_definition,wind_speed_mps,sample_count,confidence_levels,source_note
+ieee39_base,4.1,base,,,,,0,,not_applicable,,,"0.90,0.95,0.98","IEEE-10机39节点，46线路，10发电机，31节点平衡，总负荷6254.23MW，总装机7500MW"
+no_renewable,4.3,no_renewable,none,,,,0,,not_applicable,,,"0.90,0.95,0.98",用于对比是否计及新能源脱网风险；样本数需人工确认
+distributed_3000mw,4.1;4.4,distributed,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",3000,,total_capacity_given,12,,"0.90,0.95,0.98",第4章分散式接入，节点30至39；样本数需人工确认
+centralized_3000mw,4.4,centralized,wind_plus_redispatch,,missing,,3000,,total_capacity_given,12,,"0.90,0.95,0.98",PDF当前未明确集中接入节点，不能继续猜测为39，需人工确认
+penetration_40pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.40,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比40%的新能源机组
+penetration_45pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.45,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比45%的新能源机组
+penetration_50pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.50,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比50%的新能源机组
+penetration_55pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.55,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比55%的新能源机组
+penetration_60pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.60,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比60%的新能源机组
+penetration_65pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.65,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比65%的新能源机组
+penetration_70pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.70,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比70%的新能源机组
+penetration_75pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.75,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比75%的新能源机组
+penetration_80pct,4.4,penetration_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",,0.80,新能源机组总容量占比，具体分母需人工确认,12,,"0.95",论文第4.4节说明在10个发电机节点上分散接入总容量占比80%的新能源机组
+wind_speed_12mps,4.1,wind_speed_scan,wind_plus_redispatch,"30,31,32,33,34,35,36,37,38,39",,"30,31,32,33,34,35,36,37,38,39",3000,,total_capacity_given,12,,"0.90,0.95,0.98",第4.1节明确默认额定风速12m/s；第4.5其他风速点需人工提取
