@@ -75,6 +75,14 @@ for stage_id = 1:cfg.markov_max_depth
     end
     [~, wind_state_probability_detail] = compute_wind_state_probability(wind_trip_table, cfg);
 
+    if isfield(cfg, 'generator_state_probability_enable') && cfg.generator_state_probability_enable && converged
+        generator_trip_table = record_generator_outage_probability(mpc_current, pf_result, stage_id, ...
+            initial_branch, trial_id, scenario, renewable_info, cfg);
+    else
+        generator_trip_table = table();
+    end
+    [~, generator_state_probability_detail] = compute_generator_state_probability(generator_trip_table, cfg);
+
     if converged
         candidate_table = update_line_outage_probabilities( ...
             mpc_current, pf_result, cfg, outaged_branches);
@@ -120,6 +128,8 @@ for stage_id = 1:cfg.markov_max_depth
     stage_records(stage_id).candidate_table = candidate_table;
     stage_records(stage_id).wind_trip_table = wind_trip_table;
     stage_records(stage_id).wind_state_probability_detail = wind_state_probability_detail;
+    stage_records(stage_id).generator_trip_table = generator_trip_table;
+    stage_records(stage_id).generator_state_probability_detail = generator_state_probability_detail;
 
     if isempty(selected)
         break;

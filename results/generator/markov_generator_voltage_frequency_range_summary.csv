@@ -1,0 +1,2 @@
+row_count,min_gen_voltage_pu,p01_gen_voltage_pu,p05_gen_voltage_pu,mean_gen_voltage_pu,p95_gen_voltage_pu,max_gen_voltage_pu,min_frequency_hz,max_frequency_hz,count_voltage_below_0p9,count_voltage_below_0p7,count_voltage_above_1p1,count_voltage_above_1p3,count_frequency_below_49p5,count_frequency_below_48p5,count_frequency_above_50p5,count_frequency_above_51p5,note
+202,0.999999999999999,0.999999999999999,1,1,1,1,50,50,0,0,0,0,0,0,0,0,Static power-flow diagnostic uses nominal frequency; threshold hits are voltage/frequency record-only observations.

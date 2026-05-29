@@ -1,0 +1,1 @@
+initial_branch,trial_id,stage_id,gen_index,gen_bus,gen_voltage_pu,gen_frequency_hz,p_g_q,trip_probability,generator_outage_probability_model,generator_trip_calibration_status,threshold_hit,voltage_region,frequency_region,probability_status,record_only,is_traditional,role_status,note

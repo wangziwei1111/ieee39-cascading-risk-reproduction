@@ -1,0 +1,101 @@
+stress_case,gen_index,gen_bus,gen_voltage_pu,gen_frequency_hz,p_g_q,voltage_region,frequency_region,probability_status,p_ge_Ek,num_probability_positive,max_p_g_q,mean_p_g_q,expected_behavior,test_status
+normal_all,1,30,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+normal_all,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,1,0,0,0,P_ge(E_k)=1,pass
+one_low_voltage,1,30,0.8,50,0.5,low_voltage_transition,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_voltage,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_forced_low_voltage,1,30,0.6,50,1,forced_low_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_voltage,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_high_voltage,1,30,1.2,50,0.499999999999999,high_voltage_transition,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_high_voltage,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,0<P_ge(E_k)<1,pass
+one_forced_high_voltage,1,30,1.4,50,1,forced_high_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_voltage,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_low_frequency,1,30,1,49,0.5,normal_voltage,low_frequency_transition,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_low_frequency,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_forced_low_frequency,1,30,1,48,1,normal_voltage,forced_low_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_low_frequency,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_high_frequency,1,30,1,51,0.5,normal_voltage,high_frequency_transition,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_high_frequency,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,0<P_ge(E_k)<1,pass
+one_forced_high_frequency,1,30,1,52,1,normal_voltage,forced_high_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,2,31,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,3,32,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,4,33,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+one_forced_high_frequency,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,1,1,0.1,P_ge(E_k)=0,pass
+mixed_voltage_frequency,1,30,0.8,50,0.5,low_voltage_transition,normal_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,2,31,1.2,50,0.499999999999999,high_voltage_transition,normal_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,3,32,1,49,0.5,normal_voltage,low_frequency_transition,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,4,33,1,52,1,normal_voltage,forced_high_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,5,34,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,6,35,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,7,36,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,8,37,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,9,38,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass
+mixed_voltage_frequency,10,39,1,50,0,normal_voltage,normal_frequency,diagnostic_assumption_not_paper,0,4,1,0.25,P_ge(E_k)=0 because one unit is forced high frequency,pass

@@ -82,6 +82,21 @@ cfg.wind_trip_probability_cap = 1.0;
 cfg.wind_trip_parameter_calibration_status = 'diagnostic_assumption_not_paper';
 cfg.wind_frequency_rule_file = fullfile('paper_inputs', 'filled', 'paper_wind_frequency_ride_through_rules.csv');
 
+% 传统发电机停运概率P_G(q)与状态概率P_ge(E_k)诊断接口。默认只记录，不切除机组。
+cfg.generator_outage_probability_model = 'diagnostic_voltage_frequency_piecewise'; % none / paper_threshold_record / diagnostic_voltage_frequency_piecewise / paper_formula
+cfg.generator_state_probability_enable = false;
+cfg.generator_state_probability_mode = 'record_only'; % record_only / diagnostic_probability_only / actual_generator_trip_state_transition
+cfg.gen_trip_low_voltage_start_pu = 0.90;
+cfg.gen_trip_low_voltage_forced_pu = 0.70;
+cfg.gen_trip_high_voltage_start_pu = 1.10;
+cfg.gen_trip_high_voltage_forced_pu = 1.30;
+cfg.gen_trip_low_frequency_start_hz = 49.50;
+cfg.gen_trip_low_frequency_forced_hz = 48.50;
+cfg.gen_trip_high_frequency_start_hz = 50.50;
+cfg.gen_trip_high_frequency_forced_hz = 51.50;
+cfg.gen_trip_probability_cap = 1.0;
+cfg.gen_trip_parameter_calibration_status = 'diagnostic_assumption_not_paper';
+
 % 综合风险权重。用户提供的论文权重为0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];
 

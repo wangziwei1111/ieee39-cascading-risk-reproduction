@@ -1,0 +1,11 @@
+generator_state_probability_diagnostic_smoke
+parameter_set_id=strict_missing
+probability_model=paper_formula
+calibration_status=missing_original_probability_function
+scenario=distributed_wind_3000mw_base
+initial_branches=1:5
+trials_per_initial_fault=3
+chain_count=15
+valid_stage_count=0
+missing_probability_stage_count=23
+note=Record-only diagnostic; no traditional generator was tripped and Markov line sampling was unchanged.

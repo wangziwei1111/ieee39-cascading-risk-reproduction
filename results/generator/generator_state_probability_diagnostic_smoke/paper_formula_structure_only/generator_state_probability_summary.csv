@@ -1,0 +1,2 @@
+stage_count,valid_stage_count,missing_probability_stage_count,mean_p_ge_Ek,min_p_ge_Ek,p05_p_ge_Ek,num_stages_with_positive_trip_probability,max_p_g_q_overall,calibration_status,note
+23,0,23,NaN,NaN,NaN,0,NaN,paper_formula_structure_extracted_parameters_missing,Record-only diagnostic; no traditional generator was tripped and P_ge is not integrated into formal paper_formula.

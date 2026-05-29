@@ -1,0 +1,4 @@
+generator_state_probability_model_check passed.
+required parameter sets: strict_missing, paper_formula_structure_only, diagnostic_voltage_frequency_probability
+note: P_ge(E_k) remains diagnostic only and is not integrated into formal paper_formula.
+note: static power flow has no dynamic frequency; nominal frequency is used for diagnostics only.
