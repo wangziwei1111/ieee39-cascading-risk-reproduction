@@ -64,3 +64,11 @@ Current unified smoke uses:
 In the current sample, `P_wt(E_k)=1` and `P_ge(E_k)=1`, so `P_total(E_k)` degenerates to `P_line(E_k)`. This is expected for the present smoke because neither wind nor traditional generator diagnostic risk regions were triggered. It is not a strict paper benchmark result.
 
 Formal integration still requires calibrated paper parameters for `P_line`, a confirmed `P_WT(h)` function and wind state transition rule, and a confirmed `P_G(q)` function and traditional generator state transition rule.
+
+## Unified vs Offline Composite Difference Notes
+
+The offline composite table and unified smoke table are not identical data products. The offline table is reconstructed by joining previously generated diagnostic outputs, while the unified smoke records line, wind, generator, and composite probabilities during the same small Markov run.
+
+The comparison now keeps stage-set mismatches and probability-basis mismatches explicit. `missing_offline_stage` means a stage exists in the unified smoke but was not present in the offline composite input; this is retained as an auditable row rather than deleted or zero-filled. `expected_different_due_to_probability_basis` means both sides have the same stage key, but `P_line(E_k)` comes from different diagnostic bases, so exact equality is not required.
+
+For future diagnostic work, the unified smoke should be treated as the primary diagnostic source because all three probability components are recorded in one Markov execution. The offline composite remains useful as a cross-check and historical bridge between earlier separate diagnostic outputs.

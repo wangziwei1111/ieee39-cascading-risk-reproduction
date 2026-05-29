@@ -4,4 +4,7 @@ summary_stage_count=23
 valid_P_total_stage_count=23
 degenerate_to_line_probability=true
 note=current unified smoke has P_wt=1 and P_ge=1, so P_total equals P_line.
+expected_different_due_to_probability_basis_count=2
+note=expected basis differences are explainable and not treated as program errors.
+unexpected_difference_count=0
 note=diagnostic only; no Markov sampling, state transition, formal paper_formula, or final_summary output was changed.

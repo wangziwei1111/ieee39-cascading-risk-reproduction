@@ -1,0 +1,5 @@
+source_name,stage_count,unique_chain_count,min_stage_id,max_stage_id,stage_key_list_hash,note
+offline_composite,18,15,1,4,stage_key_checksum_444885,stage keys audited without changing data
+unified_smoke,23,15,1,5,stage_key_checksum_728704,stage keys audited without changing data
+offline_line_probability_smoke,18,15,1,4,stage_key_checksum_444885,stage keys audited without changing data
+unified_line_probability_candidates,23,15,1,5,stage_key_checksum_728704,stage keys audited without changing data

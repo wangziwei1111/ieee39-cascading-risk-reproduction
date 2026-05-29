@@ -1,0 +1,24 @@
+initial_branch,trial_id,stage_id,exists_in_offline_composite,exists_in_unified_smoke,exists_in_offline_line_probability_smoke,exists_in_unified_candidate_details,note
+1,1,1,1,1,1,1,stage key membership audited
+1,1,2,1,1,1,1,stage key membership audited
+1,1,3,1,1,1,1,stage key membership audited
+1,1,4,1,1,1,1,stage key membership audited
+1,2,1,1,1,1,1,stage key membership audited
+1,3,1,1,1,1,1,stage key membership audited
+2,1,1,1,1,1,1,stage key membership audited
+2,2,1,1,1,1,1,stage key membership audited
+2,3,1,1,1,1,1,stage key membership audited
+3,1,1,1,1,1,1,stage key membership audited
+3,2,1,1,1,1,1,stage key membership audited
+3,3,1,1,1,1,1,stage key membership audited
+4,1,1,1,1,1,1,stage key membership audited
+4,2,1,1,1,1,1,stage key membership audited
+4,3,1,1,1,1,1,stage key membership audited
+5,1,1,1,1,1,1,stage key membership audited
+5,2,1,1,1,1,1,stage key membership audited
+5,3,1,1,1,1,1,stage key membership audited
+1,1,5,0,1,0,1,stage exists in unified smoke but not offline composite
+1,2,2,0,1,0,1,stage exists in unified smoke but not offline composite
+1,2,3,0,1,0,1,stage exists in unified smoke but not offline composite
+1,2,4,0,1,0,1,stage exists in unified smoke but not offline composite
+1,2,5,0,1,0,1,stage exists in unified smoke but not offline composite

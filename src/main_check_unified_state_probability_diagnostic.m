@@ -17,12 +17,17 @@ must_exist(stage_path);
 must_exist(summary_path);
 must_exist(fullfile(out_root, 'unified_state_probability_risk_preview.csv'));
 must_exist(fullfile(out_root, 'unified_vs_offline_composite_comparison.csv'));
+must_exist(fullfile(out_root, 'unified_offline_difference_diagnosis.csv'));
+must_exist(fullfile(out_root, 'unified_offline_stage_set_audit.csv'));
+must_exist(fullfile(out_root, 'unified_offline_stage_key_diff.csv'));
+must_exist(fullfile(out_root, 'line_probability_basis_audit.csv'));
 must_exist(fullfile(case_dir, 'wind_trip_probability_details.csv'));
 must_exist(fullfile(case_dir, 'generator_trip_probability_details.csv'));
 must_exist(fullfile(case_dir, 'line_probability_candidate_details.csv'));
 
 stage = readtable(stage_path, 'TextType', 'string');
 summary = readtable(summary_path, 'TextType', 'string');
+comparison = readtable(fullfile(out_root, 'unified_vs_offline_composite_comparison.csv'), 'TextType', 'string');
 if height(stage) == 0
     error('Unified state probability stage details must be non-empty.');
 end
@@ -36,6 +41,9 @@ if exist(fullfile(project_root, 'results', 'final_summary', 'tables', ...
         'unified_state_probability_stage_details.csv'), 'file') == 2
     error('Unified diagnostic output must not be written to final_summary.');
 end
+if any(comparison.match_status == "different")
+    error('Unified/offline comparison still contains unexplained different rows.');
+end
 
 degenerate = all(abs(stage.P_wt_Ek - 1) < 1e-12 | isnan(stage.P_wt_Ek)) && ...
     all(abs(stage.P_ge_Ek - 1) < 1e-12 | isnan(stage.P_ge_Ek));
@@ -48,6 +56,16 @@ if degenerate
     fprintf(fid, 'note=current unified smoke has P_wt=1 and P_ge=1, so P_total equals P_line.\n');
 else
     fprintf(fid, 'degenerate_to_line_probability=false\n');
+end
+expected_basis_count = sum(comparison.match_status == "expected_different_due_to_probability_basis");
+unexpected_count = sum(comparison.match_status == "unexpected_difference");
+fprintf(fid, 'expected_different_due_to_probability_basis_count=%d\n', expected_basis_count);
+if expected_basis_count > 0
+    fprintf(fid, 'note=expected basis differences are explainable and not treated as program errors.\n');
+end
+fprintf(fid, 'unexpected_difference_count=%d\n', unexpected_count);
+if unexpected_count > 0
+    fprintf(fid, 'warning=unexpected_difference rows remain and require manual inspection.\n');
 end
 fprintf(fid, 'note=diagnostic only; no Markov sampling, state transition, formal paper_formula, or final_summary output was changed.\n');
 fprintf('unified state probability diagnostic check passed: %s\n', log_path);
