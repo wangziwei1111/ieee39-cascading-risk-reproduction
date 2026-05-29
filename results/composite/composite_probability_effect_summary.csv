@@ -1,0 +1,4 @@
+line_parameter_set_id,stage_count,valid_composite_stage_count,mean_P_line_Ek,mean_P_wt_Ek,mean_P_ge_Ek,mean_P_total_Ek,min_P_wt_Ek,min_P_ge_Ek,num_wind_affected_stages,num_generator_affected_stages,mean_reduction_from_wind,mean_reduction_from_generator,mean_reduction_total,interpretation
+table41_P_L0_only,18,18,0.000368408051779773,1,1,0.000368408051779773,1,1,0,0,0,0,0,current Markov smoke did not trigger wind or traditional generator state probability; composite probability equals line probability
+low_hidden_failure_diagnostic,18,18,0.000366595588932476,1,1,0.000366595588932476,1,1,0,0,0,0,0,current Markov smoke did not trigger wind or traditional generator state probability; composite probability equals line probability
+medium_hidden_failure_diagnostic,18,18,0.000350715931626417,1,1,0.000350715931626417,1,1,0,0,0,0,0,current Markov smoke did not trigger wind or traditional generator state probability; composite probability equals line probability

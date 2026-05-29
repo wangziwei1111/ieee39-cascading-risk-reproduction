@@ -48,3 +48,7 @@ To move from diagnostic to paper-calibrated use, the following are still needed:
 - clarification of how generator trips interact with cascade state transitions.
 
 Until then, `P_ge(E_k)` remains outside formal benchmark reproduction.
+
+## Missing-Parameter Region Labels
+
+When the strict-missing or paper-formula-structure-only parameter sets are used, voltage and frequency regions are now reported as missing-threshold states instead of forced trip regions. This avoids implying that a forced high/low voltage or frequency condition has been identified when the paper thresholds are not available.

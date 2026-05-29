@@ -120,3 +120,9 @@ OLS 接口现已新增触发条件诊断：默认 `nonconverged_only` 保持旧结果不变，`nonconve
 This diagnostic does not trip traditional generators, does not change Markov sampling, and is not integrated into formal `paper_formula`. The diagnostic parameter set `diagnostic_voltage_frequency_probability` is not an original paper probability function. Static AC power flow has no dynamic frequency model, so the current record uses nominal 50 Hz frequency and must not be interpreted as actual generator frequency response.
 
 As with `P_L` and `P_wt`, formal paper benchmark reproduction still requires the original paper's complete `P_G(q)` thresholds, base probabilities, and state transition or probability weighting rules.
+
+## Composite State Probability Offline Diagnostic
+
+`P_line(E_k)`, `P_wt(E_k)`, and `P_ge(E_k)` now have an offline composite diagnostic table. The current diagnostic computes `P_total(E_k)=P_line(E_k)*P_wt(E_k)*P_ge(E_k)` outside the formal result pipeline and writes only to `results/composite/`.
+
+This does not replace formal `paper_formula`, does not write to `final_summary`, and does not trigger wind or traditional generator state transitions. In the current small Markov smoke, both `P_wt(E_k)` and `P_ge(E_k)` remain 1 because the sampled voltages/frequency do not enter diagnostic risk regions; therefore the composite probability currently degenerates to `P_line(E_k)`. This must not be interpreted as strict reproduction of the paper benchmarks.

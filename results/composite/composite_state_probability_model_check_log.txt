@@ -1,0 +1,7 @@
+composite_state_probability_model_check passed.
+stress_test_rows=7
+diagnostic_rows=54
+summary_rows=3
+degenerate_to_line_probability=true
+note=current smoke has P_wt=1 and P_ge=1, so composite probability equals P_line.
+note=offline diagnostic only; no final_summary or formal paper_formula output was replaced.

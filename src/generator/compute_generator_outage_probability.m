@@ -24,8 +24,16 @@ detail = repmat(empty_detail(), numel(gen_voltage_pu), 1);
 for k = 1:numel(gen_voltage_pu)
     v = gen_voltage_pu(k);
     f = gen_frequency_hz(k);
-    [voltage_region, voltage_hit] = classify_voltage_region(v, cfg);
-    [frequency_region, frequency_hit] = classify_frequency_region(f, cfg);
+    thresholds_missing = has_missing_thresholds(cfg);
+    if thresholds_missing
+        voltage_region = "missing_voltage_threshold";
+        frequency_region = "missing_frequency_threshold";
+        voltage_hit = true;
+        frequency_hit = true;
+    else
+        [voltage_region, voltage_hit] = classify_voltage_region(v, cfg);
+        [frequency_region, frequency_hit] = classify_frequency_region(f, cfg);
+    end
     p_v = NaN;
     p_f = NaN;
     missing_parameters = "";
@@ -41,11 +49,11 @@ for k = 1:numel(gen_voltage_pu)
             note = "Generator outage probability model disabled.";
         case "paper_threshold_record"
             threshold_hit = voltage_hit || frequency_hit;
-            if has_missing_thresholds(cfg)
+            if thresholds_missing
                 p = NaN;
                 status = "threshold_parameters_missing";
                 missing_parameters = "generator voltage/frequency thresholds";
-                note = "Paper formula structure is recorded, but numerical thresholds/probability function are missing.";
+                note = "Threshold cannot be evaluated because parameters are missing; paper formula structure is recorded but not parameterized.";
             elseif threshold_hit
                 p = NaN;
                 status = "threshold_hit_probability_missing";
@@ -69,7 +77,13 @@ for k = 1:numel(gen_voltage_pu)
             status = "missing_paper_probability_function";
             threshold_hit = voltage_hit || frequency_hit;
             missing_parameters = "P_G(q) paper probability function and thresholds";
-            note = "Paper formula parameters are missing; no default probability is injected.";
+            if thresholds_missing
+                voltage_region = "missing_voltage_threshold";
+                frequency_region = "missing_frequency_threshold";
+                note = "Threshold cannot be evaluated because parameters are missing; no default probability is injected.";
+            else
+                note = "Paper formula parameters are missing; no default probability is injected.";
+            end
         otherwise
             error('Unknown generator_outage_probability_model: %s', model);
     end

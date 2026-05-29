@@ -1,0 +1,8 @@
+test_case,P_line_Ek,P_wt_Ek,P_ge_Ek,missing_policy,expected_P_total,actual_P_total,test_status,note
+all_one,1,1,1,component_nan,1,1,pass,Offline diagnostic only; P_wt/P_ge are not formal paper results and no formal paper_formula output is replaced.
+line_only_half,0.5,1,1,component_nan,0.5,0.5,pass,Offline diagnostic only; P_wt/P_ge are not formal paper results and no formal paper_formula output is replaced.
+wind_half,0.5,0.5,1,component_nan,0.25,0.25,pass,Offline diagnostic only; P_wt/P_ge are not formal paper results and no formal paper_formula output is replaced.
+generator_half,0.5,1,0.5,component_nan,0.25,0.25,pass,Offline diagnostic only; P_wt/P_ge are not formal paper results and no formal paper_formula output is replaced.
+all_half,0.5,0.5,0.5,component_nan,0.125,0.125,pass,Offline diagnostic only; P_wt/P_ge are not formal paper results and no formal paper_formula output is replaced.
+wind_forced_zero,0.5,0,1,component_nan,0,0,pass,Offline diagnostic only; P_wt/P_ge are not formal paper results and no formal paper_formula output is replaced.
+missing_wind,0.5,NaN,1,component_nan,NaN,NaN,pass,Offline diagnostic only; P_wt/P_ge are not formal paper results and no formal paper_formula output is replaced.

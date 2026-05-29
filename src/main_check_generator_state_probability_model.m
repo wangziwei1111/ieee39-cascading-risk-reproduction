@@ -73,6 +73,11 @@ stress_tbl = readtable(fullfile(project_root, 'results', 'generator', 'generator
 if any(unit_tbl.test_status == "fail")
     error('Generator outage probability unit test contains failures.');
 end
+missing_mask = ismember(unit_tbl.parameter_set_id, ["strict_missing", "paper_formula_structure_only"]);
+bad_region = missing_mask & (contains(unit_tbl.voltage_region, "forced_") | contains(unit_tbl.frequency_region, "forced_"));
+if any(bad_region)
+    error('Missing generator parameter sets must not report forced voltage/frequency regions.');
+end
 if any(stress_tbl.test_status == "fail")
     error('Generator voltage/frequency stress diagnostic contains failures.');
 end
@@ -80,6 +85,7 @@ end
 fprintf(fid, 'generator_state_probability_model_check passed.\n');
 fprintf(fid, 'required parameter sets: %s\n', strjoin(required_sets, ', '));
 fprintf(fid, 'note: P_ge(E_k) remains diagnostic only and is not integrated into formal paper_formula.\n');
+fprintf(fid, 'missing_region_check=passed\n');
 fprintf(fid, 'note: static power flow has no dynamic frequency; nominal frequency is used for diagnostics only.\n');
 fprintf('generator state probability model check passed: %s\n', log_path);
 end

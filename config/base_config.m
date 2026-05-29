@@ -97,6 +97,12 @@ cfg.gen_trip_high_frequency_forced_hz = 51.50;
 cfg.gen_trip_probability_cap = 1.0;
 cfg.gen_trip_parameter_calibration_status = 'diagnostic_assumption_not_paper';
 
+% 综合状态概率 P(E_k)=P_line(E_k)*P_wt(E_k)*P_ge(E_k) 离线诊断接口。
+cfg.composite_state_probability_enable = false;
+cfg.composite_state_probability_mode = 'offline_diagnostic'; % offline_diagnostic / formal_paper_formula
+cfg.composite_probability_components = {'line', 'wind', 'generator'};
+cfg.composite_probability_missing_policy = 'component_nan'; % component_nan / ignore_missing_component_with_warning / line_only_baseline
+
 % 综合风险权重。用户提供的论文权重为0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];
 
