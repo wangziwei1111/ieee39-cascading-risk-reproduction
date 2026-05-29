@@ -22,13 +22,34 @@ candidate_mask = online & not_outaged;
 candidate_table = line_table(candidate_mask, {'branch_index', 'from_bus', 'to_bus', 'loading_pu'});
 num_candidates = height(candidate_table);
 outage_probability = zeros(num_candidates, 1);
+prob_model = strings(num_candidates, 1);
+engineering_probability = zeros(num_candidates, 1);
+paper_formula_probability = NaN(num_candidates, 1);
+paper_formula_status = strings(num_candidates, 1);
+paper_formula_missing_parameters = strings(num_candidates, 1);
+paper_formula_used_fallback = false(num_candidates, 1);
 for k = 1:num_candidates
-    outage_probability(k) = line_outage_probability(candidate_table.loading_pu(k), cfg);
+    branch_idx = candidate_table.branch_index(k);
+    branch_row = mpc.branch(branch_idx, :);
+    [outage_probability(k), prob_detail] = compute_line_outage_probability_dispatch( ...
+        candidate_table.loading_pu(k), branch_row, cfg);
+    prob_model(k) = string(prob_detail.model);
+    engineering_probability(k) = prob_detail.engineering_probability;
+    paper_formula_probability(k) = prob_detail.paper_formula_probability;
+    paper_formula_status(k) = string(prob_detail.paper_formula_status);
+    paper_formula_missing_parameters(k) = string(prob_detail.paper_formula_missing_parameters);
+    paper_formula_used_fallback(k) = logical(prob_detail.paper_formula_used_fallback);
 end
 
 keep = outage_probability >= cfg.markov_min_trip_probability;
 candidate_table = candidate_table(keep, :);
 outage_probability = outage_probability(keep);
+prob_model = prob_model(keep);
+engineering_probability = engineering_probability(keep);
+paper_formula_probability = paper_formula_probability(keep);
+paper_formula_status = paper_formula_status(keep);
+paper_formula_missing_parameters = paper_formula_missing_parameters(keep);
+paper_formula_used_fallback = paper_formula_used_fallback(keep);
 num_candidates = height(candidate_table);
 
 random_u = rand(num_candidates, 1);
@@ -43,6 +64,12 @@ if ~cfg.markov_allow_multiple_trips_per_stage && any(trip_selected)
 end
 
 candidate_table.outage_probability = outage_probability;
+candidate_table.prob_model = prob_model;
+candidate_table.engineering_probability = engineering_probability;
+candidate_table.paper_formula_probability = paper_formula_probability;
+candidate_table.paper_formula_status = paper_formula_status;
+candidate_table.paper_formula_missing_parameters = paper_formula_missing_parameters;
+candidate_table.paper_formula_used_fallback = paper_formula_used_fallback;
 candidate_table.random_u = random_u;
 candidate_table.trip_selected = trip_selected;
 end

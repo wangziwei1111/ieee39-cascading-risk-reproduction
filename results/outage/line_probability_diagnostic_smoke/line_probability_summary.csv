@@ -1,0 +1,2 @@
+row_count,paper_formula_valid_count,paper_formula_missing_param_count,paper_formula_fallback_count,mean_engineering_probability,mean_paper_formula_probability,max_engineering_probability,max_paper_formula_probability,note
+963,0,963,963,0.0167666644676868,0.0167666644676868,1,1,paper_formula_diagnostic returns engineering probability to main chain; paper parameters uncalibrated.

@@ -27,10 +27,17 @@ for i = 1:numel(chain_records)
                 c.initial_branch, c.trial_id, st.stage_id, ...
                 t.branch_index(k), t.from_bus(k), t.to_bus(k), ...
                 t.loading_pu(k), t.outage_probability(k), ...
+                string(t.prob_model(k)), t.engineering_probability(k), ...
+                t.paper_formula_probability(k), string(t.paper_formula_status(k)), ...
+                string(t.paper_formula_missing_parameters(k)), ...
+                logical(t.paper_formula_used_fallback(k)), ...
                 t.random_u(k), t.trip_selected(k), ...
                 'VariableNames', {'initial_branch', 'trial_id', 'stage_id', ...
                 'candidate_branch', 'from_bus', 'to_bus', 'loading_pu', ...
-                'outage_probability', 'random_u', 'trip_selected'});
+                'outage_probability', 'prob_model', 'engineering_probability', ...
+                'paper_formula_probability', 'paper_formula_status', ...
+                'paper_formula_missing_parameters', 'paper_formula_used_fallback', ...
+                'random_u', 'trip_selected'});
         end
     end
 end
@@ -76,5 +83,28 @@ if ~isempty(t)
     if ~isempty(missing)
         error('candidate_table缺少字段：%s', strjoin(missing, ', '));
     end
+    t = ensure_optional_columns(t);
+end
+end
+
+function t = ensure_optional_columns(t)
+n = height(t);
+if ~ismember('prob_model', t.Properties.VariableNames)
+    t.prob_model = repmat("engineering", n, 1);
+end
+if ~ismember('engineering_probability', t.Properties.VariableNames)
+    t.engineering_probability = t.outage_probability;
+end
+if ~ismember('paper_formula_probability', t.Properties.VariableNames)
+    t.paper_formula_probability = NaN(n, 1);
+end
+if ~ismember('paper_formula_status', t.Properties.VariableNames)
+    t.paper_formula_status = repmat("not_evaluated", n, 1);
+end
+if ~ismember('paper_formula_missing_parameters', t.Properties.VariableNames)
+    t.paper_formula_missing_parameters = strings(n, 1);
+end
+if ~ismember('paper_formula_used_fallback', t.Properties.VariableNames)
+    t.paper_formula_used_fallback = false(n, 1);
 end
 end

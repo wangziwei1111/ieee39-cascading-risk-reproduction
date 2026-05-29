@@ -1,0 +1,6 @@
+line probability model check passed
+default_model=engineering
+unit_rows=12
+diagnostic_candidate_rows=963
+paper_formula_fallback_count=963
+note=paper_formula remains diagnostic and uncalibrated; Markov main chain uses engineering probability in diagnostic smoke.

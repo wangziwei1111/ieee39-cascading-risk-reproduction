@@ -144,3 +144,9 @@ sign convention 自检结果写入 `results/loadshedding/ols_benchmark_smoke/tab
 导出失败样本测试显示，`dispatchable_load + variable_absorption` 在 6 个典型失败样本中 OPF 成功 5 个、应用后 PF 成功 5 个，平均 Q mismatch 为 0，明显好于 `positive_injection_generator/free_q`，也优于 `fixed_zero_q`。这说明 dispatchable-load 形式确实修复了相当一部分正注入建模造成的 OPF/PF 不一致。
 
 但是完整 5-trial smoke 的结论更保守：`dispatchable_load + variable_absorption` 在三个代表场景中的 OLS 失败数分别为 52、30、52；原 `free_q` 分别为 47、25、47；`fixed_zero_q` 分别为 67、64、67。因此 dispatchable-load 改善了典型失败样本，但尚未在完整 smoke 中降低整体失败率。当前推荐为：可作为下一阶段诊断候选，不建议直接进入正式 20-trial benchmark，也不能写入 final_summary 或称为原文最终 OLS。
+
+## OLS 阶段性归档结论
+
+截至当前阶段，OLS 仍为 `diagnostic_only`。`free_q` 存在人工无功支撑和 Q mismatch，`fixed_zero_q` 降低 mismatch 但提高了完整 smoke 失败率，`dispatchable_load` 修复正无功支撑问题但失败率仍高于 0.1，`dc_preshed_ac_ols_polish` 也没有达到正式 benchmark 稳定性要求。
+
+因此当前不进入正式 20-trial OLS benchmark，不写入 `final_summary`，也不替代默认 `simple_load_shedding`。后续如需继续 OLS，应先确认原文第3.2.3节采用 AC-OLS、DC-OLS 或其他 OPF 设置，并获得求解器、约束软化和潮流可行化细节。

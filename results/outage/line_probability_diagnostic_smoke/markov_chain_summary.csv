@@ -1,0 +1,16 @@
+chain_index,initial_branch,trial_id,chain_depth,final_converged,total_load_shed_mw,basic_CRI,terminated_reason
+1,1,1,5,1,2649.14455,0.413485164381942,max_depth_reached
+2,1,2,5,1,2482.393,1.5583377704054,max_depth_reached
+3,1,3,1,1,0,0.022757400115823,no_new_outage
+4,2,1,1,1,0,0,no_new_outage
+5,2,2,1,1,0,0,no_new_outage
+6,2,3,1,1,0,0,no_new_outage
+7,3,1,1,1,0,0,no_new_outage
+8,3,2,1,1,0,0,no_new_outage
+9,3,3,1,1,0,0,no_new_outage
+10,4,1,1,1,0,0,no_new_outage
+11,4,2,1,1,0,0,no_new_outage
+12,4,3,1,1,0,0,no_new_outage
+13,5,1,1,1,0,0,no_new_outage
+14,5,2,1,1,0,0,no_new_outage
+15,5,3,1,1,0,0,no_new_outage

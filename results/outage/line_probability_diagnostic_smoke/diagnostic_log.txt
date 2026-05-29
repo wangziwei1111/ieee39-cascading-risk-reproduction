@@ -1,0 +1,7 @@
+line_probability_diagnostic_smoke
+model=paper_formula_diagnostic
+scenario=distributed_wind_3000mw_base
+initial_branches=1:5
+trials_per_initial_fault=3
+candidate_rows=963
+note=Main chain uses engineering probabilities; paper_formula is diagnostic only and uncalibrated.

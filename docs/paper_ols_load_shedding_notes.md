@@ -164,3 +164,9 @@ cfg.paper_ols_shed_gen_q_mode = 'free_q';
 `solve_dc_ols_preshed` 使用 DC 潮流近似建立线性最小切负荷问题，变量包括节点相角、发电机有功和负荷削减量，并保留发电机 P 上下限、线路容量约束和 `0 <= C_i <= Pd_i`。求得的预切负荷可按 constant power factor 同步应用无功，随后再做 AC PF 或 dispatchable-load AC-OLS polish。
 
 当前诊断结果显示：DC LP 对导出的 dispatchable-load 失败样本全部找到线性可行解，DC preshed 后直接 AC PF 可解决部分样本；但 DC preshed 后继续 AC-OLS polish 的最终 PF 后验成功率仍不足，5-trial two-stage smoke 的失败率仍高于 0.1。因此两阶段方法目前只能作为诊断候选，不能进入正式 20-trial benchmark，也不能写入 `final_summary`。
+
+## OLS 当前归档状态
+
+当前所有 paper OLS 变体均保留为诊断接口。默认配置仍为 `cfg.load_shedding_mode='simple'`，不会影响既有 Markov、scenario 或 final_summary 结果。由于 AC-OLS 变体在 5-trial smoke 中失败率仍高于 0.1，不建议进入正式 benchmark 重跑。
+
+后续若继续实现论文式最优负荷削减，应先补充原文关于 AC/DC OLS 类型、OPF 求解器、线路和电压约束是否允许软化、以及非收敛潮流后如何可行化的说明。

@@ -1,0 +1,13 @@
+test_case,line_loading_pu,p_line,P_flow,P_hidden_distance,P_hidden_loading,missing_parameters,used_fallback,status,note
+missing_param_fallback,0.5,0.0001,NaN,NaN,NaN,paper_line_P_L0;paper_line_P_W_D;paper_line_P_L_D;paper_line_P_L_r,1,missing_parameter_fallback,Paper formula has missing parameters; returned engineering fallback probability for main-chain safety.
+missing_param_fallback,1,0.1,NaN,NaN,NaN,paper_line_P_L0;paper_line_P_W_D;paper_line_P_L_D;paper_line_P_L_r,1,missing_parameter_fallback,Paper formula has missing parameters; returned engineering fallback probability for main-chain safety.
+missing_param_fallback,1.1,0.55,NaN,NaN,NaN,paper_line_P_L0;paper_line_P_W_D;paper_line_P_L_D;paper_line_P_L_r,1,missing_parameter_fallback,Paper formula has missing parameters; returned engineering fallback probability for main-chain safety.
+missing_param_fallback,1.2,1,NaN,NaN,NaN,paper_line_P_L0;paper_line_P_W_D;paper_line_P_L_D;paper_line_P_L_r,1,missing_parameter_fallback,Paper formula has missing parameters; returned engineering fallback probability for main-chain safety.
+missing_param_fallback,1.4,1,NaN,NaN,NaN,paper_line_P_L0;paper_line_P_W_D;paper_line_P_L_D;paper_line_P_L_r,1,missing_parameter_fallback,Paper formula has missing parameters; returned engineering fallback probability for main-chain safety.
+missing_param_fallback,1.6,1,NaN,NaN,NaN,paper_line_P_L0;paper_line_P_W_D;paper_line_P_L_D;paper_line_P_L_r,1,missing_parameter_fallback,Paper formula has missing parameters; returned engineering fallback probability for main-chain safety.
+temporary_uncalibrated_params,0.5,0.0006,0.0001,0.0002,0.0003,,0,ok_uncalibrated,paper_formula diagnostic; parameters require calibration
+temporary_uncalibrated_params,1,0.0006,0.0001,0.0002,0.0003,,0,ok_uncalibrated,paper_formula diagnostic; parameters require calibration
+temporary_uncalibrated_params,1.1,0.50055,0.500050000000001,0.0002,0.0003,,0,ok_uncalibrated,paper_formula diagnostic; parameters require calibration
+temporary_uncalibrated_params,1.2,1,1,0.0002,0.0003,,0,ok_uncalibrated,paper_formula diagnostic; parameters require calibration
+temporary_uncalibrated_params,1.4,1,1,0.0002,0.0835083333333333,,0,ok_uncalibrated,paper_formula diagnostic; parameters require calibration
+temporary_uncalibrated_params,1.6,1,1,0.0002,0.166716666666667,,0,ok_uncalibrated,paper_formula diagnostic; parameters require calibration

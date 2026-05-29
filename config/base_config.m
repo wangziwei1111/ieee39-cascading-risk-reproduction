@@ -125,6 +125,17 @@ cfg.line_limit_loading_pu = 1.00;       % 待校准
 cfg.line_prob_at_limit = 0.10;          % 待校准
 cfg.line_forced_trip_loading_pu = 1.20; % 待校准
 cfg.line_outage_prob_cap = 1.0;
+cfg.line_outage_probability_model = 'engineering'; % engineering / paper_formula / paper_formula_diagnostic
+cfg.paper_line_P_L0 = NaN;              % P_L0，待论文参数确认
+cfg.paper_line_L_rated_factor = 1.0;    % L_Rated相对RATE_A倍率，待校准
+cfg.paper_line_L_max_factor = 1.2;      % L_max相对RATE_A倍率，待校准
+cfg.paper_line_P_overload_max = 1.0;    % L > L_max 时P=1
+cfg.paper_line_P_W_D = NaN;             % 距离保护隐性故障基础概率，待确认
+cfg.paper_line_ZIII_factor = NaN;       % 距离III段阻抗系数，待确认
+cfg.paper_line_P_L_D = NaN;             % 潮流越限隐性故障基础概率，待确认
+cfg.paper_line_P_L_r = NaN;             % 严重越限隐性故障概率，待确认
+cfg.paper_line_P3 = 0;                  % 其他因素导致停运概率，待校准
+cfg.paper_line_missing_param_policy = 'fallback_to_engineering_with_warning'; % fallback_to_engineering_with_warning / return_nan / error
 
 % 经验VaR参数。
 cfg.var_confidence_levels = [0.90, 0.95, 0.98];
