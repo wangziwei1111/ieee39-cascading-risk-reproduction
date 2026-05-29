@@ -1,0 +1,10 @@
+unified_state_probability_diagnostic_smoke
+scenario=distributed_wind_3000mw_base
+initial_branches=1:5
+trials_per_initial_fault=3
+chain_count=15
+line_parameter_set=table41_P_L0_only
+wind_parameter_set=diagnostic_linear_voltage_probability
+generator_parameter_set=diagnostic_voltage_frequency_probability
+valid_P_total_stage_count=23
+note=Diagnostic only; no wind/generator state transition and no final_summary output.

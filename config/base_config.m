@@ -103,6 +103,14 @@ cfg.composite_state_probability_mode = 'offline_diagnostic'; % offline_diagnosti
 cfg.composite_probability_components = {'line', 'wind', 'generator'};
 cfg.composite_probability_missing_policy = 'component_nan'; % component_nan / ignore_missing_component_with_warning / line_only_baseline
 
+% 同一次Markov smoke内的综合状态概率诊断。默认关闭，不影响正式结果。
+cfg.unified_state_probability_diagnostic_enable = false;
+cfg.unified_state_probability_diagnostic_mode = 'record_only'; % record_only / diagnostic_probability_only
+cfg.unified_line_probability_parameter_set = 'table41_P_L0_only';
+cfg.unified_wind_probability_parameter_set = 'diagnostic_linear_voltage_probability';
+cfg.unified_generator_probability_parameter_set = 'diagnostic_voltage_frequency_probability';
+cfg.unified_composite_probability_missing_policy = 'component_nan';
+
 % 综合风险权重。用户提供的论文权重为0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];
 

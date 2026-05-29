@@ -1,0 +1,2 @@
+stage_count,valid_P_total_stage_count,missing_P_total_stage_count,mean_P_line_Ek,mean_P_wt_Ek,mean_P_ge_Ek,mean_P_total_Ek,min_P_wt_Ek,min_P_ge_Ek,num_wind_affected_stages,num_generator_affected_stages,num_composite_degenerate_to_line,calibration_status,note
+23,23,0,0.000308233680563876,1,1,0.000308233680563876,1,1,0,0,23,diagnostic_assumption_not_paper,Unified diagnostic only; no formal paper_formula or final_summary output was replaced.

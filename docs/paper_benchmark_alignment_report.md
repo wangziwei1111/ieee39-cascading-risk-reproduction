@@ -126,3 +126,9 @@ As with `P_L` and `P_wt`, formal paper benchmark reproduction still requires the
 `P_line(E_k)`, `P_wt(E_k)`, and `P_ge(E_k)` now have an offline composite diagnostic table. The current diagnostic computes `P_total(E_k)=P_line(E_k)*P_wt(E_k)*P_ge(E_k)` outside the formal result pipeline and writes only to `results/composite/`.
 
 This does not replace formal `paper_formula`, does not write to `final_summary`, and does not trigger wind or traditional generator state transitions. In the current small Markov smoke, both `P_wt(E_k)` and `P_ge(E_k)` remain 1 because the sampled voltages/frequency do not enter diagnostic risk regions; therefore the composite probability currently degenerates to `P_line(E_k)`. This must not be interpreted as strict reproduction of the paper benchmarks.
+
+## Unified Composite State Probability Smoke
+
+A same-run unified diagnostic smoke now records `P_line(E_k)`, `P_wt(E_k)`, `P_ge(E_k)`, and `P_total(E_k)` at Markov stage level. This complements the earlier offline composite table. Both remain diagnostic-only and are stored under `results/composite/`.
+
+The unified smoke does not replace formal `paper_formula`, does not write to `final_summary`, and does not implement actual wind or traditional generator trip transitions. Current `P_wt(E_k)` and `P_ge(E_k)` remain 1 in the smoke, so `P_total(E_k)` reduces to `P_line(E_k)`. The strict benchmark tables still cannot be claimed as fully reproduced until the original paper probability parameters and state transition rules are confirmed.

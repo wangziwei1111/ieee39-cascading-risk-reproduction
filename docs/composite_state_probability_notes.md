@@ -48,3 +48,19 @@ Formal integration requires:
 - original `P_WT(h)` probability function and wind state transition rule;
 - original `P_G(q)` probability parameters and generator state transition rule;
 - confirmation of whether the paper multiplies these stage probabilities exactly as recorded or applies additional chain-level probability handling.
+
+## Unified Markov Stage Composite State Probability Diagnostic
+
+The previous composite table was built by joining separate diagnostic outputs offline. A new unified diagnostic smoke now records `P_line(E_k)`, `P_wt(E_k)`, `P_ge(E_k)`, and `P_total(E_k)` during the same small Markov run.
+
+The unified smoke is still record-only. It does not change candidate line sampling, does not trip wind units, does not trip traditional generators, does not alter severity calculations, and does not write to `final_summary`.
+
+Current unified smoke uses:
+
+- line parameter set: `table41_P_L0_only`;
+- wind parameter set: `diagnostic_linear_voltage_probability`;
+- generator parameter set: `diagnostic_voltage_frequency_probability`.
+
+In the current sample, `P_wt(E_k)=1` and `P_ge(E_k)=1`, so `P_total(E_k)` degenerates to `P_line(E_k)`. This is expected for the present smoke because neither wind nor traditional generator diagnostic risk regions were triggered. It is not a strict paper benchmark result.
+
+Formal integration still requires calibrated paper parameters for `P_line`, a confirmed `P_WT(h)` function and wind state transition rule, and a confirmed `P_G(q)` function and traditional generator state transition rule.

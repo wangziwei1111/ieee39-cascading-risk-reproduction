@@ -22,6 +22,10 @@ cumulative_load_shed_mw = 0;
 stage_records = struct([]);
 terminated_reason = "max_depth_reached";
 final_converged = false;
+unified_line_cumulative_probability = NaN;
+if isfield(cfg, 'unified_state_probability_diagnostic_enable') && cfg.unified_state_probability_diagnostic_enable
+    unified_line_cumulative_probability = resolve_initial_unified_line_probability(initial_branch, cfg);
+end
 
 for stage_id = 1:cfg.markov_max_depth
     [mpc_current, island_info] = normalize_case_after_contingency( ...
@@ -90,6 +94,26 @@ for stage_id = 1:cfg.markov_max_depth
         candidate_table = empty_candidate_table();
     end
 
+    unified_state_probability_detail = [];
+    unified_component_tables = struct('line_probability_table', table(), ...
+        'wind_trip_table', wind_trip_table, 'generator_trip_table', generator_trip_table);
+    if isfield(cfg, 'unified_state_probability_diagnostic_enable') && cfg.unified_state_probability_diagnostic_enable
+        stage_context = struct();
+        stage_context.mpc_current = mpc_current;
+        stage_context.pf_result = pf_result;
+        stage_context.scenario = scenario;
+        stage_context.candidate_table = candidate_table;
+        stage_context.wind_trip_table = wind_trip_table;
+        stage_context.generator_trip_table = generator_trip_table;
+        stage_context.stage_id = stage_id;
+        stage_context.initial_branch = initial_branch;
+        stage_context.trial_id = trial_id;
+        stage_context.line_cumulative_probability_before_stage = unified_line_cumulative_probability;
+        [unified_state_probability_detail, unified_component_tables] = ...
+            record_unified_state_probability(stage_context, cfg);
+        unified_line_cumulative_probability = unified_state_probability_detail.P_line_Ek;
+    end
+
     selected = candidate_table.branch_index(candidate_table.trip_selected);
     selected = selected(:)';
 
@@ -130,6 +154,8 @@ for stage_id = 1:cfg.markov_max_depth
     stage_records(stage_id).wind_state_probability_detail = wind_state_probability_detail;
     stage_records(stage_id).generator_trip_table = generator_trip_table;
     stage_records(stage_id).generator_state_probability_detail = generator_state_probability_detail;
+    stage_records(stage_id).unified_state_probability_detail = unified_state_probability_detail;
+    stage_records(stage_id).unified_component_tables = unified_component_tables;
 
     if isempty(selected)
         break;
@@ -164,6 +190,23 @@ chain_record.basic_LLR = metrics.SLLR;
 chain_record.basic_LFOR = metrics.SLFOR;
 chain_record.basic_NVOR = metrics.SNVOR;
 chain_record.basic_CRI = basic_cri;
+end
+
+function p0 = resolve_initial_unified_line_probability(initial_branch, cfg)
+p0 = NaN;
+if isfield(cfg, 'initial_fault_probability_file') && exist(cfg.initial_fault_probability_file, 'file') == 2
+    tbl = readtable(cfg.initial_fault_probability_file);
+    if ismember('branch_index', tbl.Properties.VariableNames) && ...
+            ismember('initial_outage_probability', tbl.Properties.VariableNames)
+        row = tbl(tbl.branch_index == initial_branch, :);
+        if ~isempty(row)
+            p0 = row.initial_outage_probability(1);
+        end
+    end
+end
+if isnan(p0)
+    p0 = 1;
+end
 end
 
 function candidate_table = empty_candidate_table()
