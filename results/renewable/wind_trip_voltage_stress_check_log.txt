@@ -1,0 +1,3 @@
+markov_threshold_hit_status=no_threshold_hits
+note=P_wt(E_k)=1 is due to sample voltages not entering risk zones, not because the model is ineffective.
+wind_trip_voltage_stress_check passed.

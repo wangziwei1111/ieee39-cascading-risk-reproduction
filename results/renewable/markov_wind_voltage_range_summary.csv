@@ -1,0 +1,2 @@
+row_count,min_wind_voltage_pu,p01_wind_voltage_pu,p05_wind_voltage_pu,mean_wind_voltage_pu,p95_wind_voltage_pu,max_wind_voltage_pu,count_below_0p9,count_below_0p2,count_above_1p1,count_above_1p3,note
+230,0.982,0.982,1,1.00322,1.0275,1.0499,0,0,0,0,no threshold hits; P_wt(E_k)=1 is due to sample voltages staying inside the normal range

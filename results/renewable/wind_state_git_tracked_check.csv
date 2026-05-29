@@ -1,0 +1,13 @@
+file_path,exists_on_disk,tracked_by_git,status,note
+src/renewable/load_wind_trip_probability_parameter_set.m,1,1,ok,file exists and is tracked by git
+src/renewable/compute_wind_trip_probability.m,1,1,ok,file exists and is tracked by git
+src/renewable/compute_wind_state_probability.m,1,1,ok,file exists and is tracked by git
+src/renewable/record_wind_trip_probability.m,1,1,ok,file exists and is tracked by git
+src/renewable/flatten_wind_state_probability_records.m,1,1,ok,file exists and is tracked by git
+src/renewable/summarize_wind_state_probability_records.m,1,1,ok,file exists and is tracked by git
+src/main_run_wind_state_probability_diagnostic_smoke.m,1,1,ok,file exists and is tracked by git
+src/main_compare_wind_state_probability_effect.m,1,1,ok,file exists and is tracked by git
+src/main_check_wind_state_probability_model.m,1,1,ok,file exists and is tracked by git
+paper_inputs/filled/paper_wind_trip_probability_parameter_sets.csv,1,1,ok,file exists and is tracked by git
+paper_inputs/filled/paper_wind_frequency_ride_through_rules.csv,1,1,ok,file exists and is tracked by git
+docs/wind_state_probability_notes.md,1,1,ok,file exists and is tracked by git

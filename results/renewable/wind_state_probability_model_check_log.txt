@@ -1,3 +1,5 @@
 wind_state_probability_model_check passed.
+tracked_check_status=passed
+tracked_check_table=C:\Users\24186\Documents\New project 13\results\renewable\wind_state_git_tracked_check.csv
 required parameter sets: strict_missing, lvrt_hvrt_threshold_record, diagnostic_linear_voltage_probability
 note: P_wt(E_k) remains diagnostic only and is not integrated into formal paper_formula.

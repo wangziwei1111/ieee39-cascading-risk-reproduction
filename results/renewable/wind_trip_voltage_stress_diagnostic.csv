@@ -1,0 +1,71 @@
+stress_case,wind_bus,wind_voltage_pu,p_wt_h,voltage_region,probability_status,p_wt_Ek,num_probability_positive,max_p_wt_h,mean_p_wt_h,expected_behavior,test_status
+normal_all,30,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,31,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,32,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,33,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,34,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,35,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,36,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,37,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,38,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+normal_all,39,1,0,normal,diagnostic_assumption_not_paper,1,0,0,0,P_wt_Ek must equal 1,pass
+one_low_voltage,30,0.55,0.5,low_voltage_ride_through_risk,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,31,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,32,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,33,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,34,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,35,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,36,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,37,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,38,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_low_voltage,39,1,0,normal,diagnostic_assumption_not_paper,0.5,1,0.5,0.05,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_forced_low_voltage,30,0.15,1,low_voltage_forced_trip,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,31,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,32,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,33,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,34,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,35,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,36,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,37,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,38,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_low_voltage,39,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+multi_low_voltage,30,0.55,0.5,low_voltage_ride_through_risk,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,31,0.7,0.285714285714286,low_voltage_ride_through_risk,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,32,0.85,0.0714285714285715,low_voltage_ride_through_risk,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,33,1,0,normal,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,34,1,0,normal,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,35,1,0,normal,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,36,1,0,normal,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,37,1,0,normal,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,38,1,0,normal,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+multi_low_voltage,39,1,0,normal,diagnostic_assumption_not_paper,0.331632653061224,3,0.5,0.0857142857142857,multiple non-forced low voltages make 0 <= P_wt_Ek < 1,pass
+one_high_voltage,30,1.2,0.499999999999999,high_voltage_ride_through_risk,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,31,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,32,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,33,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,34,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,35,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,36,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,37,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,38,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_high_voltage,39,1,0,normal,diagnostic_assumption_not_paper,0.500000000000001,1,0.499999999999999,0.0499999999999999,single non-forced risk voltage makes 0 < P_wt_Ek < 1,pass
+one_forced_high_voltage,30,1.35,1,high_voltage_forced_trip,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,31,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,32,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,33,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,34,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,35,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,36,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,37,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,38,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+one_forced_high_voltage,39,1,0,normal,diagnostic_assumption_not_paper,0,1,1,0.1,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,30,0.55,0.5,low_voltage_ride_through_risk,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,31,1.2,0.499999999999999,high_voltage_ride_through_risk,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,32,1.35,1,high_voltage_forced_trip,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,33,1,0,normal,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,34,1,0,normal,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,35,1,0,normal,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,36,1,0,normal,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,37,1,0,normal,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,38,1,0,normal,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass
+mixed_low_high,39,1,0,normal,diagnostic_assumption_not_paper,0,3,1,0.2,forced voltage trip probability makes P_wt_Ek equal 0,pass

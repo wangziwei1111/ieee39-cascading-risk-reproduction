@@ -1,0 +1,1 @@
+initial_branch,trial_id,stage_id,wind_index,wind_bus,wind_gen_row,voltage_pu,wind_output_mw,wind_capacity_mw,trip_probability,p_wt_h,trip_region,record_only,wind_trip_probability_model,wind_trip_calibration_status,threshold_hit,voltage_region,frequency_region,probability_status

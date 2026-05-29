@@ -24,7 +24,7 @@ switch curve_type
         cfg_out.wind_trip_probability_model = 'paper_formula';
     case "threshold_record_only"
         cfg_out.wind_trip_probability_model = 'paper_threshold_record';
-    case "diagnostic_linear_voltage_probability"
+    case {"diagnostic_linear_voltage", "diagnostic_linear_voltage_probability"}
         cfg_out.wind_trip_probability_model = 'diagnostic_voltage_piecewise';
     otherwise
         error('Unknown wind probability curve type: %s', curve_type);
