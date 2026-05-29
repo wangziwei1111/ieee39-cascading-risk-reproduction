@@ -1,0 +1,5 @@
+metric_name,risk_line_only_stage_level,risk_unified_stage_level,delta_risk,relative_delta,stage_count,valid_stage_count,missing_probability_count,missing_severity_count,note
+LLR,6.33323466120043e-05,6.33323466120043e-05,0,0,23,23,0,0,P_wt=1 and P_ge=1 in current smoke; unified risk degenerates to line-only risk.
+LFOR,0.00030037857160916,0.00030037857160916,0,0,23,23,0,0,P_wt=1 and P_ge=1 in current smoke; unified risk degenerates to line-only risk.
+NVOR,3.08325898791378e-06,3.08325898791378e-06,0,0,23,23,0,0,P_wt=1 and P_ge=1 in current smoke; unified risk degenerates to line-only risk.
+CRI,9.86917740866175e-05,9.86917740866175e-05,0,0,23,23,0,0,P_wt=1 and P_ge=1 in current smoke; unified risk degenerates to line-only risk.

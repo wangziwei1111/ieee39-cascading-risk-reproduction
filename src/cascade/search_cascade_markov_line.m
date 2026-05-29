@@ -114,6 +114,20 @@ for stage_id = 1:cfg.markov_max_depth
         unified_line_cumulative_probability = unified_state_probability_detail.P_line_Ek;
     end
 
+    stage_severity_detail = table();
+    if isfield(cfg, 'unified_state_probability_diagnostic_enable') && cfg.unified_state_probability_diagnostic_enable
+        severity_context = struct();
+        severity_context.mpc_current = mpc_current;
+        severity_context.pf_result = pf_result;
+        severity_context.violations = violations;
+        severity_context.cumulative_load_shed_mw = cumulative_load_shed_mw;
+        severity_context.base_load_mw = base_load_mw;
+        severity_context.stage_id = stage_id;
+        severity_context.initial_branch = initial_branch;
+        severity_context.trial_id = trial_id;
+        [stage_severity_detail, ~] = compute_stage_severity_metrics(severity_context, cfg);
+    end
+
     selected = candidate_table.branch_index(candidate_table.trip_selected);
     selected = selected(:)';
 
@@ -156,6 +170,7 @@ for stage_id = 1:cfg.markov_max_depth
     stage_records(stage_id).generator_state_probability_detail = generator_state_probability_detail;
     stage_records(stage_id).unified_state_probability_detail = unified_state_probability_detail;
     stage_records(stage_id).unified_component_tables = unified_component_tables;
+    stage_records(stage_id).stage_severity_detail = stage_severity_detail;
 
     if isempty(selected)
         break;

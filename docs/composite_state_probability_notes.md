@@ -72,3 +72,18 @@ The offline composite table and unified smoke table are not identical data produ
 The comparison now keeps stage-set mismatches and probability-basis mismatches explicit. `missing_offline_stage` means a stage exists in the unified smoke but was not present in the offline composite input; this is retained as an auditable row rather than deleted or zero-filled. `expected_different_due_to_probability_basis` means both sides have the same stage key, but `P_line(E_k)` comes from different diagnostic bases, so exact equality is not required.
 
 For future diagnostic work, the unified smoke should be treated as the primary diagnostic source because all three probability components are recorded in one Markov execution. The offline composite remains useful as a cross-check and historical bridge between earlier separate diagnostic outputs.
+
+## Stage-Level Severity and Unified Risk Preview
+
+The earlier unified risk preview reused chain-summary severity values at stage level, which was only a placeholder diagnostic. The unified smoke now records stage-level severity in the same Markov stage as the probability components.
+
+For each stage, the diagnostic records:
+
+- `severity_LLR`: cumulative load shed divided by base load;
+- `severity_LFOR`: exponential line overload severity using current branch loading;
+- `severity_NVOR`: exponential bus voltage violation severity using 0.9/1.1 p.u. limits;
+- `severity_CRI`: `0.6*LLR + 0.2*LFOR + 0.2*NVOR`.
+
+The new `unified_stage_level_risk_preview.csv` computes `sum(P_total(E_k)*severity(E_k))` at stage level. It is more rigorous than the old chain-summary repeated preview, but it is still not formal VaR and does not replace `paper_formula` or `final_summary`.
+
+In the current smoke, `P_wt(E_k)=1` and `P_ge(E_k)=1`, so unified risk remains equal to line-only risk. Formal upgrade still requires paper-calibrated `P_line`, `P_wt`, `P_ge`, and confirmed state-transition/probability handling rules.

@@ -1,0 +1,5 @@
+metric_name,old_chain_summary_repeated_risk,new_stage_level_risk,delta,relative_delta,interpretation
+LLR,0.000557837535186364,6.33323466120043e-05,-0.00049450518857436,-0.886468115504551,Old preview used chain summary severity repeated by stage; use stage-level risk preview going forward.
+LFOR,0.00479227275362224,0.00030037857160916,-0.00449189418201308,-0.937320226320149,Old preview used chain summary severity repeated by stage; use stage-level risk preview going forward.
+NVOR,0.000475871302272578,3.08325898791378e-06,-0.000472788043284664,-0.993520813351868,Old preview used chain summary severity repeated by stage; use stage-level risk preview going forward.
+CRI,0.00138833133229078,9.86917740866175e-05,-0.00128963955820416,-0.928913385593788,Old preview used chain summary severity repeated by stage; use stage-level risk preview going forward.

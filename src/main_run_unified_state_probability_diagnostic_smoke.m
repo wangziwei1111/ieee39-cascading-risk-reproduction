@@ -49,11 +49,13 @@ unified_summary_table = summarize_unified_state_probability_records(unified_stag
 wind_trip_detail_table = flatten_wind_trip_records(chain_records);
 generator_trip_detail_table = flatten_generator_trip_records_local(chain_records);
 line_candidate_detail_table = flatten_unified_line_probability_tables(chain_records);
+stage_severity_table = flatten_stage_severity_records(chain_records);
 
 save(fullfile(out_dir, 'markov_chain_records.mat'), 'chain_records', 'cfg', 'scenario', 'renewable_info', 'base_mpc', '-v7.3');
 writetable(chain_summary_table, fullfile(out_dir, 'markov_chain_summary.csv'));
 writetable(unified_stage_table, fullfile(out_dir, 'unified_state_probability_stage_details.csv'));
 writetable(unified_summary_table, fullfile(out_dir, 'unified_state_probability_summary.csv'));
+writetable(stage_severity_table, fullfile(out_dir, 'stage_severity_details.csv'));
 writetable(wind_trip_detail_table, fullfile(out_dir, 'wind_trip_probability_details.csv'));
 writetable(generator_trip_detail_table, fullfile(out_dir, 'generator_trip_probability_details.csv'));
 writetable(line_candidate_detail_table, fullfile(out_dir, 'line_probability_candidate_details.csv'));

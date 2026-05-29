@@ -132,3 +132,9 @@ This does not replace formal `paper_formula`, does not write to `final_summary`,
 A same-run unified diagnostic smoke now records `P_line(E_k)`, `P_wt(E_k)`, `P_ge(E_k)`, and `P_total(E_k)` at Markov stage level. This complements the earlier offline composite table. Both remain diagnostic-only and are stored under `results/composite/`.
 
 The unified smoke does not replace formal `paper_formula`, does not write to `final_summary`, and does not implement actual wind or traditional generator trip transitions. Current `P_wt(E_k)` and `P_ge(E_k)` remain 1 in the smoke, so `P_total(E_k)` reduces to `P_line(E_k)`. The strict benchmark tables still cannot be claimed as fully reproduced until the original paper probability parameters and state transition rules are confirmed.
+
+## Unified Stage-Level Probability and Severity Diagnostic
+
+The unified composite diagnostic now records both stage probability and stage severity in the same Markov smoke. This improves the previous risk preview, which reused chain-summary severity at stage level. The new preview remains diagnostic-only and does not calculate formal VaR, does not write to `final_summary`, and does not replace paper benchmark results.
+
+Current unified stage-level risk still degenerates to line-only risk because `P_wt(E_k)=1` and `P_ge(E_k)=1` in this smoke. The main remaining blockers are still missing original paper probability parameters and missing actual wind/generator state transitions.
