@@ -73,6 +73,7 @@ for stage_id = 1:cfg.markov_max_depth
     else
         wind_trip_table = table();
     end
+    [~, wind_state_probability_detail] = compute_wind_state_probability(wind_trip_table, cfg);
 
     if converged
         candidate_table = update_line_outage_probabilities( ...
@@ -118,6 +119,7 @@ for stage_id = 1:cfg.markov_max_depth
     stage_records(stage_id).violations = violations;
     stage_records(stage_id).candidate_table = candidate_table;
     stage_records(stage_id).wind_trip_table = wind_trip_table;
+    stage_records(stage_id).wind_state_probability_detail = wind_state_probability_detail;
 
     if isempty(selected)
         break;

@@ -1,0 +1,11 @@
+wind_state_probability_diagnostic_smoke
+parameter_set_id=lvrt_hvrt_threshold_record
+probability_model=paper_threshold_record
+calibration_status=paper_thresholds_extracted_probability_missing
+scenario=distributed_wind_3000mw_base
+initial_branches=1:5
+trials_per_initial_fault=3
+chain_count=15
+valid_stage_count=23
+missing_probability_stage_count=0
+note=Record-only diagnostic; no wind unit was tripped and Markov line sampling was unchanged.

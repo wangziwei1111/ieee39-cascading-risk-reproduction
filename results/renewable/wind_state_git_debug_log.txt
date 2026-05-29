@@ -1,0 +1,69 @@
+﻿## git status --short
+ M config/base_config.m
+ M docs/paper_benchmark_alignment_report.md
+ M src/cascade/search_cascade_markov_line.m
+ M src/renewable/flatten_wind_trip_records.m
+ M src/renewable/record_wind_trip_probability.m
+?? docs/wind_state_probability_notes.md
+?? paper_inputs/filled/paper_wind_frequency_ride_through_rules.csv
+?? paper_inputs/filled/paper_wind_trip_probability_parameter_sets.csv
+?? results/renewable/
+?? src/main_check_wind_state_probability_model.m
+?? src/main_compare_wind_state_probability_effect.m
+?? src/main_run_wind_state_probability_diagnostic_smoke.m
+?? src/renewable/compute_wind_state_probability.m
+?? src/renewable/compute_wind_trip_probability.m
+?? src/renewable/flatten_wind_state_probability_records.m
+?? src/renewable/load_wind_trip_probability_parameter_set.m
+?? src/renewable/summarize_wind_state_probability_records.m
+
+## git ls-files src/renewable/compute_wind_trip_probability.m
+<not tracked>
+
+## git ls-files src/renewable/compute_wind_state_probability.m
+<not tracked>
+
+## git ls-files paper_inputs/filled/paper_wind_trip_probability_parameter_sets.csv
+<not tracked>
+
+## git ls-files src/main_run_wind_state_probability_diagnostic_smoke.m
+<not tracked>
+
+## git ls-files src/main_compare_wind_state_probability_effect.m
+<not tracked>
+
+## git ls-files src/main_check_wind_state_probability_model.m
+<not tracked>
+
+## git ls-files results/renewable/wind_state_probability_model_check_log.txt
+<not tracked>
+
+## dir src/renewable
+
+Name                                       Length
+----                                       ------
+compare_trip_record_vs_base.m                1935
+compute_wind_state_probability.m             2202
+compute_wind_trip_probability.m              7199
+flatten_wind_state_probability_records.m     1483
+flatten_wind_trip_records.m                  2467
+load_wind_trip_probability_parameter_set.m   2259
+record_wind_trip_probability.m               4979
+summarize_wind_state_probability_records.m   2001
+summarize_wind_trip_records.m                2172
+wind_voltage_trip_probability.m              2173
+
+
+
+## dir results/renewable
+
+Name                                         Mode   Length
+----                                         ----   ------
+wind_state_probability_diagnostic_smoke      d-----       
+wind_state_git_debug_log.txt                 -a---- 2530  
+wind_state_probability_effect_comparison.csv -a---- 3400  
+wind_state_probability_effect_summary.csv    -a---- 200   
+wind_state_probability_model_check_log.txt   -a---- 239   
+
+
+

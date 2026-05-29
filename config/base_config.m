@@ -58,7 +58,6 @@ cfg.paper_ols_two_stage_enable = false;
 cfg.paper_ols_two_stage_mode = 'none'; % none / dc_preshed_ac_pf / dc_preshed_ac_ols_polish
 cfg.paper_ols_dc_preshed_safety_factor = 1.00;
 cfg.paper_ols_dc_preshed_apply_q_mode = 'constant_power_factor'; % constant_power_factor / p_only
-cfg.paper_ols_two_stage_fail_policy = 'diagnostic_only';
 cfg.load_shedding_trigger_mode = 'nonconverged_only'; % 可选：nonconverged_only / nonconverged_or_violation / violation_only_diagnostic
 cfg.load_shedding_violation_check_enable = true;
 cfg.load_shedding_trigger_line_overload = true;
@@ -70,12 +69,18 @@ cfg.load_shedding_voltage_max_pu = cfg.voltage_max_pu;
 % 风机电压穿越脱网概率只记录，默认不在当前line-only Markov中触发。
 cfg.enable_wind_voltage_trip_sampling = false;
 cfg.wind_trip_record_only = true;
-cfg.wind_trip_probability_model = 'voltage_piecewise_diagnostic';
-cfg.wind_trip_low_voltage_start_pu = 0.90;   % 待校准：低电压概率开始区
-cfg.wind_trip_low_voltage_trip_pu = 0.20;    % 待校准：低于该电压概率记为1
-cfg.wind_trip_high_voltage_start_pu = 1.10;  % 待校准：高电压概率开始区
-cfg.wind_trip_high_voltage_trip_pu = 1.30;   % 待校准：高于该电压概率记为1
+cfg.wind_trip_probability_model = 'diagnostic_voltage_piecewise'; % none / diagnostic_voltage_piecewise / paper_threshold_record / paper_formula
+cfg.wind_trip_state_probability_enable = false;
+cfg.wind_trip_state_probability_mode = 'record_only'; % record_only / diagnostic_probability_only / actual_trip_state_transition
+cfg.wind_trip_low_voltage_start_pu = 0.90;
+cfg.wind_trip_low_voltage_forced_pu = 0.20;
+cfg.wind_trip_low_voltage_trip_pu = cfg.wind_trip_low_voltage_forced_pu; % legacy alias
+cfg.wind_trip_high_voltage_start_pu = 1.10;
+cfg.wind_trip_high_voltage_forced_pu = 1.30;
+cfg.wind_trip_high_voltage_trip_pu = cfg.wind_trip_high_voltage_forced_pu; % legacy alias
 cfg.wind_trip_probability_cap = 1.0;
+cfg.wind_trip_parameter_calibration_status = 'diagnostic_assumption_not_paper';
+cfg.wind_frequency_rule_file = fullfile('paper_inputs', 'filled', 'paper_wind_frequency_ride_through_rules.csv');
 
 % 综合风险权重。用户提供的论文权重为0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];

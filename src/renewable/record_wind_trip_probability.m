@@ -45,7 +45,28 @@ for k = 1:numel(wind_buses)
     end
 end
 
-[trip_probability, trip_region] = wind_voltage_trip_probability(voltage_pu, cfg);
+system_frequency_hz = NaN;
+if isfield(cfg, 'system_frequency_hz')
+    system_frequency_hz = cfg.system_frequency_hz;
+end
+wind_frequency_hz = repmat(system_frequency_hz, numel(wind_buses), 1);
+[trip_probability, probability_detail] = compute_wind_trip_probability(voltage_pu, wind_frequency_hz, cfg);
+trip_region = strings(numel(wind_buses), 1);
+voltage_region = strings(numel(wind_buses), 1);
+frequency_region = strings(numel(wind_buses), 1);
+wind_trip_probability_model = strings(numel(wind_buses), 1);
+wind_trip_calibration_status = strings(numel(wind_buses), 1);
+probability_status = strings(numel(wind_buses), 1);
+threshold_hit = false(numel(wind_buses), 1);
+for k = 1:numel(wind_buses)
+    trip_region(k) = string(probability_detail(k).voltage_region);
+    voltage_region(k) = string(probability_detail(k).voltage_region);
+    frequency_region(k) = string(probability_detail(k).frequency_region);
+    wind_trip_probability_model(k) = string(probability_detail(k).model_name);
+    wind_trip_calibration_status(k) = string(probability_detail(k).calibration_status);
+    probability_status(k) = string(probability_detail(k).status);
+    threshold_hit(k) = logical(probability_detail(k).threshold_hit);
+end
 initial_branch_col = repmat(initial_branch, numel(wind_buses), 1);
 trial_id_col = repmat(trial_id, numel(wind_buses), 1);
 stage_id_col = repmat(stage_id, numel(wind_buses), 1);
@@ -53,10 +74,14 @@ record_only = true(numel(wind_buses), 1);
 
 wind_trip_table = table(initial_branch_col, trial_id_col, stage_id_col, wind_index, ...
     wind_buses, wind_gen_rows(:), voltage_pu, wind_output_mw, wind_capacity(:), ...
-    trip_probability(:), string(trip_region(:)), record_only, ...
+    trip_probability(:), trip_probability(:), string(trip_region(:)), record_only, ...
+    wind_trip_probability_model, wind_trip_calibration_status, threshold_hit, ...
+    voltage_region, frequency_region, probability_status, ...
     'VariableNames', {'initial_branch', 'trial_id', 'stage_id', 'wind_index', ...
     'wind_bus', 'wind_gen_row', 'voltage_pu', 'wind_output_mw', 'wind_capacity_mw', ...
-    'trip_probability', 'trip_region', 'record_only'});
+    'trip_probability', 'p_wt_h', 'trip_region', 'record_only', ...
+    'wind_trip_probability_model', 'wind_trip_calibration_status', 'threshold_hit', ...
+    'voltage_region', 'frequency_region', 'probability_status'});
 end
 
 function v = get_info_vector(info, field_name, default_value)
@@ -69,8 +94,11 @@ v = v(:);
 end
 
 function tbl = empty_wind_trip_table()
-tbl = table([], [], [], [], [], [], [], [], [], [], strings(0, 1), false(0, 1), ...
+tbl = table([], [], [], [], [], [], [], [], [], [], [], strings(0, 1), false(0, 1), ...
+    strings(0, 1), strings(0, 1), false(0, 1), strings(0, 1), strings(0, 1), strings(0, 1), ...
     'VariableNames', {'initial_branch', 'trial_id', 'stage_id', 'wind_index', ...
     'wind_bus', 'wind_gen_row', 'voltage_pu', 'wind_output_mw', 'wind_capacity_mw', ...
-    'trip_probability', 'trip_region', 'record_only'});
+    'trip_probability', 'p_wt_h', 'trip_region', 'record_only', ...
+    'wind_trip_probability_model', 'wind_trip_calibration_status', 'threshold_hit', ...
+    'voltage_region', 'frequency_region', 'probability_status'});
 end

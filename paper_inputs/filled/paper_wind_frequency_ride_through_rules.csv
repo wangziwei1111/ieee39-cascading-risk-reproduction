@@ -1,0 +1,10 @@
+rule_id,f_min_hz,f_max_hz,minimum_run_time,frequency_region,source_note
+frt_01,,46.5,immediate_trip,immediate_low_frequency_trip,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.
+frt_02,46.5,47.0,5 s,low_frequency_5s,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.
+frt_03,47.0,47.5,20 s,low_frequency_20s,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.
+frt_04,47.5,48.0,60 s,low_frequency_60s,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.
+frt_05,48.0,48.5,30 min,low_frequency_30min,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.
+frt_06,48.5,50.5,continuous_operation,continuous_operation,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.
+frt_07,50.5,51.0,3 min,high_frequency_3min,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.
+frt_08,51.0,51.5,30 s,high_frequency_30s,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.
+frt_09,51.5,,immediate_trip,immediate_high_frequency_trip,Thesis Table 2-1 frequency ride-through rule; probability function not confirmed.

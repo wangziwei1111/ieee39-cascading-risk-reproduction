@@ -1,0 +1,2 @@
+stage_count,valid_stage_count,missing_probability_stage_count,mean_p_wt_Ek,min_p_wt_Ek,p05_p_wt_Ek,num_stages_with_positive_trip_probability,max_p_wt_h_overall,calibration_status,note
+23,23,0,1,1,1,0,0,paper_thresholds_extracted_probability_missing,Record-only diagnostic P_wt(E_k); no wind unit state transition was applied.

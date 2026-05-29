@@ -1,0 +1,3 @@
+wind_state_probability_model_check passed.
+required parameter sets: strict_missing, lvrt_hvrt_threshold_record, diagnostic_linear_voltage_probability
+note: P_wt(E_k) remains diagnostic only and is not integrated into formal paper_formula.

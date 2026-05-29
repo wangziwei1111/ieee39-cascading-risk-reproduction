@@ -1,0 +1,24 @@
+initial_branch,trial_id,stage_id,num_wind_units,num_probability_positive,max_p_wt_h,mean_p_wt_h,p_wt_Ek,status,mode,note
+1,1,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,1,2,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,1,3,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,1,4,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,1,5,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,2,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,2,2,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,2,3,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,2,4,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,2,5,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+1,3,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+2,1,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+2,2,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+2,3,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+3,1,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+3,2,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+3,3,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+4,1,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+4,2,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+4,3,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+5,1,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+5,2,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
+5,3,1,10,0,0,0,1,diagnostic_probability_only,diagnostic_probability_only,Record-only mode assumes all wind units remain online; P_wt(E_k)=prod(1-P_WT(h)) is a diagnostic online-state probability.
