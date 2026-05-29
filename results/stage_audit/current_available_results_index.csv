@@ -1,0 +1,12 @@
+result_group,file_path,description,can_be_used_for,caveat
+paper_inputs,paper_inputs/filled/paper_result_benchmark.csv,Original paper benchmark values entered from paper,paper benchmark comparison,"manual final verification still required"
+paper_alignment,results/paper_alignment/tables/paper_vs_reproduction_comparison.csv,paper vs current reproduction comparison,gap diagnosis and cautious comparison,"not strict numeric reproduction"
+paper_alignment,results/paper_alignment/tables/table46_wind_speed_paper_vs_reproduction.csv,Table 4-6 wind-speed comparison,paper Table 4-6 diagnostic comparison,"line-only and uncalibrated"
+OLS,results/loadshedding/ols_benchmark_smoke/tables/ols_benchmark_smoke_summary.csv,simple vs OLS smoke summary,OLS directionality study,"5-trial smoke only, high failure rates"
+OLS,docs/ols_stage_conclusion.md,OLS staged conclusion,methodology write-up,"OLS not ready for formal benchmark"
+line_P_L,results/outage/line_probability_parameter_smoke_summary.csv,P_L diagnostic parameter-set smoke summary,sensitivity analysis,"diagnostic assumptions only"
+wind_P_wt,results/renewable/wind_state_probability_effect_summary.csv,P_wt effect summary,wind probability diagnostic,"current Markov smoke has P_wt=1"
+generator_P_ge,results/generator/generator_state_probability_effect_summary.csv,P_ge effect summary,generator probability diagnostic,"static frequency and P_ge=1 in smoke"
+composite,results/composite/unified_state_probability_diagnostic_smoke/unified_state_probability_stage_details.csv,same-run P_line/P_wt/P_ge/P_total stage table,primary composite diagnostic,"diagnostic only"
+stage_severity,results/composite/unified_state_probability_diagnostic_smoke/stage_severity_details.csv,same-run stage severity detail,stage-level risk preview,"not formal VaR"
+stage_severity,results/composite/unified_stage_level_risk_preview.csv,P_total times stage severity preview,diagnostic risk preview,"not final benchmark"

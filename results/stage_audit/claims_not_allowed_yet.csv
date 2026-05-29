@@ -1,0 +1,10 @@
+claim,reason_not_allowed,required_before_claim
+已经严格复现论文表4-2/4-4/4-5/4-6,current results use engineering/diagnostic parameters and incomplete state transitions,original parameters and formal benchmark reruns
+OLS 已经替代 simple_load_shedding,OLS remains diagnostic and unstable for formal benchmark,confirmed AC/DC OLS settings and acceptable failure rate
+P_L 已按原文参数校准,P_L parameter sets are diagnostic-only,paper-extracted or calibrated original P_L parameters
+P_wt 已按原文概率函数实现,P_WT full probability function is missing,paper P_WT function and transition rule
+P_ge 已按原文概率函数实现,P_G thresholds/probabilities and dynamic frequency are missing,paper P_G parameters and transition rule
+综合状态概率已经进入正式 paper_formula,composite probability is offline/unified diagnostic only,formal integration after all component calibration
+当前结果可直接作为论文数值对照,unit/model/parameter bases are not aligned,calibrated reruns and unit alignment
+当前静态潮流频率可代表真实动态频率,static power flow uses nominal 50 Hz only,dynamic frequency model or paper-defined frequency approximation
+diagnostic 参数集就是论文原文参数,diagnostic assumptions are placeholders,user-confirmed original parameters

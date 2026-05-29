@@ -1,0 +1,30 @@
+input_id,category,parameter_or_information,needed_for_module,current_status,current_fallback_or_diagnostic_assumption,why_needed,where_to_find_or_ask_user,priority
+L01,line_P_L,P_L0 是否应等于表4-1或另有基础概率,P_L,missing,table4_1_P_L0_only diagnostic assumption,sets base flow-related outage probability,paper Section 3.1.1 or ask user,P0
+L02,line_P_L,L_Rated,P_L,missing,rateA factor diagnostic assumption,defines first breakpoint of flow probability,paper Section 3.1.1,P0
+L03,line_P_L,L_max,P_L,missing,1.2*rateA diagnostic assumption,defines overload probability saturation,paper Section 3.1.1,P0
+L04,line_P_L,P_W_D,P_L distance hidden failure,missing,distance hidden failure disabled,needed for distance protection hidden failure,paper Section 3.1.1 equation 3-4,P0
+L05,line_P_L,Z_III,P_L distance hidden failure,missing,no impedance parameter used,needed for distance hidden failure,paper Section 3.1.1,P0
+L06,line_P_L,P_L_D,P_L loading hidden failure,missing,low/medium diagnostic assumptions only,needed for overload protection hidden failure,paper Section 3.1.1,P0
+L07,line_P_L,P_L_r,P_L loading hidden failure,missing,low/medium diagnostic assumptions only,needed for severe overload hidden failure,paper Section 3.1.1,P0
+L08,line_P_L,P3,P_L total probability,missing_or_zero_assumption,P3=0 diagnostic placeholder,other outage factor in P_L=P1+P2+P3,paper Section 3.1.1,P1
+W01,wind_P_wt,P_WT(h) 完整概率函数,P_wt,missing,diagnostic linear voltage probability,required to compute paper wind state probability,paper Section 3.1.3,P0
+W02,wind_P_wt,LVRT/HVRT 持续时间到概率的映射,P_wt,missing,threshold record only,connects ride-through curve to trip probability,paper Section 2.2/3.1.3,P0
+W03,wind_P_wt,FRT 频率区间持续时间到概率的映射,P_wt,missing,frequency thresholds recorded but no probability mapping,needed for frequency trip probability,paper Section 3.1.3,P0
+W04,wind_P_wt,实际风机脱网状态转移抽样规则,wind actual trip,missing,record_only diagnostic,needed to reproduce Table 4-2 with trip states,paper Chapter 3 cascade algorithm,P0
+G01,generator_P_ge,P_G_f0,P_ge,missing,diagnostic voltage/frequency probability,normal frequency base outage probability,paper Section 3.1.2,P0
+G02,generator_P_ge,P_G_U0,P_ge,missing,diagnostic voltage/frequency probability,normal voltage base outage probability,paper Section 3.1.2,P0
+G03,generator_P_ge,频率阈值,P_ge,missing,48.5/49.5/50.5/51.5 diagnostic thresholds,defines generator frequency protection regions,paper Section 3.1.2,P0
+G04,generator_P_ge,电压阈值,P_ge,missing,0.7/0.9/1.1/1.3 diagnostic thresholds,defines generator voltage protection regions,paper Section 3.1.2,P0
+G05,generator_P_ge,分段线性概率参数,P_ge,missing,diagnostic linear assumptions,needed for paper P_G(q) values,paper Section 3.1.2,P0
+G06,generator_P_ge,传统机组实际停运状态转移抽样规则,generator actual trip,missing,record_only diagnostic,needed for actual generator outage states,paper cascade state transition description,P0
+O01,OLS,原文使用 AC-OLS 还是 DC-OLS,OLS,unknown,multiple diagnostic variants tested,determines load shedding model class,paper Section 3.2.3 or implementation appendix,P1
+O02,OLS,OPF 求解器设置,OLS,unknown,MATPOWER OPF diagnostic variants,needed for reproducible convergence,paper implementation details,P1
+O03,OLS,是否在所有越限 stage 触发 OLS,OLS,unknown,nonconverged_or_violation diagnostic only,determines when OLS is applied,paper cascade algorithm,P1
+O04,OLS,是否允许软约束,OLS,unknown,strict and relaxed diagnostics only,affects feasibility and risk,paper solver settings,P1
+O05,OLS,线路容量/电压边界设置,OLS/severity,partial,RATE_A and 0.9/1.1 approximations,needed for OLS constraints and severity,paper Chapter 4 case settings,P1
+S01,scenario,集中式接入节点,topology/Table 4-4,missing,current centralized node diagnostic assumption,needed for centralized benchmark,paper Chapter 4 scenario definition,P0
+S02,scenario,渗透率定义,penetration/Table 4-5,uncertain,engineering wind capacity/base load definition,needed for scenario capacity scaling,paper Chapter 4.4,P0
+S03,scenario,原文样本数或蒙特卡洛抽样次数,all benchmarks,missing,20-trial engineering setting and 5x3 diagnostics,needed for Monte Carlo comparability,paper Chapter 4 simulation settings,P0
+S04,scenario,是否使用相同随机种子,all benchmarks,missing,engineering seed only,needed if paper uses seeded Monte Carlo,paper implementation details,P2
+S05,scenario,原始 IEEE39 修改数据,all benchmarks,partial,MATPOWER case39 reference,needed for strict numerical reproduction,paper appendix or user-provided tables,P0
+S06,scenario,风电容量分配方式,wind/penetration/table46,partial,distributed engineering allocation,needed for exact wind dispatch,paper Chapter 4 scenario definition,P0

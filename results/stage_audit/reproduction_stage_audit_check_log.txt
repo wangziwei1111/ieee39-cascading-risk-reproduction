@@ -1,0 +1,34 @@
+reproduction_stage_audit_check_log
+generated_at=2026-05-29 15:18:30
+
+required_file=results/stage_audit/reproduction_module_status.csv exists=1
+required_file=results/stage_audit/missing_original_inputs_register.csv exists=1
+required_file=results/stage_audit/current_available_results_index.csv exists=1
+required_file=results/stage_audit/claims_not_allowed_yet.csv exists=1
+required_file=results/stage_audit/next_step_roadmap.csv exists=1
+required_file=docs/reproduction_stage_audit_report.md exists=1
+module=paper_inputs present=1
+module=paper_benchmark present=1
+module=initial_line_outage_probability_table4_1 present=1
+module=topology_compare present=1
+module=penetration_scan present=1
+module=wind_speed_scan present=1
+module=paper_table46_wind_speed_scan present=1
+module=OLS_load_shedding present=1
+module=line_subsequent_outage_probability_P_L present=1
+module=wind_trip_probability_P_wt present=1
+module=generator_outage_probability_P_ge present=1
+module=composite_state_probability present=1
+module=stage_level_severity present=1
+module=paper_benchmark_alignment present=1
+
+contains_strict_reproduction_warning=1
+contains_user_parameter_list=1
+forbidden_final_summary_file=results/final_summary/reproduction_stage_audit_check_log.txt exists=0
+forbidden_final_summary_file=results/final_summary/tables/reproduction_module_status.csv exists=0
+forbidden_final_summary_file=results/final_summary/tables/missing_original_inputs_register.csv exists=0
+
+claims_not_allowed_count=9
+missing_original_inputs_count=29
+
+check_status=passed
