@@ -52,6 +52,12 @@ if exist(formulation_path, 'file')
     plot_formulation_failure_rate(formulation, fullfile(figure_dir, 'ols_formulation_failure_rate.png'));
     plot_formulation_q_behavior(formulation, fullfile(figure_dir, 'ols_formulation_q_behavior.png'));
     plot_formulation_cri(formulation, fullfile(figure_dir, 'ols_formulation_cri_comparison.png'));
+    plot_two_stage_failure_rate(formulation, fullfile(figure_dir, 'ols_two_stage_failure_rate.png'));
+    plot_two_stage_cri(formulation, fullfile(figure_dir, 'ols_two_stage_cri_comparison.png'));
+end
+dc_preshed_path = fullfile(table_dir, 'dc_preshed_dispatchable_summary.csv');
+if exist(dc_preshed_path, 'file')
+    plot_dc_preshed_success(readtable(dc_preshed_path), fullfile(figure_dir, 'dc_preshed_dispatchable_success.png'));
 end
 end
 
@@ -292,6 +298,47 @@ bar([tbl.weighted_CRI_095, tbl.paper_CRI_095]);
 set(gca, 'XTickLabel', cellstr(labels + newline + string(tbl.scenario_id)), 'XTickLabelRotation', 35);
 ylabel('CRI');
 title('OLS formulation diagnostic: CRI comparison (5-trial)');
+legend({'weighted CRI','paper formula CRI'}, 'Location', 'best');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_dc_preshed_success(tbl, out_path)
+figure('Visible', 'off', 'Color', 'w');
+bar(tbl.success_rate);
+set(gca, 'XTickLabel', cellstr(string(tbl.test_mode)), 'XTickLabelRotation', 25);
+ylim([0, 1]);
+ylabel('Success rate');
+title('DC preshed + dispatchable AC diagnostic success');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_two_stage_failure_rate(tbl, out_path)
+sub = tbl(contains(string(tbl.formulation), "dispatchable_load"), :);
+if isempty(sub), return; end
+labels = strcat(string(sub.formulation), newline, string(sub.scenario_id));
+figure('Visible', 'off', 'Color', 'w');
+bar(sub.failure_rate);
+set(gca, 'XTickLabel', cellstr(labels), 'XTickLabelRotation', 35);
+ylabel('OLS failure rate');
+title('Two-stage DC-AC OLS diagnostic: failure rate');
+grid on;
+saveas(gcf, out_path);
+close(gcf);
+end
+
+function plot_two_stage_cri(tbl, out_path)
+sub = tbl(contains(string(tbl.formulation), "dispatchable_load"), :);
+if isempty(sub), return; end
+labels = strcat(string(sub.formulation), newline, string(sub.scenario_id));
+figure('Visible', 'off', 'Color', 'w');
+bar([sub.weighted_CRI_095, sub.paper_CRI_095]);
+set(gca, 'XTickLabel', cellstr(labels), 'XTickLabelRotation', 35);
+ylabel('CRI');
+title('Two-stage DC-AC OLS diagnostic: CRI comparison');
 legend({'weighted CRI','paper formula CRI'}, 'Location', 'best');
 grid on;
 saveas(gcf, out_path);

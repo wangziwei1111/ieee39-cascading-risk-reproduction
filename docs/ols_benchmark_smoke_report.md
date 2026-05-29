@@ -1,5 +1,15 @@
 # OLS Benchmark Smoke Report
 
+## DC-OLS preshed + dispatchable AC-OLS 两阶段诊断
+
+本轮只在既有 `dispatchable_load` 5-trial smoke 的失败样本和独立 two-stage smoke 目录中做诊断，不覆盖 `free_q`、`fixed_q`、`dispatchable_load` 主结果，也不写入 `final_summary`。
+
+对导出的 10 个 dispatchable-load 失败样本，`solve_dc_ols_preshed` 的 DC LP 全部成功。直接把 DC 预切负荷应用后运行 AC PF 时，10 个样本中 6 个收敛，说明不少剩余失败并不是有功网络层面的硬不可行，而与 AC 无功/电压约束、OPF 数值路径或后续 AC 可行化有关。进一步执行 `dc_preshed_ac_ols_polish` 时，AC-OLS polish 有 3 个 OPF 成功，但最终 PF 后验成功仍为 0/10，因此当前两阶段 polish 尚未形成稳定可用的 OLS 路径。
+
+三组 5-trial two-stage smoke 结果也保持谨慎结论：`distributed_wind_3000mw_base`、`distributed_wind_penetration_40pct`、`paper_wind_speed_12_00mps` 的 two-stage failure rate 分别约为 0.269、0.204、0.269，均高于 0.1。`ols_formulation_comparison.csv` 因此将 `dispatchable_load_two_stage_dc_ac` 标记为 `still_not_ready_for_formal_benchmark`。
+
+当前建议是不进入正式 20-trial OLS benchmark。DC-OLS preshed 可以保留为失败样本可行性筛查工具；若后续继续推进，应先研究为什么 DC preshed 后直接 AC PF 能解决部分样本，而 AC-OLS polish 反而无法稳定通过 PF 后验，再决定是否采用两阶段方法作为论文 OLS 的工程近似。
+
 ## Purpose
 
 This smoke experiment checks how the optional paper-style OLS load shedding path changes current risk indicators relative to the default `simple_load_shedding` path.

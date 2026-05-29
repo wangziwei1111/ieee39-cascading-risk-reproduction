@@ -34,6 +34,12 @@ if isempty(load_rows)
     return;
 end
 
+if isfield(cfg, 'paper_ols_two_stage_enable') && cfg.paper_ols_two_stage_enable
+    [mpc_shed, pf_result, shed, ols_detail] = solve_two_stage_load_shedding( ...
+        mpc_in, cfg, cumulative_load_shed_mw, base_load_mw, original_gen_count);
+    return;
+end
+
 try
     formulation = lower(string(get_cfg(cfg, 'paper_ols_formulation', 'positive_injection_generator')));
     if formulation == "dispatchable_load"
@@ -129,6 +135,110 @@ end
 failure_info = diagnose_ols_failure(mpc_in, pf_result, ols_detail, struct(), cfg);
 ols_detail.diagnosis_failure_type = failure_info.failure_type;
 ols_detail.diagnosis_likely_cause = failure_info.likely_cause;
+end
+
+function [mpc_shed, pf_result, shed, detail] = solve_two_stage_load_shedding(mpc_in, cfg, cumulative_load_shed_mw, base_load_mw, original_gen_count)
+detail = init_detail(cfg, cumulative_load_shed_mw, original_gen_count);
+detail.two_stage_enable = true;
+detail.two_stage_mode = string(get_cfg(cfg, 'paper_ols_two_stage_mode', 'none'));
+detail.two_stage_status = "not_started";
+detail.dc_lp_success = false;
+detail.dc_preshed_load_mw = NaN;
+detail.ac_polish_load_shed_mw = NaN;
+detail.total_two_stage_load_shed_mw = NaN;
+mpc_shed = mpc_in;
+pf_result = struct('success', false);
+shed = init_shed(cumulative_load_shed_mw, base_load_mw, false);
+
+[mpc_preshed, dc_detail] = solve_dc_ols_preshed(mpc_in, cfg);
+detail.dc_detail = dc_detail;
+detail.dc_lp_success = logical(get_struct_field(dc_detail, 'lp_success', false));
+detail.dc_preshed_load_mw = get_struct_field(dc_detail, 'objective_load_shed_mw', NaN);
+if ~detail.dc_lp_success
+    detail.status = "failed";
+    detail.two_stage_status = "dc_preshed_failed";
+    detail.message = "Two-stage OLS stopped because DC-OLS preshed failed: " + string(get_struct_field(dc_detail, 'message', ""));
+    detail.objective_load_shed_mw = detail.dc_preshed_load_mw;
+    failure_info = diagnose_ols_failure(mpc_in, pf_result, detail, struct(), cfg);
+    detail.diagnosis_failure_type = failure_info.failure_type;
+    detail.diagnosis_likely_cause = failure_info.likely_cause;
+    return;
+end
+
+mode = lower(string(get_cfg(cfg, 'paper_ols_two_stage_mode', 'none')));
+switch mode
+    case "dc_preshed_ac_pf"
+        [pf_result, pf_success] = run_ac_powerflow(mpc_preshed);
+        mpc_shed = mpc_preshed;
+        corrective = detail.dc_preshed_load_mw;
+        shed = build_shed(cumulative_load_shed_mw, corrective, base_load_mw, pf_success);
+        detail.status = ternary_status(pf_success);
+        detail.two_stage_status = "dc_preshed_ac_pf";
+        detail.pf_success_after_apply = pf_success;
+        detail.converged_after_shed = pf_success;
+        detail.opf_success = detail.dc_lp_success;
+        detail.objective_load_shed_mw = corrective;
+        detail.corrective_load_shed_mw = corrective;
+        detail.total_load_shed_mw = shed.total_load_shed_mw;
+        detail.total_two_stage_load_shed_mw = corrective;
+        detail.message = "Two-stage DC preshed followed by AC PF diagnostic.";
+        detail = attach_after_apply_metrics(detail, pf_result, pf_success, cfg);
+
+    case "dc_preshed_ac_ols_polish"
+        cfg2 = cfg;
+        cfg2.paper_ols_two_stage_enable = false;
+        [mpc_polish, pf_result, polish_shed, polish_detail] = ...
+            solve_paper_ols_load_shedding(mpc_preshed, cfg2, cumulative_load_shed_mw + detail.dc_preshed_load_mw);
+        mpc_shed = mpc_polish;
+        polish_corrective = get_struct_field(polish_detail, 'corrective_load_shed_mw', NaN);
+        if isnan(polish_corrective), polish_corrective = 0; end
+        corrective = detail.dc_preshed_load_mw + polish_corrective;
+        shed = build_shed(cumulative_load_shed_mw, corrective, base_load_mw, polish_shed.converged_after_shed);
+        detail.ac_polish_detail = polish_detail;
+        detail.ac_polish_load_shed_mw = polish_corrective;
+        detail.objective_load_shed_mw = corrective;
+        detail.corrective_load_shed_mw = corrective;
+        detail.total_load_shed_mw = shed.total_load_shed_mw;
+        detail.total_two_stage_load_shed_mw = corrective;
+        detail.opf_success = logical(get_struct_field(polish_detail, 'opf_success', false));
+        detail.pf_success_after_apply = logical(get_struct_field(polish_detail, 'pf_success_after_apply', false));
+        detail.converged_after_shed = detail.pf_success_after_apply;
+        detail.status = ternary_status(detail.pf_success_after_apply);
+        detail.two_stage_status = "dc_preshed_ac_ols_polish";
+        detail.message = "Two-stage DC preshed followed by dispatchable-load AC-OLS polish. " + string(get_struct_field(polish_detail, 'message', ""));
+        detail = copy_polish_metrics(detail, polish_detail);
+
+    otherwise
+        detail.status = "failed";
+        detail.two_stage_status = "unsupported_two_stage_mode";
+        detail.message = "Unsupported paper_ols_two_stage_mode: " + string(mode);
+end
+failure_info = diagnose_ols_failure(mpc_in, pf_result, detail, struct(), cfg);
+detail.diagnosis_failure_type = failure_info.failure_type;
+detail.diagnosis_likely_cause = failure_info.likely_cause;
+end
+
+function value = ternary_status(success)
+if success
+    value = "success";
+else
+    value = "failed";
+end
+end
+
+function detail = copy_polish_metrics(detail, polish_detail)
+fields = {'num_shed_buses','max_bus_shed_mw','shed_gen_pg_sum','shed_gen_qg_sum', ...
+    'max_abs_shed_gen_qg','shed_q_applied_sum','q_mismatch_between_opf_and_applied', ...
+    'q_mismatch_warning','served_load_mw','shed_load_mw','served_q_mvar', ...
+    'max_positive_q_injection','max_line_loading_after_apply','min_voltage_after_apply', ...
+    'max_voltage_after_apply','opf_branch_max_loading','opf_min_voltage','opf_max_voltage', ...
+    'opf_num_binding_branch','opf_num_binding_q_generators','opf_num_binding_p_generators', ...
+    'runpf_after_apply_success','runpf_after_apply_message'};
+for i = 1:numel(fields)
+    if isfield(polish_detail, fields{i})
+        detail.(fields{i}) = polish_detail.(fields{i});
+    end
+end
 end
 
 function [mpc_opf, shed_gen_rows, load_bus_rows, meta] = build_dispatchable_shed_case(mpc_in, cfg, load_rows)

@@ -156,3 +156,11 @@ cfg.paper_ols_shed_gen_q_mode = 'free_q';
 本轮实现的无功诊断模式为 `paper_ols_dispatchable_load_q_mode='variable_absorption'`。对于感性无功负荷，dispatchable load 的 `QMIN=-Qd`、`QMAX=0`，允许吸收无功但禁止正无功注入；对于 `Qd<=0` 的节点，容性无功保持为固定 bus `QD`，避免通过可调负荷提供人工无功支撑。该处理比正注入 shed generator 更接近“负荷侧变量”，但仍是诊断建模，尚未确认等同于论文第3.2.3节的最终 OLS。
 
 当前 5-trial smoke 结果显示，dispatchable-load 形式能显著改善导出失败样本的后验 PF 成功率，但没有降低完整 smoke 的总体 OLS 失败率。因此它应继续作为诊断候选，而不是正式默认。默认配置仍保持 `cfg.paper_ols_formulation='positive_injection_generator'` 和 `cfg.load_shedding_mode='simple'`，避免影响已有复现结果。
+
+## DC-OLS 先导与 AC-OLS polish
+
+本轮新增 `cfg.paper_ols_two_stage_enable` 与 `cfg.paper_ols_two_stage_mode`，默认保持关闭。可选诊断模式包括 `dc_preshed_ac_pf` 和 `dc_preshed_ac_ols_polish`。这些模式只用于解释 dispatchable-load OLS 的剩余失败，不作为正式 benchmark 或原文最终 OLS。
+
+`solve_dc_ols_preshed` 使用 DC 潮流近似建立线性最小切负荷问题，变量包括节点相角、发电机有功和负荷削减量，并保留发电机 P 上下限、线路容量约束和 `0 <= C_i <= Pd_i`。求得的预切负荷可按 constant power factor 同步应用无功，随后再做 AC PF 或 dispatchable-load AC-OLS polish。
+
+当前诊断结果显示：DC LP 对导出的 dispatchable-load 失败样本全部找到线性可行解，DC preshed 后直接 AC PF 可解决部分样本；但 DC preshed 后继续 AC-OLS polish 的最终 PF 后验成功率仍不足，5-trial two-stage smoke 的失败率仍高于 0.1。因此两阶段方法目前只能作为诊断候选，不能进入正式 20-trial benchmark，也不能写入 `final_summary`。

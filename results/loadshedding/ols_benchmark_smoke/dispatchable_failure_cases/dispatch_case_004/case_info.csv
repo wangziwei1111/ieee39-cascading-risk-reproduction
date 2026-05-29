@@ -1,0 +1,2 @@
+case_export_id,scenario_id,initial_branch,trial_id,stage_id,failure_type,trigger_reason,message,export_status
+dispatch_case_004,distributed_wind_3000mw_base,10,5,4,dispatchable_opf_nonconverged,nonconverged_powerflow,OLS OPF did not converge.,exported

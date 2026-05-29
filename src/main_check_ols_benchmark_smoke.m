@@ -29,6 +29,11 @@ dispatch_sign_path = fullfile(table_dir, 'dispatchable_load_sign_convention_test
 dispatch_case_path = fullfile(table_dir, 'ols_dispatchable_load_case_test.csv');
 dispatch_case_summary_path = fullfile(table_dir, 'ols_dispatchable_load_case_summary.csv');
 formulation_comparison_path = fullfile(table_dir, 'ols_formulation_comparison.csv');
+dispatch_failure_diag_path = fullfile(table_dir, 'dispatchable_load_failure_diagnosis.csv');
+dispatch_failure_summary_path = fullfile(table_dir, 'dispatchable_load_failure_summary.csv');
+dispatch_failure_case_index_path = fullfile(table_dir, 'dispatchable_failure_case_index.csv');
+dc_preshed_test_path = fullfile(table_dir, 'dc_preshed_dispatchable_failure_test.csv');
+dc_preshed_summary_path = fullfile(table_dir, 'dc_preshed_dispatchable_summary.csv');
 must_exist(summary_path); must_exist(delta_path); must_exist(bench_path);
 must_exist(failure_diag_path); must_exist(failure_summary_path); must_exist(robust_path);
 must_exist(apply_test_path); must_exist(apply_summary_path);
@@ -37,6 +42,9 @@ must_exist(alternative_path); must_exist(dc_preview_path);
 must_exist(fixed_test_path); must_exist(fixed_summary_path); must_exist(fixed_delta_path);
 must_exist(dispatch_sign_path); must_exist(dispatch_case_path);
 must_exist(dispatch_case_summary_path); must_exist(formulation_comparison_path);
+must_exist(dispatch_failure_diag_path); must_exist(dispatch_failure_summary_path);
+must_exist(dispatch_failure_case_index_path); must_exist(dc_preshed_test_path);
+must_exist(dc_preshed_summary_path);
 summary = readtable(summary_path);
 delta = readtable(delta_path);
 bench = readtable(bench_path);
@@ -57,6 +65,12 @@ dispatch_sign = readtable(dispatch_sign_path);
 dispatch_case = readtable(dispatch_case_path);
 dispatch_case_summary = readtable(dispatch_case_summary_path);
 formulation_comparison = readtable(formulation_comparison_path);
+dispatch_failure_diag = readtable(dispatch_failure_diag_path);
+dispatch_failure_summary = readtable(dispatch_failure_summary_path);
+dispatch_failure_case_index = readtable(dispatch_failure_case_index_path, ...
+    detectImportOptions(dispatch_failure_case_index_path, 'Delimiter', ',', 'VariableNamingRule', 'preserve'));
+dc_preshed_test = readtable(dc_preshed_test_path);
+dc_preshed_summary = readtable(dc_preshed_summary_path);
 
 scenarios = string(unique(summary.scenario_id, 'stable'));
 for i = 1:numel(scenarios)
@@ -101,6 +115,9 @@ must_exist(fullfile(figure_dir, 'ols_fixed_q_cri_delta.png'));
 must_exist(fullfile(figure_dir, 'ols_formulation_failure_rate.png'));
 must_exist(fullfile(figure_dir, 'ols_formulation_q_behavior.png'));
 must_exist(fullfile(figure_dir, 'ols_formulation_cri_comparison.png'));
+must_exist(fullfile(figure_dir, 'dc_preshed_dispatchable_success.png'));
+must_exist(fullfile(figure_dir, 'ols_two_stage_failure_rate.png'));
+must_exist(fullfile(figure_dir, 'ols_two_stage_cri_comparison.png'));
 if exist(fullfile(project_root, 'results', 'final_summary', 'tables', 'ols_benchmark_smoke_summary.csv'), 'file')
     error('OLS benchmark smoke must not write into final_summary.');
 end
@@ -148,6 +165,10 @@ end
 if isempty(dispatch_sign) || isempty(dispatch_case) || isempty(dispatch_case_summary) || isempty(formulation_comparison)
     error('Dispatchable-load diagnostic tables must not be empty.');
 end
+if isempty(dispatch_failure_diag) || isempty(dispatch_failure_summary) || isempty(dispatch_failure_case_index) || ...
+        isempty(dc_preshed_test) || isempty(dc_preshed_summary)
+    error('Dispatchable-load failure and DC preshed diagnostic tables must not be empty.');
+end
 if any(string(dispatch_sign.status) == "fail")
     error('Dispatchable-load sign convention has failed rows.');
 end
@@ -183,6 +204,22 @@ if isempty(dispatch_form_rows)
 end
 if exist(fullfile(project_root, 'results', 'final_summary', 'tables', 'ols_formulation_comparison.csv'), 'file')
     error('Dispatchable-load diagnostics must not write into final_summary.');
+end
+if exist(fullfile(project_root, 'results', 'final_summary', 'tables', 'dc_preshed_dispatchable_summary.csv'), 'file')
+    error('DC preshed diagnostics must not write into final_summary.');
+end
+if exist(fullfile(project_root, 'src', 'loadshedding', 'solve_dc_ols_preshed.m'), 'file') ~= 2
+    error('solve_dc_ols_preshed.m is missing.');
+end
+two_stage_rows = formulation_comparison(string(formulation_comparison.formulation) == "dispatchable_load_two_stage_dc_ac", :);
+if isempty(two_stage_rows)
+    error('Formulation comparison must include dispatchable_load_two_stage_dc_ac.');
+end
+for fd = 1:numel(fixed_dirs)
+    two_stage_dir = fullfile(root_dir, 'two_stage_dc_ac', char(fixed_dirs(fd)), 'tables');
+    must_exist(fullfile(two_stage_dir, 'markov_chain_summary.csv'));
+    must_exist(fullfile(two_stage_dir, 'ols_stage_details.csv'));
+    must_exist(fullfile(two_stage_dir, 'ols_summary.csv'));
 end
 for ci = 1:height(case_index)
     if ~exist(char(string(case_index.case_dir(ci))), 'dir')
@@ -246,6 +283,13 @@ if any(dispatch_form_rows.failure_rate > 0.1)
     fprintf(fid, 'dispatchable_load_recommendation=Failure rate remains above 0.1 for at least one scenario; do not proceed to formal benchmark.\n');
 else
     fprintf(fid, 'dispatchable_load_recommendation=Failure rate is below 0.1 in this 5-trial diagnostic; still requires separate review before formal benchmark.\n');
+end
+fprintf(fid, 'dispatchable_failure_rows=%d dispatchable_exported_cases=%d dc_preshed_rows=%d\n', ...
+    height(dispatch_failure_diag), height(dispatch_failure_case_index), height(dc_preshed_test));
+if any(two_stage_rows.failure_rate > 0.1)
+    fprintf(fid, 'two_stage_recommendation=Two-stage failure rate remains above 0.1 for at least one scenario; do not proceed to formal benchmark.\n');
+else
+    fprintf(fid, 'two_stage_recommendation=Two-stage failure rate is below 0.1; consider a future 20-trial diagnostic rerun, still not final reproduction.\n');
 end
 fprintf(fid, 'check_status=passed; note=5-trial smoke only, not final thesis result.\n');
 fprintf('OLS benchmark smoke check passed: %s\n', log_path);

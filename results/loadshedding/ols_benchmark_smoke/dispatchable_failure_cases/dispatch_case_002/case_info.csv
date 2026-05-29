@@ -1,0 +1,2 @@
+case_export_id,scenario_id,initial_branch,trial_id,stage_id,failure_type,trigger_reason,message,export_status
+dispatch_case_002,distributed_wind_3000mw_base,14,3,3,dispatchable_pf_after_apply_nonconverged,nonconverged_powerflow,"OLS OPF succeeded, but AC PF did not converge after applying load shedding.",exported

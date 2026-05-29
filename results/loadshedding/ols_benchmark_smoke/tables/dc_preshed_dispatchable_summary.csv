@@ -1,0 +1,4 @@
+test_mode,case_count,dc_lp_success_count,ac_pf_success_count,ac_ols_success_count,pf_after_ac_ols_success_count,mean_total_load_shed_mw,success_rate,recommendation
+baseline_dispatchable_load,10,0,0,0,0,349.397121141803,0,not_ready_for_formal_benchmark
+dc_preshed_ac_pf,10,10,6,0,0,331.516035060179,0.6,diagnostic_only
+dc_preshed_ac_ols_polish,10,10,0,3,0,376.751760832125,0,not_ready_for_formal_benchmark

@@ -1,0 +1,3 @@
+two_stage_dc_ac OLS benchmark smoke scenario=distributed_wind_3000mw_base
+5-trial diagnostic only; not final thesis result.
+chain_count=230 failed_ols=50

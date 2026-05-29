@@ -1,0 +1,4 @@
+scenario_id,total_dispatchable_attempts,dispatchable_failed_count,failure_rate,opf_nonconverged_count,pf_after_apply_nonconverged_count,network_hard_infeasible_count,dc_feasible_ac_infeasible_count,top_failure_type,recommended_next_action
+distributed_wind_3000mw_base,194,52,0.268041237113402,38,14,0,0,dispatchable_opf_nonconverged,Run DC preshed and two-stage diagnostic before any formal benchmark.
+distributed_wind_penetration_40pct,153,30,0.196078431372549,24,6,0,0,dispatchable_opf_nonconverged,Run DC preshed and two-stage diagnostic before any formal benchmark.
+paper_wind_speed_12_00mps,194,52,0.268041237113402,38,14,0,0,dispatchable_opf_nonconverged,Run DC preshed and two-stage diagnostic before any formal benchmark.
