@@ -1,0 +1,5 @@
+parameter_set_id,parameter_set_type,P_L0_source,P_L0_value,L_rated_factor,L_max_factor,P_W_D,ZIII_factor,P_L_D,P_L_r,P3,hidden_distance_enable,hidden_loading_enable,calibration_status,source_note
+strict_missing,missing_original_parameters,missing,,1.0,1.2,,,,,0,false,false,missing_original_parameters,"Original formula recorded, numeric parameters not confirmed."
+table41_P_L0_only,diagnostic,table4_1_initial_probability,,1.0,1.2,,,,,0,false,false,diagnostic_assumption_not_paper,"Uses Table 4-1 initial outage probabilities as P_L0 for diagnostics only; not confirmed paper subsequent-outage parameter."
+low_hidden_failure_diagnostic,diagnostic,table4_1_initial_probability,,1.0,1.2,,,1e-4,1e-2,0,false,true,diagnostic_assumption_not_paper,"Diagnostic-only low hidden-loading failure parameters; not paper calibrated."
+medium_hidden_failure_diagnostic,diagnostic,table4_1_initial_probability,,1.0,1.2,,,1e-3,5e-2,0,false,true,diagnostic_assumption_not_paper,"Diagnostic-only medium hidden-loading failure parameters; not paper calibrated."

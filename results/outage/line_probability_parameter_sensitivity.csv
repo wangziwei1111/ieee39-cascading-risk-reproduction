@@ -1,0 +1,5 @@
+parameter_set_id,candidate_count,valid_probability_count,missing_or_fallback_count,mean_probability,p50_probability,p95_probability,max_probability,mean_abs_diff_vs_engineering,p95_abs_diff_vs_engineering,calibration_status,note
+strict_missing,963,963,963,0.0167666644676868,0.0001,0.0197223849130644,1,0,0,missing_original_parameters,diagnostic parameter set; not calibrated paper value
+table41_P_L0_only,963,963,0,0.0143682855714396,0.000468,0.000685,1,0.00301161046426393,0.0119175093754872,diagnostic_assumption_not_paper,diagnostic parameter set; not calibrated paper value
+low_hidden_failure_diagnostic,963,963,0,0.0144675586763202,0.000568,0.000785,1,0.00307784722438854,0.0118175093754872,diagnostic_assumption_not_paper,diagnostic parameter set; not calibrated paper value
+medium_hidden_failure_diagnostic,963,963,0,0.0153610166202454,0.001468,0.001685,1,0.00386102479448199,0.0109175093754872,diagnostic_assumption_not_paper,diagnostic parameter set; not calibrated paper value

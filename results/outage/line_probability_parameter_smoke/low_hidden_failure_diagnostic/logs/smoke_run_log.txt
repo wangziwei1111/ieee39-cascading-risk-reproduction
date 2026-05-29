@@ -1,0 +1,6 @@
+line probability parameter smoke
+parameter_set_id=low_hidden_failure_diagnostic
+chain_count=15
+fallback_count=0
+recommendation=diagnostic_only_not_for_formal_benchmark
+note=Diagnostic 5x3 smoke only; not final benchmark.

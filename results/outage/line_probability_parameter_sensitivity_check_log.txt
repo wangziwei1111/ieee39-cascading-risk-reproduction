@@ -1,0 +1,6 @@
+line probability parameter sensitivity check passed
+parameter_set_count=4
+curve_rows=644
+sensitivity_rows=4
+smoke_rows=4
+note=All diagnostic parameter sets remain diagnostic-only and are not written to final_summary.

@@ -19,7 +19,8 @@ switch mode
     case "paper_formula"
         [paper_probability, paper_detail] = compute_paper_line_outage_probability( ...
             line_loading_pu, branch_row, cfg, varargin{:}, ...
-            'fallback_probability', engineering_probability);
+            'fallback_probability', engineering_probability, ...
+            'branch_index', get_branch_index(branch_row));
         p = paper_probability;
         detail = merge_paper_detail(detail, paper_detail);
         detail.model = "paper_formula";
@@ -27,7 +28,8 @@ switch mode
     case "paper_formula_diagnostic"
         [paper_probability, paper_detail] = compute_paper_line_outage_probability( ...
             line_loading_pu, branch_row, cfg, varargin{:}, ...
-            'fallback_probability', engineering_probability);
+            'fallback_probability', engineering_probability, ...
+            'branch_index', get_branch_index(branch_row));
         p = engineering_probability;
         detail = merge_paper_detail(detail, paper_detail);
         detail.model = "paper_formula_diagnostic";
@@ -47,6 +49,8 @@ detail.paper_formula_P_flow = paper_detail.P_flow;
 detail.paper_formula_P_hidden_distance = paper_detail.P_hidden_distance;
 detail.paper_formula_P_hidden_loading = paper_detail.P_hidden_loading;
 detail.paper_formula_P3 = paper_detail.P3;
+detail.paper_formula_parameter_set_id = string(paper_detail.parameter_set_id);
+detail.paper_formula_calibration_status = string(paper_detail.parameter_calibration_status);
 end
 
 function value = get_cfg(cfg, name, default_value)
@@ -54,5 +58,13 @@ if isfield(cfg, name)
     value = cfg.(name);
 else
     value = default_value;
+end
+end
+
+function branch_index = get_branch_index(branch_row)
+if numel(branch_row) >= 14
+    branch_index = branch_row(14);
+else
+    branch_index = NaN;
 end
 end

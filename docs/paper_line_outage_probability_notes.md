@@ -50,3 +50,13 @@ cfg.line_outage_probability_model = 'paper_formula_diagnostic';
 ## 后续工作
 
 后续需要从论文中继续确认 `P_L0`、`P_W_D`、`P_L_D`、`P_L_r`、`Z_III`、`L_Rated`、`L_max` 的数值或计算方式。确认前不能把当前 paper_formula 线路概率称为已校准，也不能将其设置为默认正式 benchmark 模型。
+
+## 线路停运概率参数集与敏感性诊断
+
+已新增 `paper_inputs/filled/paper_line_probability_parameter_sets.csv`，将论文式 `P_L` 所需参数集中管理。当前包含四个参数集：`strict_missing`、`table41_P_L0_only`、`low_hidden_failure_diagnostic`、`medium_hidden_failure_diagnostic`。
+
+`strict_missing` 保持原文缺失参数为 NaN，用于验证 missing/fallback 逻辑。`table41_P_L0_only` 使用表4-1初始停运概率作为 `P_L0`，这只是诊断假设，不能称为论文已确认的后续停运概率参数。`low_hidden_failure_diagnostic` 和 `medium_hidden_failure_diagnostic` 加入低/中等潮流越限隐性故障参数，也仅用于敏感性分析，不是原文参数。
+
+敏感性输出位于 `results/outage/`：曲线图 `figures/line_probability_curves_by_parameter_set.png`，候选线路概率分布表 `line_probability_parameter_sensitivity.csv`，以及 5x3 小样本 Markov 诊断 `line_probability_parameter_smoke_summary.csv`。这些结果不写入 `final_summary`，不能作为正式论文 benchmark。
+
+当前结果显示，`strict_missing` 会全部 fallback；三个 diagnostic 参数集可计算非 fallback 的 paper_formula 概率，但 calibration_status 均为 `diagnostic_assumption_not_paper`。后续若用户提供原文参数，应新增 `original_paper_extracted` 参数集，而不是覆盖这些诊断参数集。

@@ -30,7 +30,7 @@ paper_formula_missing_parameters = strings(num_candidates, 1);
 paper_formula_used_fallback = false(num_candidates, 1);
 for k = 1:num_candidates
     branch_idx = candidate_table.branch_index(k);
-    branch_row = mpc.branch(branch_idx, :);
+    branch_row = [mpc.branch(branch_idx, :), branch_idx];
     [outage_probability(k), prob_detail] = compute_line_outage_probability_dispatch( ...
         candidate_table.loading_pu(k), branch_row, cfg);
     prob_model(k) = string(prob_detail.model);

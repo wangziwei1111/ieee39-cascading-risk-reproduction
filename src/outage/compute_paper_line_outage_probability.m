@@ -10,6 +10,7 @@ fallback_probability = args.fallback_probability;
 Z_m = args.Z_m;
 Z_III = args.Z_III;
 protection_mode = args.protection_mode;
+branch_index = args.branch_index;
 
 missing = strings(0, 1);
 used_fallback = false;
@@ -17,12 +18,15 @@ note = "paper_formula diagnostic; parameters require calibration";
 
 L_rated = get_cfg(cfg, 'paper_line_L_rated_factor', 1.0);
 L_max = get_cfg(cfg, 'paper_line_L_max_factor', 1.2);
-P_L0 = get_cfg(cfg, 'paper_line_P_L0', NaN);
+P_L0_source = string(get_cfg(cfg, 'paper_line_P_L0_source', 'scalar_cfg_value'));
+P_L0 = resolve_P_L0(cfg, branch_index);
 P_overload_max = get_cfg(cfg, 'paper_line_P_overload_max', 1.0);
 P_W_D = get_cfg(cfg, 'paper_line_P_W_D', NaN);
 P_L_D = get_cfg(cfg, 'paper_line_P_L_D', NaN);
 P_L_r = get_cfg(cfg, 'paper_line_P_L_r', NaN);
 P3 = get_cfg(cfg, 'paper_line_P3', 0);
+hidden_distance_enable = logical(get_cfg(cfg, 'paper_line_hidden_distance_enable', true));
+hidden_loading_enable = logical(get_cfg(cfg, 'paper_line_hidden_loading_enable', true));
 
 if isnan(P_L0), missing(end + 1, 1) = "paper_line_P_L0"; end
 if isnan(L_rated), missing(end + 1, 1) = "paper_line_L_rated_factor"; end
@@ -44,7 +48,9 @@ end
 
 P_hidden_distance = NaN;
 distance_status = "not_evaluated";
-if ~isnan(Z_m) || ~isnan(Z_III) || ~isnan(P_W_D)
+if ~hidden_distance_enable
+    distance_status = "disabled_by_parameter_set";
+elseif ~isnan(Z_m) || ~isnan(Z_III) || ~isnan(P_W_D)
     if isnan(P_W_D), missing(end + 1, 1) = "paper_line_P_W_D"; end
     if isnan(Z_III), missing(end + 1, 1) = "Z_III"; end
     if isnan(Z_m), missing(end + 1, 1) = "Z_m"; end
@@ -65,9 +71,13 @@ end
 
 P_hidden_loading = NaN;
 loading_hidden_status = "not_evaluated";
-if isnan(P_L_D), missing(end + 1, 1) = "paper_line_P_L_D"; end
-if isnan(P_L_r), missing(end + 1, 1) = "paper_line_P_L_r"; end
-if ~isnan(P_L_D) && ~isnan(P_L_r) && ~isnan(L_max)
+if ~hidden_loading_enable
+    loading_hidden_status = "disabled_by_parameter_set";
+elseif isnan(P_L_D) || isnan(P_L_r)
+    if isnan(P_L_D), missing(end + 1, 1) = "paper_line_P_L_D"; end
+    if isnan(P_L_r), missing(end + 1, 1) = "paper_line_P_L_r"; end
+    loading_hidden_status = "missing_parameter";
+elseif ~isnan(L_max)
     if loading < L_max
         P_hidden_loading = P_L_D;
     elseif loading <= 1.4 * L_max
@@ -113,6 +123,11 @@ end
 detail = struct();
 detail.model_name = "paper_formula";
 detail.protection_mode = protection_mode;
+detail.parameter_set_id = string(get_cfg(cfg, 'paper_line_parameter_set_id', 'cfg_direct'));
+detail.parameter_calibration_status = string(get_cfg(cfg, 'paper_line_parameter_calibration_status', 'unknown'));
+detail.P_L0_source = P_L0_source;
+detail.hidden_distance_enable = hidden_distance_enable;
+detail.hidden_loading_enable = hidden_loading_enable;
 detail.line_loading_pu = loading;
 detail.branch_rateA = get_branch_value(branch_row, 6, NaN);
 detail.L_rated_pu = L_rated;
@@ -132,7 +147,8 @@ detail.note = note;
 end
 
 function args = parse_args(varargin)
-args = struct('fallback_probability', NaN, 'Z_m', NaN, 'Z_III', NaN, 'protection_mode', "unspecified");
+args = struct('fallback_probability', NaN, 'Z_m', NaN, 'Z_III', NaN, ...
+    'protection_mode', "unspecified", 'branch_index', NaN);
 if mod(numel(varargin), 2) ~= 0
     error('Optional inputs must be name-value pairs.');
 end
@@ -147,9 +163,26 @@ for i = 1:2:numel(varargin)
             args.Z_III = varargin{i + 1};
         case "protection_mode"
             args.protection_mode = varargin{i + 1};
+        case "branch_index"
+            args.branch_index = varargin{i + 1};
         otherwise
             error('Unknown optional input: %s', name);
     end
+end
+end
+
+function P_L0 = resolve_P_L0(cfg, branch_index)
+source = string(get_cfg(cfg, 'paper_line_P_L0_source', 'scalar_cfg_value'));
+switch source
+    case "table4_1_initial_probability"
+        values = get_cfg(cfg, 'paper_line_P_L0_by_branch', []);
+        if isempty(values) || isnan(branch_index) || branch_index < 1 || branch_index > numel(values)
+            P_L0 = NaN;
+        else
+            P_L0 = values(branch_index);
+        end
+    otherwise
+        P_L0 = get_cfg(cfg, 'paper_line_P_L0', NaN);
 end
 end
 
