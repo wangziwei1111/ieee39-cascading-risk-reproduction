@@ -1,0 +1,6 @@
+parameter_set_id,parameter_set_type,P_W_D,P_L_D,P_L_r,P_in_r,P_in_c,P_mis_c,P3,L_rated_factor,L_max_factor,ZIII_factor,distance_hidden_failure_mode,calibration_status,source_note
+strict_missing,missing,,,,,,,,,,,,missing_original_parameters,Formula structure only; key statistical parameters remain missing.
+low_hidden_failure,diagnostic,1e-4,1e-4,1e-2,1e-4,1e-4,1e-5,0,0.90,1.00,,disable_if_missing,diagnostic_assumption_not_paper,Low hidden-failure diagnostic assumption; not original paper parameter.
+medium_hidden_failure,diagnostic,1e-3,1e-3,5e-2,1e-3,1e-3,1e-4,0,0.90,1.00,,disable_if_missing,diagnostic_assumption_not_paper,Medium hidden-failure diagnostic assumption; not original paper parameter.
+high_hidden_failure,diagnostic,5e-3,5e-3,1e-1,5e-3,5e-3,1e-3,1e-5,0.90,1.00,,disable_if_missing,diagnostic_assumption_not_paper,High hidden-failure diagnostic assumption; not original paper parameter.
+benchmark_calibrated_seed,benchmark_calibration_seed,1e-3,1e-3,5e-2,1e-3,1e-3,1e-4,0,0.90,1.00,,disable_if_missing,benchmark_calibrated_not_original_paper,"Initial seed for reverse calibration, not original paper parameter."

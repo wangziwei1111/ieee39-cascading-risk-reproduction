@@ -1,0 +1,29 @@
+target_group,scenario_id,metric_name,paper_value,weight,priority,note
+topology_compare,concentrated_bus34,SLLR,8.5328,0.2,1,from Table 4-4 centralized_3000mw sigma 0.95
+topology_compare,concentrated_bus34,SLFOR,6.2588,0.2,1,from Table 4-4 centralized_3000mw sigma 0.95
+topology_compare,concentrated_bus34,SNVOR,3.8986,0.1,1,from Table 4-4 centralized_3000mw sigma 0.95
+topology_compare,concentrated_bus34,CRI,7.1512,0.5,1,from Table 4-4 centralized_3000mw sigma 0.95
+topology_compare,distributed_30_39,SLLR,6.3899,0.2,1,from Table 4-4 distributed_3000mw sigma 0.95
+topology_compare,distributed_30_39,SLFOR,4.2521,0.2,1,from Table 4-4 distributed_3000mw sigma 0.95
+topology_compare,distributed_30_39,SNVOR,2.6697,0.1,1,from Table 4-4 distributed_3000mw sigma 0.95
+topology_compare,distributed_30_39,CRI,5.2183,0.5,1,from Table 4-4 distributed_3000mw sigma 0.95
+wind_speed_scan,wind_speed_11_28,SLLR,7.5361,0.2,2,from Table 4-6 sigma 0.95
+wind_speed_scan,wind_speed_11_28,SLFOR,6.0213,0.2,2,from Table 4-6 sigma 0.95
+wind_speed_scan,wind_speed_11_28,SNVOR,6.5482,0.1,2,from Table 4-6 sigma 0.95
+wind_speed_scan,wind_speed_11_28,CRI,7.0356,0.5,2,from Table 4-6 sigma 0.95
+wind_speed_scan,wind_speed_12_00,SLLR,6.6351,0.2,2,from Table 4-6 sigma 0.95
+wind_speed_scan,wind_speed_12_00,SLFOR,4.7631,0.2,2,from Table 4-6 sigma 0.95
+wind_speed_scan,wind_speed_12_00,SNVOR,4.9822,0.1,2,from Table 4-6 sigma 0.95
+wind_speed_scan,wind_speed_12_00,CRI,5.9301,0.5,2,from Table 4-6 sigma 0.95
+penetration_scan,penetration_40pct,SLLR,6.3899,0.2,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_40pct,SLFOR,4.2521,0.2,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_40pct,SNVOR,4.6697,0.1,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_40pct,CRI,5.6183,0.5,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_60pct,SLLR,7.8006,0.2,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_60pct,SLFOR,5.8361,0.2,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_60pct,SNVOR,6.2773,0.1,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_60pct,CRI,7.1030,0.5,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_80pct,SLLR,14.0526,0.2,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_80pct,SLFOR,12.5517,0.2,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_80pct,SNVOR,11.8034,0.1,3,from Table 4-5 sigma 0.95
+penetration_scan,penetration_80pct,CRI,13.3026,0.5,3,from Table 4-5 sigma 0.95

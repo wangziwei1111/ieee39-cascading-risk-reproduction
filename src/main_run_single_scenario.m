@@ -18,6 +18,12 @@ addpath(fullfile(project_root, 'config'));
 addpath(genpath(fullfile(project_root, 'src')));
 
 cfg = base_config();
+if isfield(run_options, 'cfg_overrides')
+    cfg = apply_cfg_overrides(cfg, run_options.cfg_overrides);
+end
+if isfield(run_options, 'scenario_results_root')
+    cfg.scenario_results_root = run_options.scenario_results_root;
+end
 cfg = configure_scenario_output_dirs(cfg, project_root, scenario_id);
 cfg.markov_random_seed = cfg.seed;
 if isfield(run_options, 'markov_num_trials_per_initial_fault')
@@ -65,6 +71,13 @@ catch ME
 end
 
 diary off;
+end
+
+function cfg = apply_cfg_overrides(cfg, overrides)
+fields = fieldnames(overrides);
+for i = 1:numel(fields)
+    cfg.(fields{i}) = overrides.(fields{i});
+end
 end
 
 function cfg = configure_scenario_output_dirs(cfg, project_root, scenario_id)

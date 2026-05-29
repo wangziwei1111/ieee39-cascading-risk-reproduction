@@ -1,0 +1,5 @@
+parameter_set_id,valid_target_count,score_total,score_topology,score_wind_speed,score_penetration,best_rank,recommendation
+low_hidden_failure,28,0.246464470413781,0.24192352074483,0.248330844956292,0.248247520498075,1,best_seed_for_local_refinement
+medium_hidden_failure,28,0.246735915751287,0.242360657056193,0.248728600712313,0.248324298240666,2,not_recommended
+high_hidden_failure,28,0.247535680368709,0.242881225097504,0.249497121589372,0.24933102306907,4,too_high_risk
+benchmark_calibrated_seed,28,0.246735915751287,0.242360657056193,0.248728600712313,0.248324298240666,3,not_recommended

@@ -1,0 +1,164 @@
+benchmark_calibration_framework_check_log
+generated_at=2026-05-29 17:00:33
+
+required_file=paper_inputs/filled/public_fixed_parameters.csv exists=1
+required_file=paper_inputs/filled/missing_calibrated_parameters_register.csv exists=1
+required_file=paper_inputs/filled/benchmark_calibration_parameter_sets.csv exists=1
+required_file=paper_inputs/filled/calibration_target_benchmark.csv exists=1
+required_file=src/calibration/load_benchmark_calibration_parameter_set.m exists=1
+required_file=src/calibration/compute_benchmark_calibration_error.m exists=1
+required_file=results/calibration/pilot/calibration_pilot_score_summary.csv exists=1
+required_file=results/calibration/local_search_plan.csv exists=1
+required_file=docs/benchmark_calibration_plan.md exists=1
+formula_contains_P_mis_r=1
+formula_contains_P1=1
+formula_contains_P2=1
+formula_contains_P3=1
+formula_contains_P_L=1
+parameter_set_count=5
+local_search_candidate_count=10
+pilot_parameter_set_count=4
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\concentrated_bus34\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\concentrated_bus34\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\concentrated_bus34\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\concentrated_bus34\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\concentrated_bus34\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\distributed_30_39\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\distributed_30_39\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\distributed_30_39\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\distributed_30_39\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\distributed_30_39\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_11_28\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_11_28\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_11_28\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_11_28\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_11_28\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_12_00\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_12_00\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_12_00\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_12_00\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\wind_speed_12_00\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_40pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_40pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_40pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_40pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_40pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_60pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_60pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_60pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_60pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_60pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_80pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_80pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_80pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_80pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\low_hidden_failure\penetration_80pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\concentrated_bus34\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\concentrated_bus34\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\concentrated_bus34\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\concentrated_bus34\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\concentrated_bus34\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\distributed_30_39\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\distributed_30_39\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\distributed_30_39\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\distributed_30_39\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\distributed_30_39\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_11_28\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_11_28\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_11_28\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_11_28\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_11_28\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_12_00\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_12_00\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_12_00\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_12_00\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\wind_speed_12_00\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_40pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_40pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_40pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_40pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_40pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_60pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_60pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_60pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_60pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_60pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_80pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_80pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_80pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_80pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\medium_hidden_failure\penetration_80pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\concentrated_bus34\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\concentrated_bus34\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\concentrated_bus34\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\concentrated_bus34\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\concentrated_bus34\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\distributed_30_39\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\distributed_30_39\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\distributed_30_39\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\distributed_30_39\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\distributed_30_39\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_11_28\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_11_28\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_11_28\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_11_28\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_11_28\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_12_00\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_12_00\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_12_00\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_12_00\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\wind_speed_12_00\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_40pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_40pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_40pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_40pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_40pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_60pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_60pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_60pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_60pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_60pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_80pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_80pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_80pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_80pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\high_hidden_failure\penetration_80pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\concentrated_bus34\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\concentrated_bus34\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\concentrated_bus34\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\concentrated_bus34\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\concentrated_bus34\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\distributed_30_39\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\distributed_30_39\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\distributed_30_39\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\distributed_30_39\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\distributed_30_39\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_11_28\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_11_28\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_11_28\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_11_28\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_11_28\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_12_00\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_12_00\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_12_00\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_12_00\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\wind_speed_12_00\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_40pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_40pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_40pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_40pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_40pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_60pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_60pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_60pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_60pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_60pct\logs\scenario_run_log.txt exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_80pct\tables\markov_chain_summary.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_80pct\tables\markov_var_metrics.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_80pct\tables\markov_var_metrics_weighted.csv exists=1
+pilot_file=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_80pct\tables\markov_var_metrics_paper_severity.csv exists=1
+pilot_log=C:\Users\24186\Documents\New project 13\results\calibration\pilot\benchmark_calibrated_seed\penetration_80pct\logs\scenario_run_log.txt exists=1
+forbidden_final_summary_file=results/final_summary/benchmark_calibration_framework_check_log.txt exists=0
+forbidden_final_summary_file=results/final_summary/tables/calibration_pilot_score_summary.csv exists=0
+
+check_status=passed

@@ -1,0 +1,4 @@
+sigma,SLLR,SLFOR,SNVOR,CRI,result_status,note
+0.9,NaN,NaN,NaN,NaN,diagnostic_only,paper_formula invalid chain ratio exceeds threshold: 0.93478
+0.95,NaN,NaN,NaN,NaN,diagnostic_only,paper_formula invalid chain ratio exceeds threshold: 0.93478
+0.98,NaN,NaN,NaN,NaN,diagnostic_only,paper_formula invalid chain ratio exceeds threshold: 0.93478

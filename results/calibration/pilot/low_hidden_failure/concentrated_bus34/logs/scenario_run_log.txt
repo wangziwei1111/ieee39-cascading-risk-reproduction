@@ -1,0 +1,4 @@
+开始运行场景：concentrated_bus34
+已自动加入MATPOWER路径：E:\Matlab\toolbox\matpower6.0\matpower6.0
+paper_formula无效事故链比例 0.9348 超过阈值 0.0500，本场景paper VaR标记为diagnostic_only。
+场景运行完成：concentrated_bus34

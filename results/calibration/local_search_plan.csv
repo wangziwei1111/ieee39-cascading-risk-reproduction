@@ -1,0 +1,11 @@
+candidate_id,base_parameter_set_id,P_W_D,P_L_D,P_L_r,P_in_r,P_in_c,P_mis_c,P3,L_rated_factor,L_max_factor,ZIII_factor,calibration_status,reason
+local_01,low_hidden_failure,5e-05,5e-05,0.005,5e-05,5e-05,5e-06,0,0.9,1,NaN,benchmark_calibration_candidate_not_original_paper,uniform probability scale perturbation
+local_02,low_hidden_failure,7.5e-05,7.5e-05,0.0075,7.5e-05,7.5e-05,7.5e-06,0,0.9,1,NaN,benchmark_calibration_candidate_not_original_paper,uniform probability scale perturbation
+local_03,low_hidden_failure,0.000125,0.000125,0.0125,0.000125,0.000125,1.25e-05,0,0.9,1,NaN,benchmark_calibration_candidate_not_original_paper,uniform probability scale perturbation
+local_04,low_hidden_failure,0.00015,0.00015,0.015,0.00015,0.00015,1.5e-05,0,0.9,1,NaN,benchmark_calibration_candidate_not_original_paper,uniform probability scale perturbation
+local_05,low_hidden_failure,0.0001,0.0001,0.01,0.0001,0.0001,1e-05,0,0.9,1,NaN,benchmark_calibration_candidate_not_original_paper,L_max local perturbation
+local_06,low_hidden_failure,0.0001,0.0001,0.01,0.0001,0.0001,1e-05,0,0.9,1,NaN,benchmark_calibration_candidate_not_original_paper,L_max local perturbation
+local_07,low_hidden_failure,0.0001,0.0001,0.01,0.0001,0.0001,1e-05,0,0.9,1.05,NaN,benchmark_calibration_candidate_not_original_paper,L_max local perturbation
+local_08,low_hidden_failure,0.0001,0.0001,0.01,0.0001,0.0001,1e-05,0,0.9,1.15,NaN,benchmark_calibration_candidate_not_original_paper,L_max local perturbation
+local_09,low_hidden_failure,0.0001,0.0001,0.01,5e-05,5e-05,5e-06,0,0.9,1,NaN,benchmark_calibration_candidate_not_original_paper,selective relay/breaker perturbation
+local_10,low_hidden_failure,0.0001,0.0001,0.01,0.0002,0.0002,2e-05,0,0.9,1,NaN,benchmark_calibration_candidate_not_original_paper,selective relay/breaker perturbation

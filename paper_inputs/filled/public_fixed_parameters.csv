@@ -1,0 +1,26 @@
+parameter_id,module,parameter_name,value,unit,source_type,source_note,use_policy
+PF001,IEEE39,total_load_mw,6254.23,MW,original_paper_extracted,IEEE39 base system load used by current paper reproduction inputs,fixed_not_calibrated
+PF002,IEEE39,total_generation_capacity_mw,7500,MW,original_paper_extracted,IEEE39 generator capacity summary,fixed_not_calibrated
+PF003,IEEE39,generator_bus_range,30-39,bus,original_paper_extracted,IEEE39 generator buses,fixed_not_calibrated
+PF004,IEEE39,slack_bus,31,bus,engineering_mapping,MATPOWER case39 slack/reference bus used by project,fixed_not_calibrated
+PF005,IEEE39,branch_count,46,count,original_paper_extracted,IEEE39 branch count,fixed_not_calibrated
+PF101,wind_access,distributed_wind_buses,30:39,bus,original_paper_extracted,Distributed wind access buses,fixed_not_calibrated
+PF102,wind_access,concentrated_reference_bus,34,bus,engineering_mapping,Reference bus used for calibration target concentrated scenario; confirm against paper before formal benchmark,fixed_not_calibrated
+PF103,wind_access,base_wind_capacity_mw,3000,MW,original_paper_extracted,Base wind capacity,fixed_not_calibrated
+PF104,wind_access,base_wind_penetration,0.40,p.u.,original_paper_extracted,Base wind penetration used in benchmark tables,fixed_not_calibrated
+PF105,wind_access,penetration_list,"0.40,0.45,0.50,0.55,0.60,0.65,0.70,0.75,0.80",p.u.,original_paper_extracted,Penetration scan list,fixed_not_calibrated
+PF201,wind_speed,wind_speed_list,"11.28,11.52,11.76,12.00",m/s,original_paper_extracted,Table 4-6 wind speed points,fixed_not_calibrated
+PF202,wind_speed,wind_speed_mean,12.00,m/s,original_paper_extracted,Wind speed mean,fixed_not_calibrated
+PF203,wind_speed,wind_speed_std,0.24,m/s,original_paper_extracted,Wind speed standard deviation,fixed_not_calibrated
+PF204,wind_speed,cut_in_speed,2,m/s,original_paper_extracted,Wind turbine cut-in speed,fixed_not_calibrated
+PF205,wind_speed,rated_speed,12,m/s,original_paper_extracted,Wind turbine rated speed,fixed_not_calibrated
+PF206,wind_speed,cut_out_speed,20,m/s,original_paper_extracted,Wind turbine cut-out speed,fixed_not_calibrated
+PF301,wind_voltage_ride_through,low_voltage_forced_pu,0.20,p.u.,original_paper_extracted,Wind LVRT forced trip threshold,fixed_not_calibrated
+PF302,wind_voltage_ride_through,low_voltage_start_pu,0.90,p.u.,original_paper_extracted,Wind LVRT start threshold,fixed_not_calibrated
+PF303,wind_voltage_ride_through,high_voltage_start_pu,1.10,p.u.,original_paper_extracted,Wind HVRT start threshold,fixed_not_calibrated
+PF304,wind_voltage_ride_through,high_voltage_forced_pu,1.30,p.u.,original_paper_extracted,Wind HVRT forced trip threshold,fixed_not_calibrated
+PF401,wind_frequency_ride_through,low_frequency_forced_hz,46.5,Hz,reference_supported,Wind FRT forced low-frequency threshold,fixed_not_calibrated
+PF402,wind_frequency_ride_through,low_frequency_start_hz,48.5,Hz,reference_supported,Wind FRT low-frequency start threshold,fixed_not_calibrated
+PF403,wind_frequency_ride_through,high_frequency_start_hz,50.5,Hz,reference_supported,Wind FRT high-frequency start threshold,fixed_not_calibrated
+PF404,wind_frequency_ride_through,high_frequency_forced_hz,51.5,Hz,reference_supported,Wind FRT forced high-frequency threshold,fixed_not_calibrated
+PF501,cascade_termination,load_loss_termination_threshold,0.30,p.u.,original_paper_extracted,Load-loss termination threshold,fixed_not_calibrated

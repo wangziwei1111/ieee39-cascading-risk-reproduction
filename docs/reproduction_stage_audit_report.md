@@ -107,6 +107,21 @@ stage-level severity 已接入 unified smoke，并生成 P_total × severity 的
 - 原始 IEEE39 数据是否为 MATPOWER case39 或经过修改；
 - OLS 是 AC 还是 DC，以及求解器约束设置。
 
+## 12. 缺失统计参数的反向校准策略
+
+当前路线调整为：公式结构按原文固化，公开参数固定，未公开的继电保护、断路器和隐性故障统计参数进入 benchmark calibration 框架。
+
+这些反向校准参数不得写成 `original_paper_extracted`，只能标记为 `benchmark_calibrated_not_original_paper` 或 `diagnostic_assumption_not_paper`。校准目标是使趋势和量级接近原文 benchmark，而不是追求完全相同，也不能据此声称严格复现。
+
+新增校准框架输出包括：
+
+- `paper_inputs/filled/public_fixed_parameters.csv`
+- `paper_inputs/filled/missing_calibrated_parameters_register.csv`
+- `paper_inputs/filled/benchmark_calibration_parameter_sets.csv`
+- `paper_inputs/filled/calibration_target_benchmark.csv`
+- `results/calibration/pilot/calibration_pilot_score_summary.csv`
+- `results/calibration/local_search_plan.csv`
+
 ## 输入文件可用性
 
 - `paper_inputs/validated/paper_input_validation_summary.csv`: available

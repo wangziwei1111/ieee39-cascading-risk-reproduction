@@ -49,6 +49,9 @@ detail.paper_formula_P_flow = paper_detail.P_flow;
 detail.paper_formula_P_hidden_distance = paper_detail.P_hidden_distance;
 detail.paper_formula_P_hidden_loading = paper_detail.P_hidden_loading;
 detail.paper_formula_P3 = paper_detail.P3;
+detail.paper_formula_P_mis_r = paper_detail.P_mis_r;
+detail.paper_formula_P1 = paper_detail.P1;
+detail.paper_formula_P2 = paper_detail.P2;
 detail.paper_formula_parameter_set_id = string(paper_detail.parameter_set_id);
 detail.paper_formula_calibration_status = string(paper_detail.parameter_calibration_status);
 end
