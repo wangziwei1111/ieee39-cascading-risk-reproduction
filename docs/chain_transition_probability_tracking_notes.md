@@ -138,3 +138,22 @@ considered consistent for the purpose of the next full-event formal pilot gate.
 This does not run the formal pilot and does not permit local search; it only
 indicates that the next step may be a fixed-source full-event formal
 scenario-aligned VaR pilot.
+
+## Full-Event Formal Pilot
+
+The terminal-aware readiness gate passed and a separate full-event formal
+scenario-aligned VaR pilot can be run under
+`results/calibration/full_event_formal_var_pilot/`.
+
+That pilot supersedes the selected-only pilot as the primary diagnostic for chain
+probability calibration. The older selected-only formal pilot is retained as
+historical diagnostic output and should not be used as the main calibration
+basis.
+
+The full-event pilot is still not a final benchmark and does not make
+`benchmark_calibrated` parameters original paper parameters.
+
+The completed full-event formal pilot selected `high_hidden_failure` as the
+best-ranked fixed parameter set, but the post-pilot action is
+`fix_metric_or_scenario_first`, not local search. The selected-only pilot remains
+historical diagnostic output only.

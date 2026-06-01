@@ -1,0 +1,2 @@
+selected,parameter_set_id,reason,go_no_go,recommended_next_action,note
+1,high_hidden_failure,wrong_scale,fix_metric_or_scenario_first,fix_metric_or_scenario_definition_first,Recommendation only; no local search or parameter tuning was run.
