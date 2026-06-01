@@ -41,11 +41,11 @@ scenarios(end + 1) = make_scenario('distributed_wind_40pct_trip_record_only', ..
 
 for ratio = cfg.scenario_penetration_ratios
     scenario_id = sprintf('distributed_wind_penetration_%dpct', round(ratio * 100));
-    total_capacity = ratio * base_load_mw;
+    [total_capacity, cap_detail] = compute_wind_capacity_from_penetration(ratio, cfg);
     scenarios(end + 1) = make_scenario(scenario_id, ...
         sprintf('分散式风电渗透率%.0f%%场景。', ratio * 100), ...
         'wind_plus_redispatch', 30:39, total_capacity, 12, false, ratio, ...
-        'penetration_scan', '容量按“风电装机容量/系统总负荷”换算，定义待校准。');
+        'penetration_scan', ['容量按compute_wind_capacity_from_penetration换算，basis=', cap_detail.basis, '。']);
 end
 
 for wind_speed = cfg.scenario_wind_speed_values_mps
@@ -89,11 +89,13 @@ scenarios(end + 1) = make_scenario('wind_speed_12_00', ...
     'calibration_pilot', 'Benchmark calibration alias; not original-paper calibrated.');
 for ratio_alias = [0.40, 0.60, 0.80]
     alias_id = sprintf('penetration_%dpct', round(ratio_alias * 100));
+    [alias_capacity, alias_detail] = compute_wind_capacity_from_penetration(ratio_alias, cfg);
     scenarios(end + 1) = make_scenario(alias_id, ...
         sprintf('Calibration alias: distributed wind penetration %.0f%%.', ratio_alias * 100), ...
-        'wind_plus_redispatch', 30:39, ratio_alias * base_load_mw, 12, false, ratio_alias, ...
-        'calibration_pilot', 'Benchmark calibration alias; not original-paper calibrated.');
+        'wind_plus_redispatch', 30:39, alias_capacity, 12, false, ratio_alias, ...
+        'calibration_pilot', ['Benchmark calibration alias; capacity basis=', alias_detail.basis, '; not original-paper calibrated.']);
 end
+scenarios = annotate_penetration_fields(scenarios, cfg, base_load_mw);
 end
 
 function s = empty_scenario()
@@ -112,6 +114,11 @@ s = struct( ...
     'slack_bus', 31, ...
     'renewable_trip_enable', false, ...
     'penetration_ratio', NaN, ...
+    'paper_wind_penetration', NaN, ...
+    'load_based_wind_penetration', NaN, ...
+    'wind_penetration_basis', '', ...
+    'paper_aligned_wind_capacity_expected_mw', NaN, ...
+    'wind_capacity_basis_match_status', '', ...
     'scenario_group', '', ...
     'calibration_note', '', ...
     'paper_table', '', ...
@@ -132,4 +139,41 @@ s.renewable_trip_enable = logical(trip_enable);
 s.penetration_ratio = penetration_ratio;
 s.scenario_group = scenario_group;
 s.calibration_note = note;
+end
+
+function scenarios = annotate_penetration_fields(scenarios, cfg, base_load_mw)
+paper_total_gen = get_cfg_value(cfg, 'paper_total_generation_capacity_mw', 7500);
+for k = 1:numel(scenarios)
+    total_capacity = scenarios(k).total_wind_capacity_mw;
+    if isempty(total_capacity) || isnan(total_capacity)
+        total_capacity = 0;
+    end
+    scenarios(k).paper_wind_penetration = total_capacity / paper_total_gen;
+    scenarios(k).load_based_wind_penetration = total_capacity / base_load_mw;
+    if isfield(cfg, 'wind_penetration_basis')
+        scenarios(k).wind_penetration_basis = cfg.wind_penetration_basis;
+    else
+        scenarios(k).wind_penetration_basis = 'base_load';
+    end
+    if (startsWith(scenarios(k).scenario_id, 'penetration_') || strcmp(scenarios(k).scenario_group, 'penetration_scan')) ...
+            && ~isnan(scenarios(k).penetration_ratio)
+        expected_capacity = scenarios(k).penetration_ratio * paper_total_gen;
+    else
+        expected_capacity = total_capacity;
+    end
+    scenarios(k).paper_aligned_wind_capacity_expected_mw = expected_capacity;
+    if abs(total_capacity - expected_capacity) <= 1e-6 * max(1, abs(expected_capacity))
+        scenarios(k).wind_capacity_basis_match_status = 'matched';
+    else
+        scenarios(k).wind_capacity_basis_match_status = 'mismatched';
+    end
+end
+end
+
+function value = get_cfg_value(cfg, field_name, fallback)
+if isfield(cfg, field_name) && ~isempty(cfg.(field_name)) && ~isnan(cfg.(field_name))
+    value = cfg.(field_name);
+else
+    value = fallback;
+end
 end

@@ -156,3 +156,42 @@ scenario implementation is not yet fully aligned for the penetration-scan rows.
 Recommended next step: fix or explicitly version the penetration-scan scenario
 builder convention before running any formal VaR pilot. Do not proceed to local
 parameter search while this scenario configuration mismatch remains.
+
+## Wind Penetration Basis Fix
+
+The blocking issue above came from the old scenario-library convention: penetration
+scan capacities were computed with `base_load_mw = 6254.23` as the denominator.
+That produced 2501.692 MW, 3752.538 MW, and 5003.384 MW for the 40%, 60%, and
+80% pilot scenarios.
+
+For paper-aligned benchmark and calibration scenarios, the denominator is now the
+public fixed total generation capacity:
+
+`total_generation_capacity_mw = 7500`
+
+The dry-run scenario builder now routes penetration capacity through
+`compute_wind_capacity_from_penetration`, with
+`wind_penetration_basis = total_generation_capacity`.
+
+After the fix, the paper-aligned capacities are:
+
+- 40% = 3000 MW
+- 60% = 4500 MW
+- 80% = 6000 MW
+
+The 3000 MW topology and wind-speed pilot scenarios keep their fixed 3000 MW
+capacity, and the snapshot reports:
+
+- `paper_wind_penetration = 0.40`
+- `load_based_wind_penetration = 0.479675...`
+
+Only `paper_wind_penetration` is used for target alignment. The load-based value is
+retained as a diagnostic field and is no longer a blocking mismatch.
+
+The updated readiness output is:
+
+`results/calibration/diagnostics/formal_scenario_aligned_var_pilot_readiness.csv`
+
+If `formal_var_pilot_ready = 1`, the next step is a formal scenario-aligned VaR
+pilot, not local search. If it is still 0, the check log lists the remaining
+blocking issues explicitly.

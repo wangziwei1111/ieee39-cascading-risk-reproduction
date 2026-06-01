@@ -198,6 +198,10 @@ cfg.export_paper_detail_sample = true;
 % 第4章场景扫描框架参数。集中式接入节点、渗透率定义和扫描点均为待校准工程设置。
 cfg.scenario_results_root = fullfile('results', 'scenarios');
 cfg.scenario_smoke_trials_per_initial_fault = 5;
+cfg.paper_total_generation_capacity_mw = 7500;
+cfg.paper_total_load_mw = 6254.23;
+cfg.wind_penetration_basis = 'total_generation_capacity'; % total_generation_capacity / base_load
+cfg.paper_aligned_wind_penetration_enable = true;
 cfg.scenario_penetration_definition = 'wind_capacity_divided_by_base_load'; % 待校准
 cfg.scenario_centralized_wind_bus = 39; % 待校准：论文未明确时先用39节点
 cfg.scenario_penetration_ratios = 0.40:0.05:0.80; % 待校准

@@ -1,2 +1,2 @@
 formal_var_pilot_ready,scenario_count,blocking_mismatch_count,warning_mismatch_count,target_mapping_status,metric_source_status,recommended_next_step,note
-0,7,6,8,all_targets_exact_match,do_not_calibrate_parameters,do_not_run_formal_var_pilot_until_scenario_builder_or_mapping_is_fixed,Blocking snapshot mismatch exists; current pilot aliases do not fully match the intended paper scenario configuration.
+1,7,0,0,all_targets_exact_match,do_not_calibrate_parameters,formal_scenario_aligned_var_pilot_can_be_considered_after_review,No blocking scenario snapshot mismatch was detected; still do not run local search before a fixed-source formal pilot.

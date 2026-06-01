@@ -28,6 +28,12 @@ scenario.slack_bus = 31;
 % 总风电容量 3000 MW，按10个节点等分。待校准。
 scenario.total_wind_capacity_mw = 3000.0;
 scenario.wind_capacity_mw = scenario.total_wind_capacity_mw / numel(scenario.wind_buses);
+scenario.paper_total_generation_capacity_mw = 7500.0;
+scenario.paper_wind_penetration = scenario.total_wind_capacity_mw / scenario.paper_total_generation_capacity_mw;
+scenario.load_based_total_load_mw = 6254.23;
+scenario.load_based_wind_penetration = scenario.total_wind_capacity_mw / scenario.load_based_total_load_mw;
+scenario.wind_penetration_basis = 'total_generation_capacity';
+scenario.paper_aligned_wind_capacity_expected_mw = scenario.total_wind_capacity_mw;
 
 % 论文默认风机在额定风速下运行。
 scenario.wind_speed_mps = 12.0;

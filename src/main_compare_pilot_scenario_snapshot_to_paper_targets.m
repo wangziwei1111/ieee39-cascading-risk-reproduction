@@ -20,8 +20,11 @@ for i = 1:height(S)
     rows = append_check(rows, sid, 'wind_buses', expected.wind_buses, S.wind_buses(i), 'blocking');
     rows = append_check(rows, sid, 'wind_capacity_total_mw', expected.wind_capacity_total_mw, S.wind_capacity_total_mw(i), 'blocking');
     rows = append_check(rows, sid, 'wind_speed_mps', expected.wind_speed_mps, S.wind_speed_mps(i), 'blocking');
-    rows = append_check(rows, sid, 'wind_penetration', expected.wind_penetration, S.wind_penetration(i), 'warning');
+    rows = append_check(rows, sid, 'paper_wind_penetration', expected.wind_penetration, S.paper_wind_penetration(i), 'blocking');
+    rows = append_check(rows, sid, 'wind_penetration_basis', 'total_generation_capacity', S.wind_penetration_basis(i), 'blocking');
     rows = append_check(rows, sid, 'penetration_definition', expected.penetration_definition, S.penetration_definition(i), expected.penetration_severity);
+    rows = append_info(rows, sid, 'load_based_wind_penetration', S.load_based_wind_penetration(i), 'Auxiliary diagnostic field only; it is not used for paper target alignment.');
+    rows = append_check(rows, sid, 'wind_capacity_basis_match_status', 'matched', S.wind_capacity_basis_match_status(i), 'blocking');
     rows = append_check(rows, sid, 'capacity_allocation_rule', expected.capacity_allocation_rule, S.capacity_allocation_rule(i), 'warning');
 end
 
@@ -29,6 +32,16 @@ T = cell2table(rows, 'VariableNames', {'scenario_id', 'check_item', ...
     'expected_value', 'actual_value', 'match_status', 'severity', 'diagnosis_note'});
 writetable(T, fullfile(out_dir, 'pilot_scenario_snapshot_target_alignment.csv'));
 fprintf('Wrote %s\n', fullfile(out_dir, 'pilot_scenario_snapshot_target_alignment.csv'));
+end
+
+function rows = append_info(rows, scenario_id, check_item, actual, note)
+if isnumeric(actual)
+    actual_txt = num2str(actual, '%.12g');
+else
+    actual_txt = char(string(actual));
+end
+rows(end + 1, :) = {scenario_id, check_item, 'diagnostic_only', actual_txt, ...
+    'info_only', 'info', note}; %#ok<AGROW>
 end
 
 function rows = append_check(rows, scenario_id, check_item, expected, actual, severity_if_mismatch)
@@ -91,6 +104,7 @@ expected.wind_capacity_total_mw = 3000;
 expected.wind_speed_mps = 12;
 expected.wind_penetration = NaN;
 expected.penetration_definition = 'paper_target_total_generation_capacity_basis';
+expected.penetration_definition = 'wind_capacity_divided_by_total_generation_capacity';
 expected.penetration_severity = 'warning';
 expected.capacity_allocation_rule = 'equal_capacity_per_wind_bus_from_total_wind_capacity_mw';
 switch sid
@@ -100,23 +114,23 @@ switch sid
         expected.wind_capacity_total_mw = 3000;
         expected.wind_speed_mps = 12;
         expected.wind_penetration = 3000 / public.total_generation_capacity_mw;
-        expected.penetration_definition = 'not_a_penetration_scan_target';
+        expected.penetration_definition = 'wind_capacity_divided_by_total_generation_capacity';
         expected.capacity_allocation_rule = 'single_bus_total_capacity';
     case 'distributed_30_39'
         expected.wind_capacity_total_mw = 3000;
         expected.wind_speed_mps = 12;
         expected.wind_penetration = 3000 / public.total_generation_capacity_mw;
-        expected.penetration_definition = 'not_a_penetration_scan_target';
+        expected.penetration_definition = 'wind_capacity_divided_by_total_generation_capacity';
     case 'wind_speed_11_28'
         expected.wind_speed_mps = 11.28;
         expected.wind_capacity_total_mw = 3000;
         expected.wind_penetration = 3000 / public.total_generation_capacity_mw;
-        expected.penetration_definition = 'not_a_penetration_scan_target';
+        expected.penetration_definition = 'wind_capacity_divided_by_total_generation_capacity';
     case 'wind_speed_12_00'
         expected.wind_speed_mps = 12.00;
         expected.wind_capacity_total_mw = 3000;
         expected.wind_penetration = 3000 / public.total_generation_capacity_mw;
-        expected.penetration_definition = 'not_a_penetration_scan_target';
+        expected.penetration_definition = 'wind_capacity_divided_by_total_generation_capacity';
     case 'penetration_40pct'
         expected.wind_capacity_total_mw = 0.40 * public.total_generation_capacity_mw;
         expected.wind_penetration = 0.40;
