@@ -1,0 +1,2 @@
+selected,parameter_set_id,sigma,metric_source,scale_variant,comparison_mode,reason,go_no_go,required_next_action
+0,high_hidden_failure,0.98,markov_chain_summary.basic:SLFOR,paper_actual_from_table,compare_to_paper_table_value,all sources are wrong_scale/wrong_trend/not_recommended,do_not_calibrate_parameters,fix metric definition or run formal scenario-aligned VaR pilot before local search

@@ -1,0 +1,11 @@
+scenario-aligned VaR metric reconstruction check started: 2026-06-01 15:48:27
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\scenario_aligned_chain_var_metrics.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\scenario_aligned_var_to_paper_gap.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\scenario_aligned_var_score_summary.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\paper_table_unit_convention_diagnosis.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\selected_calibration_metric_source.csv exists=true
+local_search_results_absent=true
+final_summary_not_written_by_this_check=true
+selected_go_no_go=do_not_calibrate_parameters
+decision=do not continue parameter calibration
+check_status=passed

@@ -225,3 +225,71 @@ Do not continue probability parameter local search yet. The next defensible step
 obtain the paper's risk-metric construction details or build scenario-aligned chain
 samples from a formal rerun after metric definitions are fully fixed. Only after a
 single metric source is selected should a scale-aware calibration pilot be considered.
+
+## Scenario-Aligned VaR Reconstruction From Calibration Pilot
+
+The small unified smoke was useful for checking `P_total(E_k) * severity(E_k)` at the
+stage level, but it only contains a limited smoke scenario and cannot represent the
+paper benchmark tables. For this reason, a second offline reconstruction now uses the
+existing calibration pilot outputs:
+
+`results/calibration/pilot/<parameter_set_id>/<scenario_id>/tables/markov_chain_summary.csv`
+
+Each `markov_chain_summary.csv` row is treated as one accident-chain sample. In the
+current pilot, each scenario has 230 chain samples (`46` initial line outages times
+`5` trials). No new Markov simulation was run.
+
+The scenario-aligned VaR table is:
+
+`results/calibration/diagnostics/scenario_aligned_chain_var_metrics.csv`
+
+It computes empirical quantiles for:
+
+- `sigma = 0.90, 0.95, 0.98`
+- metrics `SLLR`, `SLFOR`, `SNVOR`, `CRI_basic`, `CRI_recomputed`
+- scales `raw`, `percent`, `paper_table_1e4`, and `paper_actual_from_table`
+
+`CRI_recomputed` is calculated as:
+
+`0.6*basic_LLR + 0.2*basic_LFOR + 0.2*basic_NVOR`
+
+The comparison to paper targets is:
+
+`results/calibration/diagnostics/scenario_aligned_var_to_paper_gap.csv`
+
+Two table-unit interpretations are retained:
+
+- `compare_to_paper_table_value`: compare directly with the displayed paper value.
+- `compare_to_paper_actual_1e_minus_4`: compare with `paper_value * 1e-4`.
+
+The project does not choose one interpretation by force. The unit diagnosis is written
+to:
+
+`results/calibration/diagnostics/paper_table_unit_convention_diagnosis.csv`
+
+Current diagnosis:
+
+- comparing to `paper_actual_1e_minus_4` is clearly far off in this pilot;
+- comparing to displayed table values can be closer for selected metric/source choices,
+  but trend alignment remains weak;
+- the table header "risk value / 10^-4" still needs manual interpretation before it is
+  used as a calibration convention.
+
+The metric-source score table is:
+
+`results/calibration/diagnostics/scenario_aligned_var_score_summary.csv`
+
+The selection table is:
+
+`results/calibration/diagnostics/selected_calibration_metric_source.csv`
+
+Current decision:
+
+- no metric source is selected for calibration;
+- `go_no_go = do_not_calibrate_parameters`;
+- the best-ranked row is still only a diagnostic hint and not a calibration target;
+- the next action is to fix the metric definition or run a formal scenario-aligned VaR
+  pilot before any local search.
+
+This means the existing calibration pilot chain samples improve the diagnosis compared
+with the small unified smoke, but they still do not justify scale-aware local search.
