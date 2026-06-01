@@ -1,0 +1,10 @@
+transition_probability_full_event_trace_smoke
+scenario_id=distributed_30_39
+parameter_set=low_hidden_failure
+initial_branches=1:3
+trials_per_initial_fault=2
+chain_count=6
+stage_count=15
+candidate_count=601
+chain_transition_probability_mode=bernoulli_full_event
+note=Small diagnostic smoke only; full-event probability changes recording, not sampling or candidate selection.

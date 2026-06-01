@@ -22,27 +22,39 @@ if isempty(candidate_table) || height(candidate_table) == 0
     return;
 end
 
-if ~ismember('outage_probability', candidate_table.Properties.VariableNames)
+probability_column = resolve_probability_column(candidate_table);
+if probability_column == ""
     stage_prob = NaN;
     detail.candidate_count = height(candidate_table);
     detail.stage_transition_probability = stage_prob;
     detail.probability_status = 'missing_candidate_probability';
-    detail.missing_reason = 'candidate_table.outage_probability missing';
+    detail.missing_reason = 'candidate probability column missing';
     detail.note = 'Cannot compute stage transition probability without candidate outage probabilities.';
     return;
 end
 
-p = candidate_table.outage_probability(:);
+p = candidate_table.(probability_column)(:);
 p = min(max(p, 0), 1);
 detail.candidate_count = numel(p);
 
 if ismember('trip_selected', candidate_table.Properties.VariableNames)
     selected_mask = logical(candidate_table.trip_selected(:));
+elseif ismember('selected', candidate_table.Properties.VariableNames)
+    selected_mask = logical(candidate_table.selected(:));
 else
-    selected_mask = false(numel(p), 1);
+    stage_prob = NaN;
+    detail.stage_transition_probability = stage_prob;
+    detail.probability_status = 'missing_selected_flag';
+    detail.missing_reason = 'candidate selected flag missing';
+    detail.note = 'Cannot compute full candidate event without selected/trip_selected flag.';
+    return;
 end
 if ~isempty(selected_outage_ids) && ismember('branch_index', candidate_table.Properties.VariableNames)
     selected_mask = ismember(candidate_table.branch_index(:), selected_outage_ids(:));
+elseif ~isempty(selected_outage_ids) && ismember('branch_id', candidate_table.Properties.VariableNames)
+    selected_mask = ismember(candidate_table.branch_id(:), selected_outage_ids(:));
+elseif ~isempty(selected_outage_ids) && ismember('candidate_branch', candidate_table.Properties.VariableNames)
+    selected_mask = ismember(candidate_table.candidate_branch(:), selected_outage_ids(:));
 end
 
 detail.selected_candidate_count = sum(selected_mask);
@@ -59,22 +71,31 @@ detail.selected_probability_product = selected_product;
 
 switch mode
     case 'bernoulli_full_event'
+        if any(isnan(p))
+            stage_prob = NaN;
+            detail.unselected_probability_product = NaN;
+            detail.probability_status = 'full_event_unavailable';
+            detail.missing_reason = 'candidate probability contains NaN';
+            detail.note = 'Full-event probability is unavailable because at least one candidate probability is NaN; selected-only is not substituted.';
+            detail.stage_transition_probability = stage_prob;
+            return;
+        end
         unselected_product = prod(1 - p(~selected_mask));
         if isempty(unselected_product)
             unselected_product = 1;
         end
         stage_prob = selected_product * unselected_product;
         detail.unselected_probability_product = unselected_product;
-        detail.probability_status = 'full_bernoulli_event';
+        detail.probability_status = 'full_event_available';
         detail.note = 'Full Bernoulli event probability uses selected probabilities and non-selected complement probabilities.';
     otherwise
         stage_prob = selected_product;
         detail.unselected_probability_product = NaN;
         detail.probability_status = 'selected_only_approximation';
         if detail.selected_candidate_count == 0
-            detail.note = 'No additional outage was selected; selected-only transition contribution is recorded as 1.';
+            detail.note = 'No additional outage was selected; selected-only transition contribution is recorded as 1. selected_only_product is an approximation and should not be used as final paper risk if full candidate event is available.';
         else
-            detail.note = 'Selected-only approximation uses only sampled outage probabilities and does not multiply non-selected complements.';
+            detail.note = 'Selected-only approximation uses only sampled outage probabilities and does not multiply non-selected complements. selected_only_product is an approximation and should not be used as final paper risk if full candidate event is available.';
         end
 end
 
@@ -117,5 +138,15 @@ basis = "outage_probability";
 if ismember('prob_model', candidate_table.Properties.VariableNames) && height(candidate_table) > 0
     models = unique(string(candidate_table.prob_model));
     basis = strjoin(models(:)', ',');
+end
+end
+
+function column_name = resolve_probability_column(candidate_table)
+column_name = "";
+names = candidate_table.Properties.VariableNames;
+if ismember('outage_probability', names)
+    column_name = "outage_probability";
+elseif ismember('candidate_probability', names)
+    column_name = "candidate_probability";
 end
 end

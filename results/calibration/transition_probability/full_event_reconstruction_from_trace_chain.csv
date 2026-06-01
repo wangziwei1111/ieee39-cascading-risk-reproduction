@@ -1,0 +1,7 @@
+initial_branch,trial_id,stage_count,chain_transition_probability_selected_only,chain_transition_probability_full_event,ratio_full_to_selected_only,initial_line_probability,total_chain_probability_display_selected_only,total_chain_probability_display_full_event,chain_probability_status,note
+1,1,4,0.331120250719109,0,0,0.000438,1.4503066981497,0,full_event_reconstructed,Full-event chain probability reconstructed as product of stage full-event probabilities.
+1,2,4,0.331120250719109,0,0,0.000438,1.4503066981497,0,full_event_reconstructed,Full-event chain probability reconstructed as product of stage full-event probabilities.
+2,1,1,1,0.439288936840191,0.439288936840191,0.000582,5.82,2.55666161240991,full_event_reconstructed,Full-event chain probability reconstructed as product of stage full-event probabilities.
+2,2,4,0.165513407215242,0,0,0.000582,0.963288029992708,0,full_event_reconstructed,Full-event chain probability reconstructed as product of stage full-event probabilities.
+3,1,1,1,0.976624666006087,0.976624666006087,0.000378,3.78,3.69164123750301,full_event_reconstructed,Full-event chain probability reconstructed as product of stage full-event probabilities.
+3,2,1,1,0.976624666006087,0.976624666006087,0.000378,3.78,3.69164123750301,full_event_reconstructed,Full-event chain probability reconstructed as product of stage full-event probabilities.

@@ -1,0 +1,13 @@
+metric_name,sigma,valid_sample_count,selected_only_var_display,full_event_var_display,delta,relative_delta,mean_selected_only_risk_display,mean_full_event_risk_display,max_selected_only_risk_display,max_full_event_risk_display,note
+LLR,0.9,6,0.44991849637609,0,-0.44991849637609,-1,0.201782853633523,0,0.44991849637609,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+LLR,0.95,6,0.44991849637609,0,-0.44991849637609,-1,0.201782853633523,0,0.44991849637609,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+LLR,0.98,6,0.44991849637609,0,-0.44991849637609,-1,0.201782853633523,0,0.44991849637609,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+LFOR,0.9,6,0.808445751576688,0,-0.808445751576688,-1,0.358976334291021,0,0.808445751576688,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+LFOR,0.95,6,0.808445751576688,0,-0.808445751576688,-1,0.358976334291021,0,0.808445751576688,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+LFOR,0.98,6,0.808445751576688,0,-0.808445751576688,-1,0.358976334291021,0,0.808445751576688,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+NVOR,0.9,6,0.29002478995873,0,-0.29002478995873,-1,0.12878048496125,0,0.29002478995873,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+NVOR,0.95,6,0.29002478995873,0,-0.29002478995873,-1,0.12878048496125,0,0.29002478995873,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+NVOR,0.98,6,0.29002478995873,0,-0.29002478995873,-1,0.12878048496125,0,0.29002478995873,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+CRI,0.9,6,0.489645206132738,0,-0.489645206132738,-1,0.218621076030568,0,0.489645206132738,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+CRI,0.95,6,0.489645206132738,0,-0.489645206132738,-1,0.218621076030568,0,0.489645206132738,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.
+CRI,0.98,6,0.489645206132738,0,-0.489645206132738,-1,0.218621076030568,0,0.489645206132738,0,Small trace smoke only; not compared against paper benchmark and not written to final_summary.

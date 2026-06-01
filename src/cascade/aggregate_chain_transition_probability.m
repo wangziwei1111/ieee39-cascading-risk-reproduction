@@ -50,8 +50,8 @@ else
     if any(stage_status == "selected_only_approximation")
         detail.probability_status = 'selected_only_approximation';
         detail.note = 'Chain probability is a selected-only approximation and excludes non-selected candidate complements.';
-    elseif all(stage_status == "full_bernoulli_event" | stage_status == "terminal_no_candidate")
-        detail.probability_status = 'full_bernoulli_event';
+    elseif all(stage_status == "full_event_available" | stage_status == "full_bernoulli_event" | stage_status == "terminal_no_candidate")
+        detail.probability_status = 'full_event_available';
         detail.note = 'Chain probability uses full Bernoulli stage events where available.';
     else
         detail.probability_status = 'computed_with_terminal_or_mixed_status';

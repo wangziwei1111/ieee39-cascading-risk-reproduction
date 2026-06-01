@@ -133,3 +133,18 @@ transition probabilities, and chain transition products in the same Markov run.
 The smoke deliberately uses `selected_only_product` as a diagnostic approximation.
 It validates that transition fields can be exported, but it does not repair the
 historical formal pilot summaries and is not a formal paper benchmark result.
+
+The next diagnostic step reconstructs the Bernoulli full-event probability:
+
+`prod(P_selected) * prod(1 - P_unselected)`
+
+from the trace smoke candidate table, then runs a tiny full-event trace smoke.
+Only after that mechanism passes should the formal scenario-aligned VaR pilot be
+rerun with full-event chain probabilities. The current formal pilot still lacks
+complete chain transition probability and must not be treated as final.
+
+The full-event trace smoke has passed as a mechanism validation. It remains a
+3-by-2 diagnostic run and does not replace the formal pilot. Its result also
+shows why selected-only probabilities are not sufficient: including non-selected
+candidate complements can materially change, and sometimes zero out, chain
+probability.
