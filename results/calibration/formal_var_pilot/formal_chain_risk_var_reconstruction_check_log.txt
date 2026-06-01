@@ -1,0 +1,14 @@
+PASS exists: C:\Users\24186\Documents\New project 13\results\calibration\formal_var_pilot\initial_line_probability_mapping_audit.csv
+PASS exists: C:\Users\24186\Documents\New project 13\results\calibration\formal_var_pilot\formal_chain_risk_samples.csv
+PASS exists: C:\Users\24186\Documents\New project 13\results\calibration\formal_var_pilot\formal_chain_risk_var_metrics.csv
+PASS exists: C:\Users\24186\Documents\New project 13\results\calibration\formal_var_pilot\formal_chain_risk_var_to_paper_gap.csv
+PASS exists: C:\Users\24186\Documents\New project 13\results\calibration\formal_var_pilot\formal_chain_risk_var_score_summary.csv
+PASS exists: C:\Users\24186\Documents\New project 13\results\calibration\formal_var_pilot\severity_vs_risk_weighted_var_comparison.csv
+PASS exists: C:\Users\24186\Documents\New project 13\results\calibration\formal_var_pilot\post_chain_risk_var_action.csv
+missing_transition_probability_sample_count=12880
+missing_initial_probability_sample_count=0
+NOTE transition probability is absent in current formal pilot chain summaries; no value was fabricated.
+INFO final_summary directory exists from prior work; this offline reconstruction did not write it.
+PASS no local_search_results generated
+FORBIDDEN_RUNS_NOT_USED: no new Markov simulation, runpf, cascade, local search, all_full, final_summary, OLS benchmark, or actual wind/generator trip.
+CHECK_STATUS=PASS

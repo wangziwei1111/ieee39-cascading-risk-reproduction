@@ -1,0 +1,2 @@
+selected,parameter_set_id,sample_variant,metric_name,reason,go_no_go,recommended_next_action,note
+1,low_hidden_failure,initial_probability_weighted_display,SLLR,selected from chain-risk VaR score summary; no local search executed,fix_cascade_transition_mechanism,review accident-chain probability mechanism before parameter tuning,Do not fabricate missing chain transition probability; this is a diagnostic action only.

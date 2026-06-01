@@ -87,3 +87,39 @@ behavior before parameter tuning.
 
 This pilot should therefore be treated as a formal scenario-aligned diagnostic
 pilot, not as final benchmark reproduction.
+
+## Accident-Chain Risk Samples Versus Severity Samples
+
+The first formal pilot reconstruction used severity-only VaR from
+`markov_chain_summary.csv`. That is a useful diagnostic, but it should not be
+treated as the paper's accident-chain risk VaR.
+
+The offline chain-risk reconstruction now builds several sample variants from the
+existing formal pilot results without running any new Markov simulation:
+
+- `severity_only`: the original severity sample comparator.
+- `initial_probability_weighted_actual`: `P_initial_line * severity`.
+- `initial_probability_weighted_display`: `P_initial_line * severity / 1e-4`.
+- `transition_probability_weighted`: unavailable in the current formal pilot
+  because the chain summaries do not contain `chain_transition_probability` or
+  `chain_probability`.
+
+Table 4-1 initial outage probabilities are stored as paper table values in units of
+`10^-4`; the actual probability is `table_value * 1e-4`. For direct comparison to
+paper table display values, the diagnostic display risk is:
+
+`P_initial_line * severity / 1e-4 = table_value * severity`
+
+This display-weighted version moves many CRI values much closer to the paper-table
+scale. For example, the sigma 0.95 `CRI_recomputed` gaps are often `close` or
+`same_order` rather than uniformly too small. However, the trend checks still fail:
+the topology, wind-speed, and penetration ordering are not reliable enough to enter
+local parameter search.
+
+The reconstruction also confirms a structural missing item:
+
+`missing_transition_probability_sample_count > 0`
+
+No transition probability was fabricated. The current post-chain-risk action is to
+review the cascade transition probability mechanism before parameter tuning, not to
+run local search.
