@@ -84,3 +84,35 @@ In the current tiny trace, all 15 reconstructed stages are marked
 Bernoulli event includes the complement probability of unselected candidates;
 when an unselected candidate has probability 1, the full event probability is
 zero. This is a useful mechanism check, not a benchmark conclusion.
+
+## Full-Event Zero-Probability Diagnosis And Terminal Stage Handling
+
+The first full-event smoke exposed a classification issue: terminal stages such
+as `load_loss_threshold` and `max_depth_reached` could still carry a residual
+candidate table. Multiplying complements from that residual table can create an
+artificial zero probability, especially if a non-selected candidate has
+probability 1.
+
+The rule is now explicit:
+
+- Actual sampling stages multiply selected and non-selected candidate terms.
+- `no_new_outage` is treated as a real sampled event, so complements are valid.
+- Terminal recording stages caused by load-loss threshold, max depth, or
+  nonconvergence are assigned stage transition probability 1 and marked
+  `terminal_stage_probability_one`.
+- If a non-terminal stage contains `candidate_probability=1` with
+  `selected=false`, the stage is marked inconsistent instead of being reported as
+  a valid zero-probability full event.
+- If `random_u` and `selected` disagree on a non-terminal stage, the stage is
+  marked inconsistent and the chain probability is not fabricated.
+
+The repaired full-event smoke records `terminated_reason`,
+`terminal_stage_flag`, `should_multiply_candidate_complements`, and
+`candidate_selection_consistency_status` in
+`stage_transition_probability_details.csv`.
+
+After the fix, the tiny full-event smoke no longer has chain probability zero
+from terminal residual candidate complements. The candidate consistency audit
+still reports terminal-stage selection mismatches, which is expected because
+terminal logic clears selected outages after the stopping condition; those rows
+are excluded from the Bernoulli complement product by the terminal-stage rule.

@@ -1,0 +1,16 @@
+initial_branch,trial_id,stage_id,chain_depth,terminated_reason,candidate_count,selected_candidate_count,unselected_candidate_count,stage_transition_probability,unselected_probability_product,has_unselected_probability_one,unselected_probability_one_count,has_selected_probability_zero,selected_probability_zero_count,terminal_stage_flag,no_new_outage_stage_flag,load_loss_threshold_stage_flag,max_depth_stage_flag,candidate_table_generated_after_terminal,diagnosis,recommended_fix,note
+1,1,1,4,load_loss_threshold,45,1,44,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+1,1,2,4,load_loss_threshold,44,2,42,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+1,1,3,4,load_loss_threshold,35,3,32,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+1,1,4,4,load_loss_threshold,32,0,32,1,NaN,1,3,0,0,1,0,1,0,1,terminal_stage_should_not_multiply_candidates,verify terminal stage probability is 1 after fix,Terminal load-loss/max-depth stage should be excluded from complement product.
+1,2,1,4,load_loss_threshold,45,1,44,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+1,2,2,4,load_loss_threshold,44,2,42,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+1,2,3,4,load_loss_threshold,35,3,32,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+1,2,4,4,load_loss_threshold,32,0,32,1,NaN,1,3,0,0,1,0,1,0,1,terminal_stage_should_not_multiply_candidates,verify terminal stage probability is 1 after fix,Terminal load-loss/max-depth stage should be excluded from complement product.
+2,1,1,1,no_new_outage,45,0,45,0.43928893684019,0.43928893684019,0,0,0,0,1,1,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+2,2,1,4,load_loss_threshold,45,1,44,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+2,2,2,4,load_loss_threshold,44,2,42,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+2,2,3,4,load_loss_threshold,34,3,31,1,NaN,0,0,0,0,0,0,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+2,2,4,4,load_loss_threshold,31,0,31,1,NaN,1,3,0,0,1,0,1,0,1,terminal_stage_should_not_multiply_candidates,verify terminal stage probability is 1 after fix,Terminal load-loss/max-depth stage should be excluded from complement product.
+3,1,1,1,no_new_outage,45,0,45,0.976624666006087,0.976624666006087,0,0,0,0,1,1,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.
+3,2,1,1,no_new_outage,45,0,45,0.976624666006087,0.976624666006087,0,0,0,0,1,1,0,0,0,normal_nonzero_or_not_applicable,none,Stage probability is not a problematic zero.

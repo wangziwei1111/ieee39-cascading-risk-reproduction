@@ -1,4 +1,4 @@
-function [stage_prob, detail] = compute_stage_transition_probability_from_candidates(candidate_table, selected_outage_ids, cfg)
+function [stage_prob, detail] = compute_stage_transition_probability_from_candidates(candidate_table, selected_outage_ids, cfg, terminal_stage_detail)
 %COMPUTE_STAGE_TRANSITION_PROBABILITY_FROM_CANDIDATES 记录单级后续停运转移概率。
 % 该函数只读取候选线路概率和已抽样结果，不生成随机数，也不改变 Markov 抽样逻辑。
 
@@ -10,8 +10,36 @@ if nargin < 3 || ~isfield(cfg, 'chain_transition_probability_mode')
 else
     mode = char(cfg.chain_transition_probability_mode);
 end
+if nargin < 4 || isempty(terminal_stage_detail)
+    terminal_stage_detail = struct('terminal_stage_flag', false, ...
+        'should_multiply_candidate_complements', true, ...
+        'terminal_reason', "", 'note', "");
+end
 
 detail = default_detail(mode);
+detail.terminal_stage_flag = logical(get_struct_field(terminal_stage_detail, 'terminal_stage_flag', false));
+detail.should_multiply_candidate_complements = logical(get_struct_field(terminal_stage_detail, 'should_multiply_candidate_complements', true));
+detail.terminal_reason = string(get_struct_field(terminal_stage_detail, 'terminal_reason', ""));
+detail.terminal_stage_note = string(get_struct_field(terminal_stage_detail, 'note', ""));
+
+if strcmp(mode, 'bernoulli_full_event') && ~detail.should_multiply_candidate_complements
+    if istable(candidate_table)
+        detail.candidate_count = height(candidate_table);
+        if ismember('trip_selected', candidate_table.Properties.VariableNames)
+            detail.selected_candidate_count = sum(logical(candidate_table.trip_selected(:)));
+            detail.unselected_candidate_count = detail.candidate_count - detail.selected_candidate_count;
+        elseif ismember('selected', candidate_table.Properties.VariableNames)
+            detail.selected_candidate_count = sum(logical(candidate_table.selected(:)));
+            detail.unselected_candidate_count = detail.candidate_count - detail.selected_candidate_count;
+        end
+    end
+    stage_prob = 1;
+    detail.stage_transition_probability = stage_prob;
+    detail.probability_status = 'terminal_stage_probability_one';
+    detail.missing_reason = '';
+    detail.note = 'Terminal recording stage excluded from Bernoulli complement product.';
+    return;
+end
 
 if isempty(candidate_table) || height(candidate_table) == 0
     stage_prob = 1;
@@ -80,6 +108,27 @@ switch mode
             detail.stage_transition_probability = stage_prob;
             return;
         end
+        if ismember('random_u', candidate_table.Properties.VariableNames)
+            expected_selected = candidate_table.random_u(:) < p;
+            if any(expected_selected ~= selected_mask)
+                stage_prob = NaN;
+                detail.unselected_probability_product = NaN;
+                detail.probability_status = 'inconsistent_random_selection';
+                detail.missing_reason = 'random_u and selected flag are inconsistent';
+                detail.note = 'Full-event probability is not reported because candidate selection does not match random_u < probability.';
+                detail.stage_transition_probability = stage_prob;
+                return;
+            end
+        end
+        if any(~selected_mask & p >= 1)
+            stage_prob = NaN;
+            detail.unselected_probability_product = NaN;
+            detail.probability_status = 'inconsistent_candidate_selection';
+            detail.missing_reason = 'candidate_probability=1 but selected=false';
+            detail.note = 'Full-event probability is not reported because a probability-one candidate was not selected.';
+            detail.stage_transition_probability = stage_prob;
+            return;
+        end
         unselected_product = prod(1 - p(~selected_mask));
         if isempty(unselected_product)
             unselected_product = 1;
@@ -116,6 +165,10 @@ detail.missing_reason = '';
 detail.selected_branch_ids = "";
 detail.random_u_selected = "";
 detail.candidate_probability_basis = "";
+detail.terminal_stage_flag = false;
+detail.should_multiply_candidate_complements = true;
+detail.terminal_reason = "";
+detail.terminal_stage_note = "";
 detail.note = "";
 end
 
@@ -148,5 +201,13 @@ if ismember('outage_probability', names)
     column_name = "outage_probability";
 elseif ismember('candidate_probability', names)
     column_name = "candidate_probability";
+end
+end
+
+function value = get_struct_field(s, name, default_value)
+if isstruct(s) && isfield(s, name)
+    value = s.(name);
+else
+    value = default_value;
 end
 end

@@ -1,0 +1,2 @@
+total_candidate_count,consistent_count,inconsistent_count,probability_one_not_selected_count,random_rule_violation_not_selected_count,random_rule_violation_selected_count,random_u_missing_count,recommendation
+601,585,16,9,7,0,0,investigate_selection_trace_before_formal_rerun

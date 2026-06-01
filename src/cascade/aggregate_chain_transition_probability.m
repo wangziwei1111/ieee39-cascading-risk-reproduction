@@ -40,7 +40,15 @@ valid_mask = ~isnan(stage_probs);
 detail.valid_stage_probability_count = sum(valid_mask);
 detail.missing_stage_probability_count = sum(~valid_mask);
 
-if any(~valid_mask)
+if any(stage_status == "inconsistent_candidate_selection" | stage_status == "inconsistent_random_selection")
+    chain_prob = NaN;
+    detail.probability_status = 'inconsistent_stage_probability';
+    detail.note = 'At least one stage has inconsistent candidate selection; chain probability is not fabricated.';
+elseif any(stage_status == "ambiguous_terminal_stage")
+    chain_prob = NaN;
+    detail.probability_status = 'ambiguous_terminal_stage';
+    detail.note = 'At least one stage has ambiguous terminal probability treatment; chain probability is not fabricated.';
+elseif any(~valid_mask)
     chain_prob = NaN;
     detail.probability_status = 'partially_missing';
     detail.note = 'At least one stage transition probability is missing; chain probability is not fabricated.';
@@ -50,7 +58,8 @@ else
     if any(stage_status == "selected_only_approximation")
         detail.probability_status = 'selected_only_approximation';
         detail.note = 'Chain probability is a selected-only approximation and excludes non-selected candidate complements.';
-    elseif all(stage_status == "full_event_available" | stage_status == "full_bernoulli_event" | stage_status == "terminal_no_candidate")
+    elseif all(stage_status == "full_event_available" | stage_status == "full_bernoulli_event" | ...
+            stage_status == "terminal_no_candidate" | stage_status == "terminal_stage_probability_one")
         detail.probability_status = 'full_event_available';
         detail.note = 'Chain probability uses full Bernoulli stage events where available.';
     else

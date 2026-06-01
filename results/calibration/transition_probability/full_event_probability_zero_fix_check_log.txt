@@ -1,0 +1,13 @@
+full_event_probability_zero_fix_check
+check_status=pass
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\full_event_zero_probability_diagnosis.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\candidate_selection_consistency_audit.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\candidate_selection_consistency_summary.csv
+found file: C:\Users\24186\Documents\New project 13\src\cascade\is_terminal_stage_for_transition_probability.m
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\full_event_trace_smoke\stage_transition_probability_details.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\full_event_trace_smoke\markov_chain_summary.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\full_event_reconstruction_from_trace_stage.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\full_event_reconstruction_from_trace_chain.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\full_event_chain_risk_trace_preview.csv
+final_summary directory exists from prior work; this check did not write it.
+local_search was not run by this check.

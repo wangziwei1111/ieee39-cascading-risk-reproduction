@@ -151,14 +151,22 @@ for stage_id = 1:cfg.markov_max_depth
         terminated_reason = "no_new_outage";
     end
 
+    stage_terminated_reason = terminated_reason;
+    if ~isempty(selected)
+        stage_terminated_reason = "continue";
+    end
+    terminal_stage_record = struct('terminated_reason', stage_terminated_reason, ...
+        'new_outaged_branches', selected, 'candidate_table', candidate_table, 'converged', converged);
+    [~, terminal_stage_detail] = is_terminal_stage_for_transition_probability(terminal_stage_record, struct(), cfg);
     [~, transition_probability_detail] = compute_stage_transition_probability_from_candidates( ...
-        candidate_table, selected, cfg);
+        candidate_table, selected, cfg, terminal_stage_detail);
     transition_probability_detail.initial_branch = initial_branch;
     transition_probability_detail.trial_id = trial_id;
     transition_probability_detail.stage_id = stage_id;
     transition_probability_detail.selected_outage_ids = join_branch_list(selected);
 
     stage_records(stage_id).stage_id = stage_id; %#ok<AGROW>
+    stage_records(stage_id).terminated_reason = stage_terminated_reason;
     stage_records(stage_id).new_outaged_branches = selected;
     stage_records(stage_id).all_outaged_branches = outaged_branches;
     stage_records(stage_id).island_info = island_info;
