@@ -195,3 +195,8 @@ The updated readiness output is:
 If `formal_var_pilot_ready = 1`, the next step is a formal scenario-aligned VaR
 pilot, not local search. If it is still 0, the check log lists the remaining
 blocking issues explicitly.
+
+The formal scenario-aligned VaR pilot has been added as a separate output family
+under `results/calibration/formal_var_pilot/`. It does not replace `final_summary`
+and is used only to decide whether the next step should be scale-aware calibration
+planning, parameter-refinement planning, or another metric/scenario review.

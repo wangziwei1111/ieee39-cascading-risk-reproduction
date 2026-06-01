@@ -1,0 +1,2 @@
+scenario_id,parameter_set_id,wind_injection_mode,wind_buses,wind_capacity_total_mw,paper_wind_penetration,load_based_wind_penetration,wind_penetration_basis,wind_speed_mps,branch_count,slack_bus,markov_trials_per_initial_fault,random_seed,calibration_status,note
+penetration_80pct,medium_hidden_failure,distributed,30:39,6000,0.8,0.959350711438498,total_generation_capacity,12,46,31,10,202405,diagnostic_assumption_not_paper,formal scenario-aligned VaR pilot config snapshot; not final benchmark

@@ -1,0 +1,2 @@
+selected,parameter_set_id,metric_source,reason,go_no_go,recommended_next_action,note
+1,high_hidden_failure,SLFOR,selected from formal pilot score summary; no local search executed,fix_metric_or_scenario_first,review metric definition or scenario implementation before calibration,formal pilot is not final benchmark and benchmark_calibrated parameters are not original paper parameters
