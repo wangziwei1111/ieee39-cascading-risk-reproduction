@@ -1,0 +1,18 @@
+calibration_metric_scale_diagnosis_check_log
+generated_at=2026-06-01 15:04:24
+
+required_file=results/calibration/diagnostics/calibration_metric_source_audit.csv exists=1
+required_file=results/calibration/diagnostics/calibration_metric_scale_summary.csv exists=1
+required_file=results/calibration/diagnostics/calibration_metric_scale_fit.csv exists=1
+required_file=results/calibration/diagnostics/calibration_trend_alignment.csv exists=1
+required_file=results/calibration/diagnostics/calibration_trend_alignment_summary.csv exists=1
+required_file=docs/calibration_metric_scale_diagnosis.md exists=1
+diagnoses=likely_metric_definition_mismatch,likely_percent_vs_pu_scale,likely_wrong_source_file
+do not proceed to parameter local search: metric source or definition mismatch detected
+source_audit_rows=112
+trend_summary_rows=4
+forbidden_file=results/final_summary/calibration_metric_scale_diagnosis_check_log.txt exists=0
+forbidden_file=results/final_summary/tables/calibration_metric_source_audit.csv exists=0
+forbidden_file=results/calibration/local_search_results.csv exists=0
+
+check_status=passed

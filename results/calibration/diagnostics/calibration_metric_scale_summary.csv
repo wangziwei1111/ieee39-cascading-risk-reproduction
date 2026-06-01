@@ -1,0 +1,13 @@
+metric_name,target_group,row_count,mean_paper_value,mean_sim_value,median_ratio_paper_to_sim,p10_ratio_paper_to_sim,p90_ratio_paper_to_sim,suggested_scale_factor,scale_factor_stability,diagnosis,recommended_metric_source
+CRI,penetration_scan,12,8.67463333333333,0.0191174353825967,481.79473661037,218.53258253577,941.877025713965,481.79473661037,moderate,likely_wrong_source_file,weighted_markov_var
+CRI,topology_compare,8,6.18475,0.117298565678099,131.341779383865,32.6188551519025,713.835710413264,131.341779383865,unstable,likely_metric_definition_mismatch,paper_severity_markov_var
+CRI,wind_speed_scan,8,6.48285,0.0125288185237964,600.990222048319,261.446582011809,1782.92416221426,600.990222048319,unstable,likely_metric_definition_mismatch,weighted_markov_var
+SLFOR,penetration_scan,12,7.54663333333333,0.0418067475400516,164.127729066009,85.9616084118618,392.070372065367,164.127729066009,moderate,likely_wrong_source_file,weighted_markov_var
+SLFOR,topology_compare,8,5.25545,0.0147430104272564,145.275435773226,88.0549133758821,382.505536185968,145.275435773226,moderate,likely_percent_vs_pu_scale,raw_markov_var
+SLFOR,wind_speed_scan,8,5.3922,0.0249046198025293,240.349148293668,98.6369929918543,811.329240883697,240.349148293668,unstable,likely_metric_definition_mismatch,weighted_markov_var
+SLLR,penetration_scan,12,9.41436666666667,0.0146456297898965,689.714056674092,331.598343522004,1491.21563988242,689.714056674092,moderate,likely_wrong_source_file,raw_markov_var
+SLLR,topology_compare,8,7.46135,0.156510746365363,190.902200625128,28.4426666666667,853.552721235561,190.902200625128,unstable,likely_metric_definition_mismatch,paper_severity_markov_var
+SLLR,wind_speed_scan,8,7.0856,0.0107169548376773,741.827647819963,366.921304736472,2047.88237303869,741.827647819963,unstable,likely_metric_definition_mismatch,raw_markov_var
+SNVOR,penetration_scan,12,7.58346666666667,0.00984354000324232,1181.84374705394,260.997949109589,3742.89183164275,1181.84374705394,unstable,likely_metric_definition_mismatch,weighted_markov_var
+SNVOR,topology_compare,8,3.28415,0.102217578867147,132.729788212608,19.8729903556621,897.08600631416,132.729788212608,unstable,likely_metric_definition_mismatch,paper_severity_markov_var
+SNVOR,wind_speed_scan,8,5.7652,0.00558860830342048,1677.27409298493,458.314225986341,5159.55461369067,1677.27409298493,unstable,likely_metric_definition_mismatch,weighted_markov_var

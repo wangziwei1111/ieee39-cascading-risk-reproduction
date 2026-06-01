@@ -1,0 +1,5 @@
+parameter_set_id,direction_test_count,matched_direction_count,opposite_direction_count,flat_sim_count,trend_match_rate,recommendation
+benchmark_calibrated_seed,12,7,5,0,0.583333333333333,mixed_trend_check_scenario_and_metric_definition
+high_hidden_failure,12,7,5,0,0.583333333333333,mixed_trend_check_scenario_and_metric_definition
+low_hidden_failure,12,7,5,0,0.583333333333333,mixed_trend_check_scenario_and_metric_definition
+medium_hidden_failure,12,7,5,0,0.583333333333333,mixed_trend_check_scenario_and_metric_definition
