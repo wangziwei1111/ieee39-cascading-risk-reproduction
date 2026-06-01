@@ -1,13 +1,21 @@
-paper metric definition alignment check started: 2026-06-01 15:20:40
+paper metric definition alignment check started: 2026-06-01 15:30:58
+C:\Users\24186\Documents\New project 13\paper_inputs\filled\paper_risk_metric_formulas.csv exists=true
 C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\engineering_metric_definition_index.csv exists=true
 C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\paper_metric_definition_table.csv exists=true
 C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\metric_definition_gap_matrix.csv exists=true
 C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\paper_consistent_metric_preview.csv exists=true
 C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\paper_consistent_preview_gap.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\chain_level_risk_sample_source_audit.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\chain_level_risk_samples.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\reconstructed_empirical_var_metrics.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\reconstructed_var_to_paper_gap.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\reconstructed_var_gap_summary.csv exists=true
 C:\Users\24186\Documents\New project 13\docs\paper_metric_definition_alignment.md exists=true
 local_search_results_absent=true
 final_summary_not_written_by_this_check=true
-paper_metric_definition_has_missing_information=true
-action_required=ask user to provide original paper risk metric formulas before parameter local search
+paper_metric_definition_has_missing_information=false
+paper_metric_definition_all_missing_from_current_inputs=false
 gap_match_statuses=paper_definition_unconfirmed
+reconstructed_var_recommendations=not_recommended,still_wrong_scale
+next_step=need more paper metric details or scenario-level chain samples.
 check_status=passed

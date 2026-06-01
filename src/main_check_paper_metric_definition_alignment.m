@@ -7,11 +7,17 @@ ensure_dir(diag_dir);
 
 lines = strings(0, 1);
 required = [
+    string(fullfile(project_root, 'paper_inputs', 'filled', 'paper_risk_metric_formulas.csv'))
     string(fullfile(diag_dir, 'engineering_metric_definition_index.csv'))
     string(fullfile(diag_dir, 'paper_metric_definition_table.csv'))
     string(fullfile(diag_dir, 'metric_definition_gap_matrix.csv'))
     string(fullfile(diag_dir, 'paper_consistent_metric_preview.csv'))
     string(fullfile(diag_dir, 'paper_consistent_preview_gap.csv'))
+    string(fullfile(diag_dir, 'chain_level_risk_sample_source_audit.csv'))
+    string(fullfile(diag_dir, 'chain_level_risk_samples.csv'))
+    string(fullfile(diag_dir, 'reconstructed_empirical_var_metrics.csv'))
+    string(fullfile(diag_dir, 'reconstructed_var_to_paper_gap.csv'))
+    string(fullfile(diag_dir, 'reconstructed_var_gap_summary.csv'))
     string(fullfile(project_root, 'docs', 'paper_metric_definition_alignment.md'))
     ];
 
@@ -38,9 +44,13 @@ if exist(paper_table_path, 'file') == 2
     paper_table = read_csv(paper_table_path);
     has_missing = ismember('missing_information', paper_table.Properties.VariableNames) && ...
         any(strlength(string(paper_table.missing_information)) > 0);
+    all_missing_from_inputs = ismember('paper_formula', paper_table.Properties.VariableNames) && ...
+        all(string(paper_table.paper_formula) == "missing_from_current_paper_inputs");
     lines(end+1) = "paper_metric_definition_has_missing_information=" + string(has_missing);
+    lines(end+1) = "paper_metric_definition_all_missing_from_current_inputs=" + string(all_missing_from_inputs);
+    ok = ok && ~all_missing_from_inputs;
     if has_missing
-        lines(end+1) = "action_required=ask user to provide original paper risk metric formulas before parameter local search";
+        lines(end+1) = "remaining_uncertainty=exact pdf fitting method/sample construction/weight confirmation may still need paper text";
     end
 end
 
@@ -50,6 +60,20 @@ if exist(gap_path, 'file') == 2
     if ismember('match_status', gap.Properties.VariableNames)
         statuses = unique(string(gap.match_status));
         lines(end+1) = "gap_match_statuses=" + strjoin(statuses, ",");
+    end
+end
+
+summary_path = fullfile(diag_dir, 'reconstructed_var_gap_summary.csv');
+if exist(summary_path, 'file') == 2
+    summary = read_csv(summary_path);
+    if ismember('recommendation', summary.Properties.VariableNames)
+        recs = unique(string(summary.recommendation));
+        lines(end+1) = "reconstructed_var_recommendations=" + strjoin(recs, ",");
+        if any(recs == "candidate_metric_for_calibration")
+            lines(end+1) = "next_step=next step may use this metric source for scale-aware calibration pilot, but not yet local search.";
+        else
+            lines(end+1) = "next_step=need more paper metric details or scenario-level chain samples.";
+        end
     end
 end
 

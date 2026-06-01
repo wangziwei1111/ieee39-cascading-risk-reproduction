@@ -1,0 +1,151 @@
+sample_variant,scale_variant,initial_branch,trial_id,chain_id,stage_count,R1_LLR,R2_LFOR,R3_NVOR,R_CRI,sample_status,construction_note
+chain_sum_probability_weighted,per_unit,1,1,1,5,2.17721544555925e-05,0.000116734138139543,3.49368642479642e-11,3.64101272886369e-05,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,1,1,1,5,0.00217721544555925,0.0116734138139543,3.49368642479642e-09,0.00364101272886369,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,1,1,1,5,0.783885074581523,0.764672629031115,0.0947174735808449,0.642209065271306,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,1,1,1,5,78.3885074581523,76.4672629031115,9.47174735808449,64.2209065271306,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,1,1,1,5,0.423576451457653,0.358172793728187,0.0807216052377134,0.341924750667772,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,1,1,1,5,42.3576451457653,35.8172793728187,8.07216052377134,34.1924750667772,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,1,1,1,5,0.423576451457653,0.178072176804748,0.0807216052377134,0.305904627283084,valid,final available stage severity_metric
+chain_final_stage_severity,percent,1,1,1,5,42.3576451457653,17.8072176804748,8.07216052377134,30.5904627283084,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,1,1,1,5,0.156777014916305,0.152934525806223,0.018943494716169,0.128441813054261,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,1,1,1,5,15.6777014916305,15.2934525806223,1.8943494716169,12.8441813054261,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,1,2,2,5,4.15601921564118e-05,0.000170646909451911,3.08322405104954e-06,5.96821419944392e-05,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,1,2,2,5,0.00415601921564118,0.0170646909451911,0.000308322405104954,0.00596821419944392,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,1,2,2,5,0.757222871560528,2.95130520463913,0.125905194100721,1.06977580268429,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,1,2,2,5,75.7222871560528,295.130520463913,12.5905194100721,106.977580268429,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,1,2,2,5,0.396914248436658,2.36470475241276,0.11190932575759,0.733471364696065,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,1,2,2,5,39.6914248436658,236.470475241276,11.190932575759,73.3471364696065,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,1,2,2,5,0.396914248436658,2.36470475241276,0.11190932575759,0.733471364696065,valid,final available stage severity_metric
+chain_final_stage_severity,percent,1,2,2,5,39.6914248436658,236.470475241276,11.190932575759,73.3471364696065,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,1,2,2,5,0.151444574312106,0.590261040927825,0.0251810388201443,0.213955160536857,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,1,2,2,5,15.1444574312106,59.0261040927825,2.51810388201443,21.3955160536857,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,1,3,3,1,0,1.29975240177066e-05,0,2.59950480354131e-06,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,1,3,3,1,0,0.00129975240177066,0,0.000259950480354131,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,1,3,3,1,0,0.0701360095627803,0,0.0140272019125561,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,1,3,3,1,0,7.01360095627803,0,1.40272019125561,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,1,3,3,1,0,0.0701360095627803,0,0.0140272019125561,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,1,3,3,1,0,7.01360095627803,0,1.40272019125561,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,1,3,3,1,0,0.0701360095627803,0,0.0140272019125561,valid,final available stage severity_metric
+chain_final_stage_severity,percent,1,3,3,1,0,7.01360095627803,0,1.40272019125561,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,1,3,3,1,0,0.0701360095627803,0,0.0140272019125561,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,1,3,3,1,0,7.01360095627803,0,1.40272019125561,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,2,1,4,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,2,1,4,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,2,1,4,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,2,1,4,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,2,1,4,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,2,1,4,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,2,1,4,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,2,1,4,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,2,1,4,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,2,1,4,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,2,2,5,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,2,2,5,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,2,2,5,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,2,2,5,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,2,2,5,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,2,2,5,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,2,2,5,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,2,2,5,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,2,2,5,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,2,2,5,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,2,3,6,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,2,3,6,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,2,3,6,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,2,3,6,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,2,3,6,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,2,3,6,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,2,3,6,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,2,3,6,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,2,3,6,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,2,3,6,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,3,1,7,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,3,1,7,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,3,1,7,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,3,1,7,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,3,1,7,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,3,1,7,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,3,1,7,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,3,1,7,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,3,1,7,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,3,1,7,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,3,2,8,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,3,2,8,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,3,2,8,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,3,2,8,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,3,2,8,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,3,2,8,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,3,2,8,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,3,2,8,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,3,2,8,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,3,2,8,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,3,3,9,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,3,3,9,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,3,3,9,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,3,3,9,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,3,3,9,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,3,3,9,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,3,3,9,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,3,3,9,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,3,3,9,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,3,3,9,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,4,1,10,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,4,1,10,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,4,1,10,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,4,1,10,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,4,1,10,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,4,1,10,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,4,1,10,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,4,1,10,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,4,1,10,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,4,1,10,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,4,2,11,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,4,2,11,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,4,2,11,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,4,2,11,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,4,2,11,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,4,2,11,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,4,2,11,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,4,2,11,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,4,2,11,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,4,2,11,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,4,3,12,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,4,3,12,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,4,3,12,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,4,3,12,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,4,3,12,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,4,3,12,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,4,3,12,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,4,3,12,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,4,3,12,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,4,3,12,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,5,1,13,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,5,1,13,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,5,1,13,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,5,1,13,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,5,1,13,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,5,1,13,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,5,1,13,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,5,1,13,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,5,1,13,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,5,1,13,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,5,2,14,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,5,2,14,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,5,2,14,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,5,2,14,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,5,2,14,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,5,2,14,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,5,2,14,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,5,2,14,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,5,2,14,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,5,2,14,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_sum_probability_weighted,per_unit,5,3,15,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_probability_weighted,percent,5,3,15,1,0,0,0,0,valid,sum_over_stage(P_total_Ek * severity_metric_Ek)
+chain_sum_severity,per_unit,5,3,15,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_sum_severity,percent,5,3,15,1,0,0,0,0,valid,sum_over_stage(severity_metric_Ek)
+chain_max_severity,per_unit,5,3,15,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_max_severity,percent,5,3,15,1,0,0,0,0,valid,max_over_stage(severity_metric_Ek)
+chain_final_stage_severity,per_unit,5,3,15,1,0,0,0,0,valid,final available stage severity_metric
+chain_final_stage_severity,percent,5,3,15,1,0,0,0,0,valid,final available stage severity_metric
+chain_mean_stage_severity,per_unit,5,3,15,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)
+chain_mean_stage_severity,percent,5,3,15,1,0,0,0,0,valid,mean_over_stage(severity_metric_Ek)

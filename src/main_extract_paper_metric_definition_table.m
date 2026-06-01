@@ -21,10 +21,14 @@ missing_information = strings(4, 1);
 note = strings(4, 1);
 
 if exist(paper_path, 'file') == 2
-    raw = readtable(paper_path, 'TextType', 'string');
+    raw = read_csv(paper_path);
     for i = 1:numel(metrics)
         idx = find_metric_row(raw, metrics(i));
         if ~isnan(idx)
+            symbol_value = get_col(raw, idx, ["paper_symbol", "symbol"]);
+            if strlength(symbol_value) > 0
+                paper_symbol(i) = symbol_value;
+            end
             paper_formula(i) = get_col(raw, idx, ["paper_formula", "formula", "formula_text", "description"]);
             required_inputs(i) = get_col(raw, idx, ["required_inputs", "inputs"]);
             probability_weighting(i) = get_col(raw, idx, ["probability_weighting", "probability_rule"]);
@@ -32,7 +36,11 @@ if exist(paper_path, 'file') == 2
             aggregation_rule(i) = get_col(raw, idx, ["aggregation_rule", "aggregation"]);
             scale_convention(i) = get_col(raw, idx, ["scale_convention", "scale"]);
             confidence_or_var_rule(i) = get_col(raw, idx, ["confidence_or_var_rule", "var_rule"]);
-            extracted_status(i) = "extracted_from_current_paper_inputs";
+            if metrics(i) == "CRI"
+                extracted_status(i) = "weighted_sum_of_var_metrics";
+            else
+                extracted_status(i) = "VaR_quantile_metric";
+            end
             missing_information(i) = missing_items(paper_formula(i), required_inputs(i), ...
                 probability_weighting(i), severity_mapping(i), aggregation_rule(i), ...
                 scale_convention(i), confidence_or_var_rule(i));
@@ -120,4 +128,10 @@ function ensure_dir(path_value)
 if exist(path_value, 'dir') ~= 7
     mkdir(path_value);
 end
+end
+
+function tbl = read_csv(path_value)
+opts = detectImportOptions(path_value, 'Delimiter', ',', 'TextType', 'string');
+opts.VariableNamingRule = 'preserve';
+tbl = readtable(path_value, opts);
 end

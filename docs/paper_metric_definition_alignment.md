@@ -138,3 +138,90 @@ reproduction.
 Do not claim calibration is complete, do not treat preview scale fitting as formal
 paper reproduction, and do not continue probability parameter search until metric
 definitions are aligned.
+
+## Original VaR Formula Completion And Empirical Quantile Reconstruction
+
+The paper risk metric formula table has been added at:
+
+`paper_inputs/filled/paper_risk_metric_formulas.csv`
+
+The current extracted interpretation is:
+
+- SLLR: `integral_{R_SLLR}^{+inf} f(R1)dR1 = 1 - sigma`
+- SLFOR: `integral_{R_SLFOR}^{+inf} f(R2)dR2 = 1 - sigma`
+- SNVOR: `integral_{R_SNVOR}^{+inf} f(R3)dR3 = 1 - sigma`
+- CRI: `0.6*SLLR + 0.2*SLFOR + 0.2*SNVOR`
+
+This means the paper table values should be treated as VaR quantiles of
+accident-chain-level risk samples, not as simple stage-level probability-weighted
+expectations. The paper table scale is recorded as risk value divided by `1e-4`.
+
+The rebuilt paper definition table is:
+
+`results/calibration/diagnostics/paper_metric_definition_table.csv`
+
+SLLR/SLFOR/SNVOR are now marked as `VaR_quantile_metric`; CRI is marked as
+`weighted_sum_of_var_metrics`. Remaining uncertainty is narrower than before: the
+exact PDF fitting method and exact accident-chain sample construction remain partly
+unknown.
+
+## Chain-Level Sample Reconstruction
+
+The chain-level source audit is:
+
+`results/calibration/diagnostics/chain_level_risk_sample_source_audit.csv`
+
+The current usable same-run source is the unified diagnostic smoke, which provides
+stage-level probability and severity. From that source, the following candidate
+accident-chain samples were reconstructed:
+
+- `chain_sum_probability_weighted`: sum over stages of `P_total(E_k) * severity(E_k)`
+- `chain_sum_severity`: sum over stages of severity
+- `chain_max_severity`: maximum stage severity
+- `chain_final_stage_severity`: final available stage severity
+- `chain_mean_stage_severity`: mean stage severity
+
+Each candidate is exported in both `per_unit` and `percent` scale:
+
+`results/calibration/diagnostics/chain_level_risk_samples.csv`
+
+These samples are diagnostic only. They are built from a 5x3 unified smoke and should
+not be confused with a formal scenario-level accident-chain distribution.
+
+## Reconstructed Empirical VaR
+
+The empirical VaR reconstruction is:
+
+`results/calibration/diagnostics/reconstructed_empirical_var_metrics.csv`
+
+For each candidate sample variant and scale, the script computes:
+
+`R_var = quantile(sample_values, sigma)`
+
+for `sigma = 0.90, 0.95, 0.98`.
+
+The paper comparison is:
+
+`results/calibration/diagnostics/reconstructed_var_to_paper_gap.csv`
+
+and the summary is:
+
+`results/calibration/diagnostics/reconstructed_var_gap_summary.csv`
+
+Current summary at `sigma=0.95`:
+
+- `chain_sum_probability_weighted` remains many orders of magnitude below paper targets.
+- `chain_sum_severity`, `chain_max_severity`, and `chain_final_stage_severity` are closer in some per-unit/percent scales but have unstable ratios.
+- No variant is currently marked `candidate_metric_for_calibration`.
+- Recommendations are `still_wrong_scale` or `not_recommended`.
+
+Therefore, empirical VaR reconstruction clarifies the mismatch but does not yet justify
+local search. The likely blockers are still scenario/sample incompleteness, exact chain
+sample definition, and the paper's PDF fitting or empirical VaR convention.
+
+## Updated Next Step
+
+Do not continue probability parameter local search yet. The next defensible step is to
+obtain the paper's risk-metric construction details or build scenario-aligned chain
+samples from a formal rerun after metric definitions are fully fixed. Only after a
+single metric source is selected should a scale-aware calibration pilot be considered.

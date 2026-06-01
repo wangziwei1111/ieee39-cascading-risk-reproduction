@@ -1,0 +1,11 @@
+sample_variant,scale_variant,sigma,mean_abs_relative_gap,median_ratio_paper_to_var,ratio_stability,trend_interpretation,recommendation
+chain_final_stage_severity,per_unit,0.95,0.881942620224346,15.4199498090039,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,still_wrong_scale
+chain_final_stage_severity,percent,0.95,10.8057379775654,0.154199498090039,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,not_recommended
+chain_max_severity,per_unit,0.95,0.879712054920881,15.3218751995891,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,still_wrong_scale
+chain_max_severity,percent,0.95,11.0287945079119,0.153218751995891,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,not_recommended
+chain_mean_stage_severity,per_unit,0.95,0.966570131892417,45.3140283450739,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,still_wrong_scale
+chain_mean_stage_severity,percent,0.95,2.60290691240617,0.453140283450739,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,not_recommended
+chain_sum_probability_weighted,per_unit,0.95,0.999990126631036,177286.23385393,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,still_wrong_scale
+chain_sum_probability_weighted,percent,0.95,0.99901266310359,1772.8623385393,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,still_wrong_scale
+chain_sum_severity,per_unit,0.95,0.832850659462084,9.06280566901477,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,not_recommended
+chain_sum_severity,percent,0.95,15.7149340537916,0.0906280566901477,unstable,scale-only group mean comparison; trend requires scenario-aligned formal rerun,still_wrong_scale
