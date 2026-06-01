@@ -114,3 +114,45 @@ side or scenario implementation side:
 
 The next step is not parameter calibration. It is either scenario configuration audit
 or a formal VaR pilot with a fixed, reviewed metric source.
+
+## Pilot Scenario Config Snapshot Confirmation
+
+The follow-up dry-run snapshot diagnosis writes:
+
+`results/calibration/diagnostics/pilot_scenario_config_source_trace.csv`
+
+`results/calibration/diagnostics/pilot_scenario_config_snapshot.csv`
+
+`results/calibration/diagnostics/pilot_scenario_snapshot_target_alignment.csv`
+
+`results/calibration/diagnostics/formal_scenario_aligned_var_pilot_readiness.csv`
+
+`results/calibration/diagnostics/pilot_scenario_mapping_audit_v2.csv`
+
+This step reads `base_config`, `public_fixed_parameters`, and
+`build_scenario_library` only. It does not call power flow, Markov cascade,
+calibration search, local search, or `final_summary`.
+
+Current findings:
+
+- `concentrated_bus34` is confirmed as a calibration alias with wind connected at
+  bus 34 and 3000 MW total wind capacity. This deliberately overrides the older
+  default centralized-bus setting in `base_config`.
+- `distributed_30_39` is confirmed as distributed wind at buses 30:39 with
+  3000 MW total wind capacity.
+- `wind_speed_11_28` and `wind_speed_12_00` are confirmed as distributed
+  3000 MW wind cases at 11.28 m/s and 12.00 m/s.
+- `penetration_40pct`, `penetration_60pct`, and `penetration_80pct` are only
+  partially confirmed. The current scenario library computes total wind capacity
+  from `base_load_mw = 6254.23`, giving approximately 2501.692 MW,
+  3752.538 MW, and 5003.384 MW. The pilot target audit expects the Table 4-5
+  convention based on 7500 MW total generation capacity, namely 3000 MW,
+  4500 MW, and 6000 MW.
+
+This is a blocking scenario-definition issue for a formal scenario-aligned VaR
+pilot. The target benchmark mapping itself remains high-confidence, but the pilot
+scenario implementation is not yet fully aligned for the penetration-scan rows.
+
+Recommended next step: fix or explicitly version the penetration-scan scenario
+builder convention before running any formal VaR pilot. Do not proceed to local
+parameter search while this scenario configuration mismatch remains.

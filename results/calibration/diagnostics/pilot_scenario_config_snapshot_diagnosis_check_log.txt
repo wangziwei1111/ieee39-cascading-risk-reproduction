@@ -1,0 +1,13 @@
+PASS exists: results\calibration\diagnostics\pilot_scenario_config_source_trace.csv
+PASS exists: results\calibration\diagnostics\pilot_scenario_config_snapshot.csv
+PASS exists: results\calibration\diagnostics\pilot_scenario_snapshot_target_alignment.csv
+PASS exists: results\calibration\diagnostics\formal_scenario_aligned_var_pilot_readiness.csv
+PASS exists: results\calibration\diagnostics\pilot_scenario_mapping_audit_v2.csv
+PASS exists: docs\calibration_target_mapping_diagnosis.md
+blocking_mismatch_count=6
+formal_var_pilot_ready=0
+recommended_next_step=do_not_run_formal_var_pilot_until_scenario_builder_or_mapping_is_fixed
+READINESS_GATE: do not run formal VaR pilot until blocking scenario snapshot mismatch is resolved.
+INFO final_summary directory exists from prior work; this check did not write or update it.
+FORBIDDEN_RUNS: no Markov simulation, runpf/AC PF, cascade, local search, all_full, or final_summary was invoked by these diagnosis scripts.
+CHECK_STATUS=PASS
