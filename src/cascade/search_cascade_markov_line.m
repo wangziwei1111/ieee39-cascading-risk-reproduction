@@ -151,6 +151,13 @@ for stage_id = 1:cfg.markov_max_depth
         terminated_reason = "no_new_outage";
     end
 
+    [~, transition_probability_detail] = compute_stage_transition_probability_from_candidates( ...
+        candidate_table, selected, cfg);
+    transition_probability_detail.initial_branch = initial_branch;
+    transition_probability_detail.trial_id = trial_id;
+    transition_probability_detail.stage_id = stage_id;
+    transition_probability_detail.selected_outage_ids = join_branch_list(selected);
+
     stage_records(stage_id).stage_id = stage_id; %#ok<AGROW>
     stage_records(stage_id).new_outaged_branches = selected;
     stage_records(stage_id).all_outaged_branches = outaged_branches;
@@ -164,6 +171,7 @@ for stage_id = 1:cfg.markov_max_depth
     stage_records(stage_id).shed_detail = shed_detail;
     stage_records(stage_id).violations = violations;
     stage_records(stage_id).candidate_table = candidate_table;
+    stage_records(stage_id).transition_probability_detail = transition_probability_detail;
     stage_records(stage_id).wind_trip_table = wind_trip_table;
     stage_records(stage_id).wind_state_probability_detail = wind_state_probability_detail;
     stage_records(stage_id).generator_trip_table = generator_trip_table;
@@ -188,6 +196,7 @@ final_result = struct('success', final_converged);
 final_violations = stage_records(end).violations;
 metrics = calc_basic_risk_metrics(final_result, final_violations, final_shed, base_load_mw);
 basic_cri = calc_cri(metrics.SLLR, metrics.SLFOR, metrics.SNVOR, cfg.risk_weights);
+[chain_transition_probability, chain_probability_detail] = aggregate_chain_transition_probability(stage_records, cfg);
 
 chain_record = struct();
 chain_record.initial_branch = initial_branch;
@@ -205,6 +214,21 @@ chain_record.basic_LLR = metrics.SLLR;
 chain_record.basic_LFOR = metrics.SLFOR;
 chain_record.basic_NVOR = metrics.SNVOR;
 chain_record.basic_CRI = basic_cri;
+chain_record.chain_transition_probability = chain_transition_probability;
+chain_record.chain_probability_status = chain_probability_detail.probability_status;
+chain_record.stage_probability_mode = chain_probability_detail.stage_probability_mode;
+chain_record.valid_stage_probability_count = chain_probability_detail.valid_stage_probability_count;
+chain_record.missing_stage_probability_count = chain_probability_detail.missing_stage_probability_count;
+chain_record.chain_probability_detail = chain_probability_detail;
+end
+
+function s = join_branch_list(branches)
+branches = branches(:)';
+if isempty(branches)
+    s = "";
+else
+    s = strjoin(string(branches), ',');
+end
 end
 
 function p0 = resolve_initial_unified_line_probability(initial_branch, cfg)

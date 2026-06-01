@@ -1,0 +1,8 @@
+logic_item,probability_available,random_number_available,storage_location,audit_note
+candidate_probability,1,1,candidate_table.outage_probability,available for each candidate line
+candidate_random_u,1,1,candidate_table.random_u,available for sampled Bernoulli trace
+candidate_trip_selected,1,1,candidate_table.trip_selected,available for selected outage trace
+stage_candidate_table_saved,1,1,stage_records.stage_id.candidate_table,stage candidate table is saved
+stage_transition_probability_detail,1,0,stage_records.stage_id.transition_probability_detail,added by transition probability tracing patch
+chain_transition_probability_field,1,0,chain_record.chain_transition_probability,added by transition probability tracing patch
+chain_summary_transition_columns,1,0,markov_chain_summary.csv,flattened after patch for smoke and future reruns

@@ -123,3 +123,13 @@ The reconstruction also confirms a structural missing item:
 No transition probability was fabricated. The current post-chain-risk action is to
 review the cascade transition probability mechanism before parameter tuning, not to
 run local search.
+
+## Transition Probability Trace Follow-Up
+
+A small transition-probability trace smoke has now been added for future reruns.
+It records candidate probabilities, random numbers, selected outages, stage
+transition probabilities, and chain transition products in the same Markov run.
+
+The smoke deliberately uses `selected_only_product` as a diagnostic approximation.
+It validates that transition fields can be exported, but it does not repair the
+historical formal pilot summaries and is not a formal paper benchmark result.

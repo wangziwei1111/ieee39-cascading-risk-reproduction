@@ -20,17 +20,34 @@ stage_rows = {};
 
 for i = 1:num_chains
     c = chain_records(i);
+    chain_transition_probability = get_numeric_field(c, 'chain_transition_probability', NaN);
+    chain_probability_status = get_string_field(c, 'chain_probability_status', "missing");
+    stage_probability_mode = get_string_field(c, 'stage_probability_mode', "missing");
+    valid_stage_probability_count = get_numeric_field(c, 'valid_stage_probability_count', NaN);
+    missing_stage_probability_count = get_numeric_field(c, 'missing_stage_probability_count', NaN);
+    initial_line_probability = lookup_initial_probability(c.initial_branch, cfg);
+    total_chain_probability_actual = initial_line_probability * chain_transition_probability;
+    if isnan(initial_line_probability) || isnan(chain_transition_probability)
+        total_chain_probability_actual = NaN;
+    end
+    total_chain_probability_display = total_chain_probability_actual / 1e-4;
     summary_rows{i} = table( ...
         c.initial_branch, c.trial_id, c.chain_depth, string(c.terminated_reason), ...
         c.total_load_shed_mw, c.total_load_shed_frac, ...
         c.max_line_loading_pu, c.max_voltage_deviation_pu, ...
         numel(c.outaged_branches), c.final_converged, ...
         c.basic_LLR, c.basic_LFOR, c.basic_NVOR, c.basic_CRI, ...
+        chain_transition_probability, chain_probability_status, stage_probability_mode, ...
+        valid_stage_probability_count, missing_stage_probability_count, ...
+        initial_line_probability, total_chain_probability_actual, total_chain_probability_display, ...
         'VariableNames', {'initial_branch', 'trial_id', 'chain_depth', 'terminated_reason', ...
         'total_load_shed_mw', 'total_load_shed_frac', ...
         'max_line_loading_pu', 'max_voltage_deviation_pu', ...
         'num_total_outaged_branches', 'final_converged', ...
-        'basic_LLR', 'basic_LFOR', 'basic_NVOR', 'basic_CRI'});
+        'basic_LLR', 'basic_LFOR', 'basic_NVOR', 'basic_CRI', ...
+        'chain_transition_probability', 'chain_probability_status', 'stage_probability_mode', ...
+        'valid_stage_probability_count', 'missing_stage_probability_count', ...
+        'initial_line_probability', 'total_chain_probability_actual', 'total_chain_probability_display'});
 
     for s = 1:numel(c.stage_records)
         st = c.stage_records(s);
@@ -61,6 +78,46 @@ if isempty(stage_rows)
     chain_stage_table = table();
 else
     chain_stage_table = vertcat(stage_rows{:});
+end
+end
+
+function value = get_numeric_field(s, field_name, default_value)
+if isfield(s, field_name)
+    value = s.(field_name);
+else
+    value = default_value;
+end
+end
+
+function value = get_string_field(s, field_name, default_value)
+if isfield(s, field_name)
+    value = string(s.(field_name));
+else
+    value = string(default_value);
+end
+end
+
+function p0 = lookup_initial_probability(initial_branch, cfg)
+p0 = NaN;
+candidate_files = {};
+if isfield(cfg, 'initial_fault_probability_file')
+    candidate_files{end + 1} = cfg.initial_fault_probability_file; %#ok<AGROW>
+end
+candidate_files{end + 1} = fullfile('data', 'line_initial_outage_probability_paper_table_4_1.csv');
+for k = 1:numel(candidate_files)
+    file_path = candidate_files{k};
+    if exist(file_path, 'file') ~= 2
+        continue;
+    end
+    tbl = readtable(file_path);
+    if ismember('branch_index', tbl.Properties.VariableNames) && ...
+            ismember('initial_outage_probability', tbl.Properties.VariableNames)
+        row = tbl(tbl.branch_index == initial_branch, :);
+        if ~isempty(row)
+            p0 = row.initial_outage_probability(1);
+            return;
+        end
+    end
 end
 end
 

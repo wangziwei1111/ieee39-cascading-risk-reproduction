@@ -1,0 +1,13 @@
+metric_name,var_confidence_level,valid_sample_count,risk_var_display,mean_risk_display,max_risk_display,probability_basis,note
+LLR,0.9,6,0.44991849637609,0.201782853633523,0.44991849637609,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+LLR,0.95,6,0.44991849637609,0.201782853633523,0.44991849637609,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+LLR,0.98,6,0.44991849637609,0.201782853633523,0.44991849637609,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+LFOR,0.9,6,0.808445751576688,0.358976334291021,0.808445751576688,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+LFOR,0.95,6,0.808445751576688,0.358976334291021,0.808445751576688,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+LFOR,0.98,6,0.808445751576688,0.358976334291021,0.808445751576688,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+NVOR,0.9,6,0.29002478995873,0.12878048496125,0.29002478995873,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+NVOR,0.95,6,0.29002478995873,0.12878048496125,0.29002478995873,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+NVOR,0.98,6,0.29002478995873,0.12878048496125,0.29002478995873,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+CRI,0.9,6,0.489645206132738,0.218621076030568,0.489645206132738,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+CRI,0.95,6,0.489645206132738,0.218621076030568,0.489645206132738,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.
+CRI,0.98,6,0.489645206132738,0.218621076030568,0.489645206132738,selected_only_transition_probability_smoke,Diagnostic smoke only; validates probability fields and is not a formal paper benchmark.

@@ -1,0 +1,10 @@
+transition_probability_trace_smoke_check
+check_status=pass
+found file: C:\Users\24186\Documents\New project 13\src\cascade\compute_stage_transition_probability_from_candidates.m
+found file: C:\Users\24186\Documents\New project 13\src\cascade\aggregate_chain_transition_probability.m
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\current_markov_transition_logic_audit.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\trace_smoke\markov_chain_summary.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\trace_smoke\stage_transition_probability_details.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\trace_smoke\candidate_probability_trace.csv
+selected_only_product mode intentionally records a selected-only approximation.
+final_summary directory exists from prior work; this check did not write it.

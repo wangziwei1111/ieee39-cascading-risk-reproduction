@@ -151,6 +151,7 @@ cfg.markov_allow_multiple_trips_per_stage = true;
 cfg.markov_stop_if_no_new_outage = true;
 cfg.markov_stop_if_load_loss_frac_gt = 0.30;
 cfg.markov_random_seed = cfg.seed;
+cfg.chain_transition_probability_mode = 'selected_only_product'; % selected_only_product / bernoulli_full_event
 
 % 线路停运概率模型参数。论文完整模型含保护隐性故障等参数；此处为潮流负载率驱动简化版，均待校准。
 cfg.line_outage_p0 = 1e-4;              % 待校准
