@@ -1,0 +1,13 @@
+calibration target mapping diagnosis check started: 2026-06-01 15:58:25
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\paper_benchmark_calibration_index.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\calibration_target_mapping_audit.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\pilot_scenario_mapping_audit.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\calibration_target_benchmark_candidate_v2.csv exists=true
+C:\Users\24186\Documents\New project 13\results\calibration\diagnostics\current_vs_candidate_target_trend_comparison.csv exists=true
+C:\Users\24186\Documents\New project 13\docs\calibration_target_mapping_diagnosis.md exists=true
+local_search_results_absent=true
+final_summary_not_written_by_this_check=true
+candidate_v2_usable_target_count=28
+current_target_count=28
+pilot_scenario_issue_count=0
+check_status=passed
