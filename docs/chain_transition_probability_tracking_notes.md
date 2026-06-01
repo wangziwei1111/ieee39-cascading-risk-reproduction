@@ -116,3 +116,25 @@ from terminal residual candidate complements. The candidate consistency audit
 still reports terminal-stage selection mismatches, which is expected because
 terminal logic clears selected outages after the stopping condition; those rows
 are excluded from the Bernoulli complement product by the terminal-stage rule.
+
+## Terminal-Aware Selection Consistency Audit
+
+The raw candidate consistency audit reported 16 inconsistencies. Those rows can
+come from terminal recording stages: the candidate table is still useful for
+diagnostics, but selected outages are cleared after a stopping condition such as
+`load_loss_threshold`. Treating those residual terminal candidates as real
+sampling mistakes would be misleading.
+
+The terminal-aware audit therefore separates two cases:
+
+- terminal recording candidates with
+  `should_multiply_candidate_complements=false`, which are excluded from the
+  sampling consistency gate;
+- nonterminal or real `no_new_outage` sampling stages, which must satisfy
+  `selected == (random_u < candidate_probability)`.
+
+If the terminal-aware nonterminal inconsistency count is zero, the trace is
+considered consistent for the purpose of the next full-event formal pilot gate.
+This does not run the formal pilot and does not permit local search; it only
+indicates that the next step may be a fixed-source full-event formal
+scenario-aligned VaR pilot.

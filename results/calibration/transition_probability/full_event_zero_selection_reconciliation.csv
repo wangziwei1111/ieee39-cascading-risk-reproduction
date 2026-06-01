@@ -1,0 +1,9 @@
+diagnosis_item,raw_value,terminal_aware_value,interpretation,blocking_for_formal_rerun,recommended_fix,note
+raw inconsistent_count,16,0,"Raw inconsistencies include terminal residual candidates.",0,Use terminal-aware audit for formal rerun gate.,Raw audit remains useful but is not terminal-aware.
+terminal-aware inconsistent_nonterminal_count,16,0,"Nonterminal sampling consistency is the blocking quantity.",0,Fix nonterminal selection trace if nonzero.,
+terminal stage excluded count,NaN,95,"Terminal residual candidates are excluded from sampling consistency.",0,No fix needed if only terminal residual candidates remain.,
+chain_probability_status full_event_available,NaN,1,"All chains must have full_event_available before formal rerun.",0,Fix chain probability status if false.,
+stage_probability_status inconsistent count,NaN,0,"Inconsistent full-event stages block formal rerun.",0,Fix stage selection consistency.,
+stage_probability_status ambiguous_terminal_stage count,NaN,0,"Ambiguous terminal stages block formal rerun.",0,Fix terminal stage classification.,
+full_event chain probability NaN count,NaN,0,"NaN chain probabilities block formal rerun.",0,Do not replace NaN with selected-only.,
+full_event chain probability unreasonable zero count,NaN,0,"After terminal fix, zero should only remain if diagnosed as true no-new-outage full event or inconsistency.",0,Inspect zero diagnosis if nonzero.,

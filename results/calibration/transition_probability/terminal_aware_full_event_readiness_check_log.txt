@@ -1,0 +1,10 @@
+terminal_aware_full_event_readiness_check
+check_status=pass
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\candidate_selection_consistency_terminal_aware_audit.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\candidate_selection_consistency_terminal_aware_summary.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\full_event_zero_selection_reconciliation.csv
+found file: C:\Users\24186\Documents\New project 13\results\calibration\transition_probability\full_event_formal_var_pilot_readiness.csv
+raw inconsistencies were terminal residual candidates and are not blocking.
+ready=1; next step is full-event formal scenario-aligned VaR pilot, not local search.
+final_summary directory exists from prior work; this check did not write it.
+formal pilot and local search were not run by this check.
