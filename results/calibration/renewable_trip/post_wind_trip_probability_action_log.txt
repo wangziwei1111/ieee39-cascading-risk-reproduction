@@ -1,0 +1,4 @@
+main_select_wind_trip_probability_next_action
+status=done
+go_no_go=keep_as_diagnostic_only
+reason=P_WT_all_zero_in_wind_speed_smoke

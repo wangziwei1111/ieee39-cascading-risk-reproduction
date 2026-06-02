@@ -1,0 +1,2 @@
+selected,reason,go_no_go,recommended_next_action,note
+1,P_WT_all_zero_in_wind_speed_smoke,keep_as_diagnostic_only,P_WT works in dry-run but is zero in current wind-speed smoke; trend remains line/severity driven.,diagnostic interval probabilities are not original paper parameters; no final_summary or local search.

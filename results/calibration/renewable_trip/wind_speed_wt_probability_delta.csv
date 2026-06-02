@@ -1,0 +1,7 @@
+metric,value_11_28,value_12_00,delta_12_minus_11,paper_expected_direction,diagnosis,note
+mean_P_wt,0,0,0,paper expects lower risk at 12.00 than 11.28,both_wind_speed_cases_have_zero_P_WT; trend remains line_probability_or_severity_driven,record-only diagnostic; not formal paper_formula
+p95_P_wt,0,0,0,paper expects lower risk at 12.00 than 11.28,both_wind_speed_cases_have_zero_P_WT; trend remains line_probability_or_severity_driven,record-only diagnostic; not formal paper_formula
+max_P_wt,0,0,0,paper expects lower risk at 12.00 than 11.28,both_wind_speed_cases_have_zero_P_WT; trend remains line_probability_or_severity_driven,record-only diagnostic; not formal paper_formula
+missing_input_count,0,0,0,paper expects lower risk at 12.00 than 11.28,P_WT_does_not_explain_reverse_wind_speed_trend,record-only diagnostic; not formal paper_formula
+forced_trip_count,0,0,0,paper expects lower risk at 12.00 than 11.28,P_WT_does_not_explain_reverse_wind_speed_trend,record-only diagnostic; not formal paper_formula
+interval_trip_count,0,0,0,paper expects lower risk at 12.00 than 11.28,P_WT_does_not_explain_reverse_wind_speed_trend,record-only diagnostic; not formal paper_formula

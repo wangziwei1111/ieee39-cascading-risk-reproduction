@@ -105,3 +105,22 @@ The current result says:
 
 Benchmark-calibrated parameters remain benchmark-calibrated assumptions, not
 original paper parameters.
+
+## Wind Trip Probability Follow-Up
+
+The missing `wind_trip_probability` warning has now been investigated with a
+separate record-only smoke under:
+
+`results/calibration/renewable_trip/`
+
+This did not rerun the full formal pilot and did not change Markov sampling.
+The diagnostic added the paper threshold structure for `P_WT(h)`, verified the
+calculation with dry-run voltage/frequency samples, and recorded wind trip
+probabilities for `wind_speed_11_28` and `wind_speed_12_00` using the first 3
+initial branches and 2 trials per branch.
+
+The dry-run passed, but the wind-speed smoke produced `P_WT = 0` for both
+scenarios. Therefore wind trip probability is recordable, but in this small
+smoke it does not explain the reverse wind-speed trend. The current action is
+to keep `P_WT` diagnostic-only and continue focusing on metric, scenario, and
+line-probability basis alignment before any parameter refinement.

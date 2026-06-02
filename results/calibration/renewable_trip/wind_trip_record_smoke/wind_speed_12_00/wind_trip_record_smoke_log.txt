@@ -1,0 +1,10 @@
+wind trip probability record smoke
+scenario_id=wind_speed_12_00
+scope=first 3 initial branches x 2 trials; no formal pilot rerun; no local search
+run initial_branch=1 trial_id=1
+run initial_branch=1 trial_id=2
+run initial_branch=2 trial_id=1
+run initial_branch=2 trial_id=2
+run initial_branch=3 trial_id=1
+run initial_branch=3 trial_id=2
+status=done
