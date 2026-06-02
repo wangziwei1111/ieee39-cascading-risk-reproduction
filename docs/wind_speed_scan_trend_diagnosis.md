@@ -133,3 +133,47 @@ The warning is that wind trip probability records are still unavailable in the
 formal pilot. A rerun may be used to check whether the paper-aligned wind curve
 fix resolves the wind-speed trend, but it is still not a local search and still
 does not make P_wt a calibrated paper probability.
+
+## After-Curve-Fix Full-Event Formal VaR Pilot
+
+The post-fix full-event formal VaR pilot has now been run in the independent
+output root:
+
+`results/calibration/full_event_formal_var_pilot_after_curve_fix/`
+
+This rerun used:
+
+- `wind_power_curve_profile=paper_2_12_20`
+- `chain_transition_probability_mode=bernoulli_full_event`
+- terminal-aware stage probability details
+- 10 trials per initial branch
+
+All 28 combinations of four parameter sets and seven representative scenarios
+completed. The scenario snapshots confirm that the wind-speed cases now use the
+paper-aligned curve:
+
+- `wind_speed_11_28`: about 2489.388 MW
+- `wind_speed_12_00`: 3000 MW
+
+The rerun generated:
+
+- `full_event_var_metrics_after_curve_fix.csv`
+- `full_event_var_to_paper_gap_after_curve_fix.csv`
+- `full_event_var_score_summary_after_curve_fix.csv`
+- `before_after_curve_fix_comparison.csv`
+- `post_curve_fix_formal_pilot_action.csv`
+
+The check log passed and records that no `final_summary` update and no local
+search were performed.
+
+The key outcome is that the wind-speed direction still does not match the
+paper benchmark after the curve fix. `high_hidden_failure` ranks best in the
+current 10-trial pilot, but its recommendation is `wrong_scale`, and the
+selected post-fix action is:
+
+`fix_metric_or_scenario_first`
+
+Therefore, the old wind curve mismatch has been fixed as a scenario-construction
+issue, but the remaining wind-speed trend gap should not be treated as a
+parameter-search problem yet. The next diagnostic should focus on metric,
+scenario, and probability-basis alignment.

@@ -1,0 +1,5 @@
+parameter_set_id,valid_target_count,mean_abs_relative_gap,median_abs_relative_gap,topology_direction_match,wind_speed_direction_match,penetration_direction_match,overall_trend_match_rate,score_rank,recommendation
+low_hidden_failure,28,0.544104578499851,0.626750023117242,1,0,0,0.333333333333333,4,wrong_trend
+medium_hidden_failure,28,0.570933293991995,0.640119301455897,1,0,0,0.333333333333333,2,wrong_trend
+high_hidden_failure,28,0.78913686731693,0.889816022215846,1,0,1,0.666666666666667,1,wrong_scale
+benchmark_calibrated_seed,28,0.570933293991995,0.640119301455897,1,0,0,0.333333333333333,3,wrong_trend

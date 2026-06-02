@@ -1,0 +1,33 @@
+parameter_set_id,metric_or_summary_item,before_value,after_value,delta,improved,note
+low_hidden_failure,wind_speed_direction_match,0,0,0,0,Score summary before/after curve fix.
+low_hidden_failure,overall_trend_match_rate,0.333333333333333,0.333333333333333,0,0,Score summary before/after curve fix.
+low_hidden_failure,median_abs_relative_gap,0.626750023117242,0.626750023117242,0,0,Score summary before/after curve fix.
+low_hidden_failure,mean_abs_relative_gap,0.544873426020393,0.544104578499851,-0.00076884752054196,1,Score summary before/after curve fix.
+low_hidden_failure,penetration_direction_match,0,0,0,0,Score summary before/after curve fix.
+low_hidden_failure,topology_direction_match,1,1,0,0,Score summary before/after curve fix.
+low_hidden_failure,CRI_wind_speed_11_28,1.30553481595413,1.31298657133772,0.00745175538359,0,CRI_recomputed sigma=0.95 sim value before/after curve fix.
+low_hidden_failure,CRI_wind_speed_12_00,2.1820718279891,2.1820718279891,0,1,CRI_recomputed sigma=0.95 sim value before/after curve fix.
+medium_hidden_failure,wind_speed_direction_match,0,0,0,0,Score summary before/after curve fix.
+medium_hidden_failure,overall_trend_match_rate,0.333333333333333,0.333333333333333,0,0,Score summary before/after curve fix.
+medium_hidden_failure,median_abs_relative_gap,0.640119301455897,0.640119301455897,0,0,Score summary before/after curve fix.
+medium_hidden_failure,mean_abs_relative_gap,0.570832533587525,0.570933293991995,0.000100760404470046,0,Score summary before/after curve fix.
+medium_hidden_failure,penetration_direction_match,0,0,0,0,Score summary before/after curve fix.
+medium_hidden_failure,topology_direction_match,1,1,0,0,Score summary before/after curve fix.
+medium_hidden_failure,CRI_wind_speed_11_28,1.38344488131012,1.38176297645105,-0.00168190485906994,1,CRI_recomputed sigma=0.95 sim value before/after curve fix.
+medium_hidden_failure,CRI_wind_speed_12_00,1.95374415453932,1.95374415453932,0,1,CRI_recomputed sigma=0.95 sim value before/after curve fix.
+high_hidden_failure,wind_speed_direction_match,0,0,0,0,Score summary before/after curve fix.
+high_hidden_failure,overall_trend_match_rate,0.666666666666667,0.666666666666667,0,0,Score summary before/after curve fix.
+high_hidden_failure,median_abs_relative_gap,0.886795729064504,0.889816022215846,0.003020293151342,0,Score summary before/after curve fix.
+high_hidden_failure,mean_abs_relative_gap,0.786050853293729,0.78913686731693,0.00308601402320097,0,Score summary before/after curve fix.
+high_hidden_failure,penetration_direction_match,1,1,0,0,Score summary before/after curve fix.
+high_hidden_failure,topology_direction_match,1,1,0,0,Score summary before/after curve fix.
+high_hidden_failure,CRI_wind_speed_11_28,0.64039737597329,0.432462902364189,-0.207934473609101,1,CRI_recomputed sigma=0.95 sim value before/after curve fix.
+high_hidden_failure,CRI_wind_speed_12_00,0.645460102842346,0.645460102842346,0,1,CRI_recomputed sigma=0.95 sim value before/after curve fix.
+benchmark_calibrated_seed,wind_speed_direction_match,0,0,0,0,Score summary before/after curve fix.
+benchmark_calibrated_seed,overall_trend_match_rate,0.333333333333333,0.333333333333333,0,0,Score summary before/after curve fix.
+benchmark_calibrated_seed,median_abs_relative_gap,0.640119301455897,0.640119301455897,0,0,Score summary before/after curve fix.
+benchmark_calibrated_seed,mean_abs_relative_gap,0.570832533587525,0.570933293991995,0.000100760404470046,0,Score summary before/after curve fix.
+benchmark_calibrated_seed,penetration_direction_match,0,0,0,0,Score summary before/after curve fix.
+benchmark_calibrated_seed,topology_direction_match,1,1,0,0,Score summary before/after curve fix.
+benchmark_calibrated_seed,CRI_wind_speed_11_28,1.38344488131012,1.38176297645105,-0.00168190485906994,1,CRI_recomputed sigma=0.95 sim value before/after curve fix.
+benchmark_calibrated_seed,CRI_wind_speed_12_00,1.95374415453932,1.95374415453932,0,1,CRI_recomputed sigma=0.95 sim value before/after curve fix.

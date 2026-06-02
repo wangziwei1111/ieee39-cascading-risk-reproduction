@@ -1,0 +1,2 @@
+selected,parameter_set_id,reason,go_no_go,recommended_next_action,note
+1,high_hidden_failure,wrong_scale,fix_metric_or_scenario_first,Post curve-fix pilot action only; no local search was run.,benchmark_calibrated parameters are not original paper parameters; wind_trip warning must remain visible.
