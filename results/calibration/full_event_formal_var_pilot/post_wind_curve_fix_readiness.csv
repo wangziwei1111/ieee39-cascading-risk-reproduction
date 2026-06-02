@@ -1,0 +1,2 @@
+ready_for_full_event_formal_pilot_rerun,wind_curve_status,case_pg_status,scenario_config_status,wind_trip_probability_status,blocking_issue_count,warning_issue_count,recommended_next_step,note
+1,pass,pass,pass,missing_warning,0,1,rerun_full_event_formal_pilot_after_curve_fix_with_wind_trip_warning,"Readiness only; this script does not rerun formal pilot, local search, Markov, or final_summary."

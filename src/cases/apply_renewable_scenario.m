@@ -41,17 +41,22 @@ end
 
 wind_capacity = resolve_wind_capacity(scenario, wind_buses);
 wind_p = zeros(numel(wind_buses), 1);
+curve_details = repmat(struct('wind_speed', NaN, 'rated_capacity_mw', NaN, ...
+    'curve_profile', '', 'cut_in_speed', NaN, 'rated_speed', NaN, ...
+    'cut_out_speed', NaN, 'power_mw', NaN, 'power_ratio', NaN, ...
+    'source_status', ''), numel(wind_buses), 1);
 
 for k = 1:numel(wind_buses)
-    wind_p(k) = wind_power_curve(get_field_or_default(scenario, 'wind_speed_mps', 12), wind_capacity(k), ...
-        get_field_or_default(scenario, 'cut_in_speed_mps', 3), ...
-        get_field_or_default(scenario, 'rated_speed_mps', 12), ...
-        get_field_or_default(scenario, 'cut_out_speed_mps', 25));
+    curve_cfg = build_curve_cfg(scenario);
+    [wind_p(k), curve_details(k)] = compute_paper_wind_power_curve( ...
+        get_field_or_default(scenario, 'wind_speed_mps', 12), wind_capacity(k), curve_cfg);
 end
 
 info.wind_capacity_mw = wind_capacity;
 info.wind_output_mw = wind_p;
 info.total_wind_output_mw = sum(wind_p);
+info.wind_power_curve_profile = get_field_or_default(scenario, 'wind_power_curve_profile', 'paper_2_12_20');
+info.wind_curve_details = curve_details;
 
 switch mode
     case "replace_pg_current"
@@ -104,6 +109,21 @@ info.limit_check = check_generator_pg_limits(mpc);
 mpc.userdata.wind_gen_rows = info.wind_gen_rows;
 mpc.userdata.wind_buses = wind_buses;
 mpc.userdata.renewable_dispatch_mode = char(mode);
+mpc.userdata.wind_power_curve_profile = char(string(info.wind_power_curve_profile));
+end
+
+function curve_cfg = build_curve_cfg(scenario)
+curve_cfg = struct();
+curve_cfg.wind_power_curve_profile = get_field_or_default(scenario, 'wind_power_curve_profile', 'paper_2_12_20');
+curve_cfg.paper_wind_cut_in_speed = 2;
+curve_cfg.paper_wind_rated_speed = 12;
+curve_cfg.paper_wind_cut_out_speed = 20;
+curve_cfg.engineering_wind_cut_in_speed = 3;
+curve_cfg.engineering_wind_rated_speed = 12;
+curve_cfg.engineering_wind_cut_out_speed = 25;
+curve_cfg.custom_wind_cut_in_speed = get_field_or_default(scenario, 'cut_in_speed_mps', []);
+curve_cfg.custom_wind_rated_speed = get_field_or_default(scenario, 'rated_speed_mps', []);
+curve_cfg.custom_wind_cut_out_speed = get_field_or_default(scenario, 'cut_out_speed_mps', []);
 end
 
 function wind_capacity = resolve_wind_capacity(scenario, wind_buses)

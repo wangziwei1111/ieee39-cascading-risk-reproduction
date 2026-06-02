@@ -89,18 +89,57 @@ if isempty(idx)
     error('Missing dry-run scenario snapshot for %s', scenario_id);
 end
 row = snapshot_table(idx, :);
+[expected_wind_power_total_mw, curve_detail] = compute_snapshot_wind_curve(row, cfg);
+actual_wind_pg_total_mw_in_case = get_table_value(row, 'actual_wind_pg_total_mw_in_case', expected_wind_power_total_mw);
 T = table(string(scenario_id), string(parameter_set_id), row.wind_injection_mode, row.wind_buses, ...
     row.wind_capacity_total_mw, row.paper_wind_penetration, row.load_based_wind_penetration, ...
     row.wind_penetration_basis, row.wind_speed_mps, row.branch_count, row.slack_bus, ...
+    string(curve_detail.curve_profile), curve_detail.cut_in_speed, curve_detail.rated_speed, ...
+    curve_detail.cut_out_speed, expected_wind_power_total_mw, actual_wind_pg_total_mw_in_case, ...
+    string(curve_detail.source_status), ...
     cfg.markov_num_trials_per_initial_fault, cfg.markov_random_seed, ...
     string(cfg.chain_transition_probability_mode), string(cfg.paper_line_parameter_calibration_status), ...
     "full-event formal scenario-aligned VaR pilot config snapshot; not final benchmark", ...
     'VariableNames', {'scenario_id','parameter_set_id','wind_injection_mode','wind_buses', ...
     'wind_capacity_total_mw','paper_wind_penetration','load_based_wind_penetration', ...
     'wind_penetration_basis','wind_speed_mps','branch_count','slack_bus', ...
+    'wind_power_curve_profile','wind_cut_in_speed','wind_rated_speed','wind_cut_out_speed', ...
+    'expected_wind_power_total_mw','actual_wind_pg_total_mw_in_case','wind_curve_source_status', ...
     'markov_trials_per_initial_fault','random_seed','stage_probability_mode', ...
     'calibration_status','note'});
 writetable(T, fullfile(scenario_dir, 'scenario_config_snapshot.csv'));
+end
+
+function [power_mw, detail] = compute_snapshot_wind_curve(row, cfg)
+curve_cfg = cfg;
+curve_cfg.wind_power_curve_profile = get_cfg_string(cfg, 'wind_power_curve_profile', 'paper_2_12_20');
+speed = get_table_value(row, 'wind_speed_mps', NaN);
+capacity = get_table_value(row, 'wind_capacity_total_mw', NaN);
+[power_mw, detail] = compute_paper_wind_power_curve(speed, capacity, curve_cfg);
+end
+
+function value = get_table_value(T, name, default_value)
+if ismember(name, T.Properties.VariableNames)
+    raw = T.(name)(1);
+    if isnumeric(raw)
+        value = double(raw);
+    else
+        value = str2double(string(raw));
+    end
+    if isnan(value)
+        value = default_value;
+    end
+else
+    value = default_value;
+end
+end
+
+function value = get_cfg_string(s, name, default_value)
+if isstruct(s) && isfield(s, name)
+    value = s.(name);
+else
+    value = default_value;
+end
 end
 
 function export_transition_trace_if_possible(scenario_dir)

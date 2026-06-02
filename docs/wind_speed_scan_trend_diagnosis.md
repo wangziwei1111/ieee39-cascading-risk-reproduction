@@ -99,3 +99,37 @@ refinement.
 
 Parameter local search should not start until the wind-speed trend issue is
 explained.
+
+## Paper-Aligned Wind Power Curve Fix
+
+The wind-speed case builder has now been updated to use the paper-aligned
+`paper_2_12_20` wind power curve for benchmark/calibration scenarios. The
+legacy engineering curve `engineering_3_12_25` is retained as an explicit
+comparison profile and is not deleted.
+
+The paper-aligned formula is:
+
+`P_w = P_wr * (v^3 - 8) / 1720`, for `2 <= v <= 12`.
+
+After the fix, dry-run and base-case-only diagnostics show:
+
+- `wind_speed_11_28`: expected and actual wind PG are about 2489.388 MW.
+- `wind_speed_12_00`: expected and actual wind PG are 3000 MW.
+- Both snapshots use `wind_power_curve_profile=paper_2_12_20`.
+- Base-case AC power flow converges for both snapshots.
+
+The previous full-event formal pilot has not been rerun, so its wind-speed
+trend tables are now stale with respect to the curve fix. They should not be
+used as parameter-refinement evidence.
+
+`post_wind_curve_fix_readiness.csv` reports:
+
+- `ready_for_full_event_formal_pilot_rerun=1`
+- `blocking_issue_count=0`
+- `warning_issue_count=1`
+- `recommended_next_step=rerun_full_event_formal_pilot_after_curve_fix_with_wind_trip_warning`
+
+The warning is that wind trip probability records are still unavailable in the
+formal pilot. A rerun may be used to check whether the paper-aligned wind curve
+fix resolves the wind-speed trend, but it is still not a local search and still
+does not make P_wt a calibrated paper probability.

@@ -99,3 +99,21 @@ line/cascade driven rather than P_wt driven.
 
 The post-diagnosis action is `fix_wind_power_curve`. This keeps the work out of
 local search until the wind-speed trend mechanism is explained.
+
+## Wind-Curve Fix Status
+
+The paper-aligned wind power curve entry has been fixed for benchmark and
+calibration scenario construction. These scenarios now use
+`wind_power_curve_profile=paper_2_12_20`, corresponding to cut-in/rated/cut-out
+speeds of 2/12/20. The legacy engineering profile 3/12/25 remains available as
+an explicit comparison profile.
+
+Dry-run and base-case-only checks now show that `wind_speed_11_28` produces
+about 2489.388 MW and `wind_speed_12_00` produces 3000 MW. No Markov or formal
+pilot rerun was performed during this fix.
+
+Because the old full-event formal pilot was produced before the curve fix, its
+wind-speed trend should no longer be used as parameter-refinement evidence.
+The readiness table recommends a post-fix full-event formal pilot rerun with an
+explicit wind-trip-probability warning. This is still not local search and not a
+final benchmark.

@@ -42,6 +42,7 @@ scenario.wind_speed_mps = 12.0;
 scenario.cut_in_speed_mps = 2.0;
 scenario.rated_speed_mps = 12.0;
 scenario.cut_out_speed_mps = 20.0;
+scenario.wind_power_curve_profile = 'paper_2_12_20';
 
 % 场景说明，写入结果日志。
 scenario.description = ['节点30至39分散式接入总容量3000 MW风电；', ...

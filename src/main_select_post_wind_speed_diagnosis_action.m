@@ -10,7 +10,9 @@ if cause == "wind_speed_not_applied_to_case"
 elseif cause == "wind_power_curve_mismatch"
     go = "fix_wind_power_curve";
 elseif cause == "wind_trip_model_missing"
-    go = "implement_or_record_wind_trip_model";
+    go = "rerun_full_event_formal_pilot_with_more_trials";
+elseif cause == "rerun_full_event_formal_pilot_after_curve_fix_with_wind_trip_warning"
+    go = "rerun_full_event_formal_pilot_with_more_trials";
 elseif cause == "unknown_need_formal_rerun_with_more_trials"
     go = "rerun_full_event_formal_pilot_with_more_trials";
 elseif cause == "paper_metric_definition_still_mismatched" || contains(cause, "severity")
@@ -19,7 +21,7 @@ else
     go = "fix_metric_definition_first";
 end
 if go == "rerun_full_event_formal_pilot_with_more_trials"
-    action = "Only consider more trials after confirming the scenario and wind power curve are correct.";
+    action = "Rerun the full-event formal pilot after the paper-aligned wind-curve fix, while keeping wind-trip probability as an explicit warning.";
 elseif go == "fix_wind_power_curve"
     action = "Audit and decide whether calibration wind-speed aliases must use paper 2/12/20 wind curve before any parameter refinement.";
 elseif go == "implement_or_record_wind_trip_model"

@@ -69,6 +69,13 @@ cfg.load_shedding_voltage_max_pu = cfg.voltage_max_pu;
 % 风机电压穿越脱网概率只记录，默认不在当前line-only Markov中触发。
 cfg.enable_wind_voltage_trip_sampling = false;
 cfg.wind_trip_record_only = true;
+cfg.wind_power_curve_profile = 'paper_2_12_20'; % paper_2_12_20 / engineering_3_12_25 / custom
+cfg.paper_wind_cut_in_speed = 2;
+cfg.paper_wind_rated_speed = 12;
+cfg.paper_wind_cut_out_speed = 20;
+cfg.engineering_wind_cut_in_speed = 3;
+cfg.engineering_wind_rated_speed = 12;
+cfg.engineering_wind_cut_out_speed = 25;
 cfg.wind_trip_probability_model = 'diagnostic_voltage_piecewise'; % none / diagnostic_voltage_piecewise / paper_threshold_record / paper_formula
 cfg.wind_trip_state_probability_enable = false;
 cfg.wind_trip_state_probability_mode = 'record_only'; % record_only / diagnostic_probability_only / actual_trip_state_transition
