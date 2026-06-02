@@ -1,0 +1,16 @@
+line_outage_probability_formula_implementation_audit.csv: pass
+line_probability_component_recompute_audit.csv: pass
+below_rated_Pflow_variation_audit.csv: pass
+wind_speed_probability_increase_formula_explanation.csv: pass
+line_probability_formula_fix_smoke.csv: pass
+wind_speed_after_Pflow_fix_var_metrics.csv: pass
+wind_speed_before_after_Pflow_fix_comparison.csv: pass
+post_line_probability_formula_audit_action.csv: pass
+compute_contains_paper_piecewise_constant_below_rated: pass
+formula_fix_smoke_pass: pass
+after_fix_rerun_required: false
+guardrail_no_final_summary: pass
+guardrail_no_local_search: pass
+guardrail_no_full_7scenario_formal_pilot: pass
+guardrail_no_parameter_tuning: pass
+overall_status: pass

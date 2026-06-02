@@ -1,0 +1,2 @@
+selected,issue_confirmed,formula_fixed,wind_speed_direction_after_fix,go_no_go,recommended_next_action,note
+1,0,1,skipped_no_issue_confirmed,inspect_hidden_failure_probability_formula,P_flow below-rated implementation matches paper; inspect P_HF_L/P_mis_r/P1/P2 response next.,"No local search, no parameter tuning, no final_summary, no full formal pilot in this turn."

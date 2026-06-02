@@ -79,3 +79,26 @@ P_WT remains diagnostic-only.
 ## Next Step
 
 Inspect the line outage probability formula response, especially how `P_flow`, `P_HF_L`, `P_mis_r`, `P1`, `P2`, and `P_L` change between 11.28 m/s and 12.00 m/s under the same chain sample keys.
+
+## P_flow Formula Audit Follow-Up
+
+The follow-up line probability formula audit checked whether paper-mode
+`P_flow` incorrectly varies with line loading below `L_Rated`.
+
+The audit result is:
+
+- source implementation matches the paper piecewise formula;
+- below-rated samples do not confirm a `P_flow` variation bug;
+- formula smoke passes for loading points 0.50, 0.80, 0.90, 0.95, 1.00, and 1.20;
+- the after-Pflow-fix Markov rerun was skipped because no below-rated issue was confirmed.
+
+The next recommended inspection target is therefore not a `P_flow` below-rated
+fix. It is the hidden-failure and downstream line probability terms:
+
+- `P_HF_L`
+- `P_mis_r`
+- `P1`
+- `P2`
+
+This remains diagnostic-only and does not authorize local search or parameter
+tuning.

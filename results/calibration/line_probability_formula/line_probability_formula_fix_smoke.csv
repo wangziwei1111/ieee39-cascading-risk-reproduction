@@ -1,0 +1,7 @@
+test_case,line_loading_pu,L,L_Rated,L_max,P_L0,P_flow,P_HF_L,P_mis_r,P1,P2,P3,P_L,P_flow_formula_branch,expected_behavior,pass_fail,note
+loading_0.5,0.5,0.5,0.9,1,0.001,0.001,0.001,0.001,0.000998001,0.001099,0,0.002097001,below_Lrated_constant_P_L0,P_flow equals P_L0 below or at L_Rated,pass,Formula smoke only; no Markov run.
+loading_0.8,0.8,0.8,0.9,1,0.001,0.001,0.001,0.001,0.000998001,0.001099,0,0.002097001,below_Lrated_constant_P_L0,P_flow equals P_L0 below or at L_Rated,pass,Formula smoke only; no Markov run.
+loading_0.9,0.9,0.9,0.9,1,0.001,0.001,0.001,0.001,0.000998001,0.001099,0,0.002097001,below_Lrated_constant_P_L0,P_flow equals P_L0 below or at L_Rated,pass,Formula smoke only; no Markov run.
+loading_0.95,0.95,0.95,0.9,1,0.001,0.500499999999999,0.001,0.001,0.499499500499999,0.001099,0,0.500598500499999,between_Lrated_Lmax_linear,P_flow in linear interval,pass,Formula smoke only; no Markov run.
+loading_1,1,1,0.9,1,0.001,1,0.001,0.001,0.998001,0.001099,0,0.9991,between_Lrated_Lmax_linear,P_flow in linear interval,pass,Formula smoke only; no Markov run.
+loading_1.2,1.2,1.2,0.9,1,0.001,1,0.0255,0.0255,0.998001,0.0255745,0,1,above_Lmax_forced_one,P_flow forced to 1 above L_max,pass,Formula smoke only; no Markov run.
