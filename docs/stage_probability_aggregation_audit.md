@@ -48,3 +48,7 @@ The goal is to decide whether the 12.00 m/s risk increase is caused by selected 
 ## Guardrails
 
 This audit does not run Markov, does not rerun cascade, does not change `P_L`, does not run local search, and does not write `final_summary`.
+
+## Severity Follow-Up
+
+Because the stage aggregation audit matched the recorded candidate/stage/chain traces, the next diagnostic target is severity formula response. The severity audit adds an artifact integrity check for the stage audit outputs and then examines LLR/LFOR/NVOR/CRI formulas and wind-speed response from existing traces.

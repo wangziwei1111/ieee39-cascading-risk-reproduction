@@ -1,0 +1,2 @@
+skipped_fields_available
+Existing severity_component_trace fields are sufficient; no smoke Markov run executed.

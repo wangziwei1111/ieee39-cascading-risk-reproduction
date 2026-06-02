@@ -1,0 +1,5 @@
+artifact_path,exists,row_count,column_count,has_header,has_expected_fields,nonempty_required,integrity_status,blocking_for_severity_audit,recommended_fix,note
+C:\Users\24186\Documents\New project 13\results\calibration\stage_probability_aggregation\stage_probability_aggregation_audit.csv,1,13444,20,1,1,1,pass,0,no_fix_required,Artifact integrity gate before severity audit.
+C:\Users\24186\Documents\New project 13\results\calibration\stage_probability_aggregation\wind_speed_stage_probability_delta.csv,1,5682,19,1,1,1,pass,0,no_fix_required,Artifact integrity gate before severity audit.
+C:\Users\24186\Documents\New project 13\results\calibration\stage_probability_aggregation\post_stage_probability_aggregation_action.csv,1,1,5,1,0,1,missing_expected_fields,0,inspect_or_rebuild_artifact,Artifact integrity gate before severity audit.
+C:\Users\24186\Documents\New project 13\results\calibration\stage_probability_aggregation\PL_confirmation_and_stage_probability_audit_check_log.txt,1,12,1,1,1,1,pass,0,no_fix_required,Artifact integrity gate before severity audit.

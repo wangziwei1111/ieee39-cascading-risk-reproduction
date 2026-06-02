@@ -1,0 +1,2 @@
+selected,dominant_root_cause,formula_status,go_no_go,recommended_next_action,note
+1,severity_trace_formula_mismatch_and_paper_formula_unconfirmed,current_basic_formula_recomputed_from_trace,need_manual_paper_confirmation_for_severity_formula,Confirm LLR/LFOR/NVOR formulas and whether severity trace should be stage-level or chain-level before any fix.,"No local search, no parameter tuning, no final_summary, no full formal pilot."

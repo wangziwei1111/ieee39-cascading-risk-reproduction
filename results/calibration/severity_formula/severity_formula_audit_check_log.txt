@@ -1,0 +1,14 @@
+C:\Users\24186\Documents\New project 13\results\calibration\stage_probability_aggregation\stage_probability_audit_artifact_integrity.csv: pass
+C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\severity_formula_source_audit.csv: pass
+C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\severity_component_field_availability.csv: pass
+C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\severity_metric_recompute_audit.csv: pass
+C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_severity_response_summary.csv: pass
+C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_severity_response_delta.csv: pass
+C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_var_sensitivity_to_severity_formula.csv: pass
+C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\post_severity_formula_audit_action.csv: pass
+severity_component_trace_smoke_log: pass
+guardrail_no_final_summary: pass
+guardrail_no_local_search: pass
+guardrail_no_parameter_tuning: pass
+guardrail_no_full_7scenario_formal_pilot: pass
+overall_status: pass
