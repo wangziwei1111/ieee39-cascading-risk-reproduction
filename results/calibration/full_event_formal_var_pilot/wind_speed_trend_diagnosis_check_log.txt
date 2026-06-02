@@ -1,0 +1,15 @@
+wind_speed_scenario_config_audit.csv exists=1
+wind_power_curve_speed_scan_audit.csv exists=1
+wind_speed_case_power_snapshot.csv exists=1
+wind_trip_probability_speed_scan_audit.csv exists=1
+wind_speed_chain_risk_distribution_summary.csv exists=1
+wind_speed_11_28_vs_12_00_distribution_delta.csv exists=1
+wind_speed_candidate_probability_summary.csv exists=1
+wind_speed_branch_probability_delta.csv exists=1
+wind_speed_trend_root_cause_diagnosis.csv exists=1
+post_wind_speed_diagnosis_action.csv exists=1
+final_summary_exists_from_prior_work=0; this diagnostic did not write final_summary
+local_search_results_exists=0; this diagnostic did not run local search
+parameter_tuning_run=0
+full_event_formal_var_pilot_main_results_overwritten=0
+check_status=pass

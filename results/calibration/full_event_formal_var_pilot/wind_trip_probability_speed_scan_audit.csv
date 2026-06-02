@@ -1,0 +1,9 @@
+parameter_set_id,scenario_id,wind_speed_mps,wind_trip_model_enabled,wind_trip_probability_source,wind_trip_event_count,generator_trip_event_count,renewable_trip_event_count,mean_wind_trip_probability,max_wind_trip_probability,wind_trip_probability_available,note
+low_hidden_failure,wind_speed_11_28,11.28,0,missing_wind_trip_records,0,0,0,NaN,NaN,0,missing_wind_trip_records; formal pilot is line-outage probability driven and did not record actual wind trip events.
+low_hidden_failure,wind_speed_12_00,12,0,missing_wind_trip_records,0,0,0,NaN,NaN,0,missing_wind_trip_records; formal pilot is line-outage probability driven and did not record actual wind trip events.
+medium_hidden_failure,wind_speed_11_28,11.28,0,missing_wind_trip_records,0,0,0,NaN,NaN,0,missing_wind_trip_records; formal pilot is line-outage probability driven and did not record actual wind trip events.
+medium_hidden_failure,wind_speed_12_00,12,0,missing_wind_trip_records,0,0,0,NaN,NaN,0,missing_wind_trip_records; formal pilot is line-outage probability driven and did not record actual wind trip events.
+high_hidden_failure,wind_speed_11_28,11.28,0,missing_wind_trip_records,0,0,0,NaN,NaN,0,missing_wind_trip_records; formal pilot is line-outage probability driven and did not record actual wind trip events.
+high_hidden_failure,wind_speed_12_00,12,0,missing_wind_trip_records,0,0,0,NaN,NaN,0,missing_wind_trip_records; formal pilot is line-outage probability driven and did not record actual wind trip events.
+benchmark_calibrated_seed,wind_speed_11_28,11.28,0,missing_wind_trip_records,0,0,0,NaN,NaN,0,missing_wind_trip_records; formal pilot is line-outage probability driven and did not record actual wind trip events.
+benchmark_calibrated_seed,wind_speed_12_00,12,0,missing_wind_trip_records,0,0,0,NaN,NaN,0,missing_wind_trip_records; formal pilot is line-outage probability driven and did not record actual wind trip events.

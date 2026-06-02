@@ -74,3 +74,28 @@ agreement. The selected post-pilot action is therefore:
 This means the current result should not proceed directly to local search. The
 next work should review metric scale, scenario definitions, and residual
 cascade-mechanism differences before any limited refinement plan.
+
+## Wind-Speed Trend Follow-Up
+
+A dedicated wind-speed trend diagnosis has been added after the full-event
+pilot. It focuses on `wind_speed_11_28` and `wind_speed_12_00` without running
+new Markov simulations or changing calibration parameters.
+
+The diagnosis confirms that the scenario labels, 3000 MW capacity, and
+distributed buses 30:39 are consistent. The constructed base cases also show
+that 12.00 m/s produces 3000 MW wind output while 11.28 m/s produces a lower
+wind output.
+
+However, the current wind-speed pilot still has the opposite risk direction
+from the paper: full-event `CRI_display` and severity-only `basic_CRI` p95 are
+higher at 12.00 m/s than at 11.28 m/s. Candidate probabilities are also higher
+at 12.00 m/s.
+
+The wind power curve audit flags a formula mismatch: the requested paper audit
+formula uses cut-in/rated/cut-out speeds of 2/12/20, while the current
+engineering scenario default is 3/12/25. The full-event pilot also has no
+available wind-trip probability records, so the current trend is still
+line/cascade driven rather than P_wt driven.
+
+The post-diagnosis action is `fix_wind_power_curve`. This keeps the work out of
+local search until the wind-speed trend mechanism is explained.

@@ -1,0 +1,7 @@
+wind_speed_mps,rated_wind_capacity_mw,paper_formula_power_mw,paper_formula_power_ratio,engineering_function_power_mw,engineering_function_power_ratio,difference_mw,difference_ratio,match_status,note
+11.28,3000,2489.38805581395,0.829796018604651,2483.68457142857,0.827894857142857,-5.70348438538213,-0.00190116146179404,blocking_formula_mismatch,"Engineering scenario default uses cut-in/cut-out 3/25, while the requested paper audit formula uses 2/20."
+12,3000,3000,1,3000,1,0,0,match,"Engineering wind_power_curve matches the paper formula at this point."
+11.28,4500,3734.08208372093,0.829796018604651,3725.52685714286,0.827894857142857,-8.55522657807296,-0.00190116146179399,blocking_formula_mismatch,"Engineering scenario default uses cut-in/cut-out 3/25, while the requested paper audit formula uses 2/20."
+12,4500,4500,1,4500,1,0,0,match,"Engineering wind_power_curve matches the paper formula at this point."
+11.28,6000,4978.77611162791,0.829796018604651,4967.36914285714,0.827894857142857,-11.4069687707643,-0.00190116146179404,blocking_formula_mismatch,"Engineering scenario default uses cut-in/cut-out 3/25, while the requested paper audit formula uses 2/20."
+12,6000,6000,1,6000,1,0,0,match,"Engineering wind_power_curve matches the paper formula at this point."

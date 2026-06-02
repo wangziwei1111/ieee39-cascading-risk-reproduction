@@ -1,0 +1,2 @@
+selected,reason,go_no_go,recommended_next_action,note
+1,Wind-speed trend root cause diagnosis completed.,fix_wind_power_curve,Audit and decide whether calibration wind-speed aliases must use paper 2/12/20 wind curve before any parameter refinement.,No local search or parameter tuning should start until the wind-speed trend issue is explained.
