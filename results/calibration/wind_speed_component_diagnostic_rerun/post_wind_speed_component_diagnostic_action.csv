@@ -1,0 +1,2 @@
+selected,dominant_root_cause,go_no_go,recommended_next_action,note
+1,line_probability_formula_response,inspect_line_outage_probability_formula,inspect P_flow/P_HF_L/P1/P2 response before any parameter refinement,"Diagnostic-only action. No local search, no parameter tuning, no final_summary, P_WT diagnostic-only."

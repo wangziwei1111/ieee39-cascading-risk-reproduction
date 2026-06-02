@@ -63,3 +63,32 @@ This is a diagnostic-only next step. It does not authorize:
 - formal wind-speed benchmark rerun;
 - `final_summary` update;
 - P_WT integration into chain probability.
+
+## Component Diagnostic Rerun Completed
+
+The recommended wind-speed-only component diagnostic rerun has now been
+executed in a separate output directory:
+
+`results/calibration/wind_speed_component_diagnostic_rerun/`
+
+It used only:
+
+- `high_hidden_failure`
+- `benchmark_calibrated_seed`
+- `wind_speed_11_28`
+- `wind_speed_12_00`
+
+with 30 trials per initial fault and common random numbers by
+`initial_branch + trial_id`.
+
+The new diagnostic includes line probability component traces and severity
+component traces. The selected post-rerun action is:
+
+`inspect_line_outage_probability_formula`
+
+The dominant root cause is currently:
+
+`line_probability_formula_response`
+
+This remains diagnostic-only. It is not a local search result, not parameter
+refinement, not a full formal pilot, and not final reproduction.

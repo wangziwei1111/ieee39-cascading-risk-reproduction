@@ -1,0 +1,2 @@
+wind-speed-only component diagnostic rerun
+No local search, no parameter refinement, no final_summary.

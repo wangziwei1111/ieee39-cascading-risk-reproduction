@@ -1,0 +1,2 @@
+scenario_id,parameter_set_id,wind_speed_mps,wind_capacity_total_mw,wind_buses,expected_wind_power_total_mw,actual_wind_pg_total_mw_in_case,wind_power_curve_profile,markov_trials_per_initial_fault,random_seed,random_seed_policy,chain_transition_probability_mode,calibration_status,note
+wind_speed_11_28,high_hidden_failure,11.28,3000,30:31:32:33:34:35:36:37:38:39,2489.38805581395,2489.38805581395,paper_2_12_20,30,202405,common_random_numbers_by_initial_branch_trial,bernoulli_full_event,diagnostic_assumption_not_paper,diagnostic rerun only; P_WT record-only; not final benchmark
