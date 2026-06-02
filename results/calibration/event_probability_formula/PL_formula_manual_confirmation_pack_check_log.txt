@@ -1,0 +1,12 @@
+PL_formula_manual_confirmation_evidence.csv: pass
+PL_formula_manual_confirmation_questions.csv: pass
+PL_sum_union_materiality_summary.csv: pass
+PL_formula_next_step_branch_plan.csv: pass
+docs/PL_formula_manual_confirmation_request.md: pass
+guardrail_PL_aggregation_mode_not_modified: pass
+guardrail_no_Markov_run: pass
+guardrail_no_cascade_run: pass
+guardrail_no_local_search: pass
+guardrail_no_parameter_tuning: pass
+guardrail_no_final_summary: pass
+overall_status: pass

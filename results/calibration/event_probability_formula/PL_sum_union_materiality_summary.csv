@@ -1,0 +1,10 @@
+summary_item,value,interpretation,manual_confirmation_relevance,note
+material_difference_candidate_count,154,simple sum and union differ materially for this many grouped candidate rows,shows formula choice matters,""
+candidate_probability_equals_simple_sum_count,184,recorded candidate probability follows clipped simple sum groups,confirms current code basis,""
+candidate_probability_equals_union_count,0,recorded candidate probability follows independent union groups,would support union only if paper confirms it,""
+max_abs_difference,0.0098755,maximum absolute difference between clipped sum and union,quantifies materiality,""
+mean_abs_difference,0.0026763,mean grouped absolute difference,quantifies average materiality,""
+whether_union_changes_wind_speed_direction,false,union proxy has at least one direction-match row,proxy only; not a formula decision,"Uses same selected flags; no Markov rerun."
+whether_simple_sum_currently_used,true,current candidate probability equals clipped simple sum,documents implementation state,""
+whether_paper_union_confirmed,false,current repository does not contain explicit union confirmation,blocks formula change,""
+recommended_manual_check,confirm P_L formula and event relationships from paper screenshot,manual confirmation required before code change,highest priority,"Dominant terms include P1_dominant,P2_dominant,no_clear_term"

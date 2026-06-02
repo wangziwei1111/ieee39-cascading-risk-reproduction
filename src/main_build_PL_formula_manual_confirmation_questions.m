@@ -1,0 +1,27 @@
+function main_build_PL_formula_manual_confirmation_questions()
+root = fileparts(fileparts(mfilename('fullpath')));
+out_dir = fullfile(root, 'results', 'calibration', 'event_probability_formula');
+ensure_dir(out_dir);
+qs = {
+"Q01","论文中是否明确写出 P_L = P1 + P2 + P3？","决定当前 simple sum 是否可继续作为 paper formula。","Yes, explicit simple sum","No, another formula","Not shown/unclear","Keep current formula and inspect next bottleneck","Do not use simple sum without change","Keep uncertainty flag and request more evidence","请提供公式截图或原文句子","核心阻塞问题。"
+"Q02","论文中是否明确写出 P_L = 1 - (1-P1)(1-P2)(1-P3)？","决定是否允许实现 independent union。","Yes, explicit union","No union formula","Unclear","Implement only after formula smoke and diagnostic rerun","Do not switch to union","Keep simple-sum assumption with caveat","请提供 union/inclusion-exclusion 相关截图","不能凭直觉改公式。"
+"Q03","论文是否说明 P1、P2、P3 是互斥事件？","互斥事件可支持概率加和。","Mutually exclusive","Not mutually exclusive","Not stated","Simple sum is plausible","Need union/other model","Need manual caveat","请提供事件定义段落","互斥性决定加和合理性。"
+"Q04","论文是否说明 P1、P2、P3 独立但非互斥？","独立非互斥通常支持 union 形式。","Independent non-exclusive","Not independent","Not stated","Union may be appropriate","Simple sum/other may remain","Need manual caveat","请提供事件关系描述","关系不明时不能切公式。"
+"Q05","论文是否对 P_L 做 min/max 裁剪，例如 min(P1+P2+P3,1)？","决定当前 clipped sum 是否符合原文。","Explicit clipping","No clipping","Unclear","Keep clipping","Remove/adjust only if required","Keep diagnostic caveat","请提供 P_L 定义附近内容","当前代码最终 clip 到 [0,1]。"
+"Q06","论文中 P3 的具体含义是什么？","P3 是否独立、互斥或外生会影响 P_L 聚合。","Other independent outage cause","Residual/exogenous term","Unclear","Treat as separate component","Use paper-specific handling","Keep missing flag","请提供 P3 定义截图","P3 当前来自诊断/校准参数。"
+"Q07","candidate probability 是否等同于 P_L，还是还要乘其他条件概率？","决定 candidate_probability 进入 Markov 的基准。","candidate_probability=P_L","P_L times another factor","Unclear","Current path OK","Need extra factor implementation","Keep audit caveat","请提供 Markov 转移概率定义","避免重复或遗漏概率。"
+"Q08","Markov stage 中多个 candidate 是否按 Bernoulli 独立事件处理？","决定 stage full-event probability 是否合理。","Independent Bernoulli candidates","Selected-only / different rule","Unclear","Current full-event stage aggregation plausible","Need stage aggregation change","Keep diagnostic caveat","请提供候选线路抽样/转移概率描述","关系到 chain probability。"
+};
+rows = cell(size(qs,1),1);
+for i = 1:size(qs,1)
+    rows{i} = table(string(qs{i,1}), string(qs{i,2}), string(qs{i,3}), string(qs{i,4}), string(qs{i,5}), string(qs{i,6}), ...
+        string(qs{i,7}), string(qs{i,8}), string(qs{i,9}), string(qs{i,10}), string(qs{i,11}), ...
+        'VariableNames', {'question_id','question','why_it_matters','possible_answer_A','possible_answer_B','possible_answer_C', ...
+        'impact_if_A','impact_if_B','impact_if_C','required_user_input','note'});
+end
+writetable(vertcat(rows{:}), fullfile(out_dir, 'PL_formula_manual_confirmation_questions.csv'));
+end
+
+function ensure_dir(path)
+if exist(path,'dir')~=7, mkdir(path); end
+end
