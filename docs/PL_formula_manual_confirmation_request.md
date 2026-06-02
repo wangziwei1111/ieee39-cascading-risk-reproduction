@@ -61,6 +61,21 @@ Please provide screenshots or exact text from the paper for:
 
 Keep the current formula, record the confirmation, and move to the next likely audit target: stage probability aggregation or severity formula response.
 
+## Manual Confirmation Received
+
+The user confirmed that paper formula (3-6) defines:
+
+```text
+P_L = P1 + P2 + P3
+P1 = P(L) * (1 - P_in_r) * (1 - P_in_c)
+P2 = P_mis_c + P_mis_r * (1 - P_in_c)
+P_mis_r = P_HF_D + P_HF_L - P_HF_D * P_HF_L
+```
+
+The user also confirmed that `P3` is an other-factor outage probability, such as secondary equipment aging, operation error, or extreme weather, and is generally treated as a constant.
+
+Therefore union/inclusion-exclusion is rejected as a formula modification path. `PL_sum_vs_union` remains only a diagnostic sensitivity comparison. The next audit target is stage probability aggregation and severity response.
+
 ## If Union Is Confirmed
 
 Add a paper-confirmed aggregation mode, run formula smoke tests, and only then run a wind-speed-only diagnostic rerun. Do not run the full formal pilot immediately.

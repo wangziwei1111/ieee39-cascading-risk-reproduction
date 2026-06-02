@@ -1,0 +1,2 @@
+selected,dominant_root_cause,paper_formula_status,go_no_go,recommended_next_action,note
+1,PL_simple_sum_confirmed_not_root_cause,simple_sum_confirmed_by_user,inspect_stage_probability_aggregation,audit Markov stage probability aggregation and severity response before any parameter refinement,Paper formula (3-6) confirmed as P_L=P1+P2+P3; union is no longer a formula-fix direction.

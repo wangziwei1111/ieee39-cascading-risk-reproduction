@@ -1,0 +1,2 @@
+selected,dominant_root_cause,go_no_go,recommended_next_action,note
+1,stage_probability_response_explains_part_of_wind_speed_delta,inspect_severity_formula,Stage aggregation implementation matches; inspect severity formula response next.,"P_L simple sum is user-confirmed; no local search, no parameter tuning, no final_summary, no full pilot."
