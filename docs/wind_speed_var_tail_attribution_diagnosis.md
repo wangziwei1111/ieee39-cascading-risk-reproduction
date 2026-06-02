@@ -43,6 +43,20 @@ The P_WT smoke remains all zero for the wind-speed samples. Therefore wind trip 
 
 This is only a small diagnostic rerun readiness recommendation. It is not approval to run a formal 20-trial benchmark, local search, or final summary update.
 
+## Follow-Up Probability / Severity Diagnosis
+
+The follow-up basis diagnosis reads the same after-curve-fix outputs and checks whether the wind-speed reversal can be attributed to line-outage probability inputs or severity inputs.
+
+It finds that the current traces contain candidate probability, loading, selected flags, chain probability products, and basic severity fields, but they do not contain full probability component fields such as `P_flow`, `P_HF_L`, `P1`, `P2`, and `P_L`.
+
+Therefore the current dominant root cause is recorded as:
+
+`insufficient_component_fields`
+
+The recommended next step is not local search. It is a small wind-speed-only diagnostic run with component logging if a future turn needs to isolate probability formula subterms.
+
+P_WT remains diagnostic-only and is not part of chain probability. The current paired samples are comparable, so random seed mismatch should not be used as the primary explanation for the trend reversal.
+
 ## Guardrails
 
 These results must not be described as formal paper reproduction. They are a tail attribution and sampling-driver diagnostic over existing after-curve-fix outputs. P_WT remains record-only and is not multiplied into the chain probability.

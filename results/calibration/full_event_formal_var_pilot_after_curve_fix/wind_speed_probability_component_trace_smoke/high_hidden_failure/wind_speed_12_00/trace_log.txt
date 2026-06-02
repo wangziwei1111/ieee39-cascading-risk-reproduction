@@ -1,0 +1,2 @@
+component trace smoke exported from existing after-curve-fix trace
+No new formal pilot, local search, or final_summary write was executed.

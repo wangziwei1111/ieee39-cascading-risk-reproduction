@@ -1,0 +1,2 @@
+selected,dominant_root_cause,go_no_go,recommended_next_action,note
+1,insufficient_component_fields,run_wind_speed_only_more_trials_with_component_logging,"prepare small wind-speed-only diagnostic rerun with component logging, not formal benchmark",Local search and parameter refinement remain blocked; P_WT remains diagnostic-only.
