@@ -1,0 +1,18 @@
+wind_speed_var_tail_attribution.csv: pass
+wind_speed_tail_branch_contribution_summary.csv: pass
+wind_speed_tail_branch_delta_11_28_vs_12_00.csv: pass
+wind_speed_random_seed_pairing_audit.csv: pass
+wind_speed_paired_chain_risk_delta.csv: pass
+wind_speed_paired_chain_risk_delta_summary.csv: pass
+wind_speed_tail_candidate_probability_driver.csv: pass
+wind_speed_tail_candidate_probability_delta.csv: pass
+wind_speed_common_random_rerun_readiness.csv: pass
+post_wind_speed_tail_diagnosis_action.csv: pass
+tail_two_wind_speeds: pass
+tail_required_metrics: pass
+pairing_status_values: fully_pairable
+post_action_guardrail_no_local_search_or_formal_rerun: pass
+final_summary_not_written_by_this_check: manual_guardrail_confirmed
+final_summary_path_observed=C:\Users\24186\Documents\New project 13\results\final_summary, exists=true
+final_summary_path_observed=C:\Users\24186\Documents\New project 13\results\final_summary.csv, exists=false
+overall_status: pass

@@ -1,0 +1,2 @@
+recommended_action,go_no_go,reason,tail_branch_note,wind_trip_probability_note,guardrail_note
+increase_trials_for_wind_speed_only_after_driver_review,ready_for_small_diagnostic_rerun_only,Paired CRI delta remains opposite to the expected wind-speed trend.,branch_delta_rows=131,max_P_wt_in_smoke=0,"No local search, formal rerun, final_summary write, or P_WT integration was performed."

@@ -90,3 +90,26 @@ remains driven by line probability, severity, or scenario/metric basis rather
 than wind trip probability.
 
 No local search or parameter refinement should start from this result.
+
+## Wind-Speed Tail Attribution Follow-Up
+
+The after-curve-fix wind-speed VaR tail attribution diagnosis confirms that the
+`wind_speed_11_28` and `wind_speed_12_00` samples are pairable in the existing
+pilot outputs. The paired CRI delta still shows the 12.00 m/s case higher than
+the 11.28 m/s case on average, so the trend issue is visible inside paired
+samples and is not explained by unpaired random seeds alone.
+
+The P_WT smoke remains zero in these wind-speed cases:
+
+- `max_P_wt = 0`
+- `num_stages_with_positive_trip_probability = 0`
+
+This should be interpreted narrowly: the sampled wind-bus voltages did not
+enter the diagnostic LVRT/HVRT/FRT risk regions. It does not mean the P_WT
+calculation path is invalid, and it does not justify integrating P_WT into the
+formal chain probability.
+
+The current post-diagnosis action is to keep P_WT as diagnostic-only and review
+line-probability or severity tail drivers before any small wind-speed-only
+rerun. No local search, formal benchmark rerun, or `final_summary` update is
+authorized from this diagnostic.

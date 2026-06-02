@@ -1,0 +1,2 @@
+comparison_id,pairing_ok,common_random_rerun_ready,recommended_action,reason,paired_cri_direction,paired_delta_dominant_driver,candidate_probability_note,wind_trip_probability_note,note
+wind_speed_11_28_vs_12_00,1,0,diagnose_probability_or_severity_basis_before_rerun,"Paired samples already show the reversal direction, so first inspect probability/severity drivers.",12mps_higher_than_11p28_in_paired_delta,no_clear_driver,tail candidate rows with higher 12mps effect=279,P_WT action=,Readiness only; no common-random rerun was executed.
