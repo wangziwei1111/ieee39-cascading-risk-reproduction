@@ -66,3 +66,7 @@ If no issue is confirmed, the rerun is skipped and the comparison table records 
 ## Guardrails
 
 This audit is not local search, does not tune protection or hidden-failure parameters, does not write `final_summary`, does not run the full seven-scenario formal pilot, and does not make benchmark-calibrated parameters original paper parameters.
+
+## Follow-On P_L Event Aggregation Audit
+
+The below-Lmax `P_HF_L` audit did not confirm an implementation issue. The next audit therefore moves to the downstream `P1/P2/P3/P_L` combination and Markov candidate/stage/chain probability aggregation. That follow-on audit is documented in `docs/PL_event_probability_formula_audit.md`.

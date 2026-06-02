@@ -1,0 +1,2 @@
+selected,dominant_root_cause,paper_formula_status,go_no_go,recommended_next_action,note
+1,PL_sum_vs_union_material_but_direction_unclear,simple_sum_current_union_not_confirmed,need_manual_paper_confirmation_for_PL_formula,Manual paper confirmation is needed before changing P_L from simple sum to union.,"No local search, no parameter tuning, no final_summary, no full formal pilot in this turn."

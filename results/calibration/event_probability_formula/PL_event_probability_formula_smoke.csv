@@ -1,0 +1,5 @@
+test_case,P1,P2,P3,PL_simple_sum,PL_clipped_sum,PL_independent_union,selected_PL_mode,expected_behavior,pass_fail,note
+case_1,0.001,0.001,0.001,0.003,0.003,0.002997001,paper_simple_sum_current,simple sum and union are both valid comparators; paper confirmation required before changing mode,pass,"Formula smoke only; union is diagnostic comparator, not selected without paper confirmation."
+case_2,0.05,0.05,0.01,0.11,0.11,0.106525,paper_simple_sum_current,simple sum and union are both valid comparators; paper confirmation required before changing mode,pass,"Formula smoke only; union is diagnostic comparator, not selected without paper confirmation."
+case_3,0.2,0.3,0.1,0.6,0.6,0.496,paper_simple_sum_current,simple sum and union are both valid comparators; paper confirmation required before changing mode,pass,"Formula smoke only; union is diagnostic comparator, not selected without paper confirmation."
+case_4,0.6,0.6,0.2,1.4,1,0.872,paper_simple_sum_current,simple sum clipped to one; union remains below or equal one,pass,"Formula smoke only; union is diagnostic comparator, not selected without paper confirmation."

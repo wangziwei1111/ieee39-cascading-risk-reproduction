@@ -1,0 +1,14 @@
+PL_event_probability_formula_implementation_audit.csv: pass
+PL_event_component_recompute_audit.csv: pass
+PL_sum_vs_union_difference_audit.csv: pass
+wind_speed_PL_aggregation_sensitivity.csv: pass
+wind_speed_P1_P2_P3_increase_explanation.csv: pass
+PL_event_probability_formula_smoke.csv: pass
+post_PL_event_probability_audit_action.csv: pass
+guardrail_no_unconfirmed_union_switch: pass
+PL_event_probability_formula_smoke_pass: pass
+guardrail_no_final_summary: pass
+guardrail_no_local_search: pass
+guardrail_no_full_7scenario_formal_pilot: pass
+guardrail_no_parameter_tuning: pass
+overall_status: pass
