@@ -1,0 +1,13 @@
+check_item,pass,status,note
+severity_formula_manual_confirmation_evidence.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\severity_formula_manual_confirmation_evidence.csv
+severity_formula_manual_confirmation_questions.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\severity_formula_manual_confirmation_questions.csv
+severity_formula_uncertainty_summary.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\severity_formula_uncertainty_summary.csv
+severity_formula_next_step_branch_plan.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\severity_formula_next_step_branch_plan.csv
+docs/severity_formula_manual_confirmation_request.md,1,pass,C:\Users\24186\Documents\New project 13\docs\severity_formula_manual_confirmation_request.md
+calc_basic_risk_metrics_not_modified_by_pack,1,pass,Manual confirmation pack must not modify current severity implementation.
+calc_cri_not_modified_by_pack,1,pass,Manual confirmation pack must not modify CRI implementation.
+no_markov_run,1,pass,No Markov/cascade script is called by this check.
+no_local_search,1,pass,No local search script is called by this check.
+no_parameter_tuning,1,pass,No parameter refinement is performed.
+no_final_summary_write,1,pass,No final_summary output was modified by this pack.
+overall_status,1,pass,Manual confirmation pack offline checks.

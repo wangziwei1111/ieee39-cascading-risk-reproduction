@@ -1,0 +1,13 @@
+summary_item,value,interpretation,manual_confirmation_relevance,note
+current_LLR_formula,"sllr = shed.total_load_shed_mw / base_load_mw",Current code implementation only.,User must confirm exact LLR/SLLR paper formula.,
+current_LFOR_formula,"line_excess=max(max_line_loading_pu-1,0); SLFOR=line_excess*max(num_overloaded_lines,1)",Current code implementation only.,User must confirm line overload severity formula.,
+current_NVOR_formula,"SNVOR=max_voltage_deviation_pu*max(num_voltage_violations,1)",Current code implementation only.,User must confirm voltage-overrun severity formula.,
+current_CRI_formula,"CRI=weights(1)*SLLR+weights(2)*SLFOR+weights(3)*SNVOR",CRI has extracted-note support for weights but still needs screenshot confirmation.,Confirm weights and normalization.,
+LLR_paper_confirmed,"false",No original-paper formula evidence found.,Blocking formula changes.,
+LFOR_paper_confirmed,"false",No original-paper formula evidence found.,Blocking formula changes.,
+NVOR_paper_confirmed,"false",No original-paper formula evidence found.,Blocking formula changes.,
+CRI_paper_confirmed,"partial_weight_note_only",Weights appear in notes/code but require paper screenshot.,Confirm before treating as formal.,
+severity_stage_or_chain_level_confirmed,"false",Audit found mismatch between trace and recomputed stage formula.,Need stage-vs-chain semantic confirmation.,
+severity_recompute_issue_summary,"LFOR_mismatch=4223; LLR_mismatch=3283; NVOR_mismatch=51; missing_required_field=1087; no_issue=4800",Trace values do not fully match simple recomputation from available trace fields.,Supports pausing before formula changes.,
+severity_formula_material_to_wind_speed_direction,"recomputed_severity:12mps_higher_than_11p28=24; recorded_severity:12mps_higher_than_11p28=24",Recorded and recomputed severity variants both affect wind-speed direction diagnostics.,Do not tune parameters until formula is confirmed.,
+recommended_manual_check,"need_manual_paper_confirmation_for_severity_formula",Confirm LLR/LFOR/NVOR/CRI formulas before any fix.,Manual confirmation required.,
