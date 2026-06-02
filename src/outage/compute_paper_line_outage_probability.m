@@ -30,6 +30,7 @@ L_max_factor = get_cfg(cfg, 'paper_line_L_max_factor', NaN);
 ZIII_factor = get_cfg(cfg, 'paper_line_ZIII_factor', NaN);
 distance_mode = lower(string(get_cfg(cfg, 'calibration_distance_hidden_failure_mode', 'disable_if_missing')));
 flow_probability_mode = lower(string(get_cfg(cfg, 'line_outage_flow_probability_mode', 'paper_piecewise_constant_below_rated')));
+hidden_failure_loading_probability_mode = lower(string(get_cfg(cfg, 'hidden_failure_loading_probability_mode', 'paper_piecewise_constant_below_Lmax')));
 
 if isnan(P_L0), missing(end + 1, 1) = "paper_line_P_L0"; end
 if isnan(P_L_D), missing(end + 1, 1) = "paper_line_P_L_D"; end
@@ -84,13 +85,31 @@ if isnan(P_HF_D)
 end
 
 P_HF_L = NaN;
+P_HF_L_formula_branch = "missing_parameter";
+below_Lmax_flag = false;
+P_HF_L_constant_below_Lmax_enforced = false;
+hidden_failure_legacy_mode_warning = "";
 if ~any(ismember(missing, ["paper_line_P_L_D","paper_line_P_L_r","paper_line_L_max_factor"]))
-    if loading < L_max_pu
-        P_HF_L = P_L_D;
-    elseif loading <= 1.4 * L_max_pu
-        P_HF_L = P_L_D + (loading - L_max_pu) * (P_L_r - P_L_D) / max(0.4 * L_max_pu, eps);
-    else
-        P_HF_L = P_L_r;
+    below_Lmax_flag = loading < L_max_pu;
+    switch hidden_failure_loading_probability_mode
+        case "paper_piecewise_constant_below_lmax"
+            if loading < L_max_pu
+                P_HF_L = P_L_D;
+                P_HF_L_formula_branch = "below_Lmax_constant_P_L_D";
+                P_HF_L_constant_below_Lmax_enforced = true;
+            elseif loading <= 1.4 * L_max_pu
+                P_HF_L = P_L_D + (loading - L_max_pu) * (P_L_r - P_L_D) / max(0.4 * L_max_pu, eps);
+                P_HF_L_formula_branch = "between_Lmax_1p4Lmax_linear";
+            else
+                P_HF_L = P_L_r;
+                P_HF_L_formula_branch = "above_1p4Lmax_P_L_r";
+            end
+        case "legacy_loading_scaled"
+            P_HF_L = P_L_D + min(max(loading, 0), 1) * (P_L_r - P_L_D);
+            P_HF_L_formula_branch = "legacy_loading_scaled";
+            hidden_failure_legacy_mode_warning = "legacy_loading_scaled is diagnostic-only and must not be paper benchmark default.";
+        otherwise
+            error('Unknown hidden_failure_loading_probability_mode: %s', hidden_failure_loading_probability_mode);
     end
 end
 
@@ -142,6 +161,11 @@ detail.P_flow_formula_branch = P_flow_formula_branch;
 detail.below_Lrated_flag = below_Lrated_flag;
 detail.P_flow_constant_below_Lrated_enforced = P_flow_constant_below_Lrated_enforced;
 detail.legacy_mode_warning = legacy_mode_warning;
+detail.hidden_failure_loading_probability_mode = hidden_failure_loading_probability_mode;
+detail.P_HF_L_formula_branch = P_HF_L_formula_branch;
+detail.below_Lmax_flag = below_Lmax_flag;
+detail.P_HF_L_constant_below_Lmax_enforced = P_HF_L_constant_below_Lmax_enforced;
+detail.hidden_failure_legacy_mode_warning = hidden_failure_legacy_mode_warning;
 detail.distance_hidden_failure_status = distance_status;
 detail.loading_hidden_failure_status = "computed_from_formula_3_5";
 if isnan(P_HF_L)

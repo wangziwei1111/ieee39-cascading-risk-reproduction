@@ -1,0 +1,8 @@
+test_case,line_loading_pu,L,L_max,P_L_D,P_L_r,P_HF_D,P_HF_L,P_mis_r,P2,P_L,P_HF_L_formula_branch,expected_behavior,pass_fail,note
+loading_0.5,0.5,0.5,1,0.001,0.05,0,0.001,0.001,0.001099,0.002097001,below_Lmax_constant_P_L_D,P_HF_L equals P_L_D below L_max,pass,Formula smoke only; no Markov run.
+loading_0.8,0.8,0.8,1,0.001,0.05,0,0.001,0.001,0.001099,0.002097001,below_Lmax_constant_P_L_D,P_HF_L equals P_L_D below L_max,pass,Formula smoke only; no Markov run.
+loading_0.99,0.99,0.99,1,0.001,0.05,0,0.001,0.001,0.001099,0.8993997001,below_Lmax_constant_P_L_D,P_HF_L equals P_L_D below L_max,pass,Formula smoke only; no Markov run.
+loading_1,1,1,1,0.001,0.05,0,0.001,0.001,0.001099,0.9991,between_Lmax_1p4Lmax_linear,P_HF_L in linear interval from L_max to 1.4 L_max,pass,Formula smoke only; no Markov run.
+loading_1.2,1.2,1.2,1,0.001,0.05,0,0.0255,0.0255,0.0255745,1,between_Lmax_1p4Lmax_linear,P_HF_L in linear interval from L_max to 1.4 L_max,pass,Formula smoke only; no Markov run.
+loading_1.4,1.4,1.4,1,0.001,0.05,0,0.05,0.05,0.05005,1,between_Lmax_1p4Lmax_linear,P_HF_L in linear interval from L_max to 1.4 L_max,pass,Formula smoke only; no Markov run.
+loading_1.5,1.5,1.5,1,0.001,0.05,0,0.05,0.05,0.05005,1,above_1p4Lmax_P_L_r,P_HF_L equals P_L_r above 1.4 L_max,pass,Formula smoke only; no Markov run.

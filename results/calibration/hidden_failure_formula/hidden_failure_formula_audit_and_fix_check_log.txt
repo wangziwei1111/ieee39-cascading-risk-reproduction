@@ -1,0 +1,17 @@
+hidden_failure_probability_formula_implementation_audit.csv: pass
+hidden_failure_component_recompute_audit.csv: pass
+below_Lmax_PHFL_variation_audit.csv: pass
+wind_speed_hidden_failure_increase_explanation.csv: pass
+hidden_failure_formula_fix_smoke.csv: pass
+wind_speed_after_PHFL_fix_var_metrics.csv: pass
+wind_speed_before_after_PHFL_fix_comparison.csv: pass
+post_hidden_failure_formula_audit_action.csv: pass
+compute_contains_paper_piecewise_constant_below_Lmax: pass
+hidden_failure_formula_fix_smoke_pass: pass
+after_PHFL_fix_rerun_required: false
+skipped_no_issue_confirmed_recorded: pass
+guardrail_no_final_summary: pass
+guardrail_no_local_search: pass
+guardrail_no_full_7scenario_formal_pilot: pass
+guardrail_no_parameter_tuning: pass
+overall_status: pass

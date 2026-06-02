@@ -174,6 +174,7 @@ cfg.line_forced_trip_loading_pu = 1.20; % 待校准
 cfg.line_outage_prob_cap = 1.0;
 cfg.line_outage_probability_model = 'engineering'; % engineering / paper_formula / paper_formula_diagnostic
 cfg.line_outage_flow_probability_mode = 'paper_piecewise_constant_below_rated'; % paper_piecewise_constant_below_rated / legacy_loading_scaled
+cfg.hidden_failure_loading_probability_mode = 'paper_piecewise_constant_below_Lmax'; % paper_piecewise_constant_below_Lmax / legacy_loading_scaled
 cfg.paper_line_P_L0 = NaN;              % P_L0，待论文参数确认
 cfg.paper_line_L_rated_factor = 1.0;    % L_Rated相对RATE_A倍率，待校准
 cfg.paper_line_L_max_factor = 1.2;      % L_max相对RATE_A倍率，待校准

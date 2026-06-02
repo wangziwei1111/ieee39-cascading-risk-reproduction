@@ -64,6 +64,10 @@ The selected next action is:
 
 This means the next inspection target is the hidden-failure and downstream terms such as `P_HF_L`, `P_mis_r`, `P1`, and `P2`, not a `P_flow` below-rated fix.
 
+## Follow-On Hidden-Failure Audit
+
+The follow-on audit is documented in `docs/hidden_failure_probability_formula_audit.md`. It checks that paper-mode `P_HF_L` is constant for `L < L_max`, that its linear interval starts at `L_max` rather than `L_Rated`, and that `P_mis_r`, `P2`, and `P_L` follow the paper-consistent downstream formulas.
+
 ## Guardrails
 
 This audit did not run local search, did not tune parameters, did not write `final_summary`, and did not run the full seven-scenario formal pilot. The benchmark-calibrated parameters remain not original paper parameters.
