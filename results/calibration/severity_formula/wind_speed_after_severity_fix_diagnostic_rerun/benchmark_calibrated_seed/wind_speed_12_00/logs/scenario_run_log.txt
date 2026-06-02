@@ -1,0 +1,3 @@
+wind-speed after severity formula fix diagnostic
+severity-only recompute from existing 30-trial chains
+No local search, no parameter tuning, no final_summary.

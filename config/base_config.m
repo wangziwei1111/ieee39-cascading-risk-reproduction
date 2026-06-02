@@ -125,6 +125,8 @@ cfg.unified_composite_probability_missing_policy = 'component_nan';
 
 % 综合风险权重。用户提供的论文权重为0.6/0.2/0.2。
 cfg.risk_weights = [0.6, 0.2, 0.2];
+cfg.severity_formula_mode = 'paper_confirmed_exponential_sum'; % paper_confirmed_exponential_sum / legacy_max_count_product
+cfg.record_severity_vector_trace_enable = false;
 
 % 严重度函数模式。默认入口仍使用basic；paper公式由专用入口触发。
 cfg.severity_mode = 'basic';

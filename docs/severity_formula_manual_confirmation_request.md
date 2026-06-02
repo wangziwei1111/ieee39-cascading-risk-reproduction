@@ -46,3 +46,15 @@ Implement only the confirmed formula difference, preferably behind a clearly nam
 ## If The Paper Is Not Clear
 
 Keep the current implementation as a diagnostic assumption. Document the uncertainty explicitly and avoid claiming strict reproduction. The safe next step is either a non-formal sensitivity analysis or a request for more source material.
+
+## Manual Confirmation Received
+
+The user has confirmed the paper Section 3.2.4 formulas for LLR, LFOR, NVOR, VaR component risks, and CRI weighting.
+
+- LLR uses `sev_load(E_k)=C_c(E_k)/P_load*100%`.
+- LFOR uses the full-line exponential sum `sum((exp(max(P_l-P_lmax,0))-1)/(e-1))*100%`.
+- NVOR uses the full-bus exponential sum `sum((exp(max(0.9-U_m,U_m-1.1,0))-1)/(e-1))*100%`.
+- CRI is applied after VaR component risks: `R_w=0.6*R_SLLR+0.2*R_SLFOR+0.2*R_SNVOR`.
+- Zero violation should naturally produce zero LFOR/NVOR severity.
+
+The current legacy LFOR/NVOR code is therefore not paper-consistent. Follow-up work should use `paper_confirmed_exponential_sum` for paper-aligned diagnostics, while retaining the legacy formula only as an explicitly labeled legacy mode.

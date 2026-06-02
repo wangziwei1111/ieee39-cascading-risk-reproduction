@@ -1,0 +1,17 @@
+parameter_set_id,scenario_id,metric_name,paper_value,sim_var_value,absolute_gap,relative_gap,ratio_paper_to_sim,direction_status,note
+high_hidden_failure,wind_speed_11_28,SLLR,7.5361,35.195607478403,27.659507478403,3.670267619609,0.214120463484084,single_point,Diagnostic display comparison only; no scaling or tuning.
+high_hidden_failure,wind_speed_11_28,SLFOR,6.0213,64.5646727656222,58.5433727656222,9.72271154782367,0.0932599771487744,single_point,Diagnostic display comparison only; no scaling or tuning.
+high_hidden_failure,wind_speed_11_28,SNVOR,6.5482,3.07129858753494,-3.47690141246506,-0.530970477611341,2.13206162843126,single_point,Diagnostic display comparison only; no scaling or tuning.
+high_hidden_failure,wind_speed_11_28,CRI,7.0356,39.6324564731649,32.5968564731649,4.63313034283282,0.177521164433566,single_point,Diagnostic display comparison only; no scaling or tuning.
+high_hidden_failure,wind_speed_12_00,SLLR,6.6351,74.862393863033,68.227293863033,10.2827815074756,0.0886306137031746,single_point,Diagnostic display comparison only; no scaling or tuning.
+high_hidden_failure,wind_speed_12_00,SLFOR,4.7631,72.6498186119259,67.8867186119259,14.2526305051952,0.0655624477176005,single_point,Diagnostic display comparison only; no scaling or tuning.
+high_hidden_failure,wind_speed_12_00,SNVOR,4.9822,18.2416055942972,13.2594055942972,2.66135501042555,0.27312287293585,single_point,Diagnostic display comparison only; no scaling or tuning.
+high_hidden_failure,wind_speed_12_00,CRI,5.9301,44.9174363178198,38.9873363178198,6.57448099413818,0.132022224643867,single_point,Diagnostic display comparison only; no scaling or tuning.
+benchmark_calibrated_seed,wind_speed_11_28,SLLR,7.5361,99.2757349860999,91.7396349860999,12.1733552915626,0.0759107945677196,single_point,Diagnostic display comparison only; no scaling or tuning.
+benchmark_calibrated_seed,wind_speed_11_28,SLFOR,6.0213,137.589787670896,131.568487670896,21.8505083321521,0.0437626953145664,single_point,Diagnostic display comparison only; no scaling or tuning.
+benchmark_calibrated_seed,wind_speed_11_28,SNVOR,6.5482,20.5469643813115,13.9987643813115,2.13780309757008,0.318694263531291,single_point,Diagnostic display comparison only; no scaling or tuning.
+benchmark_calibrated_seed,wind_speed_11_28,CRI,7.0356,89.4415531155764,82.4059531155764,11.7127098474709,0.0786614238713763,single_point,Diagnostic display comparison only; no scaling or tuning.
+benchmark_calibrated_seed,wind_speed_12_00,SLLR,6.6351,129.665528249978,123.030428249978,18.5423595285103,0.0511708858813849,single_point,Diagnostic display comparison only; no scaling or tuning.
+benchmark_calibrated_seed,wind_speed_12_00,SLFOR,4.7631,163.192970147108,158.429870147108,33.2619170047219,0.029186918814698,single_point,Diagnostic display comparison only; no scaling or tuning.
+benchmark_calibrated_seed,wind_speed_12_00,SNVOR,4.9822,95.9535518532869,90.9713518532869,18.2592697190031,0.051923038301852,single_point,Diagnostic display comparison only; no scaling or tuning.
+benchmark_calibrated_seed,wind_speed_12_00,CRI,5.9301,115.738178134377,109.808078134377,18.5170671012816,0.0512371979959603,single_point,Diagnostic display comparison only; no scaling or tuning.

@@ -1,0 +1,2 @@
+selected,formula_fixed,wind_speed_direction_after_fix,go_no_go,recommended_next_action,note
+1,1,not_corrected,inspect_remaining_probability_tail_composition,Inspect probability tail composition before any formal pilot.,"Paper-confirmed severity mode implemented; no local search, no tuning, no final_summary, no full formal pilot."

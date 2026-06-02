@@ -1,4 +1,4 @@
-function metrics = calc_basic_risk_metrics(result, violations, shed, base_load_mw)
+function metrics = calc_basic_risk_metrics(result, violations, shed, base_load_mw, cfg)
 %CALC_BASIC_RISK_METRICS 计算最小版基础风险指标。
 % 输入：
 %   result - 潮流结果。
@@ -13,6 +13,24 @@ function metrics = calc_basic_risk_metrics(result, violations, shed, base_load_m
 
 if nargin < 4 || base_load_mw <= 0
     base_load_mw = 1;
+end
+if nargin >= 5 && isstruct(cfg) && isfield(cfg, 'severity_formula_mode') && ...
+        string(cfg.severity_formula_mode) == "paper_confirmed_exponential_sum" && ...
+        isstruct(result) && isfield(result, 'branch') && isfield(result, 'bus')
+    stage_state = struct();
+    stage_state.total_load_shed_mw = get_shed_field(shed, 'total_load_shed_mw', get_shed_field(shed, 'load_shed_mw', 0));
+    stage_state.base_load_mw = base_load_mw;
+    stage_state.pf_result = result;
+    [paper_metrics, ~] = calc_basic_risk_metrics_paper_confirmed(stage_state, cfg);
+    metrics = struct();
+    metrics.island_load_shed_mw = get_shed_field(shed, 'island_load_shed_mw', 0);
+    metrics.corrective_load_shed_mw = get_shed_field(shed, 'corrective_load_shed_mw', 0);
+    metrics.total_load_shed_mw = stage_state.total_load_shed_mw;
+    metrics.SLLR = paper_metrics.LLR_stage;
+    metrics.SLFOR = paper_metrics.LFOR_stage;
+    metrics.SNVOR = paper_metrics.NVOR_stage;
+    metrics.CRI_stage_reference = paper_metrics.CRI_stage_reference;
+    return;
 end
 
 if ~isfield(shed, 'island_load_shed_mw')
@@ -57,4 +75,12 @@ metrics.total_load_shed_mw = shed.total_load_shed_mw;
 metrics.SLLR = sllr;
 metrics.SLFOR = slfor;
 metrics.SNVOR = snvor;
+end
+
+function value = get_shed_field(shed, name, default_value)
+if isstruct(shed) && isfield(shed, name)
+    value = shed.(name);
+else
+    value = default_value;
+end
 end

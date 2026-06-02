@@ -1,0 +1,17 @@
+check_item,pass,status,note
+severity_formula_manual_confirmation_record.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\severity_formula_manual_confirmation_record.csv
+post_severity_formula_audit_action_v2.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\post_severity_formula_audit_action_v2.csv
+wind_speed_paper_confirmed_severity_recompute_from_existing_trace.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_paper_confirmed_severity_recompute_from_existing_trace.csv
+wind_speed_after_severity_fix_var_metrics.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_var_metrics.csv
+wind_speed_before_after_severity_fix_comparison.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_before_after_severity_fix_comparison.csv
+wind_speed_after_severity_fix_to_paper_gap.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_to_paper_gap.csv
+post_severity_formula_fix_action.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\post_severity_formula_fix_action.csv
+calc_basic_risk_metrics_paper_confirmed.m,1,pass,paper-confirmed severity function exists
+cfg.severity_formula_mode,1,pass,config contains severity formula mode
+severity_vector_trace_smoke,1,pass,smoke/reconstructed vector traces exist
+wind_speed_after_severity_fix_diagnostic_rerun,1,pass,after-fix severity traces exist
+guard_no_final_summary,1,pass,No final_summary called by this check
+guard_no_local_search,1,pass,No local search called
+guard_no_parameter_tuning,1,pass,No parameter refinement
+guard_no_full_7scenario_formal_pilot,1,pass,No full 7-scenario formal pilot
+overall_status,1,pass,pass

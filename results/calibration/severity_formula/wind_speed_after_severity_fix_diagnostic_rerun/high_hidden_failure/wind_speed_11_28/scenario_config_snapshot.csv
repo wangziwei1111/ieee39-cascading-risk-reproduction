@@ -1,0 +1,2 @@
+parameter_set_id,scenario_id,markov_trials_per_initial_fault,severity_formula_mode,source,note
+high_hidden_failure,wind_speed_11_28,30,paper_confirmed_exponential_sum,reused_existing_wind_speed_component_diagnostic_chains,No Markov rerun; severity-only diagnostic recompute from existing vectors.
