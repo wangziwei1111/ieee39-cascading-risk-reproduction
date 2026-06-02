@@ -1,0 +1,14 @@
+check_item,pass,status,note
+wind_speed_after_severity_fix_tail_samples.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_tail_samples.csv
+wind_speed_after_severity_fix_tail_initial_branch_summary.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_tail_initial_branch_summary.csv
+wind_speed_after_severity_fix_tail_initial_branch_delta.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_tail_initial_branch_delta.csv
+wind_speed_after_severity_fix_tail_candidate_branch_summary.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_tail_candidate_branch_summary.csv
+wind_speed_after_severity_fix_tail_candidate_branch_delta.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_tail_candidate_branch_delta.csv
+wind_speed_after_severity_fix_baseflow_tail_correlation.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_baseflow_tail_correlation.csv
+wind_speed_after_severity_fix_baseflow_delta_summary.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\wind_speed_after_severity_fix_baseflow_delta_summary.csv
+post_wind_speed_after_severity_fix_tail_action.csv,1,pass,C:\Users\24186\Documents\New project 13\results\calibration\severity_formula\post_wind_speed_after_severity_fix_tail_action.csv
+guard_no_final_summary,1,pass,No final_summary called.
+guard_no_local_search,1,pass,No local search called.
+guard_no_parameter_tuning,1,pass,No parameter refinement.
+guard_no_full_7scenario_formal_pilot,1,pass,No full formal pilot.
+overall_status,1,pass,true

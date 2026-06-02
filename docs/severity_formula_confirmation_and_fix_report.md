@@ -47,6 +47,8 @@ The current diagnostic action result is:
 - The paper-confirmed severity formula did not by itself correct the key wind-speed direction issue.
 - The recommended next step is to inspect the remaining probability tail composition before any full formal pilot.
 
+The remaining-tail diagnostic has now been added. It reads the after-fix wind-speed diagnostic and existing component traces to attribute the 12.00 m/s tail increase to initial-branch composition, candidate-branch composition, and line-loading/probability tail behavior.
+
 ## Scope Guardrails
 
 This work is not local search, not parameter tuning, and not a final benchmark. It does not write `final_summary`, does not run the full seven-scenario formal pilot, and does not claim strict reproduction.

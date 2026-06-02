@@ -1,0 +1,2 @@
+selected,dominant_root_cause,wind_speed_direction_status,go_no_go,recommended_next_action,note
+1,baseflow_driven_probability_tail,12mps_higher_after_severity_fix,inspect_wind_speed_scenario_assumption_in_paper,Confirm paper wind-speed dispatch/absorption/power-flow redistribution assumptions before formal pilot.,"No local search, no tuning, no final_summary. Tail diagnosis is diagnostic-only, not final reproduction."
