@@ -1,0 +1,9 @@
+Fig.4-2 diagnostic reproduction run log
+No local search, parameter tuning, all_full, final_summary, OLS benchmark, or wind/generator actual trip transition is run.
+Requested nominal trials per initial fault = 30; using 20 to control desktop diagnostic runtime, not below 10.
+Parameter set = benchmark_calibrated_seed; status = benchmark_calibrated_not_original_paper.
+RUN source_scenario=no_renewable_base target_scenario=fig4_2_no_renewable trials=20
+source_scenario=no_renewable_base run_status=success
+RUN source_scenario=distributed_30_39 target_scenario=fig4_2_distributed_renewable_3000MW trials=20
+source_scenario=distributed_30_39 run_status=success
+DONE

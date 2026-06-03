@@ -1,0 +1,18 @@
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_no_renewable,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_distributed_renewable_3000MW,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_no_renewable\scenario_config_snapshot.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_distributed_renewable_3000MW\scenario_config_snapshot.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_no_renewable\markov_chain_summary.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_distributed_renewable_3000MW\markov_chain_summary.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_no_renewable\risk_samples_for_density.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_distributed_renewable_3000MW\risk_samples_for_density.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_density_data.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_metric_summary.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_trend_comparison.csv,1
+exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_diagnostic_reproduction.png,1
+guard_no_local_search,1
+guard_no_parameter_tuning,1
+guard_no_final_summary_write,1
+guard_no_all_full,1
+guard_no_formal_pilot_overwrite,1
+check_status,pass

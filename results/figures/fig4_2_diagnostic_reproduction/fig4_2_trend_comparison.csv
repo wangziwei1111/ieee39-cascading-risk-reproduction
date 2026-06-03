@@ -1,0 +1,4 @@
+metric_name,paper_qualitative_trend,diagnostic_trend,trend_match_status,evidence,note
+LLR,paper_figure_shape_only,renewable_higher,qualitative_only,mean 0.08917 -> 0.2517; p95 0.5243 -> 1.605,Paper figure is used qualitatively only; this is not strict original reproduction.
+LFOR,paper_figure_shape_only,renewable_higher,qualitative_only,mean 0.1466 -> 0.4981; p95 0.4777 -> 1.955,Paper figure is used qualitatively only; this is not strict original reproduction.
+NVOR,paper_figure_shape_only,renewable_higher,qualitative_only,mean 0.07264 -> 0.301; p95 0.4741 -> 1.56,Paper figure is used qualitatively only; this is not strict original reproduction.

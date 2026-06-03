@@ -1,0 +1,187 @@
+scenario_id,scenario_label,metric_name,x_value,density_value,sample_count,kernel_method,bandwidth,note
+fig4_2_no_renewable,No renewable access,LLR,0.0310400189719773,13.7795467100226,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.0931200569159318,0.21010744665854,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.155200094859886,0.280143262211387,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.217280132803841,0.157580584993905,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.279360170747795,0.0350179077764234,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.34144020869175,0.052526861664635,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.403520246635704,0.350179077764233,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.465600284579659,0.42021489331708,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.527680322523613,0.175089538882117,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.589760360467568,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.651840398411522,0.0175089538882117,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.713920436355477,0.10505372332927,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.776000474299431,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.838080512243386,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.90016055018734,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,0.962240588131295,0.0700358155528468,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.02432062607525,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.0864006640192,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.14848070196316,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.21056073990711,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.27264077785107,0.262634308323175,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.33472081579502,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.39680085373898,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.45888089168293,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.52096092962689,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.58304096757084,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.64512100551479,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.70720104345875,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.7692810814027,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.83136111934666,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LLR,1.89344115729061,0.192598492770329,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,0.130529260990768,3.55992142693847,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,0.391587782972303,0.087436666626559,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,0.652646304953839,0.0291455555421863,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,0.913704826935374,0.00832730158348181,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,1.17476334891691,0.0208182539587045,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,1.43582187089845,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,1.69688039287998,0.00416365079174091,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,1.95793891486152,0.0499638095008908,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,2.21899743684305,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,2.48005595882459,0.00416365079174091,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,2.74111448080612,0.0041636507917409,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,3.00217300278766,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,3.26323152476919,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,3.52429004675073,0.0208182539587045,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,3.78534856873226,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,4.0464070907138,0.0041636507917409,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,4.30746561269534,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,4.56852413467687,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,4.82958265665841,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,5.09064117863994,0.00832730158348183,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,5.35169970062148,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,5.61275822260301,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,5.87381674458455,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,6.13487526656608,0.0124909523752227,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,6.39593378854762,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,6.65699231052916,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,6.91805083251069,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,7.17910935449223,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,7.44016787647376,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,7.7012263984553,0,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,LFOR,7.96228492043683,0.0166546031669636,920,histogram_pdf,0.261058521981536,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.0310400189719773,14.7075212660978,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.0931200569159318,0.052526861664635,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.155200094859886,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.217280132803841,0.052526861664635,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.279360170747795,0.122562677217482,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.34144020869175,0.052526861664635,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.403520246635704,0.245125354434963,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.465600284579659,0.140071631105693,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.527680322523613,0.0700358155528468,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.589760360467568,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.651840398411522,0.0350179077764233,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.713920436355477,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.776000474299431,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.838080512243386,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.90016055018734,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,0.962240588131295,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.02432062607525,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.0864006640192,0.210107446658541,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.14848070196316,0.0700358155528464,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.21056073990711,0.10505372332927,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.27264077785107,0.052526861664635,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.33472081579502,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.39680085373898,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.45888089168293,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.52096092962689,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.58304096757084,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.64512100551479,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.70720104345875,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.7692810814027,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.83136111934666,0,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_no_renewable,No renewable access,NVOR,1.89344115729061,0.192598492770329,920,histogram_pdf,0.0620800379439545,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.0454213541651852,8.06458447922837,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.136264062495555,0.346992507266502,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.227106770825926,0.346992507266502,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.317949479156296,0.107687329841328,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.408792187486666,0.167513624197622,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.499634895817037,0.358957766137761,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.590477604147407,0.215374659682657,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.681320312477777,0.0358957766137761,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.772163020808148,0.0119652588712587,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.863005729138518,0.323061989523985,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,0.953848437468888,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.04469114579926,0.0358957766137761,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.13553385412963,0.0717915532275523,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.22637656246,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.31721927079037,0.0837568120988108,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.40806197912074,0.0239305177425174,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.49890468745111,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.58974739578148,0.382888283880278,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.68059010411185,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.77143281244222,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.86227552077259,0.0478610354850349,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,1.95311822910296,0.167513624197622,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.04396093743333,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.1348036457637,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.22564635409407,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.31648906242444,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.40733177075481,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.49817447908518,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.58901718741555,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.67985989574592,0,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LLR,2.77070260407629,0.215374659682657,920,histogram_pdf,0.0908427083303703,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,0.15415841528752,2.60178437728278,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,0.462475245862559,0.183323560458949,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,0.770792076437598,0.0740345148007295,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,1.07910890701264,0.0775599678864785,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,1.38742573758768,0.0176272654287451,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,1.69574256816271,0.0669836086292315,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,2.00405939873775,0.0669836086292314,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,2.31237622931279,0.0105763592572471,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,2.62069305988783,0.00705090617149805,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,2.92900989046287,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,3.23732672103791,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,3.54564355161295,0.0105763592572471,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,3.85396038218799,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,4.16227721276303,0.00352545308574902,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,4.47059404333807,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,4.77891087391311,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,5.08722770448814,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,5.39554453506318,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,5.70386136563822,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,6.01217819621326,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,6.3204950267883,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,6.62881185736334,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,6.93712868793838,0.0634581555434824,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,7.24544551851342,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,7.55376234908846,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,7.8620791796635,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,8.17039601023853,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,8.47871284081358,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,8.78702967138861,0,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,9.09534650196365,0.0246781716002431,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,LFOR,9.40366333253869,0.0352545308574902,920,histogram_pdf,0.308316830575039,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,0.245451341623677,1.77357387446656,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,0.736354024871032,0.104067380898787,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,1.22725670811839,0.0398555926846419,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,1.71815939136574,0.0752827861821014,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,2.2090620746131,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,2.69996475786045,0.0221419959359122,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,3.19086744110781,0.00664259878077365,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,3.68177012435516,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,4.17267280760252,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,4.66357549084987,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,5.15447817409723,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,5.64538085734458,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,6.13628354059194,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,6.62718622383929,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,7.11808890708665,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,7.608991590334,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,8.09989427358135,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,8.59079695682871,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,9.08169964007606,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,9.57260232332342,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,10.0635050065708,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,10.5544076898181,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,11.0453103730655,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,11.5362130563128,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,12.0271157395602,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,12.5180184228075,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,13.0089211060549,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,13.4998237893023,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,13.9907264725496,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,14.481629155797,0,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
+fig4_2_distributed_renewable_3000MW,Distributed renewable 3000 MW,NVOR,14.9725318390443,0.0154993971551385,920,histogram_pdf,0.490902683247355,ksdensity unavailable; used histogram pdf. Full-range samples retained.
