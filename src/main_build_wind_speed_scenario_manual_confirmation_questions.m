@@ -1,0 +1,33 @@
+function main_build_wind_speed_scenario_manual_confirmation_questions()
+%MAIN_BUILD_WIND_SPEED_SCENARIO_MANUAL_CONFIRMATION_QUESTIONS Write manual questions.
+project_root = fileparts(fileparts(mfilename('fullpath')));
+out_dir = fullfile(project_root, 'results', 'calibration', 'wind_speed_scenario_assumption');
+ensure_dir(out_dir);
+
+rows = {};
+rows = q(rows, 'Q01', 'In the paper, do wind_speed_11.28 and wind_speed_12.00 change only wind speed, or also wind power and conventional dispatch?', 'This decides whether current wind_plus_redispatch is a valid scenario assumption.', 'Only wind speed/curve changes.', 'Wind speed changes plus specified redispatch.', 'Not stated.', 'Keep current implementation as diagnostic if all else matches.', 'Implement paper-confirmed redispatch mode before rerun.', 'Document public-information gap; do not claim strict reproduction.', 'Please provide Table 4-6 surrounding text.', 'Core blocking question.');
+rows = q(rows, 'Q02', 'When wind output rises from about 2489 MW to 3000 MW, how does the paper reduce conventional generator output?', 'Conventional redispatch drives base line loading and tail P_L.', 'Proportional reduction among non-slack conventional units.', 'Economic/specified generator redispatch.', 'Slack bus absorbs the difference.', 'Current assumption may be close if proportional/downward-room rule is accepted.', 'Need implement specified dispatch.', 'Need inspect slack PG and limits.', 'Please provide generator PG or dispatch rule.', 'Most likely source of opposite wind-speed trend.');
+rows = q(rows, 'Q03', 'Does the paper keep total load fixed across wind-speed cases?', 'Load changes can alter risk independently of wind speed.', 'Load fixed.', 'Load changes with wind speed/scenario.', 'Not stated.', 'Current assumption likely acceptable.', 'Need implement load-level scenario table.', 'Mark as uncertainty.', 'Please confirm load level near Table 4-6.', 'Do not infer from target values alone.');
+rows = q(rows, 'Q04', 'Does the paper keep conventional generator PG fixed and let the slack bus balance wind changes?', 'This creates a different base-flow response from current non-slack redispatch.', 'Yes, slack absorbs.', 'No, redispatch is used.', 'Not stated.', 'Need implement slack-only sensitivity.', 'Current assumption may be retained if redispatch rule matches.', 'Document as ambiguity.', 'Please provide slack/generator setting.', 'Slack bus is currently 31.');
+rows = q(rows, 'Q05', 'Is conventional generation adjusted by economic dispatch, proportional sharing, or a specified generator table?', 'Different dispatch rules can flip overloaded branches.', 'Economic dispatch.', 'Proportional/downward-room sharing.', 'Explicit PG table.', 'Implement/diagnose economic dispatch.', 'Compare with current downward-room sharing.', 'Implement exact PG table.', 'Please provide dispatch method or PG table.', 'Needed before formal wind-speed pilot.');
+rows = q(rows, 'Q06', 'Does the paper apply wind curtailment or fixed wind absorption at high wind speed?', 'Curtailment could prevent 12 m/s from increasing base-flow stress.', 'No curtailment; absorb curve output.', 'Curtailment/fixed absorption exists.', 'Not stated.', 'Current no-curtailment assumption remains diagnostic.', 'Implement curtailment/absorption mode.', 'Document uncertainty.', 'Please provide curtailment statement if any.', 'Current snapshots show no explicit curtailment.');
+rows = q(rows, 'Q07', 'Does the paper provide base power flow, line loading, or generator PG for 11.28 and 12.00 m/s?', 'Direct base-flow evidence can explain or refute current line-loading tail.', 'Yes, base-flow/line-loading table.', 'Only risk results.', 'Not stated.', 'Use table to align scenario builder.', 'Cannot validate base-flow mechanism directly.', 'Document as missing.', 'Please provide screenshot/table if available.', 'High-value evidence.');
+rows = q(rows, 'Q08', 'Why does the paper show lower risk at 12.00 m/s: wind-trip probability, lower line loading, curtailment, or another mechanism?', 'Current model shows higher 12 m/s risk driven by base-flow probability tail.', 'Probability of wind trip changes.', 'Line loading or dispatch lowers risk.', 'No explanation.', 'Need integrate confirmed P_wt mechanism later.', 'Need fix scenario dispatch/absorption first.', 'Document unexplained divergence.', 'Please provide paper explanation text.', 'Do not continue tuning before this is clear.');
+rows = q(rows, 'Q09', 'Do Table 4-5/4-6 scenarios use the same initial fault probabilities and calibrated parameters?', 'Parameter differences could masquerade as scenario effects.', 'Same probabilities/parameters.', 'Different settings per table.', 'Not stated.', 'Current common formula comparison is acceptable diagnostically.', 'Need table-specific parameter sets.', 'Document uncertainty.', 'Please confirm paper setup.', 'Keep parameters fixed until confirmed.');
+rows = q(rows, 'Q10', 'Does the paper use common random samples across wind-speed cases or independent sampling?', 'Common samples are important for paired trend diagnosis.', 'Common random chains.', 'Independent Monte Carlo samples.', 'Not stated.', 'Current paired diagnostics remain meaningful.', 'Need more trials/statistical uncertainty handling.', 'Document sampling uncertainty.', 'Please confirm sample design if stated.', 'Do not run more trials until assumptions are clear.');
+rows = q(rows, 'Q11', 'If the paper does not state dispatch/curtailment assumptions, may we label the remaining trend gap as public-information-insufficient?', 'This defines how conservative the reproduction claim should be.', 'Yes, label as insufficient public information.', 'No, infer from standard practice.', 'Need more source material.', 'Use current result as diagnostic skeleton only.', 'Implement a clearly named engineering sensitivity, not paper claim.', 'Pause until more material arrives.', 'Please confirm writing policy.', 'Prevents overclaiming.');
+
+T = cell2table(rows, 'VariableNames', {'question_id','question','why_it_matters','possible_answer_A','possible_answer_B','possible_answer_C','impact_if_A','impact_if_B','impact_if_C','required_user_input','note'});
+writetable(T, fullfile(out_dir, 'wind_speed_scenario_manual_confirmation_questions.csv'));
+fprintf('Wrote %s\n', fullfile(out_dir, 'wind_speed_scenario_manual_confirmation_questions.csv'));
+end
+
+function rows = q(rows, varargin)
+rows(end + 1, :) = varargin; %#ok<AGROW>
+end
+
+function ensure_dir(pathname)
+if ~exist(pathname, 'dir')
+    mkdir(pathname);
+end
+end

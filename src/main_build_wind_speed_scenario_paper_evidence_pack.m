@@ -1,0 +1,37 @@
+function main_build_wind_speed_scenario_paper_evidence_pack()
+%MAIN_BUILD_WIND_SPEED_SCENARIO_PAPER_EVIDENCE_PACK Build evidence index from existing inputs/docs.
+project_root = fileparts(fileparts(mfilename('fullpath')));
+out_dir = fullfile(project_root, 'results', 'calibration', 'wind_speed_scenario_assumption');
+ensure_dir(out_dir);
+
+rows = {};
+rows = add(rows, 'E01', 'paper_inputs/filled/calibration_target_benchmark.csv', 'Table 4-6 extracted targets', 'wind_speed_11_28_definition', 'Target benchmark includes wind_speed_11_28 rows for SLLR/SLFOR/SNVOR/CRI.', 'yes_for_speed_point', 'no', 'original_paper_table', 'dispatch details missing', 'Speed point exists, but dispatch assumption is not captured.');
+rows = add(rows, 'E02', 'paper_inputs/filled/calibration_target_benchmark.csv', 'Table 4-6 extracted targets', 'wind_speed_12_00_definition', 'Target benchmark includes wind_speed_12_00 rows for SLLR/SLFOR/SNVOR/CRI.', 'yes_for_speed_point', 'no', 'original_paper_table', 'dispatch details missing', 'Speed point exists, but absorption/redispatch details are not captured.');
+rows = add(rows, 'E03', 'src/renewable/compute_paper_wind_power_curve.m; config/base_config.m', 'wind curve implementation', 'wind_power_curve_formula', 'Current implementation uses paper_2_12_20 profile with cut-in 2, rated 12, cut-out 20 where configured.', 'supports_current_curve', 'no', 'code_implementation', 'need original text around formula if stricter citation needed', 'This is implementation evidence, not proof of paper dispatch.');
+rows = add(rows, 'E04', 'src/scenarios/build_scenario_library.m', 'paper wind-speed scenario definitions', 'wind_capacity_3000MW', 'Paper wind-speed scenario definitions use total_wind_capacity_mw=3000.', 'yes', 'no', 'code_implementation', 'paper dispatch/curtailment still missing', 'Capacity is fixed in current scenario builder.');
+rows = add(rows, 'E05', 'src/scenarios/build_scenario_library.m; paper_inputs/filled/paper_scenario_definition.csv', 'scenario definitions', 'wind_bus_distribution_30_to_39', 'Current paper wind-speed scenarios use wind_buses=30:39.', 'yes', 'no', 'extracted_note', 'need original screenshot/text if manual confirmation required', 'Bus distribution appears consistently recorded.');
+rows = add(rows, 'E06', 'docs/scenario_definitions.md; docs/calibration_target_mapping_diagnosis.md', 'scenario notes', 'wind_penetration_basis', 'Documents note current 3000 MW/40% mapping but also warn that penetration basis may not be identical to paper denominator.', 'partial', 'possible_alternative_basis', 'diagnostic_assumption', 'paper denominator and scenario table', 'Do not treat as fully paper-confirmed.');
+rows = add(rows, 'E07', 'src/cases/apply_renewable_scenario.m', 'current implementation lines around wind_plus_redispatch', 'conventional_generator_dispatch', 'Current code lowers non-slack conventional generator PG according to available downward margin and keeps slack bus for balance.', 'supports_current_implementation_only', 'possible_alternative_dispatch', 'code_implementation', 'paper conventional PG/dispatch rule', 'This is exactly the assumption needing manual confirmation.');
+rows = add(rows, 'E08', 'src/cases/apply_renewable_scenario.m', 'wind_plus_redispatch', 'wind_power_absorption', 'Current case absorbs computed wind PG into the case and redispatches conventional generation.', 'supports_current_implementation_only', 'possible_curtailment_or_fixed_absorption', 'code_implementation', 'paper absorption/curtailment text', 'No claim that paper does the same.');
+rows = add(rows, 'E09', 'results/calibration/wind_speed_scenario_assumption/current_wind_speed_scenario_assumption_audit.csv', 'derived audit', 'wind_curtailment_or_no_curtailment', 'Expected wind power equals actual wind PG in current snapshots, so no explicit curtailment is observed in current implementation.', 'supports_current_implementation_only', 'paper_may_curtail', 'diagnostic_assumption', 'paper curtailment/no-curtailment statement', 'Current observation cannot substitute for paper statement.');
+rows = add(rows, 'E10', 'src/scenarios/build_scenario_library.m; src/cases/apply_renewable_scenario.m', 'slack policy fields', 'slack_bus_or_power_balance', 'Current code uses slack_bus=31 and MATPOWER balance after redispatch.', 'supports_current_implementation_only', 'possible_paper_specific_balance_policy', 'code_implementation', 'paper slack/power balance rule', 'Manual confirmation needed.');
+rows = add(rows, 'E11', 'diagnostic rerun outputs', 'scenario_config_snapshot/basecase outputs', 'base_flow_recalculation', 'Current diagnostics rebuild case and compute operating point for each scenario.', 'supports_current_implementation_only', 'paper_may_report_fixed_baseflow', 'diagnostic_assumption', 'paper base-flow table or text', 'Need line loading or PG table from paper.');
+rows = add(rows, 'E12', 'paper_inputs/filled/calibration_target_benchmark.csv', 'Table 4-5/4-6 mappings', 'whether_table_4_5_uses_same_load_level', 'Benchmark targets exist, but load level assumption is not encoded in the target table.', 'no', 'unknown', 'missing', 'load level statement around tables', 'Do not infer fixed load from targets alone.');
+rows = add(rows, 'E13', 'results/calibration/severity_formula/post_wind_speed_after_severity_fix_tail_action.csv', 'diagnostic action', 'whether_12mps_should_reduce_risk_by_probability_or_dispatch', 'Paper target direction is lower at 12.00 m/s, while current diagnostics remain higher after formula fixes.', 'no', 'supports_need_for_alternative_assumption_review', 'diagnostic_assumption', 'paper explanation of lower 12 m/s risk', 'This is a diagnostic conflict, not paper evidence.');
+rows = add(rows, 'E14', 'paper_inputs/filled; docs', 'search result', 'whether paper reports actual wind PG', 'No available filled input or doc currently records a paper table of actual wind PG by wind speed.', 'no', 'unknown', 'missing', 'actual wind PG table/screenshot', 'Ask user to confirm from paper.');
+rows = add(rows, 'E15', 'paper_inputs/filled; docs', 'search result', 'whether paper reports conventional generator PG changes', 'No available filled input or doc currently records conventional generator PG changes for 11.28 vs 12.00 m/s.', 'no', 'unknown', 'missing', 'conventional generator PG table/screenshot', 'This is the most useful missing evidence for dispatch confirmation.');
+
+T = cell2table(rows, 'VariableNames', {'evidence_id','source_file','source_section_or_line','evidence_item','evidence_text','supports_current_implementation','supports_alternative_assumption','evidence_strength','missing_information','note'});
+writetable(T, fullfile(out_dir, 'wind_speed_scenario_paper_evidence.csv'));
+fprintf('Wrote %s\n', fullfile(out_dir, 'wind_speed_scenario_paper_evidence.csv'));
+end
+
+function rows = add(rows, varargin)
+rows(end + 1, :) = varargin; %#ok<AGROW>
+end
+
+function ensure_dir(pathname)
+if ~exist(pathname, 'dir')
+    mkdir(pathname);
+end
+end
