@@ -1,0 +1,16 @@
+formula_group,formula_item,paper_confirmed,implemented,implementation_mode,legacy_mode_retained,evidence_source,remaining_uncertainty,note
+wind,wind power curve 2/12/20,1,1,"paper_2_12_20",0,src/renewable/compute_paper_wind_power_curve.m,Dispatch/absorption policy still separate.,Public curve fixed; do not tune.
+line_probability,P_flow piecewise,1,1,"paper_piecewise_constant_below_rated",1,results/calibration/line_probability_formula/post_line_probability_formula_audit_action.csv,Statistical parameters not original.,Formula confirmed.
+line_probability,P_HF_L piecewise,1,1,"paper_piecewise_constant_below_Lmax",1,results/calibration/hidden_failure_formula/post_hidden_failure_formula_audit_action.csv,P_L_D/P_L_r not original.,Formula confirmed.
+line_probability,P_mis_r,1,1,"P_HF_D + P_HF_L - P_HF_D*P_HF_L",0,src/outage/compute_paper_line_outage_probability.m,Needs hidden-distance parameter if enabled.,Implemented in formula structure.
+line_probability,P1,1,1,"P_flow*(1-P_in_r)*(1-P_in_c)",0,src/outage/compute_paper_line_outage_probability.m,P_in_r/P_in_c not original.,Implemented.
+line_probability,P2,1,1,"P_mis_c + P_mis_r*(1-P_in_c)",0,src/outage/compute_paper_line_outage_probability.m,P_mis_c not original.,Implemented.
+line_probability,P3,1,1,"cfg/table value",0,src/outage/compute_paper_line_outage_probability.m,P3 value not original.,Implemented as parameter.
+line_probability,P_L simple sum,1,1,"P1+P2+P3 clipped to [0,1]",1,results/calibration/event_probability_formula/PL_formula_manual_confirmation_record.csv,Parameter layer diagnostic.,Confirmed after manual fix.
+stage_probability,Bernoulli full-event stage probability,1,1,"full_event_chain_probability",1,results/calibration/transition_probability/full_event_formal_var_pilot_readiness.csv,Paper sample protocol still unknown.,Infrastructure completed.
+stage_probability,terminal stage probability one,1,1,"terminal-aware handling",0,results/calibration/transition_probability/terminal_aware_full_event_readiness_check_log.txt,No current formula blocker.,Readiness checked.
+severity,LLR,1,1,"paper confirmed severity component",1,results/calibration/severity_formula/severity_formula_manual_confirmation_record.csv,Numerical scenario inputs still uncertain.,Implemented.
+severity,LFOR exponential sum,1,1,"paper_confirmed_exponential_sum",1,docs/severity_formula_confirmation_and_fix_report.md,Line loading basis scenario-dependent.,Implemented.
+severity,NVOR exponential sum,1,1,"paper_confirmed_exponential_sum",1,docs/severity_formula_confirmation_and_fix_report.md,Voltage basis scenario-dependent.,Implemented.
+severity,CRI weights 0.6/0.2/0.2,1,1,"weighted_sum",0,config/base_config.m,No current formula blocker.,Implemented.
+VaR,VaR sigma=0.95,1,1,"empirical quantile diagnostic",0,config/base_config.m; results/calibration/full_event_formal_var_pilot_after_curve_fix/full_event_var_score_summary_after_curve_fix.csv,Not final while scenario assumptions missing.,VaR construction exists.
