@@ -57,3 +57,16 @@ The next step should be to implement a named paper-confirmed scenario mode, vali
 ## If The Paper Does Not State The Assumption
 
 The result should be written conservatively: public information is insufficient to confirm the wind-speed operating-point assumption. Sensitivity cases may be useful, but they must not be claimed as strict reproduction.
+
+## Manual Confirmation Update
+
+The user has manually checked the full paper and confirmed that Section 4.5 / Table 4-6 reports the distributed wind-speed scan for buses 30 to 39 at 11.28, 11.52, 11.76, and 12.00 m/s. The reported values confirm that the paper risk decreases as wind speed approaches rated speed:
+
+- 11.28 m/s: SLLR 7.5361, SLFOR 6.0213, SNVOR 6.5482, CRI 7.0356.
+- 12.00 m/s: SLLR 6.6351, SLFOR 4.7631, SNVOR 4.9822, CRI 5.9301.
+
+The same manual check did not find a stated dispatch, curtailment, slack-bus, base-flow, line-loading, or conventional-generator PG policy for the wind-speed change. The current recorded status is:
+
+`paper_dispatch_assumption_status = not_stated_in_paper`
+
+Therefore the next work is diagnostic operating-point sensitivity only. These sensitivity policies are not paper-confirmed assumptions and must not be described as strict reproduction.

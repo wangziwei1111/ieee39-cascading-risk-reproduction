@@ -1,0 +1,21 @@
+policy_id,scenario_id,gen_bus,gen_type,PG_mw,QG_mvar,PG_change_from_11_28,is_slack,is_wind,is_conventional,assumption_status,note
+slack_only_balance,wind_speed_12_00,30,conventional,250,261.930431047908,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,31,conventional,-2093.57059021666,798.082673050672,-428.64124214509,1,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,32,conventional,650,558.760257981483,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,33,conventional,632,295.603214107304,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,34,conventional,508,183.796947200785,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,35,conventional,650,314.362956347222,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,36,conventional,560,171.005729394671,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,37,conventional,540,134.52136700438,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,38,conventional,830,160.20639904772,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,39,conventional,1000,304.204814348201,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,30,wind,300,261.930431047908,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,31,wind,300,798.082673050672,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,32,wind,300,558.760257981483,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,33,wind,300,295.603214107304,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,34,wind,300,183.796947200785,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,35,wind,300,314.362956347222,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,36,wind,300,171.005729394671,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,37,wind,300,134.52136700438,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,38,wind,300,160.20639904772,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+slack_only_balance,wind_speed_12_00,39,wind,300,304.204814348201,51.061194418605,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.

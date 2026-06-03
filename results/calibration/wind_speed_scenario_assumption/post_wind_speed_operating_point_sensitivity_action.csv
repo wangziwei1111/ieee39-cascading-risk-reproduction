@@ -1,0 +1,2 @@
+selected,paper_assumption_status,selected_policy_id,reason,go_no_go,recommended_next_action,note
+1,not_stated_in_paper,none,No tested policy simultaneously lowers the global baseflow proxy and the dominant tail-branch loading/P_L basis for 12mps.,document_public_information_insufficient,document that public paper information is insufficient for wind-speed trend reproduction; do not tune parameters blindly,"Sensitivity policies are diagnostic only, not paper-confirmed and not final reproduction."

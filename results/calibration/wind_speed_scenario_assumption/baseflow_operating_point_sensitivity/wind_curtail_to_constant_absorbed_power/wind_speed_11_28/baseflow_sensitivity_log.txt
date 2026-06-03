@@ -1,0 +1,8 @@
+policy_id,wind_curtail_to_constant_absorbed_power
+scenario_id,wind_speed_11_28
+base_case_only,1
+markov_run,0
+cascade_run,0
+local_search,0
+parameter_tuning,0
+final_summary_write,0

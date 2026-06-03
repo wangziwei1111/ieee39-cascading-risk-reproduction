@@ -1,0 +1,21 @@
+policy_id,scenario_id,gen_bus,gen_type,PG_mw,QG_mvar,PG_change_from_11_28,is_slack,is_wind,is_conventional,assumption_status,note
+constant_total_generation_dispatch,wind_speed_11_28,30,conventional,0,32.4350610875704,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,31,conventional,675.281065073356,189.766022207708,0,1,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,32,conventional,370.076493023256,152.100786539542,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,33,conventional,352.076493023256,98.918775680394,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,34,conventional,228.076493023256,78.5785609973989,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,35,conventional,370.076493023256,80.6388597395932,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,36,conventional,280.076493023256,17.0412121747288,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,37,conventional,260.076493023256,11.3567659317316,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,38,conventional,550.076493023256,16.3677642312832,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,39,conventional,720.076493023256,34.1013553158799,0,0,0,1,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,30,wind,248.938805581395,32.4350610875704,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,31,wind,248.938805581395,189.766022207708,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,32,wind,248.938805581395,152.100786539542,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,33,wind,248.938805581395,98.918775680394,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,34,wind,248.938805581395,78.5785609973989,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,35,wind,248.938805581395,80.6388597395932,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,36,wind,248.938805581395,17.0412121747288,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,37,wind,248.938805581395,11.3567659317316,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,38,wind,248.938805581395,16.3677642312832,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.
+constant_total_generation_dispatch,wind_speed_11_28,39,wind,248.938805581395,34.1013553158799,0,0,1,0,diagnostic_sensitivity_not_paper_confirmed,PG_change_from_11_28 is computed in the sensitivity summary.

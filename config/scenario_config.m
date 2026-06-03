@@ -21,6 +21,7 @@ scenario.wind_buses = (30:39)';
 %   wind_plus_redispatch：新增风电注入，同时按比例降低常规机组PG，
 %       使系统总发电与原始运行点/总负荷保持接近。默认使用该模式。
 scenario.renewable_dispatch_mode = 'wind_plus_redispatch';
+scenario.wind_speed_operating_point_policy = 'wind_plus_redispatch_current';
 
 % 保留一个常规平衡机用于潮流平衡。case39中节点31为平衡机节点。
 scenario.slack_bus = 31;

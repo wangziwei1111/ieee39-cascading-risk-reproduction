@@ -223,6 +223,7 @@ cfg.scenario_penetration_definition = 'wind_capacity_divided_by_base_load'; % �
 cfg.scenario_centralized_wind_bus = 39; % 待校准：论文未明确时先用39节点
 cfg.scenario_penetration_ratios = 0.40:0.05:0.80; % 待校准
 cfg.scenario_wind_speed_values_mps = [8, 10, 12, 14, 16]; % 待校准
+cfg.wind_speed_operating_point_policy = 'wind_plus_redispatch_current'; % diagnostic sensitivity only; not paper-confirmed
 
 % 默认输出目录。场景扫描入口会覆盖为 results/scenarios/<scenario_id>/...
 cfg.results_table_dir = fullfile('results', 'tables');

@@ -1,0 +1,2 @@
+policy_id,scenario_id,wind_speed_mps,wind_capacity_total_mw,wind_buses,wind_power_curve_profile,assumption_status,note
+proportional_conventional_redispatch,wind_speed_11_28,11.28,3000,30:31:32:33:34:35:36:37:38:39,paper_2_12_20,diagnostic_sensitivity_not_paper_confirmed,Sensitivity policy is not paper-confirmed.
