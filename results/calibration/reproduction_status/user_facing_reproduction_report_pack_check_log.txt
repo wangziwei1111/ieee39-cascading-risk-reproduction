@@ -1,0 +1,13 @@
+file_exists,docs/阶段性复现报告_公开信息约束版.md,1
+file_exists,docs/复现进度简版说明.md,1
+file_exists,docs/严格复现所需补充资料清单.md,1
+file_exists,docs/reproduction_status_and_public_information_gap_report.md,1
+file_exists,docs/additional_paper_data_needed_for_strict_reproduction.md,1
+file_exists,results/calibration/reproduction_status/user_facing_report_index.csv,1
+guard_no_markov_run,1
+guard_no_cascade_run,1
+guard_no_local_search,1
+guard_no_parameter_tuning,1
+guard_no_final_summary_write,1
+guard_no_full_7_scenario_formal_pilot,1
+check_status,pass

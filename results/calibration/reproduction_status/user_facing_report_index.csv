@@ -1,0 +1,6 @@
+document,purpose,recommended_use,status,note
+docs/阶段性复现报告_公开信息约束版.md,中文阶段性主报告,用于论文/项目阶段性总结,ready,No simulation was run; report-only artifact.
+docs/复现进度简版说明.md,快速阅读版说明,用于快速同步当前进度,ready,No simulation was run; report-only artifact.
+docs/严格复现所需补充资料清单.md,严格复现资料需求表,用于向用户或作者索要补充资料,ready,No simulation was run; report-only artifact.
+docs/reproduction_status_and_public_information_gap_report.md,English/ASCII status gap report,用于追踪工程化状态与边界,ready,No simulation was run; report-only artifact.
+docs/additional_paper_data_needed_for_strict_reproduction.md,English/ASCII additional data checklist,用于英文资料请求或仓库说明,ready,No simulation was run; report-only artifact.
