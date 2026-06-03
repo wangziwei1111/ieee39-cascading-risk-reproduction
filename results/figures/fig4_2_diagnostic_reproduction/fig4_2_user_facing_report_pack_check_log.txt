@@ -1,0 +1,16 @@
+file_exists,C:\Users\24186\Documents\New project 13\docs\图4-2诊断性复现结果说明.md,1
+file_exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_user_facing_output_index.csv,1
+file_exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_diagnostic_reproduction.png,1
+file_exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_metric_summary.csv,1
+file_exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_trend_comparison.csv,1
+file_exists,C:\Users\24186\Documents\New project 13\results\figures\fig4_2_diagnostic_reproduction\fig4_2_density_data.csv,1
+file_exists,C:\Users\24186\Documents\New project 13\docs\fig4_2_diagnostic_reproduction_report.md,1
+guard_no_markov_run,1
+guard_no_cascade_run,1
+guard_no_local_search,1
+guard_no_parameter_refinement,1
+guard_no_final_summary_write,1
+guard_no_full_formal_pilot,1
+guard_no_existing_fig4_2_data_overwrite,1
+claim_boundary,diagnostic_reproduction_under_public_information_constraints_not_strict_original_reproduction
+check_status,pass

@@ -1,0 +1,7 @@
+file_path,file_type,purpose,recommended_use,note
+results/figures/fig4_2_diagnostic_reproduction/fig4_2_diagnostic_reproduction.png,figure,图4-2诊断性复现主图,报告或论文中展示风险指标概率密度分布,diagnostic reproduction under public information constraints; not strict original reproduction
+results/figures/fig4_2_diagnostic_reproduction/fig4_2_density_data.csv,data,概率密度曲线数据,复核绘图曲线或重新绘制图像,零风险样本保留；KDE或直方图密度
+results/figures/fig4_2_diagnostic_reproduction/fig4_2_metric_summary.csv,data,风险样本统计汇总,撰写结果分析和p95统计说明,显示口径为风险值除以1e-4；不是正式VaR
+results/figures/fig4_2_diagnostic_reproduction/fig4_2_trend_comparison.csv,data,与原文图4-2的定性趋势对照,说明趋势方向和公开信息约束,qualitative_only; not strict numeric comparison
+docs/fig4_2_diagnostic_reproduction_report.md,document,英文/ASCII诊断复现说明,仓库技术说明和方法追踪,not strict original-paper reproduction
+docs/图4-2诊断性复现结果说明.md,document,中文用户可读结果说明,报告正文、图注和结果分析直接引用,明确说明不能称为严格复现原文图4-2
